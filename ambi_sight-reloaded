@@ -1,0 +1,8 @@
+│  package.json
+│  next.config.mjs
+│  tsconfig.json
+│  .gitignore
+│  README.md
+│
+└─ app/
+   └─ page.tsx
