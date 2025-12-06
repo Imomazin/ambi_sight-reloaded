@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useAppState } from '@/state/useAppState';
 import PersonaSwitcher from '@/components/PersonaSwitcher';
 import HelpModal from '@/components/HelpModal';
+import OnboardingBanner from '@/components/OnboardingBanner';
+import MobileMenu from '@/components/MobileMenu';
 
 const features = [
   {
@@ -79,11 +81,14 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setHelpOpen(true)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="hidden sm:block text-gray-400 hover:text-white transition-colors"
             >
               Help
             </button>
-            <PersonaSwitcher />
+            <div className="hidden sm:block">
+              <PersonaSwitcher />
+            </div>
+            <MobileMenu />
           </div>
         </div>
       </nav>
@@ -213,6 +218,7 @@ export default function Home() {
       </footer>
 
       <HelpModal />
+      <OnboardingBanner />
     </div>
   );
 }
