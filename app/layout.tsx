@@ -1,5 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import ThemeProvider from '@/components/ThemeProvider';
+import { RoleProvider } from '@/context/RoleContext';
 
 export const metadata: Metadata = {
   title: 'Ambi-Sight Reloaded',
@@ -12,9 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-navy-900 text-gray-100 antialiased">
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
+        <ThemeProvider>
+          <RoleProvider>
+            {children}
+          </RoleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -13,11 +13,20 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    name: 'Dashboard',
+    name: 'Home',
     href: '/',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Dashboard',
+    href: '/dashboard',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
   },
@@ -58,7 +67,7 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    name: 'Admin',
+    name: 'Administrator',
     href: '/admin',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,7 +93,7 @@ export default function NavSidebar() {
       <aside
         className={`
           fixed left-0 top-16 bottom-0 z-40
-          bg-navy-800 border-r border-navy-600
+          bg-[var(--bg-primary)] border-r border-[var(--border-subtle)]
           transition-all duration-300 ease-in-out
           hidden md:block
           ${isSidebarCollapsed ? 'w-20' : 'w-64'}
@@ -94,7 +103,7 @@ export default function NavSidebar() {
           {/* Toggle button */}
           <button
             onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-            className="absolute -right-3 top-6 w-6 h-6 bg-navy-700 border border-navy-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-navy-600 transition-all duration-200 shadow-lg"
+            className="absolute -right-3 top-6 w-6 h-6 bg-[var(--bg-muted)] border border-[var(--border-subtle)] rounded-full flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-all duration-200 shadow-lg"
           >
             <svg
               className={`w-4 h-4 transition-transform duration-300 ${isSidebarCollapsed ? 'rotate-180' : ''}`}
@@ -108,47 +117,53 @@ export default function NavSidebar() {
 
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2">
-            {filteredItems.map((item) => {
+            {filteredItems.map((item, index) => {
               const isActive = pathname === item.href;
+              const isHome = item.href === '/';
               return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`
-                    flex items-center gap-3 px-4 py-3 rounded-xl
-                    transition-all duration-200 group
-                    ${isActive
-                      ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-400'
-                      : 'text-gray-400 hover:bg-navy-700 hover:text-white'
-                    }
-                    ${isSidebarCollapsed ? 'justify-center' : ''}
-                  `}
-                  title={isSidebarCollapsed ? item.name : undefined}
-                >
-                  <span className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
-                    {item.icon}
-                  </span>
-                  <span
-                    className={`font-medium transition-all duration-300 ${
-                      isSidebarCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100'
-                    }`}
+                <div key={item.name}>
+                  {/* Add separator after Home */}
+                  {index === 1 && (
+                    <div className={`mb-2 border-t border-[var(--border-subtle)] ${isSidebarCollapsed ? 'mx-2' : 'mx-4'}`} />
+                  )}
+                  <Link
+                    href={item.href}
+                    className={`
+                      flex items-center gap-3 px-4 py-3 rounded-xl
+                      transition-all duration-200 group
+                      ${isActive
+                        ? 'bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border-l-2 border-[var(--accent-primary)]'
+                        : 'text-[var(--text-muted)] hover:bg-[var(--bg-muted)] hover:text-[var(--text-primary)]'
+                      }
+                      ${isSidebarCollapsed ? 'justify-center' : ''}
+                    `}
+                    title={isSidebarCollapsed ? item.name : undefined}
                   >
-                    {item.name}
-                  </span>
-                </Link>
+                    <span className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
+                      {item.icon}
+                    </span>
+                    <span
+                      className={`font-medium transition-all duration-300 ${
+                        isSidebarCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100'
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </Link>
+                </div>
               );
             })}
           </nav>
 
           {/* Bottom section */}
-          <div className="p-4 border-t border-navy-600">
+          <div className="p-4 border-t border-[var(--border-subtle)]">
             <div
               className={`transition-all duration-300 ${
                 isSidebarCollapsed ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
               }`}
             >
-              <div className="text-xs text-gray-500">
-                <p className="font-medium text-gray-400">Ambi-Sight</p>
+              <div className="text-xs text-[var(--text-muted)]">
+                <p className="font-medium text-[var(--text-secondary)]">Ambi-Sight</p>
                 <p>v2.0.0 • MVP</p>
               </div>
             </div>
