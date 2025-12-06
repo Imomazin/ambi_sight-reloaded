@@ -1,8 +1,9 @@
 import './globals.css';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Ambi-Sight',
-  description: 'Organizational Ambidexterity Intelligence',
+export const metadata: Metadata = {
+  title: 'Ambi-Sight Reloaded',
+  description: 'AI-Driven Strategic Decision Intelligence Platform',
 };
 
 export default function RootLayout({
@@ -12,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-navy-900 text-gray-100 antialiased">
+        {children}
+      </body>
     </html>
   );
 }
