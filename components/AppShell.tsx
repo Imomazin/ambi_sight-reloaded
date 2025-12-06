@@ -1,8 +1,8 @@
 'use client';
 
 import { useAppState } from '@/state/useAppState';
-import Navbar from './Navbar';
-import SidebarNav from './SidebarNav';
+import TopNav from './TopNav';
+import NavSidebar from './NavSidebar';
 import HelpModal from './HelpModal';
 
 interface AppShellProps {
@@ -14,14 +14,19 @@ export default function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-gradient-navy">
-      <Navbar />
-      <SidebarNav />
+      <TopNav />
+      <NavSidebar />
       <main
-        className={`pt-16 transition-all duration-300 ${
-          isSidebarCollapsed ? 'pl-20' : 'pl-64'
-        }`}
+        className={`
+          pt-20 pb-8 transition-all duration-300
+          px-4 md:px-6
+          md:pl-24 lg:pl-72
+          ${isSidebarCollapsed ? 'md:pl-24' : 'md:pl-72'}
+        `}
       >
-        <div className="p-6">{children}</div>
+        <div className="max-w-7xl mx-auto">
+          {children}
+        </div>
       </main>
       <HelpModal />
     </div>
