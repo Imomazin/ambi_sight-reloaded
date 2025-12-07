@@ -1,8 +1,8 @@
-# Ambi-Sight Reloaded
+# AmbiSight Reloaded
 
 **A fresh new build for the future of AI-driven strategic decision intelligence.**
 
-Ambi-Sight Reloaded is a demo-ready platform designed to showcase AI-powered strategic decision intelligence for executives and strategy teams. It provides real-time portfolio insights, risk analysis, scenario simulation, and more—all through an intuitive, human-centered interface.
+AmbiSight Reloaded is a demo-ready platform designed to showcase AI-powered strategic decision intelligence for executives and strategy teams. It provides real-time portfolio insights, risk analysis, scenario simulation, and more—all through an intuitive, human-centered interface.
 
 ## Features
 

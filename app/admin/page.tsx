@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import AppShell from '@/components/AppShell';
+import UserManagement from '@/components/UserManagement';
 import { useAppState } from '@/state/useAppState';
 import { personas, scenarios } from '@/lib/demoData';
 
@@ -25,7 +26,7 @@ export default function AdminPage() {
     currentPersona,
   } = useAppState();
 
-  const [activeTab, setActiveTab] = useState<'personas' | 'scenarios' | 'data' | 'onboarding'>(
+  const [activeTab, setActiveTab] = useState<'personas' | 'scenarios' | 'data' | 'onboarding' | 'users'>(
     'onboarding'
   );
 
@@ -71,22 +72,24 @@ export default function AdminPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
         {[
-          { id: 'onboarding', label: 'Onboarding' },
-          { id: 'personas', label: 'Personas' },
-          { id: 'scenarios', label: 'Scenarios' },
-          { id: 'data', label: 'Data Controls' },
+          { id: 'onboarding', label: 'Onboarding', icon: '📋' },
+          { id: 'users', label: 'Users', icon: '👥' },
+          { id: 'personas', label: 'Personas', icon: '🎭' },
+          { id: 'scenarios', label: 'Scenarios', icon: '📊' },
+          { id: 'data', label: 'Data Controls', icon: '⚙️' },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap ${
               activeTab === tab.id
                 ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
                 : 'bg-navy-700 text-gray-400 border border-navy-600 hover:text-white'
             }`}
           >
+            <span>{tab.icon}</span>
             {tab.label}
           </button>
         ))}
@@ -355,6 +358,12 @@ export default function AdminPage() {
               </p>
             </div>
           </>
+        )}
+
+        {activeTab === 'users' && (
+          <div className="lg:col-span-3">
+            <UserManagement />
+          </div>
         )}
       </div>
     </AppShell>

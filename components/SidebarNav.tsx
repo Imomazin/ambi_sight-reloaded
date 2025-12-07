@@ -31,6 +31,24 @@ const navItems: NavItem[] = [
     ),
   },
   {
+    name: 'Strategy Tools',
+    href: '/tools',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Diagnostic Wizard',
+    href: '/diagnosis',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    ),
+  },
+  {
     name: 'AI Advisor',
     href: '/advisor',
     icon: (
@@ -58,6 +76,15 @@ const navItems: NavItem[] = [
     ),
   },
   {
+    name: 'Pricing',
+    href: '/pricing',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     name: 'Admin Studio',
     href: '/admin',
     icon: (
@@ -80,7 +107,7 @@ export default function SidebarNav() {
 
   return (
     <aside
-      className={`fixed left-0 top-16 bottom-0 z-40 bg-navy-800 border-r border-navy-600 transition-all duration-300 ${
+      className={`fixed left-0 top-16 bottom-0 z-40 bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] transition-all duration-300 ${
         isSidebarCollapsed ? 'w-20' : 'w-64'
       }`}
     >
@@ -88,7 +115,7 @@ export default function SidebarNav() {
         {/* Toggle button */}
         <button
           onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-          className="absolute -right-3 top-6 w-6 h-6 bg-navy-700 border border-navy-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-navy-600 transition-colors"
+          className="absolute -right-3 top-6 w-6 h-6 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-full flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors"
         >
           <svg
             className={`w-4 h-4 transition-transform ${isSidebarCollapsed ? 'rotate-180' : ''}`}
@@ -119,10 +146,10 @@ export default function SidebarNav() {
         </nav>
 
         {/* Bottom section */}
-        <div className="p-4 border-t border-navy-600">
+        <div className="p-4 border-t border-[var(--border-color)]">
           {!isSidebarCollapsed && (
-            <div className="text-xs text-gray-500">
-              <p>Ambi-Sight Reloaded</p>
+            <div className="text-xs text-[var(--text-muted)]">
+              <p>AmbiSight Reloaded</p>
               <p>v1.0.0 Demo</p>
             </div>
           )}
