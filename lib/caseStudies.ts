@@ -17,8 +17,8 @@ export interface LandingCaseStudy {
   outcomes: string[];
   timeframe: string;
   accentColor: 'teal' | 'amber' | 'purple' | 'lime' | 'magenta';
-  imageIcon: string; // Emoji or icon for visual representation
-  imageBg: string; // Tailwind gradient classes for visual background
+  imageUrl: string; // Real image URL for case study
+  imageBg: string; // Tailwind gradient classes for fallback/overlay
 }
 
 export const roleFocusLabels: Record<RoleFocus, string> = {
@@ -46,7 +46,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Africa',
     company: 'Continental Bank Group',
     challenge: 'High concentration risk in commodity-dependent economies with volatile currency exposure across multiple African markets.',
-    solution: 'Deployed Ambi-Sight risk radar to map correlations between markets and identify diversification opportunities using Monte Carlo simulations.',
+    solution: 'Deployed AmbiSight risk radar to map correlations between markets and identify diversification opportunities using Monte Carlo simulations.',
     outcomes: [
       '23% reduction in portfolio Value-at-Risk',
       'Identified 3 new low-correlation markets for expansion',
@@ -54,7 +54,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '6 months',
     accentColor: 'amber',
-    imageIcon: '🏦',
+    imageUrl: 'https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?w=600&h=400&fit=crop',
     imageBg: 'from-amber-600/30 via-orange-500/20 to-yellow-500/10',
   },
   {
@@ -67,7 +67,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Nordic Style Group',
     challenge: 'Legacy retail operations with declining foot traffic and fragmented digital presence across 8 European markets.',
-    solution: 'Used Ambi-Sight strategy workspace to model 5 transformation scenarios and build consensus across regional leadership teams.',
+    solution: 'Used AmbiSight strategy workspace to model 5 transformation scenarios and build consensus across regional leadership teams.',
     outcomes: [
       '18% improvement in gross margins',
       'Online revenue grew from 12% to 34% of total',
@@ -75,7 +75,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '18 months',
     accentColor: 'teal',
-    imageIcon: '🛍️',
+    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop',
     imageBg: 'from-teal-600/30 via-cyan-500/20 to-blue-500/10',
   },
   {
@@ -88,7 +88,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Asia Pacific',
     company: 'Precision Auto Components',
     challenge: 'Frequent production stoppages due to supplier failures and logistics disruptions, costing $12M annually in expediting fees.',
-    solution: 'Implemented Ambi-Sight signal scanning canvas to monitor 200+ suppliers and create automated response playbooks.',
+    solution: 'Implemented AmbiSight signal scanning canvas to monitor 200+ suppliers and create automated response playbooks.',
     outcomes: [
       '45% reduction in disruption-related costs',
       'Supplier visibility improved from 60% to 95%',
@@ -96,7 +96,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '9 months',
     accentColor: 'lime',
-    imageIcon: '🏭',
+    imageUrl: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&h=400&fit=crop',
     imageBg: 'from-lime-600/30 via-green-500/20 to-emerald-500/10',
   },
   {
@@ -109,7 +109,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'MedCare Health Systems',
     challenge: 'Aging on-premise infrastructure with high maintenance costs and compliance gaps across 15 facilities.',
-    solution: 'Used Ambi-Sight portfolio health radar to assess 120+ applications and prioritize migration based on risk and value.',
+    solution: 'Used AmbiSight portfolio health radar to assess 120+ applications and prioritize migration based on risk and value.',
     outcomes: [
       '32% reduction in annual IT infrastructure costs',
       'Achieved HIPAA compliance across all systems',
@@ -117,7 +117,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '24 months',
     accentColor: 'purple',
-    imageIcon: '🏥',
+    imageUrl: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop',
     imageBg: 'from-purple-600/30 via-violet-500/20 to-indigo-500/10',
   },
   {
@@ -130,7 +130,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'Summit Capital Partners',
     challenge: 'Traditional due diligence missed operational and technology risks in a $600M manufacturing acquisition target.',
-    solution: 'Deployed Ambi-Sight strategic risk radar to conduct deep-dive analysis across 8 risk dimensions with scenario modeling.',
+    solution: 'Deployed AmbiSight strategic risk radar to conduct deep-dive analysis across 8 risk dimensions with scenario modeling.',
     outcomes: [
       'Identified $180M in hidden liabilities and remediation costs',
       'Renegotiated purchase price by 15%',
@@ -138,7 +138,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '3 months',
     accentColor: 'amber',
-    imageIcon: '💼',
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
     imageBg: 'from-amber-600/30 via-yellow-500/20 to-orange-500/10',
   },
   {
@@ -151,7 +151,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Global',
     company: 'BioGenesis Therapeutics',
     challenge: 'Scattered R&D investments across 40+ programs with low success rates and insufficient resources for breakthrough candidates.',
-    solution: 'Used Ambi-Sight portfolio allocation tools to score programs on strategic fit, probability of success, and market potential.',
+    solution: 'Used AmbiSight portfolio allocation tools to score programs on strategic fit, probability of success, and market potential.',
     outcomes: [
       '95% improvement in R&D return on investment',
       'Reduced active programs from 40 to 18 high-potential candidates',
@@ -159,7 +159,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '12 months',
     accentColor: 'teal',
-    imageIcon: '💊',
+    imageUrl: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&h=400&fit=crop',
     imageBg: 'from-teal-600/30 via-emerald-500/20 to-green-500/10',
   },
   {
@@ -172,7 +172,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Middle East',
     company: 'Gulf Express Logistics',
     challenge: 'Inefficient route planning and warehouse utilization leading to high fuel costs and delayed deliveries across 6 countries.',
-    solution: 'Implemented Ambi-Sight execution and OKR tools to track 50+ operational metrics and identify optimization opportunities.',
+    solution: 'Implemented AmbiSight execution and OKR tools to track 50+ operational metrics and identify optimization opportunities.',
     outcomes: [
       '28% improvement in fleet efficiency',
       'On-time delivery rate increased from 82% to 96%',
@@ -180,7 +180,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '8 months',
     accentColor: 'lime',
-    imageIcon: '🚚',
+    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop',
     imageBg: 'from-lime-600/30 via-green-500/20 to-teal-500/10',
   },
   {
@@ -193,7 +193,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Southeast Asia',
     company: 'Digital Commerce Bank',
     challenge: 'Legacy core banking systems limiting ability to partner with fintechs and participate in open banking ecosystem.',
-    solution: 'Used Ambi-Sight digital strategy tools to map API opportunities and build technology roadmap with phased investments.',
+    solution: 'Used AmbiSight digital strategy tools to map API opportunities and build technology roadmap with phased investments.',
     outcomes: [
       '$45M in new API-driven revenue within 2 years',
       'Onboarded 120+ fintech partners to platform',
@@ -201,7 +201,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '18 months',
     accentColor: 'purple',
-    imageIcon: '🔌',
+    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
     imageBg: 'from-purple-600/30 via-blue-500/20 to-cyan-500/10',
   },
   {
@@ -214,7 +214,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Nordic Energy Transition',
     challenge: 'Pressure from investors and regulators to decarbonize while maintaining profitability during multi-decade transition.',
-    solution: 'Deployed Ambi-Sight governance and ESG tools to develop credible transition roadmap with measurable milestones.',
+    solution: 'Deployed AmbiSight governance and ESG tools to develop credible transition roadmap with measurable milestones.',
     outcomes: [
       'Raised $2.1B in green bonds at favorable rates',
       'ESG rating improved from BB to A-',
@@ -222,7 +222,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '24 months',
     accentColor: 'teal',
-    imageIcon: '🌱',
+    imageUrl: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=400&fit=crop',
     imageBg: 'from-teal-600/30 via-green-500/20 to-lime-500/10',
   },
   {
@@ -235,7 +235,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'CloudSecure Solutions',
     challenge: 'Rapid growth led to fragmented security practices and increasing cyber incidents threatening customer trust.',
-    solution: 'Used Ambi-Sight risk and resilience tools to assess 200+ security controls and prioritize investments.',
+    solution: 'Used AmbiSight risk and resilience tools to assess 200+ security controls and prioritize investments.',
     outcomes: [
       '67% reduction in security incidents',
       'Achieved SOC 2 Type II certification',
@@ -243,7 +243,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '12 months',
     accentColor: 'amber',
-    imageIcon: '🔒',
+    imageUrl: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop',
     imageBg: 'from-amber-600/30 via-red-500/20 to-orange-500/10',
   },
   {
@@ -256,7 +256,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'FastShip Commerce',
     challenge: 'Manual fulfillment processes unable to scale with 200% YoY growth, leading to delays and customer complaints.',
-    solution: 'Used Ambi-Sight operations and supply chain tools to model automation scenarios and build business case.',
+    solution: 'Used AmbiSight operations and supply chain tools to model automation scenarios and build business case.',
     outcomes: [
       '156% improvement in order throughput',
       'Labor costs reduced by 40% per unit shipped',
@@ -264,7 +264,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '15 months',
     accentColor: 'lime',
-    imageIcon: '📦',
+    imageUrl: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&h=400&fit=crop',
     imageBg: 'from-lime-600/30 via-yellow-500/20 to-amber-500/10',
   },
   {
@@ -277,7 +277,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Continental Insurance Group',
     challenge: 'Decades-old mainframe systems preventing adoption of AI/ML capabilities and slowing product innovation.',
-    solution: 'Used Ambi-Sight digital and technology strategy tools to plan strangler fig migration pattern with AI readiness assessment.',
+    solution: 'Used AmbiSight digital and technology strategy tools to plan strangler fig migration pattern with AI readiness assessment.',
     outcomes: [
       '40% of underwriting decisions now automated',
       'Claims processing time reduced from 14 days to 3 days',
@@ -285,7 +285,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '30 months',
     accentColor: 'purple',
-    imageIcon: '🤖',
+    imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop',
     imageBg: 'from-purple-600/30 via-pink-500/20 to-magenta-500/10',
   },
 ];

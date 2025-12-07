@@ -34,29 +34,33 @@ function CaseStudyModal({
 
       {/* Modal */}
       <div className="relative w-full max-w-2xl max-h-[90vh] bg-navy-800 rounded-2xl border border-navy-600 shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="px-6 py-4 border-b border-navy-600 bg-gradient-to-r from-navy-800 to-navy-700">
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className={`px-2 py-1 text-xs rounded-full ${roleColors.bg} ${roleColors.text} ${roleColors.border} border`}>
-                  {study.roleFocus}
-                </span>
-                <span className="text-xs text-gray-400">{study.industry}</span>
-                <span className="text-xs text-gray-500">-</span>
-                <span className="text-xs text-gray-400">{study.region}</span>
-              </div>
-              <h2 className="text-xl font-semibold text-white">{study.title}</h2>
-              <p className="text-sm text-gray-400 mt-1">{study.company}</p>
+        {/* Hero Image */}
+        <div className="h-48 relative overflow-hidden">
+          <img
+            src={study.imageUrl}
+            alt={study.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-800 via-navy-800/60 to-transparent" />
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 text-white bg-black/30 hover:bg-black/50 rounded-lg transition-colors backdrop-blur-sm"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="absolute bottom-4 left-6 right-6">
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`px-2 py-1 text-xs rounded-full ${roleColors.bg} ${roleColors.text} ${roleColors.border} border backdrop-blur-sm`}>
+                {study.roleFocus}
+              </span>
+              <span className="text-xs text-gray-300">{study.industry}</span>
+              <span className="text-xs text-gray-400">-</span>
+              <span className="text-xs text-gray-300">{study.region}</span>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-white hover:bg-navy-600 rounded-lg transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <h2 className="text-xl font-semibold text-white">{study.title}</h2>
+            <p className="text-sm text-gray-300 mt-1">{study.company}</p>
           </div>
         </div>
 
@@ -143,10 +147,14 @@ function CaseStudyCard({
       onClick={onClick}
       className="flex-shrink-0 w-[340px] rounded-xl bg-gradient-to-br from-navy-700/80 to-navy-800/90 border border-navy-600 hover:border-teal-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/10 text-left group overflow-hidden"
     >
-      {/* Image/Visual Banner */}
-      <div className={`h-24 bg-gradient-to-br ${study.imageBg} flex items-center justify-center relative`}>
-        <span className="text-5xl opacity-80 group-hover:scale-110 transition-transform">{study.imageIcon}</span>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-800/90 to-transparent" />
+      {/* Image Banner */}
+      <div className="h-40 relative overflow-hidden">
+        <img
+          src={study.imageUrl}
+          alt={study.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-800 via-navy-800/40 to-transparent" />
         <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between">
           <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${roleColors.bg} ${roleColors.text} ${roleColors.border} border backdrop-blur-sm`}>
             {study.roleFocus}
@@ -307,7 +315,7 @@ export default function LandingCaseStudies() {
               Real Case Stories
             </h2>
             <p className="text-gray-400">
-              See how organizations transform their strategic decision-making with Ambi-Sight
+              See how organizations transform their strategic decision-making with AmbiSight
             </p>
           </div>
 

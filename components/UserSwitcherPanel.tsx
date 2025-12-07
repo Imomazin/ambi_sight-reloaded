@@ -67,7 +67,7 @@ export default function UserSwitcherPanel() {
             Quick Start with Demo Users
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Experience Ambi-Sight from different perspectives. Select a user profile to explore
+            Experience AmbiSight from different perspectives. Select a user profile to explore
             the platform with role-specific views and plan-based features.
           </p>
         </div>

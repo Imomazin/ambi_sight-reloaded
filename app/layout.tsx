@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Ambi-Sight Reloaded',
+  title: 'AmbiSight Reloaded',
   description: 'AI-Driven Strategic Decision Intelligence Platform',
 };
 

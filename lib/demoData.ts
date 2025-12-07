@@ -1,4 +1,4 @@
-// Demo data for Ambi-Sight Reloaded
+// Demo data for AmbiSight Reloaded
 
 export type Persona = 'strategy-leader' | 'risk-officer' | 'product-owner' | 'admin';
 

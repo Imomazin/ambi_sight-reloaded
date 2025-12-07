@@ -149,7 +149,7 @@ export default function SidebarNav() {
         <div className="p-4 border-t border-navy-600">
           {!isSidebarCollapsed && (
             <div className="text-xs text-gray-500">
-              <p>Ambi-Sight Reloaded</p>
+              <p>AmbiSight Reloaded</p>
               <p>v1.0.0 Demo</p>
             </div>
           )}

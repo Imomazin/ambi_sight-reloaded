@@ -1,4 +1,4 @@
-// User Profiles and Demo Users for Ambi-Sight
+// User Profiles and Demo Users for AmbiSight
 
 export type UserRole =
   | 'ChiefStrategyOfficer'

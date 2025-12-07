@@ -29,7 +29,7 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <span className="text-lg font-semibold text-white">Ambi-Sight</span>
+            <span className="text-lg font-semibold text-white">AmbiSight</span>
             <span className="text-xs text-gray-400 block">Reloaded</span>
           </div>
         </Link>
