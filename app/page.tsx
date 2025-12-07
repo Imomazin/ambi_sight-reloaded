@@ -6,6 +6,7 @@ import PersonaSwitcher from '@/components/PersonaSwitcher';
 import HelpModal from '@/components/HelpModal';
 import UserSwitcherPanel from '@/components/UserSwitcherPanel';
 import UserIndicator from '@/components/UserIndicator';
+import LandingCaseStudies from '@/components/LandingCaseStudies';
 
 const features = [
   {
@@ -182,6 +183,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Case Studies Section */}
+      <LandingCaseStudies />
 
       {/* Stats */}
       <section className="py-16 px-6 bg-navy-800/50">
