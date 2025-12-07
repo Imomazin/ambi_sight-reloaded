@@ -6,6 +6,8 @@ import ChartCard from '@/components/ChartCard';
 import InsightFeed from '@/components/InsightFeed';
 import CaseStudyCarousel from '@/components/CaseStudyCarousel';
 import LockedFeature, { PlanBadge } from '@/components/LockedFeature';
+import { UpgradeBanner } from '@/components/UpgradeModal';
+import { ConsultingCTA } from '@/components/ConsultingCTA';
 import { useAppState } from '@/state/useAppState';
 import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
 import { hasFeatureAccess, roleDisplayNames } from '@/lib/users';
@@ -270,6 +272,24 @@ export default function WorkspacePage() {
             </div>
           </div>
         </LockedFeature>
+      </div>
+
+      {/* Upgrade Banner for Free users */}
+      {userPlan === 'Free' && (
+        <div className="mt-8">
+          <UpgradeBanner
+            currentPlan={userPlan}
+            feature="unlimited strategy tools, scenario planning, and team collaboration"
+          />
+        </div>
+      )}
+
+      {/* Consulting CTA */}
+      <div className="mt-8">
+        <ConsultingCTA
+          variant="banner"
+          context="Need help implementing your strategy?"
+        />
       </div>
     </AppShell>
   );
