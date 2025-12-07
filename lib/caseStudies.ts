@@ -17,6 +17,8 @@ export interface LandingCaseStudy {
   outcomes: string[];
   timeframe: string;
   accentColor: 'teal' | 'amber' | 'purple' | 'lime' | 'magenta';
+  imageIcon: string; // Emoji or icon for visual representation
+  imageBg: string; // Tailwind gradient classes for visual background
 }
 
 export const roleFocusLabels: Record<RoleFocus, string> = {
@@ -52,6 +54,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '6 months',
     accentColor: 'amber',
+    imageIcon: '🏦',
+    imageBg: 'from-amber-600/30 via-orange-500/20 to-yellow-500/10',
   },
   {
     id: 'case-2',
@@ -71,6 +75,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '18 months',
     accentColor: 'teal',
+    imageIcon: '🛍️',
+    imageBg: 'from-teal-600/30 via-cyan-500/20 to-blue-500/10',
   },
   {
     id: 'case-3',
@@ -90,6 +96,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '9 months',
     accentColor: 'lime',
+    imageIcon: '🏭',
+    imageBg: 'from-lime-600/30 via-green-500/20 to-emerald-500/10',
   },
   {
     id: 'case-4',
@@ -109,6 +117,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '24 months',
     accentColor: 'purple',
+    imageIcon: '🏥',
+    imageBg: 'from-purple-600/30 via-violet-500/20 to-indigo-500/10',
   },
   {
     id: 'case-5',
@@ -128,6 +138,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '3 months',
     accentColor: 'amber',
+    imageIcon: '💼',
+    imageBg: 'from-amber-600/30 via-yellow-500/20 to-orange-500/10',
   },
   {
     id: 'case-6',
@@ -147,6 +159,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '12 months',
     accentColor: 'teal',
+    imageIcon: '💊',
+    imageBg: 'from-teal-600/30 via-emerald-500/20 to-green-500/10',
   },
   {
     id: 'case-7',
@@ -166,6 +180,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '8 months',
     accentColor: 'lime',
+    imageIcon: '🚚',
+    imageBg: 'from-lime-600/30 via-green-500/20 to-teal-500/10',
   },
   {
     id: 'case-8',
@@ -185,6 +201,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '18 months',
     accentColor: 'purple',
+    imageIcon: '🔌',
+    imageBg: 'from-purple-600/30 via-blue-500/20 to-cyan-500/10',
   },
   {
     id: 'case-9',
@@ -204,6 +222,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '24 months',
     accentColor: 'teal',
+    imageIcon: '🌱',
+    imageBg: 'from-teal-600/30 via-green-500/20 to-lime-500/10',
   },
   {
     id: 'case-10',
@@ -223,6 +243,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '12 months',
     accentColor: 'amber',
+    imageIcon: '🔒',
+    imageBg: 'from-amber-600/30 via-red-500/20 to-orange-500/10',
   },
   {
     id: 'case-11',
@@ -242,6 +264,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '15 months',
     accentColor: 'lime',
+    imageIcon: '📦',
+    imageBg: 'from-lime-600/30 via-yellow-500/20 to-amber-500/10',
   },
   {
     id: 'case-12',
@@ -261,6 +285,8 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     ],
     timeframe: '30 months',
     accentColor: 'purple',
+    imageIcon: '🤖',
+    imageBg: 'from-purple-600/30 via-pink-500/20 to-magenta-500/10',
   },
 ];
 

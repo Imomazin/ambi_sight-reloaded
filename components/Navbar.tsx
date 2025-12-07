@@ -1,10 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
 import UserIndicator from './UserIndicator';
+import ThemeSwitcher from './ThemeSwitcher';
+
+const navLinks = [
+  { href: '/workspace', label: 'Workspace', icon: '📊' },
+  { href: '/tools', label: 'Tools', icon: '🧰' },
+  { href: '/diagnosis', label: 'Diagnosis', icon: '🔍' },
+  { href: '/advisor', label: 'AI Advisor', icon: '🤖' },
+  { href: '/pricing', label: 'Pricing', icon: '💎' },
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { currentScenario, setHelpOpen } = useAppState();
 
   return (
@@ -23,16 +34,40 @@ export default function Navbar() {
           </div>
         </Link>
 
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                  isActive
+                    ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                    : 'text-gray-400 hover:text-white hover:bg-navy-700'
+                }`}
+              >
+                <span>{link.icon}</span>
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Current Scenario Indicator */}
         {currentScenario && (
-          <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-navy-700 rounded-lg border border-navy-600">
+          <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-navy-700 rounded-lg border border-navy-600">
             <span className="text-xs text-gray-400">Active Scenario:</span>
             <span className="text-sm font-medium text-teal-400">{currentScenario.name}</span>
           </div>
         )}
 
         {/* Right side */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          {/* Theme Switcher */}
+          <ThemeSwitcher />
+
           {/* Help Button */}
           <button
             onClick={() => setHelpOpen(true)}
@@ -55,6 +90,26 @@ export default function Navbar() {
           {/* User Indicator */}
           <UserIndicator />
         </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden flex items-center gap-1 px-4 pb-3 overflow-x-auto">
+        {navLinks.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
+                isActive
+                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                  : 'text-gray-400 hover:text-white bg-navy-700'
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

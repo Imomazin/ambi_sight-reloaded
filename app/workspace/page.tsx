@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import Link from 'next/link';
 import AppShell from '@/components/AppShell';
 import KpiCard from '@/components/KpiCard';
 import ChartCard from '@/components/ChartCard';
@@ -12,9 +14,19 @@ import { useAppState } from '@/state/useAppState';
 import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
 import { hasFeatureAccess, roleDisplayNames } from '@/lib/users';
 
+// Quick access tabs for new features
+const quickAccessTabs = [
+  { id: 'dashboard', label: 'Dashboard', icon: '📊', href: null },
+  { id: 'tools', label: 'Strategy Tools', icon: '🧰', href: '/tools', badge: '50+' },
+  { id: 'diagnosis', label: 'Diagnostic Wizard', icon: '🔍', href: '/diagnosis', badge: 'New' },
+  { id: 'advisor', label: 'AI Advisor', icon: '🤖', href: '/advisor', badge: 'AI' },
+  { id: 'pricing', label: 'Upgrade', icon: '💎', href: '/pricing', badge: null },
+];
+
 export default function WorkspacePage() {
   const { currentScenario, currentPersona, currentUser } = useAppState();
   const userPlan = currentUser?.plan || 'Free';
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   // Prepare chart data
   const agilityData = kpis[0].timeSeries.map((point, i) => ({
@@ -25,6 +37,56 @@ export default function WorkspacePage() {
 
   return (
     <AppShell>
+      {/* Quick Access Navigation Tabs */}
+      <div className="mb-6 -mx-2">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 px-2">
+          {quickAccessTabs.map((tab) => {
+            const isActive = tab.id === activeTab;
+            const baseClasses = `
+              flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all
+              ${isActive
+                ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                : 'bg-navy-700/50 text-gray-400 border border-navy-600 hover:bg-navy-600/50 hover:text-white'
+              }
+            `;
+
+            const content = (
+              <>
+                <span className="text-lg">{tab.icon}</span>
+                <span>{tab.label}</span>
+                {tab.badge && (
+                  <span className={`
+                    px-1.5 py-0.5 text-xs rounded-full
+                    ${isActive ? 'bg-teal-500/30 text-teal-300' : 'bg-navy-600 text-gray-400'}
+                  `}>
+                    {tab.badge}
+                  </span>
+                )}
+                {tab.href && (
+                  <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                )}
+              </>
+            );
+
+            if (tab.href) {
+              return (
+                <Link key={tab.id} href={tab.href} className={baseClasses}>
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={baseClasses}>
+                {content}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">

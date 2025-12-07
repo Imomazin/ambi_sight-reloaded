@@ -141,44 +141,51 @@ function CaseStudyCard({
   return (
     <button
       onClick={onClick}
-      className="flex-shrink-0 w-[340px] p-5 rounded-xl bg-gradient-to-br from-navy-700/80 to-navy-800/90 border border-navy-600 hover:border-teal-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/10 text-left group"
+      className="flex-shrink-0 w-[340px] rounded-xl bg-gradient-to-br from-navy-700/80 to-navy-800/90 border border-navy-600 hover:border-teal-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/10 text-left group overflow-hidden"
     >
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-3">
-        <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${roleColors.bg} ${roleColors.text} ${roleColors.border} border`}>
-          {study.roleFocus}
-        </span>
-        <span className="text-[10px] text-gray-500">{study.industry}</span>
+      {/* Image/Visual Banner */}
+      <div className={`h-24 bg-gradient-to-br ${study.imageBg} flex items-center justify-center relative`}>
+        <span className="text-5xl opacity-80 group-hover:scale-110 transition-transform">{study.imageIcon}</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-800/90 to-transparent" />
+        <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between">
+          <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${roleColors.bg} ${roleColors.text} ${roleColors.border} border backdrop-blur-sm`}>
+            {study.roleFocus}
+          </span>
+          <span className="text-[10px] text-gray-300 bg-navy-800/60 px-2 py-0.5 rounded backdrop-blur-sm">{study.industry}</span>
+        </div>
       </div>
 
-      {/* Title */}
-      <h3 className="text-white font-semibold mb-2 group-hover:text-teal-400 transition-colors line-clamp-2">
-        {study.title}
-      </h3>
+      {/* Content */}
+      <div className="p-4">
+        {/* Title */}
+        <h3 className="text-white font-semibold mb-2 group-hover:text-teal-400 transition-colors line-clamp-2">
+          {study.title}
+        </h3>
 
-      {/* Summary */}
-      <p className="text-xs text-gray-400 mb-4 line-clamp-2">{study.summary}</p>
+        {/* Summary */}
+        <p className="text-xs text-gray-400 mb-4 line-clamp-2">{study.summary}</p>
 
-      {/* Headline Metric */}
-      <div className="flex items-center justify-between">
-        <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/20">
-          <span className="text-sm font-bold text-gradient">{study.headlineMetric}</span>
+        {/* Headline Metric */}
+        <div className="flex items-center justify-between">
+          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/20">
+            <span className="text-sm font-bold text-gradient">{study.headlineMetric}</span>
+          </div>
+          <div className="flex items-center gap-1 text-xs text-gray-500">
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            {study.region}
+          </div>
         </div>
-        <div className="flex items-center gap-1 text-xs text-gray-500">
+
+        {/* Read More */}
+        <div className="mt-3 flex items-center gap-1 text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span>Read case study</span>
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-          {study.region}
         </div>
-      </div>
-
-      {/* Read More */}
-      <div className="mt-3 flex items-center gap-1 text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity">
-        <span>Read case study</span>
-        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
       </div>
     </button>
   );
