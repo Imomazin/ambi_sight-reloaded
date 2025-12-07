@@ -444,3 +444,170 @@ export const resourceAllocationData = [
 export const portfolios = ['Digital Transformation', 'Growth Markets', 'Infrastructure', 'Operations'];
 export const owners = ['Emily Park', 'James Wilson', 'Michael Torres', 'Lisa Chen', 'David Kim', 'Sarah Chen'];
 export const horizons = ['0-6 months', '6-12 months', '12-18 months', '18-24 months', '24+ months'];
+
+// World-class Strategic Management Case Studies
+export interface CaseStudy {
+  id: string;
+  company: string;
+  logo: string;
+  title: string;
+  industry: string;
+  year: string;
+  challenge: string;
+  strategy: string;
+  outcome: string;
+  keyMetrics: {
+    label: string;
+    value: string;
+    improvement: string;
+  }[];
+  strategicPillars: string[];
+  accentColor: 'teal' | 'amber' | 'magenta' | 'lime' | 'purple';
+}
+
+export const caseStudies: CaseStudy[] = [
+  {
+    id: 'case-apple',
+    company: 'Apple',
+    logo: '🍎',
+    title: 'Ecosystem Lock-In Through Vertical Integration',
+    industry: 'Technology',
+    year: '2007-2023',
+    challenge: 'Commoditization pressure in hardware markets with shrinking margins and intense competition from Android ecosystem.',
+    strategy: 'Created an integrated hardware-software-services ecosystem that prioritizes user experience and cross-device synergy. Shifted revenue model from hardware-dependent to services-recurring.',
+    outcome: 'Services revenue grew from $7.5B (2013) to $85B+ (2023), creating unprecedented customer loyalty with 90%+ retention rates.',
+    keyMetrics: [
+      { label: 'Services Revenue', value: '$85B+', improvement: '+1,033%' },
+      { label: 'Customer Retention', value: '92%', improvement: '+15%' },
+      { label: 'Market Cap', value: '$3T', improvement: 'First ever' },
+    ],
+    strategicPillars: ['Vertical Integration', 'Ecosystem Strategy', 'Premium Positioning', 'Services Pivot'],
+    accentColor: 'teal',
+  },
+  {
+    id: 'case-microsoft',
+    company: 'Microsoft',
+    logo: '⊞',
+    title: 'Cloud-First Transformation Under Nadella',
+    industry: 'Technology',
+    year: '2014-2023',
+    challenge: 'Declining PC market, failed mobile strategy, cultural stagnation, and perception as a legacy enterprise vendor.',
+    strategy: 'Pivoted from "Windows-first" to "cloud-first, mobile-first" strategy. Embraced open source, acquired LinkedIn & GitHub, and positioned Azure as AWS alternative.',
+    outcome: 'Market cap grew from $300B to $2.8T. Azure became #2 cloud platform with 23% market share. Culture transformed to growth mindset.',
+    keyMetrics: [
+      { label: 'Market Cap Growth', value: '833%', improvement: '$300B→$2.8T' },
+      { label: 'Cloud Revenue', value: '$110B', improvement: 'From $0' },
+      { label: 'Azure Market Share', value: '23%', improvement: '#2 Global' },
+    ],
+    strategicPillars: ['Cloud Transformation', 'Cultural Renewal', 'Strategic M&A', 'Open Source Embrace'],
+    accentColor: 'purple',
+  },
+  {
+    id: 'case-netflix',
+    company: 'Netflix',
+    logo: '🎬',
+    title: 'From DVD Mailer to Streaming Giant',
+    industry: 'Entertainment',
+    year: '2007-2023',
+    challenge: 'Core DVD rental business facing disruption from digital distribution. Blockbuster had 9,000 stores and dominant market position.',
+    strategy: 'Cannibalized own DVD business to pivot to streaming. Invested heavily in original content ($17B/year) and international expansion. Built proprietary recommendation algorithms.',
+    outcome: 'Grew to 238M subscribers globally. Disrupted entire entertainment industry. Original content wins Oscars and Emmys consistently.',
+    keyMetrics: [
+      { label: 'Global Subscribers', value: '238M', improvement: 'From 7.5M' },
+      { label: 'Content Spend', value: '$17B/yr', improvement: 'Industry leading' },
+      { label: 'Countries', value: '190+', improvement: 'Global reach' },
+    ],
+    strategicPillars: ['Self-Disruption', 'Content Investment', 'Global Expansion', 'Data-Driven Decisions'],
+    accentColor: 'magenta',
+  },
+  {
+    id: 'case-amazon',
+    company: 'Amazon',
+    logo: '📦',
+    title: 'AWS: From Internal Tool to Cloud Dominance',
+    industry: 'Technology / Retail',
+    year: '2006-2023',
+    challenge: 'E-commerce margins razor-thin. Infrastructure costs growing exponentially. Needed competitive advantage beyond retail.',
+    strategy: 'Transformed internal infrastructure into external cloud platform. Applied "working backwards" methodology. Prioritized long-term market share over short-term profits.',
+    outcome: "AWS generates $90B+ revenue with 30%+ operating margins. Powers 32% of global cloud infrastructure. Enabled Amazon's dominance across multiple sectors.",
+    keyMetrics: [
+      { label: 'AWS Revenue', value: '$90B+', improvement: 'From $0' },
+      { label: 'Cloud Market Share', value: '32%', improvement: '#1 Global' },
+      { label: 'Operating Margin', value: '30%+', improvement: 'vs. 2% retail' },
+    ],
+    strategicPillars: ['Platform Strategy', 'Long-term Thinking', 'Customer Obsession', 'Operational Excellence'],
+    accentColor: 'amber',
+  },
+  {
+    id: 'case-nvidia',
+    company: 'NVIDIA',
+    logo: '🎮',
+    title: 'From Gaming GPUs to AI Infrastructure',
+    industry: 'Semiconductors',
+    year: '2016-2024',
+    challenge: 'GPU market limited to gaming and graphics. Intel dominated data center. AMD competitive on price. Limited TAM.',
+    strategy: 'Recognized parallel processing capability of GPUs for AI/ML workloads early. Built CUDA ecosystem creating developer lock-in. Pivoted to data center and AI training infrastructure.',
+    outcome: 'Became the most valuable semiconductor company. Powers 80%+ of AI training workloads. Market cap grew 50x in 5 years.',
+    keyMetrics: [
+      { label: 'Market Cap', value: '$1.2T+', improvement: '50x in 5 years' },
+      { label: 'AI Market Share', value: '80%+', improvement: 'Near monopoly' },
+      { label: 'Data Center Revenue', value: '$47B', improvement: '+217% YoY' },
+    ],
+    strategicPillars: ['Technology Foresight', 'Ecosystem Moat', 'Platform Dominance', 'Strategic Pivoting'],
+    accentColor: 'lime',
+  },
+  {
+    id: 'case-tesla',
+    company: 'Tesla',
+    logo: '⚡',
+    title: 'Vertical Integration in Automotive',
+    industry: 'Automotive / Energy',
+    year: '2012-2023',
+    challenge: 'Electric vehicles seen as niche. Legacy automakers had century of manufacturing expertise. Battery costs prohibitive.',
+    strategy: 'Built vertically integrated manufacturing from batteries to software. Direct-to-consumer sales model. Over-the-air updates created software-defined vehicle category. Gigafactory strategy for scale.',
+    outcome: "Became world's most valuable automaker. Forced entire industry to pivot to EVs. Achieved manufacturing cost advantages through vertical integration.",
+    keyMetrics: [
+      { label: 'Vehicles Delivered', value: '1.8M/yr', improvement: 'From 0' },
+      { label: 'Gross Margin', value: '25%+', improvement: 'vs. 10% industry' },
+      { label: 'Market Cap', value: '$800B', improvement: '#1 Automaker' },
+    ],
+    strategicPillars: ['Vertical Integration', 'First Principles Thinking', 'Direct Sales Model', 'Software-Defined Products'],
+    accentColor: 'teal',
+  },
+  {
+    id: 'case-spotify',
+    company: 'Spotify',
+    logo: '🎵',
+    title: 'Platform Play in Music Streaming',
+    industry: 'Entertainment / Music',
+    year: '2008-2023',
+    challenge: 'Music industry devastated by piracy. Record labels hostile to streaming. Apple had dominant music ecosystem.',
+    strategy: 'Created freemium model to compete with piracy. Built algorithmic recommendation moat. Expanded to podcasts for differentiation. Negotiated revolutionary licensing deals.',
+    outcome: "Became world's largest music streaming platform with 574M users. Transformed how music is consumed globally. Expanded successfully into podcasts.",
+    keyMetrics: [
+      { label: 'Monthly Active Users', value: '574M', improvement: '#1 Platform' },
+      { label: 'Premium Subscribers', value: '226M', improvement: '+14% YoY' },
+      { label: 'Podcast Share', value: '#1', improvement: 'New market' },
+    ],
+    strategicPillars: ['Freemium Model', 'Algorithmic Moat', 'Platform Expansion', 'Strategic Licensing'],
+    accentColor: 'lime',
+  },
+  {
+    id: 'case-shopify',
+    company: 'Shopify',
+    logo: '🛒',
+    title: 'Democratizing E-commerce',
+    industry: 'E-commerce / SaaS',
+    year: '2006-2023',
+    challenge: 'E-commerce dominated by Amazon marketplace. SMBs lacked technical capability to build online stores. Enterprise solutions prohibitively expensive.',
+    strategy: 'Built easy-to-use platform enabling anyone to sell online. Created ecosystem of apps and partners. Positioned as "anti-Amazon" for brand-direct commerce.',
+    outcome: 'Powers 10%+ of US e-commerce. Millions of merchants globally. Created viable alternative to Amazon marketplace dependency.',
+    keyMetrics: [
+      { label: 'GMV', value: '$200B+', improvement: '#2 in US e-comm' },
+      { label: 'Merchants', value: '2M+', improvement: 'Global reach' },
+      { label: 'Revenue', value: '$7B+', improvement: '+25% CAGR' },
+    ],
+    strategicPillars: ['Platform Democratization', 'Ecosystem Building', 'Merchant Empowerment', 'Anti-Aggregator Position'],
+    accentColor: 'purple',
+  },
+];

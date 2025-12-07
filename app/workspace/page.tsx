@@ -4,8 +4,9 @@ import AppShell from '@/components/AppShell';
 import KpiCard from '@/components/KpiCard';
 import ChartCard from '@/components/ChartCard';
 import InsightFeed from '@/components/InsightFeed';
+import CaseStudyCarousel from '@/components/CaseStudyCarousel';
 import { useAppState } from '@/state/useAppState';
-import { kpis, initiatives, resourceAllocationData } from '@/lib/demoData';
+import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
 
 export default function WorkspacePage() {
   const { currentScenario, currentPersona } = useAppState();
@@ -76,6 +77,11 @@ export default function WorkspacePage() {
             { key: 'utilized', color: '#A855F7', name: 'Utilized ($K)' },
           ]}
         />
+      </div>
+
+      {/* Case Studies Carousel */}
+      <div className="mb-8">
+        <CaseStudyCarousel caseStudies={caseStudies} />
       </div>
 
       {/* Bottom Section */}
