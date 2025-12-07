@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useAppState } from '@/state/useAppState';
 import PersonaSwitcher from '@/components/PersonaSwitcher';
 import HelpModal from '@/components/HelpModal';
+import UserSwitcherPanel from '@/components/UserSwitcherPanel';
+import UserIndicator from '@/components/UserIndicator';
 
 const features = [
   {
@@ -83,7 +85,7 @@ export default function Home() {
             >
               Help
             </button>
-            <PersonaSwitcher />
+            <UserIndicator />
           </div>
         </div>
       </nav>
@@ -197,6 +199,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* User Switcher Panel */}
+      <UserSwitcherPanel />
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-navy-700">

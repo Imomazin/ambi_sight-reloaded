@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useAppState } from '@/state/useAppState';
-import { personas, scenarios } from '@/lib/demoData';
-import PersonaSwitcher from './PersonaSwitcher';
+import UserIndicator from './UserIndicator';
 
 export default function Navbar() {
   const { currentScenario, setHelpOpen } = useAppState();
@@ -53,8 +52,8 @@ export default function Navbar() {
             <span className="absolute top-1 right-1 w-2 h-2 bg-magenta-400 rounded-full"></span>
           </button>
 
-          {/* Persona Switcher */}
-          <PersonaSwitcher />
+          {/* User Indicator */}
+          <UserIndicator />
         </div>
       </div>
     </nav>

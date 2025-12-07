@@ -3,9 +3,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Persona, Scenario } from '@/lib/demoData';
-import { scenarios } from '@/lib/demoData';
+import type { UserProfile } from '@/lib/users';
+import { roleToPersona } from '@/lib/users';
 
 interface AppState {
+  // Current user
+  currentUser: UserProfile | null;
+  setCurrentUser: (user: UserProfile | null) => void;
+  logout: () => void;
+
   // Current persona
   currentPersona: Persona;
   setPersona: (persona: Persona) => void;
@@ -25,6 +31,10 @@ interface AppState {
   isHelpOpen: boolean;
   setHelpOpen: (open: boolean) => void;
 
+  // User switcher modal
+  isUserSwitcherOpen: boolean;
+  setUserSwitcherOpen: (open: boolean) => void;
+
   // Sidebar
   isSidebarCollapsed: boolean;
   setSidebarCollapsed: (collapsed: boolean) => void;
@@ -38,6 +48,18 @@ interface AppState {
 export const useAppState = create<AppState>()(
   persist(
     (set) => ({
+      // User
+      currentUser: null,
+      setCurrentUser: (user) => set({
+        currentUser: user,
+        currentPersona: user ? roleToPersona[user.role] : 'strategy-leader',
+      }),
+      logout: () => set({
+        currentUser: null,
+        currentPersona: 'strategy-leader',
+        currentScenario: null,
+      }),
+
       // Persona
       currentPersona: 'strategy-leader',
       setPersona: (persona) => set({ currentPersona: persona }),
@@ -57,6 +79,10 @@ export const useAppState = create<AppState>()(
       isHelpOpen: false,
       setHelpOpen: (open) => set({ isHelpOpen: open }),
 
+      // User Switcher
+      isUserSwitcherOpen: false,
+      setUserSwitcherOpen: (open) => set({ isUserSwitcherOpen: open }),
+
       // Sidebar
       isSidebarCollapsed: false,
       setSidebarCollapsed: (collapsed) => set({ isSidebarCollapsed: collapsed }),
@@ -74,6 +100,7 @@ export const useAppState = create<AppState>()(
     {
       name: 'ambi-sight-storage',
       partialize: (state) => ({
+        currentUser: state.currentUser,
         currentPersona: state.currentPersona,
         riskMultiplier: state.riskMultiplier,
         noiseLevel: state.noiseLevel,
