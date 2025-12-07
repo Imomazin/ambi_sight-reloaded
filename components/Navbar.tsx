@@ -19,7 +19,7 @@ export default function Navbar() {
   const { currentScenario, setHelpOpen } = useAppState();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-800/95 backdrop-blur-sm border-b border-navy-600">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-sm border-b border-[var(--border-color)]">
       <div className="flex items-center justify-between px-6 py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
@@ -29,8 +29,8 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <span className="text-lg font-semibold text-white">AmbiSight</span>
-            <span className="text-xs text-gray-400 block">Reloaded</span>
+            <span className="text-lg font-semibold text-[var(--text-primary)]">AmbiSight</span>
+            <span className="text-xs text-[var(--text-muted)] block">Reloaded</span>
           </div>
         </Link>
 
@@ -45,7 +45,7 @@ export default function Navbar() {
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
                   isActive
                     ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
-                    : 'text-gray-400 hover:text-white hover:bg-navy-700'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
                 }`}
               >
                 <span>{link.icon}</span>
@@ -57,8 +57,8 @@ export default function Navbar() {
 
         {/* Current Scenario Indicator */}
         {currentScenario && (
-          <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-navy-700 rounded-lg border border-navy-600">
-            <span className="text-xs text-gray-400">Active Scenario:</span>
+          <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[var(--bg-card)] rounded-lg border border-[var(--border-color)]">
+            <span className="text-xs text-[var(--text-muted)]">Active Scenario:</span>
             <span className="text-sm font-medium text-teal-400">{currentScenario.name}</span>
           </div>
         )}
@@ -71,7 +71,7 @@ export default function Navbar() {
           {/* Help Button */}
           <button
             onClick={() => setHelpOpen(true)}
-            className="p-2 text-gray-400 hover:text-white hover:bg-navy-600 rounded-lg transition-colors"
+            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] rounded-lg transition-colors"
             title="Help"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +80,7 @@ export default function Navbar() {
           </button>
 
           {/* Notifications */}
-          <button className="relative p-2 text-gray-400 hover:text-white hover:bg-navy-600 rounded-lg transition-colors">
+          <button className="relative p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] rounded-lg transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
@@ -103,7 +103,7 @@ export default function Navbar() {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
-                  : 'text-gray-400 hover:text-white bg-navy-700'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-card)]'
               }`}
             >
               {link.label}

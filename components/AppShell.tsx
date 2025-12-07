@@ -6,6 +6,7 @@ import SidebarNav from './SidebarNav';
 import HelpModal from './HelpModal';
 import Breadcrumbs from './Breadcrumbs';
 import MobileNav from './MobileNav';
+import DynamicBackground from './DynamicBackground';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export default function AppShell({ children, showBreadcrumbs = true }: AppShellP
   const { isSidebarCollapsed } = useAppState();
 
   return (
-    <div className="min-h-screen bg-gradient-navy">
+    <DynamicBackground>
       <Navbar />
       <SidebarNav />
       <main
@@ -31,6 +32,6 @@ export default function AppShell({ children, showBreadcrumbs = true }: AppShellP
       </main>
       <MobileNav />
       <HelpModal />
-    </div>
+    </DynamicBackground>
   );
 }

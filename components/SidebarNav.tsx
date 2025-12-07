@@ -107,7 +107,7 @@ export default function SidebarNav() {
 
   return (
     <aside
-      className={`fixed left-0 top-16 bottom-0 z-40 bg-navy-800 border-r border-navy-600 transition-all duration-300 ${
+      className={`fixed left-0 top-16 bottom-0 z-40 bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] transition-all duration-300 ${
         isSidebarCollapsed ? 'w-20' : 'w-64'
       }`}
     >
@@ -115,7 +115,7 @@ export default function SidebarNav() {
         {/* Toggle button */}
         <button
           onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-          className="absolute -right-3 top-6 w-6 h-6 bg-navy-700 border border-navy-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-navy-600 transition-colors"
+          className="absolute -right-3 top-6 w-6 h-6 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-full flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors"
         >
           <svg
             className={`w-4 h-4 transition-transform ${isSidebarCollapsed ? 'rotate-180' : ''}`}
@@ -146,9 +146,9 @@ export default function SidebarNav() {
         </nav>
 
         {/* Bottom section */}
-        <div className="p-4 border-t border-navy-600">
+        <div className="p-4 border-t border-[var(--border-color)]">
           {!isSidebarCollapsed && (
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-[var(--text-muted)]">
               <p>AmbiSight Reloaded</p>
               <p>v1.0.0 Demo</p>
             </div>

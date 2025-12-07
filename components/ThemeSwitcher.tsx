@@ -77,7 +77,7 @@ export default function ThemeSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-gray-400 hover:text-white hover:bg-navy-600 rounded-lg transition-colors flex items-center gap-1"
+        className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] rounded-lg transition-colors flex items-center gap-1"
         title="Change theme"
       >
         <span className="text-sm">{currentOption?.icon}</span>
@@ -92,7 +92,7 @@ export default function ThemeSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-36 bg-navy-800 border border-navy-600 rounded-lg shadow-xl overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-36 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg shadow-xl overflow-hidden z-50">
           {themeOptions.map((option) => (
             <button
               key={option.value}
@@ -100,7 +100,7 @@ export default function ThemeSwitcher() {
               className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${
                 theme === option.value
                   ? 'bg-teal-500/20 text-teal-400'
-                  : 'text-gray-400 hover:bg-navy-700 hover:text-white'
+                  : 'text-[var(--text-muted)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               <span>{option.icon}</span>
