@@ -9,12 +9,16 @@ import InsightsList from '@/components/diagnostic/InsightsList';
 import ToolRecommendations from '@/components/diagnostic/ToolRecommendations';
 import ScenarioSimulator from '@/components/diagnostic/ScenarioSimulator';
 import { useDiagnosticStore } from '@/state/useDiagnosticStore';
+import { useToast } from '@/components/Toast';
+import { exportToCSV, exportToJSON, generatePrintableReport } from '@/lib/exportUtils';
 import type { DiagnosticResult, DiagnosticIntake } from '@/lib/database.types';
 
 export default function DiagnosticResultsPage() {
   const params = useParams();
   const router = useRouter();
   const { savedResults, savedIntakes } = useDiagnosticStore();
+  const toast = useToast();
+  const [showExportMenu, setShowExportMenu] = useState(false);
 
   const [result, setResult] = useState<DiagnosticResult | null>(null);
   const [intake, setIntake] = useState<DiagnosticIntake | null>(null);
@@ -75,13 +79,69 @@ export default function DiagnosticResultsPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className="btn-secondary px-4 py-2 text-sm" disabled>
-              Export PDF
+          <div className="relative">
+            <button
+              onClick={() => setShowExportMenu(!showExportMenu)}
+              className="btn-primary px-4 py-2 text-sm flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Export
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
-            <button className="btn-secondary px-4 py-2 text-sm" disabled>
-              Export CSV
-            </button>
+
+            {showExportMenu && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setShowExportMenu(false)}
+                />
+                <div className="absolute right-0 top-full mt-2 w-48 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg shadow-xl z-50 animate-scale-up overflow-hidden">
+                  <button
+                    onClick={() => {
+                      generatePrintableReport({ intake: intake!, result: result! });
+                      setShowExportMenu(false);
+                      toast.success('Report opened in new tab - use Print to save as PDF');
+                    }}
+                    className="w-full px-4 py-3 text-left text-sm hover:bg-[var(--bg-secondary)] transition-colors flex items-center gap-3"
+                  >
+                    <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Export as PDF
+                  </button>
+                  <button
+                    onClick={() => {
+                      exportToCSV({ intake: intake!, result: result! });
+                      setShowExportMenu(false);
+                      toast.success('CSV file downloaded');
+                    }}
+                    className="w-full px-4 py-3 text-left text-sm hover:bg-[var(--bg-secondary)] transition-colors flex items-center gap-3"
+                  >
+                    <svg className="w-4 h-4 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Export as CSV
+                  </button>
+                  <button
+                    onClick={() => {
+                      exportToJSON({ intake: intake!, result: result! });
+                      setShowExportMenu(false);
+                      toast.success('JSON file downloaded');
+                    }}
+                    className="w-full px-4 py-3 text-left text-sm hover:bg-[var(--bg-secondary)] transition-colors flex items-center gap-3"
+                  >
+                    <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    Export as JSON
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

@@ -1,14 +1,24 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import AppShell from '@/components/AppShell';
 import { useDiagnosticStore } from '@/state/useDiagnosticStore';
 import { useAppState } from '@/state/useAppState';
+import DiagnosticTrendChart from '@/components/diagnostic/DiagnosticTrendChart';
 
 export default function DiagnosticPage() {
   const router = useRouter();
   const { currentUser } = useAppState();
   const { savedIntakes, savedResults, deleteIntake, loadIntake } = useDiagnosticStore();
+
+  // Create a mapping of intake IDs to organization names for the trend chart
+  const organizationNames = useMemo(() => {
+    return savedIntakes.reduce((acc, intake) => {
+      acc[intake.id] = intake.organization_name;
+      return acc;
+    }, {} as Record<string, string>);
+  }, [savedIntakes]);
 
   const getResultForIntake = (intakeId: string) => {
     return savedResults.find((r) => r.intake_id === intakeId);
@@ -62,6 +72,16 @@ export default function DiagnosticPage() {
             + New Diagnostic
           </button>
         </div>
+
+        {/* Trend Chart - Show when we have completed diagnostics */}
+        {savedResults.length > 0 && (
+          <div className="mb-8">
+            <DiagnosticTrendChart
+              results={savedResults}
+              organizationNames={organizationNames}
+            />
+          </div>
+        )}
 
         {/* Empty State */}
         {savedIntakes.length === 0 && (

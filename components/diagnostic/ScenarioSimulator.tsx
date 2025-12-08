@@ -1,8 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useDiagnosticStore } from '@/state/useDiagnosticStore';
 import type { DiagnosticScores, ScenarioAdjustments } from '@/lib/database.types';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+} from 'recharts';
 
 interface ScenarioSimulatorProps {
   intakeId: string;
@@ -23,6 +38,7 @@ export default function ScenarioSimulator({ intakeId, baseScores }: ScenarioSimu
   const [adjustments, setAdjustments] = useState<ScenarioAdjustments>({ ...DEFAULT_ADJUSTMENTS });
   const [scenarioName, setScenarioName] = useState('');
   const [showSaveModal, setShowSaveModal] = useState(false);
+  const [chartView, setChartView] = useState<'timeline' | 'radar'>('timeline');
 
   const existingSimulations = simulations.filter((s) => s.diagnostic_id === intakeId);
 
@@ -55,6 +71,42 @@ export default function ScenarioSimulator({ intakeId, baseScores }: ScenarioSimu
   };
 
   const projectedScores = calculateProjectedScores();
+
+  // Generate timeline projection data
+  const timelineData = useMemo(() => {
+    const months = adjustments.time_horizon_months;
+    const intervals = Math.min(months, 12); // Max 12 data points
+    const step = months / intervals;
+
+    const data = [];
+    for (let i = 0; i <= intervals; i++) {
+      const progress = i / intervals;
+      const currentMonth = Math.round(i * step);
+
+      // Simulate non-linear progress (S-curve)
+      const sCurveProgress = 1 / (1 + Math.exp(-8 * (progress - 0.5)));
+
+      data.push({
+        month: `M${currentMonth}`,
+        monthLabel: currentMonth === 0 ? 'Now' : `+${currentMonth}mo`,
+        performance: Math.round(baseScores.performance_score + (projectedScores.performance_score - baseScores.performance_score) * sCurveProgress),
+        risk: Math.round(baseScores.threat_score + (projectedScores.threat_score - baseScores.threat_score) * sCurveProgress),
+        alignment: Math.round(baseScores.alignment_score + (projectedScores.alignment_score - baseScores.alignment_score) * sCurveProgress),
+        readiness: Math.round(baseScores.readiness_score + (projectedScores.readiness_score - baseScores.readiness_score) * sCurveProgress),
+        overall: Math.round(baseScores.overall_health + (projectedScores.overall_health - baseScores.overall_health) * sCurveProgress),
+      });
+    }
+    return data;
+  }, [adjustments, baseScores, projectedScores]);
+
+  // Radar chart data
+  const radarData = useMemo(() => [
+    { metric: 'Performance', baseline: baseScores.performance_score, projected: projectedScores.performance_score },
+    { metric: 'Risk Mgmt', baseline: 100 - baseScores.threat_score, projected: 100 - projectedScores.threat_score },
+    { metric: 'Alignment', baseline: baseScores.alignment_score, projected: projectedScores.alignment_score },
+    { metric: 'Readiness', baseline: baseScores.readiness_score, projected: projectedScores.readiness_score },
+    { metric: 'Overall', baseline: baseScores.overall_health, projected: projectedScores.overall_health },
+  ], [baseScores, projectedScores]);
 
   const getScoreDelta = (base: number, projected: number): string => {
     const delta = projected - base;
@@ -126,11 +178,27 @@ export default function ScenarioSimulator({ intakeId, baseScores }: ScenarioSimu
     </div>
   );
 
+  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{name: string; value: number; color: string}>; label?: string }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-3 shadow-lg">
+          <p className="font-medium mb-2">{label}</p>
+          {payload.map((entry, index) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: {entry.value}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="card p-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h2 className="text-lg font-semibold mb-1">Scenario Simulator</h2>
             <p className="text-sm text-[var(--text-muted)]">
@@ -151,6 +219,122 @@ export default function ScenarioSimulator({ intakeId, baseScores }: ScenarioSimu
               Save Scenario
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Chart View Toggle & Visualization */}
+      <div className="card p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-semibold">Projected Impact Visualization</h3>
+          <div className="flex items-center gap-2 bg-[var(--bg-secondary)] p-1 rounded-lg">
+            <button
+              onClick={() => setChartView('timeline')}
+              className={`px-3 py-1.5 rounded text-sm transition-all ${
+                chartView === 'timeline'
+                  ? 'bg-teal-500 text-white'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              Timeline
+            </button>
+            <button
+              onClick={() => setChartView('radar')}
+              className={`px-3 py-1.5 rounded text-sm transition-all ${
+                chartView === 'radar'
+                  ? 'bg-teal-500 text-white'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              Radar
+            </button>
+          </div>
+        </div>
+
+        <div className="h-80">
+          {chartView === 'timeline' ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={timelineData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+                <XAxis
+                  dataKey="monthLabel"
+                  stroke="var(--text-muted)"
+                  fontSize={12}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  stroke="var(--text-muted)"
+                  fontSize={12}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="overall"
+                  name="Overall Health"
+                  stroke="#14B8A6"
+                  strokeWidth={3}
+                  dot={{ fill: '#14B8A6', strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="performance"
+                  name="Performance"
+                  stroke="#A855F7"
+                  strokeWidth={2}
+                  dot={{ fill: '#A855F7', strokeWidth: 1, r: 3 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="alignment"
+                  name="Alignment"
+                  stroke="#F59E0B"
+                  strokeWidth={2}
+                  dot={{ fill: '#F59E0B', strokeWidth: 1, r: 3 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="readiness"
+                  name="Readiness"
+                  stroke="#22C55E"
+                  strokeWidth={2}
+                  dot={{ fill: '#22C55E', strokeWidth: 1, r: 3 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
+                <PolarGrid stroke="var(--border-color)" />
+                <PolarAngleAxis
+                  dataKey="metric"
+                  tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+                />
+                <PolarRadiusAxis
+                  angle={90}
+                  domain={[0, 100]}
+                  tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
+                />
+                <Radar
+                  name="Baseline"
+                  dataKey="baseline"
+                  stroke="#6366F1"
+                  fill="#6366F1"
+                  fillOpacity={0.3}
+                  strokeWidth={2}
+                />
+                <Radar
+                  name="Projected"
+                  dataKey="projected"
+                  stroke="#14B8A6"
+                  fill="#14B8A6"
+                  fillOpacity={0.3}
+                  strokeWidth={2}
+                />
+                <Legend />
+              </RadarChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
 
@@ -325,7 +509,7 @@ export default function ScenarioSimulator({ intakeId, baseScores }: ScenarioSimu
       {/* Save Modal */}
       {showSaveModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="card p-6 max-w-md w-full mx-4">
+          <div className="card p-6 max-w-md w-full mx-4 animate-scale-up">
             <h3 className="text-lg font-semibold mb-4">Save Scenario</h3>
             <input
               type="text"
