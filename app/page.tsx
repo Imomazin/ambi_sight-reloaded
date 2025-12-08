@@ -65,24 +65,24 @@ const features = [
 
 const newFeatures = [
   {
+    title: 'Strategic Diagnostics',
+    description: 'Complete organizational assessment with scoring, heatmaps, insights, and tool recommendations.',
+    href: '/diagnostic',
+    icon: '📊',
+    badge: 'New',
+  },
+  {
     title: 'Strategy Tools Library',
     description: '50+ world-class strategy frameworks and tools for diagnosis, growth, risk, and execution.',
     href: '/tools',
     icon: '🧰',
-    badge: 'New',
+    badge: null,
   },
   {
     title: 'Diagnostic Wizard',
     description: 'Guided problem-to-tools mapping. Answer questions and get personalized tool recommendations.',
     href: '/diagnosis',
     icon: '🔍',
-    badge: 'New',
-  },
-  {
-    title: 'Pricing & Plans',
-    description: 'Flexible pricing for individuals and teams. Free tier available with premium upgrades.',
-    href: '/pricing',
-    icon: '💎',
     badge: null,
   },
 ];
@@ -171,15 +171,17 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/workspace" className="btn-primary inline-flex items-center gap-2">
+            <Link href="/diagnostic/new" className="btn-primary inline-flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Start Strategic Diagnostic
+            </Link>
+            <Link href="/workspace" className="btn-secondary inline-flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              Open Strategy Workspace
-            </Link>
-            <Link href="/diagnosis" className="btn-secondary inline-flex items-center gap-2">
-              <span>🔍</span>
-              Start Diagnostic Quiz
+              Open Workspace
             </Link>
           </div>
         </div>
