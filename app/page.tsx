@@ -7,6 +7,7 @@ import UserSwitcherPanel from '@/components/UserSwitcherPanel';
 import UserIndicator from '@/components/UserIndicator';
 import LandingCaseStudies from '@/components/LandingCaseStudies';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
+import DynamicBackground from '@/components/DynamicBackground';
 import { ConsultingPackagesShowcase, ConsultingCTA } from '@/components/ConsultingCTA';
 
 const features = [
@@ -91,9 +92,9 @@ export default function Home() {
   const { setHelpOpen } = useAppState();
 
   return (
-    <div className="min-h-screen bg-gradient-navy">
+    <DynamicBackground>
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-800/80 backdrop-blur-md border-b border-navy-600">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-md border-b border-[var(--border-color)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
@@ -352,6 +353,6 @@ export default function Home() {
       </footer>
 
       <HelpModal />
-    </div>
+    </DynamicBackground>
   );
 }
