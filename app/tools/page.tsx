@@ -320,7 +320,7 @@ export default function StrategyToolsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="text-2xl font-bold text-white">
-                Ambi<span className="text-blue-500">Sight</span>
+                Lumina <span className="text-blue-500">S</span>
               </Link>
               <span className="text-slate-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Strategy Tools Library</h1>
