@@ -89,11 +89,11 @@ export default function ActivityTimeline() {
 
   const getEventIcon = (type: string) => {
     switch (type) {
-      case 'ai': return { icon: '🤖', color: 'from-purple-500 to-pink-500', bg: 'bg-purple-500/20' };
+      case 'ai': return { icon: '📊', color: 'from-purple-500 to-pink-500', bg: 'bg-purple-500/20' };
       case 'alert': return { icon: '⚠️', color: 'from-red-500 to-orange-500', bg: 'bg-red-500/20' };
       case 'milestone': return { icon: '🎯', color: 'from-green-500 to-emerald-500', bg: 'bg-green-500/20' };
       case 'update': return { icon: '🔄', color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-500/20' };
-      case 'insight': return { icon: '💡', color: 'from-amber-500 to-yellow-500', bg: 'bg-amber-500/20' };
+      case 'insight': return { icon: '🧭', color: 'from-amber-500 to-yellow-500', bg: 'bg-amber-500/20' };
       default: return { icon: '📌', color: 'from-gray-500 to-gray-400', bg: 'bg-gray-500/20' };
     }
   };
@@ -116,7 +116,7 @@ export default function ActivityTimeline() {
 
   const filters = [
     { id: 'all', label: 'All' },
-    { id: 'ai', label: 'AI' },
+    { id: 'ai', label: 'Analytics' },
     { id: 'alert', label: 'Alerts' },
     { id: 'milestone', label: 'Milestones' },
     { id: 'update', label: 'Updates' },

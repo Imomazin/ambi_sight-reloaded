@@ -17,6 +17,7 @@ import {
 import { useAppState } from '../../state/useAppState';
 import { planColors, complexityColors } from '../../lib/strategyToolsLibrary';
 import type { Plan } from '../../lib/users';
+import DataUploadButton from '../../components/DataUploadButton';
 
 // Progress Bar Component
 function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
@@ -297,7 +298,7 @@ function ResultsStep({
       {/* Suggested Approach */}
       <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-          <span>💡</span> Suggested Approach
+          <span>🧭</span> Suggested Approach
         </h3>
         <p className="text-slate-300 mb-4">{result.suggestedApproach}</p>
         <div className="flex items-center gap-4 text-sm">
@@ -527,14 +528,17 @@ export default function DiagnosisPage() {
               <span className="text-slate-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Diagnostic Wizard</h1>
             </div>
-            {currentUser && (
-              <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
-                <span className="text-sm text-slate-300">{currentUser.name}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
-                  {currentUser.plan}
-                </span>
-              </div>
-            )}
+            <div className="flex items-center gap-3">
+              <DataUploadButton label="Upload Data" variant="compact" />
+              {currentUser && (
+                <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
+                  <span className="text-sm text-slate-300">{currentUser.name}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
+                    {currentUser.plan}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

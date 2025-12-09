@@ -74,8 +74,8 @@ function generateReport(): ExecutiveReport {
       {
         id: 'recommendations',
         title: 'Strategic Recommendations',
-        icon: '💡',
-        content: 'AI-generated recommendations based on current portfolio analysis.',
+        icon: '🧭',
+        content: 'Data-driven recommendations based on current portfolio analysis.',
         recommendations: [
           'Accelerate cloud migration timeline to capture efficiency gains earlier',
           'Consider increasing R&D allocation by 15% to maintain competitive advantage',
@@ -259,7 +259,7 @@ export default function ExecutiveSummary() {
               </>
             ) : (
               <>
-                <span>🤖</span>
+                <span>📋</span>
                 Generate Report
               </>
             )}
@@ -276,14 +276,14 @@ export default function ExecutiveSummary() {
             </div>
             <h3 className="text-lg font-semibold text-white mb-2">No Report Generated</h3>
             <p className="text-sm text-gray-400 mb-6 max-w-md mx-auto">
-              Click "Generate Report" to create an AI-powered executive summary based on your current portfolio data and strategic metrics.
+              Click "Generate Report" to create a data-driven executive summary based on your current portfolio data and strategic metrics.
             </p>
             <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
               <span className="flex items-center gap-1">
                 <span>⚡</span> Real-time data
               </span>
               <span className="flex items-center gap-1">
-                <span>🤖</span> AI-powered insights
+                <span>📈</span> Smart analysis
               </span>
               <span className="flex items-center gap-1">
                 <span>📊</span> Board-ready format
@@ -295,7 +295,7 @@ export default function ExecutiveSummary() {
         {isGenerating && (
           <div className="text-center py-16">
             <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center animate-pulse">
-              <span className="text-4xl">🤖</span>
+              <span className="text-4xl">📊</span>
             </div>
             <h3 className="text-lg font-semibold text-white mb-2">Generating Executive Summary</h3>
             <p className="text-sm text-gray-400 mb-4">

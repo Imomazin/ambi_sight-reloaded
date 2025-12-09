@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
+import DataUploadButton from './DataUploadButton';
 
 interface HeroMetric {
   label: string;
@@ -82,6 +83,7 @@ export default function DashboardHeader() {
 
           {/* Live status */}
           <div className="flex items-center gap-4">
+            <DataUploadButton label="Upload Data" variant="compact" />
             <div className="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-xl">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

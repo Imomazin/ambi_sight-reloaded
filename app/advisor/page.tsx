@@ -12,6 +12,7 @@ import {
   type StrategyPrompt,
 } from '@/lib/advisorResponses';
 import { roleDisplayNames } from '@/lib/users';
+import DataUploadButton from '@/components/DataUploadButton';
 
 interface Message {
   id: string;
@@ -246,7 +247,10 @@ export default function AdvisorPage() {
           <div className="card flex-1 flex flex-col overflow-hidden">
             {/* Header */}
             <div className="mb-4">
-              <h2 className="text-lg font-semibold text-white">Strategic Advisor</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-white">Strategic Advisor</h2>
+                <DataUploadButton label="Upload" variant="compact" />
+              </div>
               <p className="text-sm text-gray-400 mt-1">
                 What are you trying to solve today?
               </p>

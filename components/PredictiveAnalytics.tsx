@@ -471,7 +471,7 @@ export default function PredictiveAnalytics() {
           {/* Model Info */}
           <div className="mt-6 p-3 rounded-lg bg-navy-700/30 border border-navy-600">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm">🤖</span>
+              <span className="text-sm">⚙️</span>
               <span className="text-xs font-medium text-gray-400">Model Information</span>
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs">

@@ -126,7 +126,7 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
     return (
       <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-lg p-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-blue-400">✨</span>
+          <span className="text-blue-400">→</span>
           <span className="text-sm text-slate-300">
             Upgrade to {targetPlan} for {feature}
           </span>

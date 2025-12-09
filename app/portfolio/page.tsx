@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import AppShell from '@/components/AppShell';
 import HeatmapGrid from '@/components/HeatmapGrid';
+import DataUploadButton from '@/components/DataUploadButton';
 import { initiatives, portfolios, owners, horizons } from '@/lib/demoData';
 
 export default function PortfolioPage() {
@@ -26,6 +27,7 @@ export default function PortfolioPage() {
               Visual matrix of initiatives across key strategic dimensions
             </p>
           </div>
+          <DataUploadButton label="Upload Portfolio Data" variant="compact" />
         </div>
       </div>
 

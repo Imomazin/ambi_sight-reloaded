@@ -6,6 +6,7 @@ import ScenarioBuilder from '@/components/ScenarioBuilder';
 import RiskCorrelationMatrix from '@/components/RiskCorrelationMatrix';
 import PredictiveAnalytics from '@/components/PredictiveAnalytics';
 import ExecutiveSummary from '@/components/ExecutiveSummary';
+import DataUploadButton from '@/components/DataUploadButton';
 import { NotificationPanel, NotificationToast } from '@/components/NotificationPanel';
 import { useAlertSystem, RealTimeAlert } from '@/hooks/useRealTimeData';
 import { useAppState } from '@/state/useAppState';
@@ -37,9 +38,9 @@ const tabs: Tab[] = [
   {
     id: 'predictive',
     label: 'Predictive Analytics',
-    icon: '🔮',
-    description: 'AI-powered forecasts',
-    badge: 'AI',
+    icon: '📈',
+    description: 'Data-driven forecasts',
+    badge: 'Pro',
   },
   {
     id: 'executive',
@@ -124,6 +125,8 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="flex items-center gap-4">
+            <DataUploadButton label="Upload Data" variant="compact" />
+
             {/* Live Status */}
             <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-lg">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -186,9 +189,9 @@ export default function AnalyticsPage() {
       {/* Quick Stats Footer */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Models Running', value: '4', icon: '🤖', color: 'text-teal-400' },
+          { label: 'Models Running', value: '4', icon: '⚙️', color: 'text-teal-400' },
           { label: 'Data Points Analyzed', value: '12.4K', icon: '📊', color: 'text-purple-400' },
-          { label: 'Predictions Generated', value: '847', icon: '🔮', color: 'text-blue-400' },
+          { label: 'Forecasts Generated', value: '847', icon: '📈', color: 'text-blue-400' },
           { label: 'Reports This Month', value: '23', icon: '📋', color: 'text-amber-400' },
         ].map(stat => (
           <div

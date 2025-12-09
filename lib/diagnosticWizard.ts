@@ -84,7 +84,7 @@ export const challengeCategories: ChallengeCategory[] = [
     id: 'innovation-pipeline',
     title: 'Innovation & Future Readiness',
     description: 'Innovation pipeline is weak, R&D investments not paying off, or future direction unclear',
-    icon: '💡',
+    icon: '🚀',
     examples: [
       'Innovation pipeline is empty',
       'R&D spend not generating returns',

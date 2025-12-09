@@ -42,7 +42,7 @@ export const toolCategories: { id: ToolCategory; label: string; icon: string; de
   { id: 'Risk', label: 'Risk & Resilience', icon: '🛡️', description: 'Identify, assess, and mitigate strategic risks' },
   { id: 'Digital', label: 'Digital & Technology', icon: '💻', description: 'Drive digital transformation and tech strategy' },
   { id: 'Governance', label: 'Governance & Reporting', icon: '📋', description: 'Enable effective oversight and communication' },
-  { id: 'Innovation', label: 'Innovation & R&D', icon: '💡', description: 'Foster innovation and manage R&D portfolio' },
+  { id: 'Innovation', label: 'Innovation & R&D', icon: '🚀', description: 'Foster innovation and manage R&D portfolio' },
   { id: 'Finance', label: 'Financial Strategy', icon: '💰', description: 'Capital allocation and value creation' },
 ];
 
@@ -549,11 +549,11 @@ export const strategyToolsLibrary: StrategyToolFull[] = [
     complexity: 'Intermediate',
     requiredPlan: 'Pro',
     estimatedTime: '3-4 hours',
-    deliverable: 'AI readiness assessment with adoption roadmap',
-    bestFor: ['CTOs', 'CDOs', 'AI/ML leads'],
-    keyQuestions: ['Are we ready for AI?', 'What prerequisites are missing?', 'Where should we start?'],
+    deliverable: 'Technology readiness assessment with adoption roadmap',
+    bestFor: ['CTOs', 'CDOs', 'Technology leads'],
+    keyQuestions: ['Are we ready for advanced analytics?', 'What prerequisites are missing?', 'Where should we start?'],
     relatedTools: ['tool-dg1', 'tool-i1', 'tool-dg4'],
-    icon: '🤖',
+    icon: '⚙️',
   },
   {
     id: 'tool-dg4',

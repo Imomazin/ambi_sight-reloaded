@@ -23,7 +23,7 @@ export default function InsightFeed() {
         return {
           bg: 'bg-teal-500/10',
           border: 'border-teal-500/30',
-          icon: '💡',
+          icon: '🎯',
           color: 'text-teal-400',
         };
       case 'success':
@@ -47,7 +47,7 @@ export default function InsightFeed() {
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white">AI Insight Feed</h3>
+        <h3 className="text-lg font-semibold text-white">Strategic Insight Feed</h3>
         <span className="text-xs text-gray-400 bg-navy-600 px-2 py-1 rounded-full">
           Live Updates
         </span>
