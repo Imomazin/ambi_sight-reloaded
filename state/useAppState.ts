@@ -19,6 +19,10 @@ interface AppState {
   currentScenario: Scenario | null;
   setScenario: (scenario: Scenario | null) => void;
 
+  // Active tool (for workspace)
+  activeToolId: string | null;
+  setActiveToolId: (toolId: string | null) => void;
+
   // Admin controls
   riskMultiplier: number;
   setRiskMultiplier: (value: number) => void;
@@ -66,6 +70,10 @@ export const useAppState = create<AppState>()(
       // Scenario
       currentScenario: null,
       setScenario: (scenario) => set({ currentScenario: scenario }),
+
+      // Active Tool
+      activeToolId: null,
+      setActiveToolId: (toolId) => set({ activeToolId: toolId }),
 
       // Admin controls
       riskMultiplier: 1.0,

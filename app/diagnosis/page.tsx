@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   challengeCategories,
   urgencyLevels,
@@ -15,7 +16,7 @@ import {
   type DiagnosisResult,
 } from '../../lib/diagnosticWizard';
 import { useAppState } from '../../state/useAppState';
-import { planColors, complexityColors } from '../../lib/strategyToolsLibrary';
+import { planColors, complexityColors, type StrategyToolFull } from '../../lib/strategyToolsLibrary';
 import type { Plan } from '../../lib/users';
 import DataUploadButton from '../../components/DataUploadButton';
 
@@ -252,9 +253,11 @@ function CapabilitiesStep({
 function ResultsStep({
   result,
   userPlan,
+  onLaunchTool,
 }: {
   result: DiagnosisResult;
   userPlan: Plan;
+  onLaunchTool: (tool: StrategyToolFull) => void;
 }) {
   const maturityLabels = ['', 'Basic', 'Developing', 'Advanced', 'Leading'];
   const maturityLabel = maturityLabels[Math.round(result.overallMaturity)] || 'Developing';
@@ -318,32 +321,40 @@ function ResultsStep({
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {result.recommendedTools.map((tool, idx) => (
-            <Link
+            <button
               key={tool.id}
-              href="/tools"
-              className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-blue-500/50 rounded-xl p-4 transition-all"
+              onClick={() => onLaunchTool(tool)}
+              className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-teal-500/50 rounded-xl p-4 transition-all text-left group"
             >
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{tool.icon}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     {idx === 0 && (
-                      <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded">
+                      <span className="text-xs bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded">
                         Start Here
                       </span>
                     )}
                   </div>
-                  <h4 className="font-medium text-white truncate">{tool.name}</h4>
+                  <h4 className="font-medium text-white truncate group-hover:text-teal-400 transition-colors">{tool.name}</h4>
                   <p className="text-xs text-slate-400 mt-1 line-clamp-2">{tool.description}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${complexityColors[tool.complexity]}`}>
-                      {tool.complexity}
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full border ${complexityColors[tool.complexity]}`}>
+                        {tool.complexity}
+                      </span>
+                      <span className="text-xs text-slate-500">{tool.estimatedTime}</span>
+                    </div>
+                    <span className="text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                      Launch
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </span>
-                    <span className="text-xs text-slate-500">{tool.estimatedTime}</span>
                   </div>
                 </div>
               </div>
-            </Link>
+            </button>
           ))}
         </div>
       </div>
@@ -357,14 +368,17 @@ function ResultsStep({
           </h3>
           <div className="flex flex-wrap gap-3">
             {result.quickWins.map(tool => (
-              <Link
+              <button
                 key={tool.id}
-                href="/tools"
-                className="inline-flex items-center gap-2 bg-green-900/20 border border-green-500/30 rounded-lg px-4 py-2 hover:bg-green-900/30 transition-colors"
+                onClick={() => onLaunchTool(tool)}
+                className="inline-flex items-center gap-2 bg-green-900/20 border border-green-500/30 rounded-lg px-4 py-2 hover:bg-green-900/30 hover:border-green-400/50 transition-colors group"
               >
                 <span>{tool.icon}</span>
-                <span className="text-green-300">{tool.name}</span>
-              </Link>
+                <span className="text-green-300 group-hover:text-green-200">{tool.name}</span>
+                <svg className="w-4 h-4 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
             ))}
           </div>
         </div>
@@ -379,19 +393,22 @@ function ResultsStep({
           </h3>
           <div className="flex flex-wrap gap-3">
             {result.advancedTools.map(tool => (
-              <Link
+              <button
                 key={tool.id}
-                href="/tools"
-                className="inline-flex items-center gap-2 bg-purple-900/20 border border-purple-500/30 rounded-lg px-4 py-2 hover:bg-purple-900/30 transition-colors"
+                onClick={() => onLaunchTool(tool)}
+                className="inline-flex items-center gap-2 bg-purple-900/20 border border-purple-500/30 rounded-lg px-4 py-2 hover:bg-purple-900/30 hover:border-purple-400/50 transition-colors group"
               >
                 <span>{tool.icon}</span>
-                <span className="text-purple-300">{tool.name}</span>
+                <span className="text-purple-300 group-hover:text-purple-200">{tool.name}</span>
                 {tool.requiredPlan !== 'Free' && (
                   <span className={`text-xs px-1.5 py-0.5 rounded ${planColors[tool.requiredPlan]}`}>
                     {tool.requiredPlan}
                   </span>
                 )}
-              </Link>
+                <svg className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
             ))}
           </div>
         </div>
@@ -446,7 +463,8 @@ function ResultsStep({
 
 // Main Page Component
 export default function DiagnosisPage() {
-  const { currentUser } = useAppState();
+  const router = useRouter();
+  const { currentUser, setActiveToolId } = useAppState();
   const userPlan = currentUser?.plan || 'Free';
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -454,6 +472,12 @@ export default function DiagnosisPage() {
   const [selectedUrgency, setSelectedUrgency] = useState<string | null>(null);
   const [selectedScope, setSelectedScope] = useState<string | null>(null);
   const [capabilityAnswers, setCapabilityAnswers] = useState<Record<string, string>>({});
+
+  // Handle launching a tool from results
+  const handleLaunchTool = (tool: StrategyToolFull) => {
+    setActiveToolId(tool.id);
+    router.push('/workspace');
+  };
 
   // Toggle challenge selection (multiple allowed)
   const handleChallengeToggle = (id: string) => {
@@ -568,7 +592,7 @@ export default function DiagnosisPage() {
             />
           )}
           {currentStep === 4 && diagnosisResult && (
-            <ResultsStep result={diagnosisResult} userPlan={userPlan} />
+            <ResultsStep result={diagnosisResult} userPlan={userPlan} onLaunchTool={handleLaunchTool} />
           )}
         </div>
 

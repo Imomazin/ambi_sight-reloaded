@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAppState } from '@/state/useAppState';
 import { planColors, roleShortNames } from '@/lib/users';
 import UserSwitcherModal from './UserSwitcherModal';
@@ -37,21 +38,15 @@ export default function UserIndicator() {
   // If no user is logged in, show login button
   if (!currentUser) {
     return (
-      <>
-        <button
-          onClick={() => setUserSwitcherOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-teal-500/20 text-teal-400 rounded-lg hover:bg-teal-500/30 transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span className="text-sm font-medium">Sign In</span>
-        </button>
-        <UserSwitcherModal
-          isOpen={isUserSwitcherOpen}
-          onClose={() => setUserSwitcherOpen(false)}
-        />
-      </>
+      <Link
+        href="/signin"
+        className="flex items-center gap-2 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-400 transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+        </svg>
+        <span className="text-sm font-medium">Sign In</span>
+      </Link>
     );
   }
 
