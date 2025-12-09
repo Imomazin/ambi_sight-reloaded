@@ -33,8 +33,8 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
   return (
     <div className="space-y-6">
       {/* Tool Header */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
-        <div className="flex items-start justify-between mb-4">
+      <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
           <button
             onClick={onClose}
             className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
@@ -54,13 +54,13 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
           </div>
         </div>
 
-        <div className="flex items-start gap-4">
-          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center text-3xl">
+        <div className="flex items-start gap-3 md:gap-4">
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center text-2xl md:text-3xl flex-shrink-0">
             {tool.icon}
           </div>
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">{tool.name}</h1>
-            <p className="text-[var(--text-secondary)] mb-4">{tool.description}</p>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-1 md:mb-2">{tool.name}</h1>
+            <p className="text-sm md:text-base text-[var(--text-secondary)] mb-3 md:mb-4">{tool.description}</p>
             <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-muted)]">
               <div className="flex items-center gap-1">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,9 +80,9 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
       </div>
 
       {/* Tool Content Grid */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Main Content Area */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Best For */}
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
@@ -129,13 +129,13 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
                 This interactive workspace allows you to apply the {tool.name} framework to your specific situation.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <button className="w-full sm:w-auto px-6 py-3 bg-teal-500 hover:bg-teal-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+                <button className="w-full sm:w-auto px-5 py-3 bg-teal-500 hover:bg-teal-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2 touch-manipulation">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Start New Analysis
+                  Start Analysis
                 </button>
-                <button className="w-full sm:w-auto px-6 py-3 bg-[var(--bg-card-hover)] text-[var(--text-secondary)] font-medium rounded-lg border border-[var(--border-color)] hover:border-[var(--border-hover)] transition-colors flex items-center justify-center gap-2">
+                <button className="w-full sm:w-auto px-5 py-3 bg-[var(--bg-card-hover)] text-[var(--text-secondary)] font-medium rounded-lg border border-[var(--border-color)] hover:border-[var(--border-hover)] transition-colors flex items-center justify-center gap-2 touch-manipulation">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                   </svg>
@@ -147,7 +147,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           {/* Deliverable */}
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">

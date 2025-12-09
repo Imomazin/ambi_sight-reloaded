@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 const mobileNavItems = [
   { href: '/', label: 'Home', icon: '🏠' },
   { href: '/workspace', label: 'Dashboard', icon: '📊' },
+  { href: '/diagnosis', label: 'Diagnose', icon: '🔍' },
   { href: '/tools', label: 'Tools', icon: '🧰' },
   { href: '/advisor', label: 'Advisor', icon: '💬' },
-  { href: '/pricing', label: 'Upgrade', icon: '💎' },
 ];
 
 export default function MobileNav() {
@@ -25,18 +25,18 @@ export default function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors ${
+              className={`relative flex flex-col items-center gap-0.5 min-w-[56px] py-2 rounded-lg transition-colors touch-manipulation ${
                 isActive
                   ? 'text-teal-400'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  : 'text-[var(--text-muted)] active:text-[var(--text-primary)]'
               }`}
             >
               <span className={`text-xl ${isActive ? 'scale-110' : ''} transition-transform`}>
                 {item.icon}
               </span>
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[10px] font-medium leading-tight">{item.label}</span>
               {isActive && (
-                <span className="absolute bottom-1 w-1 h-1 bg-teal-400 rounded-full" />
+                <span className="absolute -bottom-0.5 w-1 h-1 bg-teal-400 rounded-full" />
               )}
             </Link>
           );
