@@ -1,7 +1,7 @@
 // AI Advisor Response Generator
 // Generates structured, strategy-focused responses based on user context
 
-import type { UserProfile, UserRole, Industry, MaturityLevel, Plan } from './users';
+import type { UserProfile, UserRole, Industry, Plan } from './users';
 
 export type ProblemCategory =
   | 'risk'
@@ -166,39 +166,39 @@ function generateDiagnosis(
   user: UserProfile | null,
   category: ProblemCategory
 ): string {
-  const role = user?.role || 'ChiefStrategyOfficer';
   const industry = user?.industry || 'Technology';
-  const maturity = user?.maturityLevel || 'Enterprise';
+  const plan = user?.plan || 'Enterprise';
   const company = user?.company || 'your organization';
+  const roleLabel = user?.role === 'KeyUser' ? 'strategic leader' : user?.role === 'Admin' ? 'administrator' : 'team member';
 
   const diagnosisTemplates: Record<ProblemCategory, string[]> = {
     risk: [
-      `Based on typical ${industry} sector patterns and ${maturity} organizational profiles, I've identified key risk clusters that warrant attention.`,
+      `Based on typical ${industry} sector patterns and ${plan}-tier organizational profiles, I've identified key risk clusters that warrant attention.`,
       `For ${company}, the strategic risk landscape shows elevated concentration in operational and market-facing dimensions.`,
-      `As a ${role.replace(/([A-Z])/g, ' $1').trim()}, your visibility into cross-functional risks is critical.`,
+      `As a ${roleLabel}, your visibility into cross-functional risks is critical.`,
     ],
     growth: [
-      `Analyzing growth potential for ${maturity} organizations in ${industry}, several strategic pathways emerge.`,
+      `Analyzing growth potential for ${plan}-tier organizations in ${industry}, several strategic pathways emerge.`,
       `${company}'s current position suggests opportunities in both organic expansion and strategic partnerships.`,
-      `Growth scenarios should balance ambition with execution capacity, particularly given your ${maturity} stage.`,
+      `Growth scenarios should balance ambition with execution capacity, particularly given your current stage.`,
     ],
     execution: [
-      `Execution velocity for ${maturity} organizations typically correlates with decision-making clarity and resource alignment.`,
+      `Execution velocity for ${plan}-tier organizations typically correlates with decision-making clarity and resource alignment.`,
       `Common bottlenecks in ${industry} include cross-functional coordination and technology dependencies.`,
       `For ${company}, I recommend focusing on the initiatives with highest strategic impact-to-effort ratios.`,
     ],
     portfolio: [
       `Portfolio health assessment for ${company} reveals opportunities for rebalancing and prioritization.`,
       `${industry} best practices suggest maintaining a mix of core, adjacent, and transformational initiatives.`,
-      `As a ${maturity} organization, your portfolio should reflect both stability and growth ambitions.`,
+      `At the ${plan} tier, your portfolio should reflect both stability and growth ambitions.`,
     ],
     transformation: [
-      `Digital maturity in ${industry} varies significantly; ${maturity} organizations typically have established foundations but gaps in advanced capabilities.`,
+      `Digital maturity in ${industry} varies significantly; ${plan}-tier organizations typically have established foundations but gaps in advanced capabilities.`,
       `Transformation success requires alignment between technology investments and business model evolution.`,
       `For ${company}, a phased approach will reduce execution risk while building momentum.`,
     ],
     governance: [
-      `Effective governance for ${maturity} organizations balances oversight with agility.`,
+      `Effective governance for ${plan}-tier organizations balances oversight with agility.`,
       `${industry} regulatory landscape requires proactive stakeholder communication and transparent reporting.`,
       `Board-ready materials should emphasize strategic optionality and risk-adjusted scenarios.`,
     ],

@@ -4,7 +4,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Persona, Scenario } from '@/lib/demoData';
 import type { UserProfile } from '@/lib/users';
-import { roleToPersona } from '@/lib/users';
 
 interface AppState {
   // Current user
@@ -52,7 +51,7 @@ export const useAppState = create<AppState>()(
       currentUser: null,
       setCurrentUser: (user) => set({
         currentUser: user,
-        currentPersona: user ? roleToPersona[user.role] : 'strategy-leader',
+        currentPersona: 'strategy-leader', // Default persona for all users
       }),
       logout: () => set({
         currentUser: null,

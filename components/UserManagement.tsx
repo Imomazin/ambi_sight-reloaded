@@ -6,7 +6,6 @@ import {
   UserRole,
   Plan,
   Industry,
-  MaturityLevel,
   demoUsers,
   roleDisplayNames,
   roleShortNames,
@@ -19,11 +18,9 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-maya',
     name: 'Maya Patel',
-    role: 'ChiefStrategyOfficer',
+    role: 'User',
     company: 'Sunrise Retail',
     industry: 'Retail',
-    maturityLevel: 'ScaleUp',
-    region: 'Asia Pacific',
     plan: 'Pro',
     avatar: 'MP',
     email: 'maya.patel@sunriseretail.in',
@@ -32,11 +29,9 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-erik',
     name: 'Erik Johansson',
-    role: 'ChiefRiskOfficer',
+    role: 'User',
     company: 'Nordic Energy Group',
     industry: 'Energy',
-    maturityLevel: 'Enterprise',
-    region: 'Europe',
     plan: 'Enterprise',
     avatar: 'EJ',
     email: 'erik.johansson@nordicenergy.se',
@@ -45,12 +40,10 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-fatima',
     name: 'Fatima Al-Hassan',
-    role: 'OperationsLead',
+    role: 'Admin',
     company: 'Gulf Manufacturing',
     industry: 'Manufacturing',
-    maturityLevel: 'Enterprise',
-    region: 'Middle East',
-    plan: 'Pro',
+    plan: 'Enterprise',
     avatar: 'FA',
     email: 'fatima.alhassan@gulfmfg.ae',
     lastActive: '2024-01-15T11:45:00Z',
@@ -58,11 +51,9 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-carlos',
     name: 'Carlos Rivera',
-    role: 'ChiefTechnologyOfficer',
+    role: 'User',
     company: 'LatAm Consulting',
     industry: 'Consulting',
-    maturityLevel: 'ScaleUp',
-    region: 'Latin America',
     plan: 'Free',
     avatar: 'CR',
     email: 'carlos.rivera@latamconsulting.mx',
@@ -71,11 +62,9 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-jennifer',
     name: 'Jennifer Wong',
-    role: 'ChiefStrategyOfficer',
+    role: 'KeyUser',
     company: 'Pacific Healthcare',
     industry: 'Healthcare',
-    maturityLevel: 'Enterprise',
-    region: 'Asia Pacific',
     plan: 'Enterprise',
     avatar: 'JW',
     email: 'jennifer.wong@pacifichc.sg',
@@ -84,11 +73,9 @@ const allUsers: UserProfile[] = [
   {
     id: 'user-david',
     name: 'David Okonkwo',
-    role: 'OperationsLead',
+    role: 'User',
     company: 'AfriTech Startup',
     industry: 'Technology',
-    maturityLevel: 'Startup',
-    region: 'Africa',
     plan: 'Free',
     avatar: 'DO',
     email: 'david.okonkwo@afritech.ng',
@@ -105,13 +92,7 @@ interface UserEditModalProps {
 function UserEditModal({ user, onClose, onSave }: UserEditModalProps) {
   const [editedUser, setEditedUser] = useState<UserProfile>({ ...user });
 
-  const roles: UserRole[] = [
-    'ChiefStrategyOfficer',
-    'ChiefRiskOfficer',
-    'ChiefTechnologyOfficer',
-    'OperationsLead',
-    'Administrator',
-  ];
+  const roles: UserRole[] = ['KeyUser', 'Admin', 'User'];
 
   const plans: Plan[] = ['Free', 'Pro', 'Enterprise'];
 
@@ -125,10 +106,8 @@ function UserEditModal({ user, onClose, onSave }: UserEditModalProps) {
     'Logistics',
     'Public Sector',
     'Consulting',
-    'Internal',
+    'Other',
   ];
-
-  const maturityLevels: MaturityLevel[] = ['Startup', 'ScaleUp', 'Enterprise', 'PublicSector'];
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -184,19 +163,24 @@ function UserEditModal({ user, onClose, onSave }: UserEditModalProps) {
               <label className="block text-sm font-medium text-gray-400 mb-2">Company</label>
               <input
                 type="text"
-                value={editedUser.company}
+                value={editedUser.company || ''}
                 onChange={(e) => setEditedUser({ ...editedUser, company: e.target.value })}
                 className="w-full px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-teal-400"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">Region</label>
-              <input
-                type="text"
-                value={editedUser.region}
-                onChange={(e) => setEditedUser({ ...editedUser, region: e.target.value })}
-                className="w-full px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-teal-400"
-              />
+              <label className="block text-sm font-medium text-gray-400 mb-2">Industry</label>
+              <select
+                value={editedUser.industry || 'Other'}
+                onChange={(e) => setEditedUser({ ...editedUser, industry: e.target.value as Industry })}
+                className="w-full px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-400"
+              >
+                {industries.map((industry) => (
+                  <option key={industry} value={industry}>
+                    {industry}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -226,38 +210,6 @@ function UserEditModal({ user, onClose, onSave }: UserEditModalProps) {
                 {plans.map((plan) => (
                   <option key={plan} value={plan}>
                     {plan}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Industry & Maturity */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">Industry</label>
-              <select
-                value={editedUser.industry}
-                onChange={(e) => setEditedUser({ ...editedUser, industry: e.target.value as Industry })}
-                className="w-full px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-400"
-              >
-                {industries.map((industry) => (
-                  <option key={industry} value={industry}>
-                    {industry}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">Maturity Level</label>
-              <select
-                value={editedUser.maturityLevel}
-                onChange={(e) => setEditedUser({ ...editedUser, maturityLevel: e.target.value as MaturityLevel })}
-                className="w-full px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-400"
-              >
-                {maturityLevels.map((level) => (
-                  <option key={level} value={level}>
-                    {level}
                   </option>
                 ))}
               </select>
@@ -312,7 +264,7 @@ export default function UserManagement() {
         (user) =>
           user.name.toLowerCase().includes(query) ||
           user.email.toLowerCase().includes(query) ||
-          user.company.toLowerCase().includes(query)
+          (user.company && user.company.toLowerCase().includes(query))
       );
     }
 
@@ -347,11 +299,9 @@ export default function UserManagement() {
   const stats = useMemo(() => {
     const planCounts = { Free: 0, Pro: 0, Enterprise: 0 };
     const roleCounts: Record<UserRole, number> = {
-      ChiefStrategyOfficer: 0,
-      ChiefRiskOfficer: 0,
-      ChiefTechnologyOfficer: 0,
-      OperationsLead: 0,
-      Administrator: 0,
+      KeyUser: 0,
+      Admin: 0,
+      User: 0,
     };
 
     users.forEach((user) => {
@@ -490,11 +440,9 @@ export default function UserManagement() {
             className="px-4 py-2.5 bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-400"
           >
             <option value="all">All Roles</option>
-            <option value="ChiefStrategyOfficer">Chief Strategy Officer</option>
-            <option value="ChiefRiskOfficer">Chief Risk Officer</option>
-            <option value="ChiefTechnologyOfficer">Chief Technology Officer</option>
-            <option value="OperationsLead">Operations Lead</option>
-            <option value="Administrator">Administrator</option>
+            <option value="KeyUser">Key User</option>
+            <option value="Admin">Administrator</option>
+            <option value="User">User</option>
           </select>
 
           {/* Add User Button */}

@@ -1,13 +1,7 @@
-// User Profiles and Demo Users for Lumina S
+// User Profiles for Lumina S
+// Simplified user system with three main roles
 
-export type UserRole =
-  | 'ChiefStrategyOfficer'
-  | 'ChiefRiskOfficer'
-  | 'ChiefTechnologyOfficer'
-  | 'OperationsLead'
-  | 'Administrator';
-
-export type MaturityLevel = 'Startup' | 'ScaleUp' | 'Enterprise' | 'PublicSector';
+export type UserRole = 'KeyUser' | 'Admin' | 'User';
 
 export type Plan = 'Free' | 'Pro' | 'Enterprise';
 
@@ -21,38 +15,39 @@ export type Industry =
   | 'Logistics'
   | 'Public Sector'
   | 'Consulting'
-  | 'Internal';
+  | 'Other';
 
 export interface UserProfile {
   id: string;
   name: string;
-  role: UserRole;
-  company: string;
-  industry: Industry;
-  maturityLevel: MaturityLevel;
-  region: string;
-  plan: Plan;
-  avatar: string;
   email: string;
+  role: UserRole;
+  plan: Plan;
+  company?: string;
+  industry?: Industry;
+  avatar: string;
   lastActive: string;
 }
 
 // Role display names
 export const roleDisplayNames: Record<UserRole, string> = {
-  ChiefStrategyOfficer: 'Chief Strategy Officer',
-  ChiefRiskOfficer: 'Chief Risk Officer',
-  ChiefTechnologyOfficer: 'Chief Technology Officer',
-  OperationsLead: 'Operations Lead',
-  Administrator: 'Platform Administrator',
+  KeyUser: 'Key User',
+  Admin: 'Administrator',
+  User: 'User',
 };
 
-// Role short names
+// Role descriptions
+export const roleDescriptions: Record<UserRole, string> = {
+  KeyUser: 'Full access to all platform features and capabilities',
+  Admin: 'Platform administration with limited feature access',
+  User: 'Access based on subscription plan (Free, Pro, Enterprise)',
+};
+
+// Short names for compact display
 export const roleShortNames: Record<UserRole, string> = {
-  ChiefStrategyOfficer: 'CSO',
-  ChiefRiskOfficer: 'CRO',
-  ChiefTechnologyOfficer: 'CTO',
-  OperationsLead: 'Ops Lead',
-  Administrator: 'Admin',
+  KeyUser: 'Key User',
+  Admin: 'Admin',
+  User: 'User',
 };
 
 // Plan colors for badges
@@ -62,91 +57,80 @@ export const planColors: Record<Plan, { bg: string; text: string; border: string
   Enterprise: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
 };
 
-// Role to Persona mapping (for backwards compatibility with existing persona system)
-export const roleToPersona: Record<UserRole, 'strategy-leader' | 'risk-officer' | 'product-owner' | 'admin'> = {
-  ChiefStrategyOfficer: 'strategy-leader',
-  ChiefRiskOfficer: 'risk-officer',
-  ChiefTechnologyOfficer: 'product-owner',
-  OperationsLead: 'product-owner',
-  Administrator: 'admin',
+// Role colors for badges
+export const roleColors: Record<UserRole, { bg: string; text: string; border: string }> = {
+  KeyUser: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
+  Admin: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
+  User: { bg: 'bg-gray-500/20', text: 'text-gray-400', border: 'border-gray-500/30' },
 };
 
-// Demo users with diverse profiles
+// Demo users
 export const demoUsers: UserProfile[] = [
   {
-    id: 'user-sarah',
-    name: 'Sarah Chen',
-    role: 'ChiefStrategyOfficer',
-    company: 'GlobalTech Industries',
+    id: 'key-user-demo',
+    name: 'Demo Key User',
+    email: 'keyuser@lumina-s.com',
+    role: 'KeyUser',
+    plan: 'Enterprise',
+    company: 'Lumina S Demo',
     industry: 'Technology',
-    maturityLevel: 'Enterprise',
-    region: 'North America',
-    plan: 'Pro',
-    avatar: 'SC',
-    email: 'sarah.chen@globaltech.com',
-    lastActive: '2024-01-15T10:30:00Z',
+    avatar: 'KU',
+    lastActive: new Date().toISOString(),
   },
   {
-    id: 'user-ibrahim',
-    name: 'Ibrahim Malik',
-    role: 'ChiefRiskOfficer',
-    company: 'Pan African Bank',
-    industry: 'Financial Services',
-    maturityLevel: 'Enterprise',
-    region: 'Africa',
+    id: 'admin-demo',
+    name: 'Demo Admin',
+    email: 'admin@lumina-s.com',
+    role: 'Admin',
     plan: 'Enterprise',
-    avatar: 'IM',
-    email: 'ibrahim.malik@pab.co.za',
-    lastActive: '2024-01-15T09:15:00Z',
-  },
-  {
-    id: 'user-lena',
-    name: 'Lena Ortiz',
-    role: 'ChiefTechnologyOfficer',
-    company: 'MedTech Innovations',
-    industry: 'Healthcare',
-    maturityLevel: 'ScaleUp',
-    region: 'Europe',
-    plan: 'Free',
-    avatar: 'LO',
-    email: 'lena.ortiz@medtech.io',
-    lastActive: '2024-01-14T16:45:00Z',
-  },
-  {
-    id: 'user-amir',
-    name: 'Amir Shah',
-    role: 'OperationsLead',
-    company: 'FastFreight Logistics',
-    industry: 'Logistics',
-    maturityLevel: 'ScaleUp',
-    region: 'Middle East',
-    plan: 'Pro',
-    avatar: 'AS',
-    email: 'amir.shah@fastfreight.ae',
-    lastActive: '2024-01-15T08:00:00Z',
-  },
-  {
-    id: 'user-admin',
-    name: 'Platform Admin',
-    role: 'Administrator',
-    company: 'Ambidexters',
-    industry: 'Internal',
-    maturityLevel: 'Enterprise',
-    region: 'Global',
-    plan: 'Enterprise',
+    company: 'Lumina S Demo',
+    industry: 'Technology',
     avatar: 'AD',
-    email: 'admin@ambidexters.com',
-    lastActive: '2024-01-15T11:00:00Z',
+    lastActive: new Date().toISOString(),
+  },
+  {
+    id: 'user-free-demo',
+    name: 'Free User',
+    email: 'free@example.com',
+    role: 'User',
+    plan: 'Free',
+    company: 'Startup Inc',
+    industry: 'Technology',
+    avatar: 'FU',
+    lastActive: new Date().toISOString(),
+  },
+  {
+    id: 'user-pro-demo',
+    name: 'Pro User',
+    email: 'pro@example.com',
+    role: 'User',
+    plan: 'Pro',
+    company: 'Growth Corp',
+    industry: 'Financial Services',
+    avatar: 'PU',
+    lastActive: new Date().toISOString(),
+  },
+  {
+    id: 'user-enterprise-demo',
+    name: 'Enterprise User',
+    email: 'enterprise@example.com',
+    role: 'User',
+    plan: 'Enterprise',
+    company: 'Global Enterprises',
+    industry: 'Manufacturing',
+    avatar: 'EU',
+    lastActive: new Date().toISOString(),
   },
 ];
 
-// Feature access control based on plan
+// Feature access control
 export interface FeatureAccess {
   id: string;
   name: string;
   description: string;
   requiredPlan: Plan;
   category: 'dashboard' | 'tools' | 'advisor' | 'reports' | 'admin';
+  keyUserOnly?: boolean; // Some features might be Key User only
 }
 
 export const featureAccessList: FeatureAccess[] = [
@@ -164,28 +148,74 @@ export const featureAccessList: FeatureAccess[] = [
   { id: 'risk-simulation', name: 'Risk Simulation', description: 'Monte Carlo risk simulations', requiredPlan: 'Enterprise', category: 'tools' },
 
   // Advisor features
-  { id: 'basic-advisor', name: 'Basic AI Advisor', description: 'Ask simple strategy questions', requiredPlan: 'Free', category: 'advisor' },
+  { id: 'basic-advisor', name: 'Strategic Advisor', description: 'Ask strategy questions', requiredPlan: 'Free', category: 'advisor' },
   { id: 'guided-diagnosis', name: 'Guided Diagnosis', description: 'Structured problem diagnosis', requiredPlan: 'Pro', category: 'advisor' },
-  { id: 'tool-recommendations', name: 'Tool Recommendations', description: 'AI-powered tool suggestions', requiredPlan: 'Pro', category: 'advisor' },
-  { id: 'consulting-connect', name: 'Consulting Connect', description: 'Direct access to Ambidexters consultants', requiredPlan: 'Enterprise', category: 'advisor' },
+  { id: 'tool-recommendations', name: 'Tool Recommendations', description: 'Personalized tool suggestions', requiredPlan: 'Pro', category: 'advisor' },
+  { id: 'consulting-connect', name: 'Consulting Connect', description: 'Direct access to strategy consultants', requiredPlan: 'Enterprise', category: 'advisor' },
 
-  // Admin features
+  // Admin features (Admin and KeyUser only)
   { id: 'user-management', name: 'User Management', description: 'Manage team members and roles', requiredPlan: 'Enterprise', category: 'admin' },
   { id: 'audit-logs', name: 'Audit Logs', description: 'Track all platform activity', requiredPlan: 'Enterprise', category: 'admin' },
+  { id: 'system-config', name: 'System Configuration', description: 'Configure platform settings', requiredPlan: 'Enterprise', category: 'admin', keyUserOnly: true },
 ];
 
 // Helper function to check if a user has access to a feature
-export function hasFeatureAccess(userPlan: Plan, requiredPlan: Plan): boolean {
+export function hasFeatureAccess(user: UserProfile | null, featureId: string): boolean {
+  if (!user) return false;
+
+  const feature = featureAccessList.find(f => f.id === featureId);
+  if (!feature) return false;
+
+  // Key Users have access to EVERYTHING
+  if (user.role === 'KeyUser') return true;
+
+  // Key User only features
+  if (feature.keyUserOnly) return false;
+
+  // Admin can access admin features
+  if (feature.category === 'admin' && user.role === 'Admin') return true;
+
+  // Check plan-based access for regular users
+  const planHierarchy: Plan[] = ['Free', 'Pro', 'Enterprise'];
+  return planHierarchy.indexOf(user.plan) >= planHierarchy.indexOf(feature.requiredPlan);
+}
+
+// Helper to check plan hierarchy only (for backwards compatibility)
+export function hasPlanAccess(userPlan: Plan, requiredPlan: Plan): boolean {
   const planHierarchy: Plan[] = ['Free', 'Pro', 'Enterprise'];
   return planHierarchy.indexOf(userPlan) >= planHierarchy.indexOf(requiredPlan);
 }
 
-// Helper function to get features available to a plan
-export function getFeaturesForPlan(plan: Plan): FeatureAccess[] {
-  return featureAccessList.filter(feature => hasFeatureAccess(plan, feature.requiredPlan));
+// Helper function to get features available to a user
+export function getFeaturesForUser(user: UserProfile | null): FeatureAccess[] {
+  if (!user) return [];
+  return featureAccessList.filter(feature => hasFeatureAccess(user, feature.id));
 }
 
-// Helper function to get locked features for a plan
-export function getLockedFeaturesForPlan(plan: Plan): FeatureAccess[] {
-  return featureAccessList.filter(feature => !hasFeatureAccess(plan, feature.requiredPlan));
+// Helper function to get locked features for a user
+export function getLockedFeaturesForUser(user: UserProfile | null): FeatureAccess[] {
+  if (!user) return featureAccessList;
+  return featureAccessList.filter(feature => !hasFeatureAccess(user, feature.id));
+}
+
+// Check if user can access admin features
+export function isAdmin(user: UserProfile | null): boolean {
+  if (!user) return false;
+  return user.role === 'KeyUser' || user.role === 'Admin';
+}
+
+// Get effective access level description
+export function getAccessLevelDescription(user: UserProfile | null): string {
+  if (!user) return 'No access - Please sign in';
+
+  switch (user.role) {
+    case 'KeyUser':
+      return 'Full Access - All features unlocked';
+    case 'Admin':
+      return 'Admin Access - Platform administration';
+    case 'User':
+      return `${user.plan} Plan - ${user.plan === 'Enterprise' ? 'All' : user.plan === 'Pro' ? 'Most' : 'Basic'} features`;
+    default:
+      return 'Limited access';
+  }
 }
