@@ -50,8 +50,41 @@ function generateTrendingValue(
   return currentValue + trend + noiseComponent;
 }
 
-// Real-time data hook for KPIs
-export function useRealTimeKPIs(
+// Default dashboard KPIs
+const defaultDashboardKPIs = [
+  { id: 'portfolioHealth', value: 82 },
+  { id: 'strategicAgility', value: 74 },
+  { id: 'riskExposure', value: 43 },
+  { id: 'roiTrajectory', value: 19.5 },
+];
+
+// Simplified hook for dashboard with default KPIs
+export function useRealTimeKPIs(updateInterval: number = 3000) {
+  const [kpis, setKpis] = useState({
+    portfolioHealth: 82,
+    strategicAgility: 74,
+    riskExposure: 43,
+    roiTrajectory: 19.5,
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setKpis(prev => ({
+        portfolioHealth: Math.round(generateFluctuation(prev.portfolioHealth, 0.01) * 10) / 10,
+        strategicAgility: Math.round(generateFluctuation(prev.strategicAgility, 0.012) * 10) / 10,
+        riskExposure: Math.round(generateFluctuation(prev.riskExposure, 0.015) * 10) / 10,
+        roiTrajectory: Math.round(generateFluctuation(prev.roiTrajectory, 0.008) * 10) / 10,
+      }));
+    }, updateInterval);
+
+    return () => clearInterval(interval);
+  }, [updateInterval]);
+
+  return { kpis };
+}
+
+// Full real-time data hook for KPIs with custom initial values
+export function useRealTimeKPIsFull(
   initialKPIs: { id: string; value: number }[],
   updateInterval: number = 3000
 ) {
