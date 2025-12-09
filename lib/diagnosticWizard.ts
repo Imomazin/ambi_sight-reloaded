@@ -257,11 +257,17 @@ export function generateDiagnosisResult(
   urgencyId: string,
   scopeId: string,
   capabilityAnswers: Record<string, string>,
-  userPlan: Plan
+  userPlan: Plan,
+  allChallengeIds?: string[] // Optional: all selected challenges for multi-select
 ): DiagnosisResult {
   const challenge = challengeCategories.find(c => c.id === challengeId)!;
   const urgency = urgencyLevels.find(u => u.id === urgencyId)!;
   const scope = scopeLevels.find(s => s.id === scopeId)!;
+
+  // Get all selected challenges (or just the primary one)
+  const selectedChallenges = allChallengeIds && allChallengeIds.length > 0
+    ? allChallengeIds.map(id => challengeCategories.find(c => c.id === id)!).filter(Boolean)
+    : [challenge];
 
   // Calculate capability scores
   const capabilityScores: Record<string, number> = {};
@@ -275,9 +281,14 @@ export function generateDiagnosisResult(
   });
   const overallMaturity = totalScore / capabilityQuestions.length;
 
-  // Get tools from related categories
+  // Get tools from related categories of ALL selected challenges
+  const allRelatedCategories = new Set<string>();
+  selectedChallenges.forEach(ch => {
+    ch.relatedCategories.forEach(cat => allRelatedCategories.add(cat));
+  });
+
   const relatedTools = strategyToolsLibrary.filter(t =>
-    challenge.relatedCategories.includes(t.category)
+    allRelatedCategories.has(t.category)
   );
 
   // Filter by plan access
