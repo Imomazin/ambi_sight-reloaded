@@ -17,7 +17,7 @@ export default function LockedFeature({
   featureName,
   className = '',
 }: LockedFeatureProps) {
-  const planHierarchy: Plan[] = ['Free', 'Pro', 'Enterprise'];
+  const planHierarchy: Plan[] = ['Free', 'Starter', 'Pro', 'Enterprise'];
   const hasAccess = planHierarchy.indexOf(currentPlan) >= planHierarchy.indexOf(requiredPlan);
   const colors = planColors[requiredPlan];
 

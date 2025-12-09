@@ -19,7 +19,7 @@ function PlanCard({
 }) {
   const price = isAnnual ? plan.price.annual : plan.price.monthly;
   const isCurrentPlan = currentPlan === plan.id;
-  const planHierarchy: Record<Plan, number> = { Free: 0, Pro: 1, Enterprise: 2 };
+  const planHierarchy: Record<Plan, number> = { Free: 0, Starter: 1, Pro: 2, Enterprise: 3 };
   const isDowngrade = currentPlan && planHierarchy[currentPlan] > planHierarchy[plan.id];
 
   return (
@@ -202,7 +202,7 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-2xl font-bold text-white">
-              Ambi<span className="text-blue-500">Sight</span>
+              Lumina <span className="text-blue-500">S</span>
             </Link>
             <div className="flex items-center gap-4">
               <Link href="/tools" className="text-slate-400 hover:text-white text-sm transition-colors">
@@ -254,7 +254,7 @@ export default function PricingPage() {
 
       {/* Pricing Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pricingPlans.map(plan => (
             <PlanCard
               key={plan.id}

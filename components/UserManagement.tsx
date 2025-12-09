@@ -286,7 +286,7 @@ export default function UserManagement() {
       } else if (sortField === 'lastActive') {
         comparison = new Date(a.lastActive).getTime() - new Date(b.lastActive).getTime();
       } else if (sortField === 'plan') {
-        const planOrder = { Free: 0, Pro: 1, Enterprise: 2 };
+        const planOrder: Record<Plan, number> = { Free: 0, Starter: 1, Pro: 2, Enterprise: 3 };
         comparison = planOrder[a.plan] - planOrder[b.plan];
       }
       return sortOrder === 'asc' ? comparison : -comparison;
@@ -297,7 +297,7 @@ export default function UserManagement() {
 
   // Statistics
   const stats = useMemo(() => {
-    const planCounts = { Free: 0, Pro: 0, Enterprise: 0 };
+    const planCounts: Record<Plan, number> = { Free: 0, Starter: 0, Pro: 0, Enterprise: 0 };
     const roleCounts: Record<UserRole, number> = {
       KeyUser: 0,
       Admin: 0,

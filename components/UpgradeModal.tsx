@@ -174,10 +174,11 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
 
 // Small upgrade tag for inline use
 export function UpgradeTag({ plan }: { plan: Plan }) {
-  const colors = {
-    Pro: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    Enterprise: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+  const colors: Record<Plan, string> = {
     Free: 'bg-slate-500/20 text-slate-400 border-slate-500/30',
+    Starter: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+    Pro: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+    Enterprise: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
   };
 
   return (

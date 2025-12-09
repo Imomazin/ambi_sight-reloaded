@@ -3,7 +3,7 @@
 
 export type UserRole = 'KeyUser' | 'Admin' | 'User';
 
-export type Plan = 'Free' | 'Pro' | 'Enterprise';
+export type Plan = 'Free' | 'Starter' | 'Pro' | 'Enterprise';
 
 export type Industry =
   | 'Technology'
@@ -53,6 +53,7 @@ export const roleShortNames: Record<UserRole, string> = {
 // Plan colors for badges
 export const planColors: Record<Plan, { bg: string; text: string; border: string }> = {
   Free: { bg: 'bg-gray-500/20', text: 'text-gray-400', border: 'border-gray-500/30' },
+  Starter: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
   Pro: { bg: 'bg-teal-500/20', text: 'text-teal-400', border: 'border-teal-500/30' },
   Enterprise: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
 };
@@ -97,6 +98,17 @@ export const demoUsers: UserProfile[] = [
     company: 'Startup Inc',
     industry: 'Technology',
     avatar: 'FU',
+    lastActive: new Date().toISOString(),
+  },
+  {
+    id: 'user-starter-demo',
+    name: 'Starter User',
+    email: 'starter@example.com',
+    role: 'User',
+    plan: 'Starter',
+    company: 'Growing Business',
+    industry: 'Retail',
+    avatar: 'SU',
     lastActive: new Date().toISOString(),
   },
   {
@@ -176,13 +188,13 @@ export function hasFeatureAccess(user: UserProfile | null, featureId: string): b
   if (feature.category === 'admin' && user.role === 'Admin') return true;
 
   // Check plan-based access for regular users
-  const planHierarchy: Plan[] = ['Free', 'Pro', 'Enterprise'];
+  const planHierarchy: Plan[] = ['Free', 'Starter', 'Pro', 'Enterprise'];
   return planHierarchy.indexOf(user.plan) >= planHierarchy.indexOf(feature.requiredPlan);
 }
 
 // Helper to check plan hierarchy only (for backwards compatibility)
 export function hasPlanAccess(userPlan: Plan, requiredPlan: Plan): boolean {
-  const planHierarchy: Plan[] = ['Free', 'Pro', 'Enterprise'];
+  const planHierarchy: Plan[] = ['Free', 'Starter', 'Pro', 'Enterprise'];
   return planHierarchy.indexOf(userPlan) >= planHierarchy.indexOf(requiredPlan);
 }
 
@@ -214,7 +226,13 @@ export function getAccessLevelDescription(user: UserProfile | null): string {
     case 'Admin':
       return 'Admin Access - Platform administration';
     case 'User':
-      return `${user.plan} Plan - ${user.plan === 'Enterprise' ? 'All' : user.plan === 'Pro' ? 'Most' : 'Basic'} features`;
+      const planDescriptions: Record<Plan, string> = {
+        Free: 'Basic',
+        Starter: 'Core',
+        Pro: 'Most',
+        Enterprise: 'All',
+      };
+      return `${user.plan} Plan - ${planDescriptions[user.plan]} features`;
     default:
       return 'Limited access';
   }

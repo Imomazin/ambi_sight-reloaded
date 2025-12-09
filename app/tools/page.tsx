@@ -26,7 +26,7 @@ function ToolCard({
   userPlan: Plan;
   onSelect: (tool: StrategyToolFull) => void;
 }) {
-  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
   const hasAccess = planHierarchy[userPlan] >= planHierarchy[tool.requiredPlan];
 
   return (
@@ -88,7 +88,7 @@ function ToolDetailModal({
   onClose: () => void;
   onSelectRelated: (tool: StrategyToolFull) => void;
 }) {
-  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
   const hasAccess = planHierarchy[userPlan] >= planHierarchy[tool.requiredPlan];
   const relatedTools = getRelatedTools(tool.id);
 
@@ -285,7 +285,7 @@ export default function StrategyToolsPage() {
 
     // Apply access filter
     if (showAccessibleOnly) {
-      const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+      const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
       tools = tools.filter(t => planHierarchy[userPlan] >= planHierarchy[t.requiredPlan]);
     }
 
@@ -303,7 +303,7 @@ export default function StrategyToolsPage() {
 
   // Stats
   const stats = useMemo(() => {
-    const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+    const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
     const accessible = strategyToolsLibrary.filter(t => planHierarchy[userPlan] >= planHierarchy[t.requiredPlan]).length;
     return {
       total: strategyToolsLibrary.length,

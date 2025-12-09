@@ -292,7 +292,7 @@ export function generateDiagnosisResult(
   );
 
   // Filter by plan access
-  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
   const accessibleTools = relatedTools.filter(t =>
     planHierarchy[userPlan] >= planHierarchy[t.requiredPlan]
   );
