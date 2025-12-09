@@ -115,7 +115,7 @@ export default function Home() {
               Diagnosis
             </Link>
             <Link href="/advisor" className="text-gray-400 hover:text-white transition-colors text-sm">
-              AI Advisor
+              Advisor
             </Link>
             <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">
               Pricing
@@ -149,7 +149,7 @@ export default function Home() {
             {/* Logo mark */}
             <div className="relative w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center shadow-2xl glow-purple">
               <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function Home() {
             A fresh new build for the future of
           </p>
           <p className="text-2xl font-medium text-teal-400 mb-8">
-            AI-Driven Strategic Decision Intelligence
+            Strategic Decision Intelligence
           </p>
 
           <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
@@ -309,7 +309,7 @@ export default function Home() {
                 <li><Link href="/workspace" className="text-gray-400 hover:text-white">Workspace</Link></li>
                 <li><Link href="/tools" className="text-gray-400 hover:text-white">Tools Library</Link></li>
                 <li><Link href="/diagnosis" className="text-gray-400 hover:text-white">Diagnostic Wizard</Link></li>
-                <li><Link href="/advisor" className="text-gray-400 hover:text-white">AI Advisor</Link></li>
+                <li><Link href="/advisor" className="text-gray-400 hover:text-white">Strategic Advisor</Link></li>
               </ul>
             </div>
             <div>

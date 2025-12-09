@@ -9,7 +9,7 @@ const routeMetadata: Record<string, { label: string; icon: string; parent?: stri
   '/workspace': { label: 'Workspace', icon: '📊', parent: '/' },
   '/tools': { label: 'Strategy Tools', icon: '🧰', parent: '/' },
   '/diagnosis': { label: 'Diagnostic Wizard', icon: '🔍', parent: '/' },
-  '/advisor': { label: 'AI Advisor', icon: '🤖', parent: '/' },
+  '/advisor': { label: 'Strategic Advisor', icon: '💬', parent: '/' },
   '/pricing': { label: 'Pricing', icon: '💎', parent: '/' },
   '/scenarios': { label: 'Scenarios', icon: '📁', parent: '/workspace' },
   '/portfolio': { label: 'Portfolio', icon: '📈', parent: '/workspace' },

@@ -37,12 +37,12 @@ export default function QuickActionsPanel() {
     },
     {
       id: 'advisor',
-      label: 'Ask AI Advisor',
+      label: 'Strategic Advisor',
       description: 'Get strategic insights',
-      icon: '🤖',
+      icon: '💬',
       href: '/advisor',
       color: 'from-purple-500 to-pink-500',
-      badge: 'AI',
+      badge: 'Pro',
     },
     {
       id: 'report',

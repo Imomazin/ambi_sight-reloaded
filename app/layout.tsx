@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Lumina S | Strategic Intelligence',
-  description: 'AI-Driven Strategic Decision Intelligence Platform',
+  description: 'Strategic Decision Intelligence Platform for Modern Enterprises',
 };
 
 export default function RootLayout({

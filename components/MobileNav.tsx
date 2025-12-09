@@ -7,7 +7,7 @@ const mobileNavItems = [
   { href: '/', label: 'Home', icon: '🏠' },
   { href: '/workspace', label: 'Dashboard', icon: '📊' },
   { href: '/tools', label: 'Tools', icon: '🧰' },
-  { href: '/advisor', label: 'Advisor', icon: '🤖' },
+  { href: '/advisor', label: 'Advisor', icon: '💬' },
   { href: '/pricing', label: 'Upgrade', icon: '💎' },
 ];
 
