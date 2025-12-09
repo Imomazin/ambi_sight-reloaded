@@ -17,6 +17,7 @@ import {
 import { useAppState } from '../../state/useAppState';
 import { planColors, complexityColors } from '../../lib/strategyToolsLibrary';
 import type { Plan } from '../../lib/users';
+import DataUploadButton from '../../components/DataUploadButton';
 
 // Progress Bar Component
 function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
@@ -57,47 +58,64 @@ function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSt
   );
 }
 
-// Step 1: Challenge Selection
+// Step 1: Challenge Selection (Multiple)
 function ChallengeStep({
   selected,
   onSelect,
 }: {
-  selected: string | null;
+  selected: string[];
   onSelect: (id: string) => void;
 }) {
   return (
     <div className="space-y-4">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-white mb-2">What strategic challenge are you facing?</h2>
-        <p className="text-slate-400">Select the category that best describes your current situation</p>
+        <h2 className="text-2xl font-bold text-white mb-2">What strategic challenges are you facing?</h2>
+        <p className="text-slate-400">Select all that apply - you can choose multiple challenges</p>
+        {selected.length > 0 && (
+          <div className="mt-3 inline-flex items-center gap-2 bg-teal-500/20 text-teal-400 px-3 py-1 rounded-full text-sm">
+            <span>{selected.length} selected</span>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {challengeCategories.map(cat => (
-          <button
-            key={cat.id}
-            onClick={() => onSelect(cat.id)}
-            className={`text-left p-5 rounded-xl border transition-all ${
-              selected === cat.id
-                ? 'bg-blue-600/20 border-blue-500 ring-2 ring-blue-500/50'
-                : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
-            }`}
-          >
-            <div className="flex items-start gap-4">
-              <span className="text-3xl">{cat.icon}</span>
-              <div className="flex-1">
-                <h3 className="font-semibold text-white mb-1">{cat.title}</h3>
-                <p className="text-sm text-slate-400 mb-3">{cat.description}</p>
-                <div className="flex flex-wrap gap-1">
-                  {cat.examples.slice(0, 2).map((ex, idx) => (
-                    <span key={idx} className="text-xs bg-slate-700/50 text-slate-300 px-2 py-1 rounded">
-                      {ex}
-                    </span>
-                  ))}
+        {challengeCategories.map(cat => {
+          const isSelected = selected.includes(cat.id);
+          return (
+            <button
+              key={cat.id}
+              onClick={() => onSelect(cat.id)}
+              className={`text-left p-5 rounded-xl border transition-all ${
+                isSelected
+                  ? 'bg-teal-600/20 border-teal-500 ring-2 ring-teal-500/50'
+                  : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
+              }`}
+            >
+              <div className="flex items-start gap-4">
+                <div className="relative">
+                  <span className="text-3xl">{cat.icon}</span>
+                  {isSelected && (
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-teal-500 rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-white mb-1">{cat.title}</h3>
+                  <p className="text-sm text-slate-400 mb-3">{cat.description}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {cat.examples.slice(0, 2).map((ex, idx) => (
+                      <span key={idx} className="text-xs bg-slate-700/50 text-slate-300 px-2 py-1 rounded">
+                        {ex}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -280,7 +298,7 @@ function ResultsStep({
       {/* Suggested Approach */}
       <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-          <span>💡</span> Suggested Approach
+          <span>🧭</span> Suggested Approach
         </h3>
         <p className="text-slate-300 mb-4">{result.suggestedApproach}</p>
         <div className="flex items-center gap-4 text-sm">
@@ -432,16 +450,25 @@ export default function DiagnosisPage() {
   const userPlan = currentUser?.plan || 'Free';
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedChallenge, setSelectedChallenge] = useState<string | null>(null);
+  const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
   const [selectedUrgency, setSelectedUrgency] = useState<string | null>(null);
   const [selectedScope, setSelectedScope] = useState<string | null>(null);
   const [capabilityAnswers, setCapabilityAnswers] = useState<Record<string, string>>({});
+
+  // Toggle challenge selection (multiple allowed)
+  const handleChallengeToggle = (id: string) => {
+    setSelectedChallenges(prev =>
+      prev.includes(id)
+        ? prev.filter(c => c !== id)
+        : [...prev, id]
+    );
+  };
 
   // Check if current step is complete
   const isStepComplete = useMemo(() => {
     switch (currentStep) {
       case 0:
-        return selectedChallenge !== null;
+        return selectedChallenges.length > 0;
       case 1:
         return selectedUrgency !== null;
       case 2:
@@ -451,21 +478,22 @@ export default function DiagnosisPage() {
       default:
         return true;
     }
-  }, [currentStep, selectedChallenge, selectedUrgency, selectedScope, capabilityAnswers]);
+  }, [currentStep, selectedChallenges, selectedUrgency, selectedScope, capabilityAnswers]);
 
-  // Generate results when on last step
+  // Generate results when on last step (use first challenge as primary)
   const diagnosisResult = useMemo(() => {
-    if (currentStep === 4 && selectedChallenge && selectedUrgency && selectedScope) {
+    if (currentStep === 4 && selectedChallenges.length > 0 && selectedUrgency && selectedScope) {
       return generateDiagnosisResult(
-        selectedChallenge,
+        selectedChallenges[0], // Primary challenge
         selectedUrgency,
         selectedScope,
         capabilityAnswers,
-        userPlan
+        userPlan,
+        selectedChallenges // Pass all challenges for enhanced results
       );
     }
     return null;
-  }, [currentStep, selectedChallenge, selectedUrgency, selectedScope, capabilityAnswers, userPlan]);
+  }, [currentStep, selectedChallenges, selectedUrgency, selectedScope, capabilityAnswers, userPlan]);
 
   const handleNext = () => {
     if (isStepComplete && currentStep < wizardSteps.length - 1) {
@@ -481,7 +509,7 @@ export default function DiagnosisPage() {
 
   const handleRestart = () => {
     setCurrentStep(0);
-    setSelectedChallenge(null);
+    setSelectedChallenges([]);
     setSelectedUrgency(null);
     setSelectedScope(null);
     setCapabilityAnswers({});
@@ -495,19 +523,22 @@ export default function DiagnosisPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="text-2xl font-bold text-white">
-                Ambi<span className="text-blue-500">Sight</span>
+                Lumina <span className="text-teal-500">S</span>
               </Link>
               <span className="text-slate-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Diagnostic Wizard</h1>
             </div>
-            {currentUser && (
-              <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
-                <span className="text-sm text-slate-300">{currentUser.name}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
-                  {currentUser.plan}
-                </span>
-              </div>
-            )}
+            <div className="flex items-center gap-3">
+              <DataUploadButton label="Upload Data" variant="compact" />
+              {currentUser && (
+                <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
+                  <span className="text-sm text-slate-300">{currentUser.name}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
+                    {currentUser.plan}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -522,7 +553,7 @@ export default function DiagnosisPage() {
         {/* Step Content */}
         <div className="min-h-[500px]">
           {currentStep === 0 && (
-            <ChallengeStep selected={selectedChallenge} onSelect={setSelectedChallenge} />
+            <ChallengeStep selected={selectedChallenges} onSelect={handleChallengeToggle} />
           )}
           {currentStep === 1 && (
             <UrgencyStep selected={selectedUrgency} onSelect={setSelectedUrgency} />

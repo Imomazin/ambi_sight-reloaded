@@ -2,6 +2,7 @@
 
 import AppShell from '@/components/AppShell';
 import ScenarioCard from '@/components/ScenarioCard';
+import DataUploadButton from '@/components/DataUploadButton';
 import { useAppState } from '@/state/useAppState';
 import { scenarios } from '@/lib/demoData';
 
@@ -20,14 +21,17 @@ export default function ScenariosPage() {
             </p>
           </div>
 
-          {currentScenario && (
-            <button
-              onClick={() => setScenario(null)}
-              className="px-4 py-2 bg-navy-700 border border-navy-600 rounded-xl text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors"
-            >
-              Clear Active Scenario
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            <DataUploadButton label="Upload Scenario Data" variant="compact" />
+            {currentScenario && (
+              <button
+                onClick={() => setScenario(null)}
+                className="px-4 py-2 bg-navy-700 border border-navy-600 rounded-xl text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors"
+              >
+                Clear Active Scenario
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

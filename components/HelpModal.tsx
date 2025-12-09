@@ -28,7 +28,7 @@ export default function HelpModal() {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-navy-600">
           <div>
-            <h2 className="text-xl font-semibold text-white">Welcome to AmbiSight</h2>
+            <h2 className="text-xl font-semibold text-white">Welcome to Lumina S</h2>
             <p className="text-sm text-gray-400">Strategic Decision Intelligence Platform</p>
           </div>
           <button
@@ -52,7 +52,7 @@ export default function HelpModal() {
               The 60-Second Story
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              <strong className="text-white">AmbiSight Reloaded</strong> is an AI-powered strategic
+              <strong className="text-white">Lumina S</strong> is an AI-powered strategic
               decision intelligence platform that helps organizations navigate complexity with
               confidence. It synthesizes strategic signals, identifies risk clusters, simulates
               scenarios, and provides real-time portfolio health insights—all through an intuitive,
@@ -64,13 +64,13 @@ export default function HelpModal() {
           <div className="mb-8">
             <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
               <span className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
-                ✨
+                🎯
               </span>
               Key Features
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
-                { name: 'AI Risk Advisor', desc: 'Natural language risk intelligence' },
+                { name: 'Strategic Advisor', desc: 'Natural language strategic guidance' },
                 { name: 'Scenario Simulator', desc: 'What-if analysis for strategic bets' },
                 { name: 'Portfolio Heatmap', desc: 'Visual initiative health tracking' },
                 { name: 'Persona Views', desc: 'Role-specific dashboards and insights' },
@@ -90,7 +90,7 @@ export default function HelpModal() {
           <div>
             <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
               <span className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400">
-                💡
+                🧭
               </span>
               Try This in Your Demo
             </h3>

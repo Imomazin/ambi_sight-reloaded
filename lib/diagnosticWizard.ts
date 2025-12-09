@@ -84,7 +84,7 @@ export const challengeCategories: ChallengeCategory[] = [
     id: 'innovation-pipeline',
     title: 'Innovation & Future Readiness',
     description: 'Innovation pipeline is weak, R&D investments not paying off, or future direction unclear',
-    icon: '💡',
+    icon: '🚀',
     examples: [
       'Innovation pipeline is empty',
       'R&D spend not generating returns',
@@ -257,11 +257,17 @@ export function generateDiagnosisResult(
   urgencyId: string,
   scopeId: string,
   capabilityAnswers: Record<string, string>,
-  userPlan: Plan
+  userPlan: Plan,
+  allChallengeIds?: string[] // Optional: all selected challenges for multi-select
 ): DiagnosisResult {
   const challenge = challengeCategories.find(c => c.id === challengeId)!;
   const urgency = urgencyLevels.find(u => u.id === urgencyId)!;
   const scope = scopeLevels.find(s => s.id === scopeId)!;
+
+  // Get all selected challenges (or just the primary one)
+  const selectedChallenges = allChallengeIds && allChallengeIds.length > 0
+    ? allChallengeIds.map(id => challengeCategories.find(c => c.id === id)!).filter(Boolean)
+    : [challenge];
 
   // Calculate capability scores
   const capabilityScores: Record<string, number> = {};
@@ -275,13 +281,18 @@ export function generateDiagnosisResult(
   });
   const overallMaturity = totalScore / capabilityQuestions.length;
 
-  // Get tools from related categories
+  // Get tools from related categories of ALL selected challenges
+  const allRelatedCategories = new Set<string>();
+  selectedChallenges.forEach(ch => {
+    ch.relatedCategories.forEach(cat => allRelatedCategories.add(cat));
+  });
+
   const relatedTools = strategyToolsLibrary.filter(t =>
-    challenge.relatedCategories.includes(t.category)
+    allRelatedCategories.has(t.category)
   );
 
   // Filter by plan access
-  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Pro': 1, 'Enterprise': 2 };
+  const planHierarchy: Record<Plan, number> = { 'Free': 0, 'Starter': 1, 'Pro': 2, 'Enterprise': 3 };
   const accessibleTools = relatedTools.filter(t =>
     planHierarchy[userPlan] >= planHierarchy[t.requiredPlan]
   );

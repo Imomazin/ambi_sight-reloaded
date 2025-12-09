@@ -44,11 +44,11 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
           </div>
           <p className="text-sm text-teal-400 mb-1">{roleDisplayNames[user.role]}</p>
           <p className="text-xs text-gray-400 truncate">{user.company}</p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
-            <span>{user.industry}</span>
-            <span>-</span>
-            <span>{user.region}</span>
-          </div>
+          {user.industry && (
+            <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+              <span>{user.industry}</span>
+            </div>
+          )}
         </div>
 
         {/* Selection indicator */}
@@ -133,6 +133,10 @@ export default function UserSwitcherModal({ isOpen, onClose, navigateOnSelect = 
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-gray-500"></span>
                 <span>Free</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                <span>Starter</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-teal-500"></span>

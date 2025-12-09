@@ -7,20 +7,21 @@ import UserSwitcherPanel from '@/components/UserSwitcherPanel';
 import UserIndicator from '@/components/UserIndicator';
 import LandingCaseStudies from '@/components/LandingCaseStudies';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
+import PremiumBackground from '@/components/PremiumBackground';
 import { ConsultingPackagesShowcase, ConsultingCTA } from '@/components/ConsultingCTA';
 
 const features = [
   {
-    title: 'AI Risk Advisor',
+    title: 'Strategic Advisor',
     description:
-      'Natural language interface to query risk intelligence, identify clusters, and get actionable recommendations.',
+      'Intelligent interface to query risk intelligence, identify clusters, and get actionable recommendations.',
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={1.5}
-          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
         />
       </svg>
     ),
@@ -91,17 +92,18 @@ export default function Home() {
   const { setHelpOpen } = useAppState();
 
   return (
-    <div className="min-h-screen bg-gradient-navy">
+    <PremiumBackground>
+    <div className="min-h-screen relative z-10">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-800/80 backdrop-blur-md border-b border-navy-600">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
-            <span className="text-xl font-bold text-white">AmbiSight</span>
+            <span className="text-xl font-bold text-white">Lumina S</span>
           </div>
 
           {/* Navigation Links */}
@@ -113,7 +115,7 @@ export default function Home() {
               Diagnosis
             </Link>
             <Link href="/advisor" className="text-gray-400 hover:text-white transition-colors text-sm">
-              AI Advisor
+              Advisor
             </Link>
             <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">
               Pricing
@@ -147,21 +149,21 @@ export default function Home() {
             {/* Logo mark */}
             <div className="relative w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center shadow-2xl glow-purple">
               <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
           </div>
 
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient">AmbiSight</span>
-            <span className="text-white"> Reloaded</span>
+            <span className="text-gradient">Lumina</span>
+            <span className="text-white"> S</span>
           </h1>
 
           <p className="text-xl text-gray-300 mb-4">
             A fresh new build for the future of
           </p>
           <p className="text-2xl font-medium text-teal-400 mb-8">
-            AI-Driven Strategic Decision Intelligence
+            Strategic Decision Intelligence
           </p>
 
           <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
@@ -307,7 +309,7 @@ export default function Home() {
                 <li><Link href="/workspace" className="text-gray-400 hover:text-white">Workspace</Link></li>
                 <li><Link href="/tools" className="text-gray-400 hover:text-white">Tools Library</Link></li>
                 <li><Link href="/diagnosis" className="text-gray-400 hover:text-white">Diagnostic Wizard</Link></li>
-                <li><Link href="/advisor" className="text-gray-400 hover:text-white">AI Advisor</Link></li>
+                <li><Link href="/advisor" className="text-gray-400 hover:text-white">Strategic Advisor</Link></li>
               </ul>
             </div>
             <div>
@@ -340,7 +342,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-navy-700">
             <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <span>AmbiSight Reloaded</span>
+              <span>Lumina S</span>
               <span>•</span>
               <span>Demo Platform v1.0</span>
             </div>
@@ -353,5 +355,6 @@ export default function Home() {
 
       <HelpModal />
     </div>
+    </PremiumBackground>
   );
 }

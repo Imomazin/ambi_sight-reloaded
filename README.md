@@ -1,8 +1,8 @@
-# AmbiSight Reloaded
+# Lumina S
 
-**A fresh new build for the future of AI-driven strategic decision intelligence.**
+**Strategic Intelligence Platform - AI-driven decision intelligence for modern strategy teams.**
 
-AmbiSight Reloaded is a demo-ready platform designed to showcase AI-powered strategic decision intelligence for executives and strategy teams. It provides real-time portfolio insights, risk analysis, scenario simulation, and more—all through an intuitive, human-centered interface.
+Lumina S is a demo-ready platform designed to showcase AI-powered strategic decision intelligence for executives and strategy teams. It provides real-time portfolio insights, risk analysis, scenario simulation, predictive analytics, and more—all through an intuitive, human-centered interface.
 
 ## Features
 
@@ -10,8 +10,18 @@ AmbiSight Reloaded is a demo-ready platform designed to showcase AI-powered stra
 - **Scenario Simulator** - Model strategic alternatives and see real-time impact on KPIs
 - **Portfolio Heatmap** - Visual matrix of initiatives across key strategic dimensions
 - **Strategy Workspace** - Comprehensive dashboard with KPIs, charts, and insights
+- **Analytics Hub** - Advanced tools including scenario builder, risk matrix, and predictive analytics
 - **Multi-Persona Views** - Role-specific dashboards for different stakeholders
 - **Admin Studio** - Configure demo settings and control platform behavior
+
+## New in This Release
+
+- **Interactive Scenario Builder** - Adjust 8 variables and see real-time impact analysis
+- **Risk Correlation Matrix** - Visualize interconnected risks and cascade patterns
+- **Predictive Analytics** - AI-powered forecasts with confidence intervals
+- **Executive Summary Generator** - One-click board-ready reports
+- **Notification System** - Real-time alerts with threshold monitoring
+- **20+ Animations** - Smooth transitions and micro-interactions
 
 ## Personas
 
@@ -58,26 +68,26 @@ This project is optimized for StackBlitz. Simply open the repository in StackBli
 ## Project Structure
 
 ```
-ambi_sight-reloaded/
+lumina-s/
 ├── app/
 │   ├── layout.tsx         # Root layout
 │   ├── page.tsx           # Landing page
 │   ├── workspace/         # Strategy Workspace Dashboard
+│   ├── analytics/         # Analytics Hub (NEW)
 │   ├── advisor/           # AI Risk Advisor
 │   ├── scenarios/         # Scenario Library
 │   ├── portfolio/         # Portfolio Heatmap
 │   └── admin/             # Admin Studio
 ├── components/
 │   ├── AppShell.tsx       # Layout wrapper with nav and sidebar
-│   ├── Navbar.tsx         # Top navigation bar
-│   ├── SidebarNav.tsx     # Side navigation
-│   ├── PersonaSwitcher.tsx# Persona selection dropdown
-│   ├── KpiCard.tsx        # KPI display card
-│   ├── ChartCard.tsx      # Chart wrapper component
-│   ├── InsightFeed.tsx    # AI insights panel
-│   ├── ScenarioCard.tsx   # Scenario display card
-│   ├── HeatmapGrid.tsx    # Portfolio heatmap matrix
-│   └── HelpModal.tsx      # Help and onboarding modal
+│   ├── ScenarioBuilder.tsx    # Interactive scenario tool (NEW)
+│   ├── RiskCorrelationMatrix.tsx # Risk visualization (NEW)
+│   ├── PredictiveAnalytics.tsx   # AI forecasting (NEW)
+│   ├── ExecutiveSummary.tsx      # Report generator (NEW)
+│   ├── NotificationPanel.tsx     # Alert system (NEW)
+│   └── ...
+├── hooks/
+│   └── useRealTimeData.ts # Real-time data hooks (NEW)
 ├── lib/
 │   └── demoData.ts        # Mock data and types
 ├── state/
@@ -89,6 +99,13 @@ ambi_sight-reloaded/
 
 ### Scenario Loading
 Select a scenario from the Scenario Library to see KPIs and charts update in real-time across the platform.
+
+### Analytics Hub
+Access advanced analytics tools:
+- **Scenario Builder** - Interactive what-if analysis with sliders
+- **Risk Matrix** - Correlation analysis between risk factors
+- **Predictive Analytics** - AI-powered forecasts with confidence bands
+- **Executive Summary** - Generate board-ready reports
 
 ### Admin Controls
 Switch to the Admin persona to access:
@@ -132,4 +149,4 @@ This is a demo platform for educational and demonstration purposes.
 
 ---
 
-Built with ❤️ for strategic decision intelligence.
+Built with precision for strategic decision intelligence.

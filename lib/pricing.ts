@@ -8,7 +8,7 @@ export interface PlanFeature {
   name: string;
   description: string;
   includedIn: Plan[];
-  limit?: { Free?: number | string; Pro?: number | string; Enterprise?: number | string };
+  limit?: { Free?: number | string; Starter?: number | string; Pro?: number | string; Enterprise?: number | string };
 }
 
 export interface PricingPlan {
@@ -39,34 +39,34 @@ export const planFeatures: PlanFeature[] = [
     id: 'strategy-tools',
     name: 'Strategy Tools',
     description: 'Access to strategy frameworks and tools',
-    includedIn: ['Free', 'Pro', 'Enterprise'],
-    limit: { Free: '15 tools', Pro: '40 tools', Enterprise: '50+ tools' },
+    includedIn: ['Free', 'Starter', 'Pro', 'Enterprise'],
+    limit: { Free: '15 tools', Starter: '25 tools', Pro: '40 tools', Enterprise: '50+ tools' },
   },
   {
     id: 'ai-advisor',
     name: 'AI Strategy Advisor',
     description: 'AI-powered strategic recommendations',
-    includedIn: ['Free', 'Pro', 'Enterprise'],
-    limit: { Free: '5 queries/month', Pro: '100 queries/month', Enterprise: 'Unlimited' },
+    includedIn: ['Free', 'Starter', 'Pro', 'Enterprise'],
+    limit: { Free: '5 queries/month', Starter: '25 queries/month', Pro: '100 queries/month', Enterprise: 'Unlimited' },
   },
   {
     id: 'diagnostic-wizard',
     name: 'Diagnostic Wizard',
     description: 'Guided problem-to-tools mapping',
-    includedIn: ['Free', 'Pro', 'Enterprise'],
+    includedIn: ['Free', 'Starter', 'Pro', 'Enterprise'],
   },
   {
     id: 'case-studies',
     name: 'Case Study Library',
     description: 'Real-world strategic management examples',
-    includedIn: ['Free', 'Pro', 'Enterprise'],
-    limit: { Free: '5 cases', Pro: '25 cases', Enterprise: 'Full library' },
+    includedIn: ['Free', 'Starter', 'Pro', 'Enterprise'],
+    limit: { Free: '5 cases', Starter: '10 cases', Pro: '25 cases', Enterprise: 'Full library' },
   },
   {
     id: 'scenario-planning',
     name: 'Scenario Planning',
     description: 'Build and compare strategic scenarios',
-    includedIn: ['Pro', 'Enterprise'],
+    includedIn: ['Starter', 'Pro', 'Enterprise'],
   },
   {
     id: 'portfolio-management',
@@ -97,7 +97,7 @@ export const planFeatures: PlanFeature[] = [
     id: 'export-reports',
     name: 'Export & Reports',
     description: 'Export to PDF, PowerPoint, Excel',
-    includedIn: ['Pro', 'Enterprise'],
+    includedIn: ['Starter', 'Pro', 'Enterprise'],
   },
   {
     id: 'api-access',
@@ -141,6 +141,22 @@ export const pricingPlans: PricingPlan[] = [
       'Community support',
     ],
     ctaText: 'Get Started Free',
+    ctaVariant: 'secondary',
+  },
+  {
+    id: 'Starter',
+    name: 'Starter',
+    tagline: 'For growing businesses',
+    price: { monthly: 19.99, annual: 15.99 },
+    features: [
+      '25 strategy tools',
+      '25 AI advisor queries/month',
+      'Scenario planning',
+      '10 case studies',
+      'Export to PDF/PPT/Excel',
+      'Email support',
+    ],
+    ctaText: 'Start Starter Trial',
     ctaVariant: 'secondary',
   },
   {
@@ -312,7 +328,8 @@ export function canAccessFeature(featureId: string, userPlan: Plan): boolean {
 }
 
 export function getUpgradePath(currentPlan: Plan): Plan | null {
-  if (currentPlan === 'Free') return 'Pro';
+  if (currentPlan === 'Free') return 'Starter';
+  if (currentPlan === 'Starter') return 'Pro';
   if (currentPlan === 'Pro') return 'Enterprise';
   return null;
 }

@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'AmbiSight Reloaded',
-  description: 'AI-Driven Strategic Decision Intelligence Platform',
+  title: 'Lumina S | Strategic Intelligence',
+  description: 'Strategic Decision Intelligence Platform for Modern Enterprises',
 };
 
 export default function RootLayout({
