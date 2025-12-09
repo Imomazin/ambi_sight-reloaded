@@ -87,7 +87,7 @@ export default function DynamicBackground({ children, className = '' }: DynamicB
 
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* Current Background with Ken Burns zoom effect */}
+      {/* Current Background with Ken Burns zoom effect - subtle and non-distracting */}
       <div
         className={`fixed inset-0 z-0 transition-opacity duration-[1500ms] ease-in-out overflow-hidden ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
@@ -99,6 +99,7 @@ export default function DynamicBackground({ children, className = '' }: DynamicB
           className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
             isZooming ? 'scale-110' : 'scale-100'
           }`}
+          style={{ filter: 'brightness(0.5) saturate(0.8)' }}
         />
       </div>
 
@@ -112,11 +113,12 @@ export default function DynamicBackground({ children, className = '' }: DynamicB
           src={nextBg.url}
           alt={nextBg.city}
           className="w-full h-full object-cover scale-100"
+          style={{ filter: 'brightness(0.5) saturate(0.8)' }}
         />
       </div>
 
-      {/* Overlay - adapts to theme */}
-      <div className="fixed inset-0 z-[1] bg-overlay-dark transition-colors duration-300" />
+      {/* Overlay - more transparent to let skyline show subtly */}
+      <div className="fixed inset-0 z-[1] bg-gradient-to-br from-navy-900/85 via-navy-800/80 to-navy-900/85 transition-colors duration-300" />
 
       {/* Content */}
       <div className="relative z-10">
