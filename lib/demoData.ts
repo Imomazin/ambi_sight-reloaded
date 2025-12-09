@@ -1,4 +1,4 @@
-// Demo data for AmbiSight Reloaded
+// Demo data for Lumina S
 
 export type Persona = 'strategy-leader' | 'risk-officer' | 'product-owner' | 'admin';
 

@@ -28,7 +28,7 @@ export default function HelpModal() {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-navy-600">
           <div>
-            <h2 className="text-xl font-semibold text-white">Welcome to AmbiSight</h2>
+            <h2 className="text-xl font-semibold text-white">Welcome to Lumina S</h2>
             <p className="text-sm text-gray-400">Strategic Decision Intelligence Platform</p>
           </div>
           <button
@@ -52,7 +52,7 @@ export default function HelpModal() {
               The 60-Second Story
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              <strong className="text-white">AmbiSight Reloaded</strong> is an AI-powered strategic
+              <strong className="text-white">Lumina S</strong> is an AI-powered strategic
               decision intelligence platform that helps organizations navigate complexity with
               confidence. It synthesizes strategic signals, identifies risk clusters, simulates
               scenarios, and provides real-time portfolio health insights—all through an intuitive,

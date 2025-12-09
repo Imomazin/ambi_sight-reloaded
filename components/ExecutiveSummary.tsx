@@ -390,7 +390,7 @@ export default function ExecutiveSummary() {
             {/* Footer */}
             <div className="flex items-center justify-between pt-4 border-t border-navy-600 text-xs text-gray-500">
               <span>Generated: {report.generatedAt.toLocaleString()}</span>
-              <span>Powered by AmbiSight AI • Confidential</span>
+              <span>Powered by Lumina S AI • Confidential</span>
             </div>
           </div>
         )}

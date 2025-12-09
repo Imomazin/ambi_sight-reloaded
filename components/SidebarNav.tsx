@@ -158,7 +158,7 @@ export default function SidebarNav() {
         <div className="p-4 border-t border-[var(--border-color)]">
           {!isSidebarCollapsed && (
             <div className="text-xs text-[var(--text-muted)]">
-              <p>AmbiSight Reloaded</p>
+              <p>Lumina S</p>
               <p>v1.0.0 Demo</p>
             </div>
           )}

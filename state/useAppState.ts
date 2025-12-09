@@ -98,7 +98,7 @@ export const useAppState = create<AppState>()(
       resetOnboarding: () => set({ onboardingCompleted: [] }),
     }),
     {
-      name: 'ambi-sight-storage',
+      name: 'lumina-s-storage',
       partialize: (state) => ({
         currentUser: state.currentUser,
         currentPersona: state.currentPersona,

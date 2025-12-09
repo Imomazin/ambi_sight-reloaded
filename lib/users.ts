@@ -1,4 +1,4 @@
-// User Profiles and Demo Users for AmbiSight
+// User Profiles and Demo Users for Lumina S
 
 export type UserRole =
   | 'ChiefStrategyOfficer'

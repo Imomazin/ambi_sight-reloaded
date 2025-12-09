@@ -29,8 +29,8 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <span className="text-lg font-semibold text-[var(--text-primary)]">AmbiSight</span>
-            <span className="text-xs text-[var(--text-muted)] block">Reloaded</span>
+            <span className="text-lg font-semibold text-[var(--text-primary)]">Lumina S</span>
+            <span className="text-xs text-[var(--text-muted)] block">Strategic Intelligence</span>
           </div>
         </Link>
 

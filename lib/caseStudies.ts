@@ -46,7 +46,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Africa',
     company: 'Continental Bank Group',
     challenge: 'High concentration risk in commodity-dependent economies with volatile currency exposure across multiple African markets.',
-    solution: 'Deployed AmbiSight risk radar to map correlations between markets and identify diversification opportunities using Monte Carlo simulations.',
+    solution: 'Deployed Lumina S risk radar to map correlations between markets and identify diversification opportunities using Monte Carlo simulations.',
     outcomes: [
       '23% reduction in portfolio Value-at-Risk',
       'Identified 3 new low-correlation markets for expansion',
@@ -67,7 +67,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Nordic Style Group',
     challenge: 'Legacy retail operations with declining foot traffic and fragmented digital presence across 8 European markets.',
-    solution: 'Used AmbiSight strategy workspace to model 5 transformation scenarios and build consensus across regional leadership teams.',
+    solution: 'Used Lumina S strategy workspace to model 5 transformation scenarios and build consensus across regional leadership teams.',
     outcomes: [
       '18% improvement in gross margins',
       'Online revenue grew from 12% to 34% of total',
@@ -88,7 +88,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Asia Pacific',
     company: 'Precision Auto Components',
     challenge: 'Frequent production stoppages due to supplier failures and logistics disruptions, costing $12M annually in expediting fees.',
-    solution: 'Implemented AmbiSight signal scanning canvas to monitor 200+ suppliers and create automated response playbooks.',
+    solution: 'Implemented Lumina S signal scanning canvas to monitor 200+ suppliers and create automated response playbooks.',
     outcomes: [
       '45% reduction in disruption-related costs',
       'Supplier visibility improved from 60% to 95%',
@@ -109,7 +109,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'MedCare Health Systems',
     challenge: 'Aging on-premise infrastructure with high maintenance costs and compliance gaps across 15 facilities.',
-    solution: 'Used AmbiSight portfolio health radar to assess 120+ applications and prioritize migration based on risk and value.',
+    solution: 'Used Lumina S portfolio health radar to assess 120+ applications and prioritize migration based on risk and value.',
     outcomes: [
       '32% reduction in annual IT infrastructure costs',
       'Achieved HIPAA compliance across all systems',
@@ -130,7 +130,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'Summit Capital Partners',
     challenge: 'Traditional due diligence missed operational and technology risks in a $600M manufacturing acquisition target.',
-    solution: 'Deployed AmbiSight strategic risk radar to conduct deep-dive analysis across 8 risk dimensions with scenario modeling.',
+    solution: 'Deployed Lumina S strategic risk radar to conduct deep-dive analysis across 8 risk dimensions with scenario modeling.',
     outcomes: [
       'Identified $180M in hidden liabilities and remediation costs',
       'Renegotiated purchase price by 15%',
@@ -151,7 +151,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Global',
     company: 'BioGenesis Therapeutics',
     challenge: 'Scattered R&D investments across 40+ programs with low success rates and insufficient resources for breakthrough candidates.',
-    solution: 'Used AmbiSight portfolio allocation tools to score programs on strategic fit, probability of success, and market potential.',
+    solution: 'Used Lumina S portfolio allocation tools to score programs on strategic fit, probability of success, and market potential.',
     outcomes: [
       '95% improvement in R&D return on investment',
       'Reduced active programs from 40 to 18 high-potential candidates',
@@ -172,7 +172,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Middle East',
     company: 'Gulf Express Logistics',
     challenge: 'Inefficient route planning and warehouse utilization leading to high fuel costs and delayed deliveries across 6 countries.',
-    solution: 'Implemented AmbiSight execution and OKR tools to track 50+ operational metrics and identify optimization opportunities.',
+    solution: 'Implemented Lumina S execution and OKR tools to track 50+ operational metrics and identify optimization opportunities.',
     outcomes: [
       '28% improvement in fleet efficiency',
       'On-time delivery rate increased from 82% to 96%',
@@ -193,7 +193,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Southeast Asia',
     company: 'Digital Commerce Bank',
     challenge: 'Legacy core banking systems limiting ability to partner with fintechs and participate in open banking ecosystem.',
-    solution: 'Used AmbiSight digital strategy tools to map API opportunities and build technology roadmap with phased investments.',
+    solution: 'Used Lumina S digital strategy tools to map API opportunities and build technology roadmap with phased investments.',
     outcomes: [
       '$45M in new API-driven revenue within 2 years',
       'Onboarded 120+ fintech partners to platform',
@@ -214,7 +214,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Nordic Energy Transition',
     challenge: 'Pressure from investors and regulators to decarbonize while maintaining profitability during multi-decade transition.',
-    solution: 'Deployed AmbiSight governance and ESG tools to develop credible transition roadmap with measurable milestones.',
+    solution: 'Deployed Lumina S governance and ESG tools to develop credible transition roadmap with measurable milestones.',
     outcomes: [
       'Raised $2.1B in green bonds at favorable rates',
       'ESG rating improved from BB to A-',
@@ -235,7 +235,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'CloudSecure Solutions',
     challenge: 'Rapid growth led to fragmented security practices and increasing cyber incidents threatening customer trust.',
-    solution: 'Used AmbiSight risk and resilience tools to assess 200+ security controls and prioritize investments.',
+    solution: 'Used Lumina S risk and resilience tools to assess 200+ security controls and prioritize investments.',
     outcomes: [
       '67% reduction in security incidents',
       'Achieved SOC 2 Type II certification',
@@ -256,7 +256,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'North America',
     company: 'FastShip Commerce',
     challenge: 'Manual fulfillment processes unable to scale with 200% YoY growth, leading to delays and customer complaints.',
-    solution: 'Used AmbiSight operations and supply chain tools to model automation scenarios and build business case.',
+    solution: 'Used Lumina S operations and supply chain tools to model automation scenarios and build business case.',
     outcomes: [
       '156% improvement in order throughput',
       'Labor costs reduced by 40% per unit shipped',
@@ -277,7 +277,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     region: 'Europe',
     company: 'Continental Insurance Group',
     challenge: 'Decades-old mainframe systems preventing adoption of AI/ML capabilities and slowing product innovation.',
-    solution: 'Used AmbiSight digital and technology strategy tools to plan strangler fig migration pattern with AI readiness assessment.',
+    solution: 'Used Lumina S digital and technology strategy tools to plan strangler fig migration pattern with AI readiness assessment.',
     outcomes: [
       '40% of underwriting decisions now automated',
       'Claims processing time reduced from 14 days to 3 days',

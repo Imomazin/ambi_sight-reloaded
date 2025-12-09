@@ -315,7 +315,7 @@ export default function LandingCaseStudies() {
               Real Case Stories
             </h2>
             <p className="text-gray-400">
-              See how organizations transform their strategic decision-making with AmbiSight
+              See how organizations transform their strategic decision-making with Lumina S
             </p>
           </div>
 
