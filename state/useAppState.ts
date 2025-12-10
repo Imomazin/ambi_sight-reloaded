@@ -34,6 +34,10 @@ export interface DashboardWidget {
 }
 
 interface AppState {
+  // Theme
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
+
   // Current user
   currentUser: UserProfile | null;
   setCurrentUser: (user: UserProfile | null) => void;
@@ -132,6 +136,16 @@ const defaultWidgets: DashboardWidget[] = [
 export const useAppState = create<AppState>()(
   persist(
     (set) => ({
+      // Theme
+      theme: 'dark',
+      setTheme: (theme) => {
+        set({ theme });
+        // Apply theme to document
+        if (typeof document !== 'undefined') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      },
+
       // User
       currentUser: null,
       setCurrentUser: (user) => set({
@@ -291,6 +305,7 @@ export const useAppState = create<AppState>()(
     {
       name: 'lumina-s-storage',
       partialize: (state) => ({
+        theme: state.theme,
         currentUser: state.currentUser,
         currentPersona: state.currentPersona,
         riskMultiplier: state.riskMultiplier,

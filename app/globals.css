@@ -15,11 +15,13 @@
   /* Dark theme (default) */
   --bg-primary: #0B0B0F;
   --bg-secondary: #1A1A25;
+  --bg-tertiary: #252535;
   --bg-card: #1A1A25;
   --bg-card-hover: #252535;
   --text-primary: #FFFFFF;
   --text-secondary: #E0E0E0;
   --text-muted: #9CA3AF;
+  --border: #252535;
   --border-color: #252535;
   --border-hover: #353545;
   --overlay-bg: rgba(11, 11, 15, 0.55);
@@ -27,17 +29,22 @@
   --scrollbar-thumb: #3B3B4F;
   --sidebar-bg: rgba(26, 26, 37, 0.85);
   --navbar-bg: rgba(26, 26, 37, 0.85);
+  --accent: #14B8A6;
+  --accent-hover: #2DD4BF;
 }
 
-/* Light theme */
-.light-theme {
+/* Light theme - supports both class and data-attribute */
+.light-theme,
+[data-theme="light"] {
   --bg-primary: #F8FAFC;
   --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F1F5F9;
   --bg-card: #FFFFFF;
   --bg-card-hover: #F1F5F9;
   --text-primary: #1E293B;
   --text-secondary: #334155;
   --text-muted: #64748B;
+  --border: #E2E8F0;
   --border-color: #E2E8F0;
   --border-hover: #CBD5E1;
   --overlay-bg: rgba(248, 250, 252, 0.55);
@@ -45,6 +52,8 @@
   --scrollbar-thumb: #CBD5E1;
   --sidebar-bg: rgba(255, 255, 255, 0.85);
   --navbar-bg: rgba(255, 255, 255, 0.85);
+  --accent: #0D9488;
+  --accent-hover: #14B8A6;
 }
 
 html,
@@ -66,7 +75,8 @@ body {
   background: linear-gradient(135deg, rgba(248, 250, 252, 0.55) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(241, 245, 249, 0.55) 100%);
 }
 
-.light-theme .bg-overlay-dark {
+.light-theme .bg-overlay-dark,
+[data-theme="light"] .bg-overlay-dark {
   background: linear-gradient(135deg, rgba(248, 250, 252, 0.55) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(241, 245, 249, 0.55) 100%);
 }
 
@@ -89,7 +99,8 @@ body {
   background: #4B4B5F;
 }
 
-.light-theme ::-webkit-scrollbar-thumb:hover {
+.light-theme ::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
 
@@ -129,7 +140,8 @@ body {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.light-theme .card {
+.light-theme .card,
+[data-theme="light"] .card {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -217,7 +229,8 @@ body {
   border-left: 2px solid #2DD4BF;
 }
 
-.light-theme .sidebar-link.active {
+.light-theme .sidebar-link.active,
+[data-theme="light"] .sidebar-link.active {
   background-color: rgba(20, 184, 166, 0.1);
   color: #0D9488;
 }
@@ -268,37 +281,50 @@ body {
 
 /* Navy backgrounds */
 .light-theme .bg-navy-800,
-.light-theme [class*="bg-navy-800"] {
+.light-theme [class*="bg-navy-800"],
+[data-theme="light"] .bg-navy-800,
+[data-theme="light"] [class*="bg-navy-800"] {
   background-color: var(--bg-card) !important;
 }
 
 .light-theme .bg-navy-700,
-.light-theme [class*="bg-navy-700"] {
+.light-theme [class*="bg-navy-700"],
+[data-theme="light"] .bg-navy-700,
+[data-theme="light"] [class*="bg-navy-700"] {
   background-color: var(--bg-card-hover) !important;
 }
 
 .light-theme .bg-navy-600,
-.light-theme [class*="bg-navy-600"] {
+.light-theme [class*="bg-navy-600"],
+[data-theme="light"] .bg-navy-600,
+[data-theme="light"] [class*="bg-navy-600"] {
   background-color: #E2E8F0 !important;
 }
 
 /* Slate backgrounds */
-.light-theme .bg-slate-950 {
+.light-theme .bg-slate-950,
+[data-theme="light"] .bg-slate-950 {
   background-color: var(--bg-primary) !important;
 }
 
 .light-theme .bg-slate-900,
-.light-theme [class*="bg-slate-900"] {
+.light-theme [class*="bg-slate-900"],
+[data-theme="light"] .bg-slate-900,
+[data-theme="light"] [class*="bg-slate-900"] {
   background-color: var(--bg-secondary) !important;
 }
 
 .light-theme .bg-slate-800,
-.light-theme [class*="bg-slate-800"] {
+.light-theme [class*="bg-slate-800"],
+[data-theme="light"] .bg-slate-800,
+[data-theme="light"] [class*="bg-slate-800"] {
   background-color: var(--bg-card) !important;
 }
 
 .light-theme .bg-slate-700,
-.light-theme [class*="bg-slate-700"] {
+.light-theme [class*="bg-slate-700"],
+[data-theme="light"] .bg-slate-700,
+[data-theme="light"] [class*="bg-slate-700"] {
   background-color: var(--bg-card-hover) !important;
 }
 
@@ -713,7 +739,8 @@ input[type="range"].slider-thumb::-moz-range-thumb {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.light-theme .glass {
+.light-theme .glass,
+[data-theme="light"] .glass {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.1);
 }

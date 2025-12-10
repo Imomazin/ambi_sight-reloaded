@@ -1,7 +1,10 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import AuthGuard from './AuthGuard';
+import CommandPalette from './CommandPalette';
+import OnboardingTour from './OnboardingTour';
+import { useAppState } from '@/state/useAppState';
 
 function LoadingFallback() {
   return (
@@ -14,9 +17,31 @@ function LoadingFallback() {
   );
 }
 
+function ThemeInitializer() {
+  const { theme } = useAppState();
+
+  useEffect(() => {
+    // Apply theme on mount and when it changes
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  return null;
+}
+
+function GlobalComponents() {
+  return (
+    <>
+      <ThemeInitializer />
+      <CommandPalette />
+      <OnboardingTour />
+    </>
+  );
+}
+
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<LoadingFallback />}>
+      <GlobalComponents />
       <AuthGuard>{children}</AuthGuard>
     </Suspense>
   );
