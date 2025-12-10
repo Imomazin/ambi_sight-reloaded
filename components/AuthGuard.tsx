@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
 
-// Routes that don't require authentication
+// Routes that don't require authentication (marketing pages)
 const publicRoutes = ['/', '/signin', '/pricing'];
+
+// Routes that redirect logged-in users to dashboard
+const authRoutes = ['/signin'];
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -23,16 +26,32 @@ export default function AuthGuard({ children }: AuthGuardProps) {
       pathname === route || pathname.startsWith(route + '/')
     );
 
+    // Check if current route is an auth route (signin/signup)
+    const isAuthRoute = authRoutes.some(route =>
+      pathname === route || pathname.startsWith(route + '/')
+    );
+
+    // If user is logged in and on auth route, redirect to dashboard
+    if (currentUser && isAuthRoute) {
+      router.push('/dashboard');
+      return;
+    }
+
+    // If route is protected and user is not logged in, redirect to signin
     if (!isPublicRoute && !currentUser) {
-      // Redirect to sign-in with return URL
       router.push(`/signin?returnUrl=${encodeURIComponent(pathname)}`);
     } else {
       setIsChecking(false);
     }
   }, [currentUser, pathname, router]);
 
+  // Check if public route for conditional rendering
+  const isPublicRoute = publicRoutes.some(route =>
+    pathname === route || pathname.startsWith(route + '/')
+  );
+
   // Show loading while checking auth
-  if (isChecking && !publicRoutes.includes(pathname)) {
+  if (isChecking && !isPublicRoute) {
     return (
       <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
         <div className="text-center">
@@ -44,7 +63,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   }
 
   // Don't render protected content if not authenticated
-  if (!publicRoutes.includes(pathname) && !currentUser) {
+  if (!isPublicRoute && !currentUser) {
     return null;
   }
 

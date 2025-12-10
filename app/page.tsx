@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
 import HelpModal from '@/components/HelpModal';
 import UserSwitcherPanel from '@/components/UserSwitcherPanel';
@@ -9,6 +10,44 @@ import LandingCaseStudies from '@/components/LandingCaseStudies';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import PremiumBackground from '@/components/PremiumBackground';
 import { ConsultingPackagesShowcase, ConsultingCTA } from '@/components/ConsultingCTA';
+
+const workflowSteps = [
+  {
+    number: 1,
+    title: 'Discover',
+    description: 'Understand your organization, industry, challenges, and strategic goals',
+    icon: '🔍',
+    color: '#A855F7',
+  },
+  {
+    number: 2,
+    title: 'Diagnose',
+    description: 'Analyze your position with SWOT, Porter\'s Five Forces, and other frameworks',
+    icon: '🩺',
+    color: '#EC4899',
+  },
+  {
+    number: 3,
+    title: 'Design',
+    description: 'Build your Business Model Canvas, define OKRs, and create action plans',
+    icon: '📐',
+    color: '#14B8A6',
+  },
+  {
+    number: 4,
+    title: 'Decide',
+    description: 'Prioritize initiatives with impact-effort matrices and scenario planning',
+    icon: '⚖️',
+    color: '#F59E0B',
+  },
+  {
+    number: 5,
+    title: 'Deliver',
+    description: 'Execute your strategy with task tracking, milestones, and KPI monitoring',
+    icon: '🚀',
+    color: '#22C55E',
+  },
+];
 
 const features = [
   {
@@ -89,7 +128,16 @@ const newFeatures = [
 ];
 
 export default function Home() {
-  const { setHelpOpen } = useAppState();
+  const router = useRouter();
+  const { setHelpOpen, currentUser } = useAppState();
+
+  const handleStartStrategy = () => {
+    if (currentUser) {
+      router.push('/dashboard');
+    } else {
+      router.push('/signin?returnUrl=/dashboard');
+    }
+  };
 
   return (
     <PremiumBackground>
@@ -167,22 +215,73 @@ export default function Home() {
           </p>
 
           <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Navigate organizational complexity with confidence. Synthesize strategic signals,
-            identify risk clusters, simulate scenarios, and gain real-time portfolio insights—all
-            through an intuitive, human-centered platform designed for modern strategy teams.
+            Navigate organizational complexity with confidence. Our guided 5-step workflow
+            takes you from discovery to delivery, helping you build and execute winning strategies
+            with AI-powered insights every step of the way.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/workspace" className="btn-primary inline-flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <button onClick={handleStartStrategy} className="btn-primary inline-flex items-center gap-2 text-lg px-8 py-4">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              Open Strategy Workspace
+              Start Your Strategy Now
+            </button>
+            <Link href="/pricing" className="btn-secondary inline-flex items-center gap-2">
+              View Pricing Plans
             </Link>
-            <Link href="/diagnosis" className="btn-secondary inline-flex items-center gap-2">
-              <span>🔍</span>
-              Start Diagnostic Quiz
-            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5-Step Workflow Section */}
+      <section className="py-16 px-6 bg-gradient-to-b from-navy-800/50 to-transparent border-t border-navy-700">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Your Strategy Journey in 5 Steps
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              A proven framework that guides you from understanding your business to executing winning strategies
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Connecting Line */}
+            <div className="absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 via-teal-500 to-green-500 hidden lg:block" />
+
+            <div className="grid md:grid-cols-5 gap-6">
+              {workflowSteps.map((step) => (
+                <div key={step.number} className="relative">
+                  <div className="flex flex-col items-center text-center">
+                    {/* Step Number */}
+                    <div
+                      className="w-24 h-24 rounded-2xl flex flex-col items-center justify-center mb-4 relative z-10 transition-transform hover:scale-105"
+                      style={{
+                        background: `linear-gradient(135deg, ${step.color}20, ${step.color}10)`,
+                        border: `2px solid ${step.color}40`,
+                      }}
+                    >
+                      <span className="text-3xl mb-1">{step.icon}</span>
+                      <span className="text-xs font-bold" style={{ color: step.color }}>
+                        STEP {step.number}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                    <p className="text-sm text-gray-400">{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <button onClick={handleStartStrategy} className="btn-primary inline-flex items-center gap-2">
+              Begin Your Journey
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>

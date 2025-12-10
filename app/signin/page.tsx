@@ -12,7 +12,7 @@ type AuthMethod = 'demo' | 'email' | 'google' | 'github';
 export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get('returnUrl') || '/workspace';
+  const returnUrl = searchParams.get('returnUrl') || '/dashboard';
   const { setCurrentUser } = useAppState();
 
   const [mode, setMode] = useState<AuthMode>('signin');
