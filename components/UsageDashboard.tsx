@@ -39,9 +39,9 @@ export default function UsageDashboard() {
 
       <div className="usage-grid">
         <div className="usage-card">
-          <div className="usage-icon">🤖</div>
+          <div className="usage-icon">💬</div>
           <div className="usage-content">
-            <h4>AI Queries</h4>
+            <h4>Advisor Queries</h4>
             {aiQueriesLimit === Infinity ? (
               <p className="unlimited">Unlimited</p>
             ) : (

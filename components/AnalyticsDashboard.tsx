@@ -45,11 +45,11 @@ export default function AnalyticsDashboard() {
       icon: '📊'
     },
     {
-      label: 'AI Queries',
+      label: 'Advisor Queries',
       value: aiQueriesUsed,
       change: '+24%',
       trend: 'up',
-      icon: '🤖'
+      icon: '💬'
     },
     {
       label: 'Insights Generated',

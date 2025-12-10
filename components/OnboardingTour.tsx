@@ -38,9 +38,9 @@ const tourSteps: TourStep[] = [
   },
   {
     id: 'advisor',
-    title: 'AI Business Advisor',
-    description: 'Chat with our intelligent AI advisor for real-time strategic guidance and recommendations.',
-    icon: '🤖',
+    title: 'Strategy Advisor',
+    description: 'Chat with our intelligent advisor for real-time strategic guidance and recommendations.',
+    icon: '💡',
     action: '/advisor',
     highlight: 'advisor',
   },

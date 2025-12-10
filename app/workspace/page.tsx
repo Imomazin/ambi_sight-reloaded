@@ -14,6 +14,7 @@ import LockedFeature, { PlanBadge } from '@/components/LockedFeature';
 import { UpgradeBanner } from '@/components/UpgradeModal';
 import { ConsultingCTA } from '@/components/ConsultingCTA';
 import ToolView from '@/components/ToolView';
+import DataUploadButton from '@/components/DataUploadButton';
 import { useAppState } from '@/state/useAppState';
 import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
 import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';

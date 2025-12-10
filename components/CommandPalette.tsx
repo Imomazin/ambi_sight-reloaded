@@ -30,7 +30,7 @@ export default function CommandPalette() {
   const commands: Command[] = [
     // Navigation
     { id: 'nav-home', name: 'Go to Dashboard', description: 'Return to main dashboard', icon: '🏠', category: 'navigation', action: () => router.push('/'), keywords: ['home', 'main'] },
-    { id: 'nav-advisor', name: 'Go to AI Advisor', description: 'Open AI business advisor', icon: '🤖', category: 'navigation', action: () => router.push('/advisor'), keywords: ['ai', 'chat', 'assistant'] },
+    { id: 'nav-advisor', name: 'Go to Strategy Advisor', description: 'Open intelligent business advisor', icon: '💡', category: 'navigation', action: () => router.push('/advisor'), keywords: ['advisor', 'chat', 'assistant', 'strategy'] },
     { id: 'nav-tools', name: 'Go to Tools', description: 'Access analysis tools', icon: '🔧', category: 'navigation', action: () => router.push('/tools'), keywords: ['swot', 'porter', 'pestel'] },
     { id: 'nav-diagnosis', name: 'Go to Diagnosis', description: 'Run business diagnostic', icon: '🩺', category: 'navigation', action: () => router.push('/diagnosis'), keywords: ['wizard', 'assess'] },
     { id: 'nav-workspace', name: 'Go to Workspace', description: 'Open your workspace', icon: '📊', category: 'navigation', action: () => router.push('/workspace'), keywords: ['work', 'analyze'] },

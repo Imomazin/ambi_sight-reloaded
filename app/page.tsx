@@ -265,8 +265,8 @@ export default function LandingPage() {
             <span className="feature-text">50+ Strategy Tools</span>
           </div>
           <div className="feature-item">
-            <span className="feature-icon">🤖</span>
-            <span className="feature-text">AI-Powered Insights</span>
+            <span className="feature-icon">✨</span>
+            <span className="feature-text">Intelligent Insights</span>
           </div>
           <div className="feature-item">
             <span className="feature-icon">📊</span>

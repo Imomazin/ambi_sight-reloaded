@@ -34,9 +34,9 @@ const processingStages: ProcessingStage[] = [
   },
   {
     id: 'analyze',
-    label: 'AI Analysis',
+    label: 'Smart Analysis',
     description: 'Running strategic intelligence analysis...',
-    icon: '🧠',
+    icon: '🎯',
     duration: 3000,
   },
   {

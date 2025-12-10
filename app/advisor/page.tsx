@@ -13,7 +13,7 @@ export default function AdvisorPage() {
         {/* Mode Toggle */}
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-2xl font-bold text-[var(--text-primary)]">AI Strategy Advisor</h1>
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">Strategy Advisor</h1>
             <p className="text-sm text-[var(--text-muted)]">Your personal strategic intelligence assistant</p>
           </div>
           <div className="flex items-center gap-2 bg-[var(--bg-card)] rounded-xl p-1 border border-[var(--border-color)]">
@@ -25,7 +25,7 @@ export default function AdvisorPage() {
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
-              Interactive AI
+              Interactive
             </button>
             <button
               onClick={() => setViewMode('classic')}
