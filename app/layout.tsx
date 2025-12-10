@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import ClientLayout from '@/components/ClientLayout';
 
 export const metadata: Metadata = {
   title: 'Lumina S | Strategic Intelligence',
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-navy-900 text-gray-100 antialiased">
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
