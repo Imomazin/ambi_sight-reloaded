@@ -69,7 +69,7 @@ function PlanCard({
             </div>
             {isAnnual && plan.price.monthly > 0 && (
               <p className="text-sm text-green-400 mt-1">
-                Save ${(plan.price.monthly - plan.price.annual) * 12}/year
+                Save ${Math.round((plan.price.monthly - plan.price.annual) * 12)}/year
               </p>
             )}
           </div>

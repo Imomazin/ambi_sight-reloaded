@@ -1,459 +1,942 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
-import HelpModal from '@/components/HelpModal';
-import UserSwitcherPanel from '@/components/UserSwitcherPanel';
-import UserIndicator from '@/components/UserIndicator';
-import LandingCaseStudies from '@/components/LandingCaseStudies';
-import ThemeSwitcher from '@/components/ThemeSwitcher';
-import PremiumBackground from '@/components/PremiumBackground';
-import { ConsultingPackagesShowcase, ConsultingCTA } from '@/components/ConsultingCTA';
 
-const workflowSteps = [
-  {
-    number: 1,
-    title: 'Discover',
-    description: 'Understand your organization, industry, challenges, and strategic goals',
-    icon: '🔍',
-    color: '#A855F7',
-  },
-  {
-    number: 2,
-    title: 'Diagnose',
-    description: 'Analyze your position with SWOT, Porter\'s Five Forces, and other frameworks',
-    icon: '🩺',
-    color: '#EC4899',
-  },
-  {
-    number: 3,
-    title: 'Design',
-    description: 'Build your Business Model Canvas, define OKRs, and create action plans',
-    icon: '📐',
-    color: '#14B8A6',
-  },
-  {
-    number: 4,
-    title: 'Decide',
-    description: 'Prioritize initiatives with impact-effort matrices and scenario planning',
-    icon: '⚖️',
-    color: '#F59E0B',
-  },
-  {
-    number: 5,
-    title: 'Deliver',
-    description: 'Execute your strategy with task tracking, milestones, and KPI monitoring',
-    icon: '🚀',
-    color: '#22C55E',
-  },
-];
+// Animated metric slider component
+function MetricSlider({
+  label,
+  value,
+  color,
+  icon,
+}: {
+  label: string;
+  value: number;
+  color: string;
+  icon: string;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
 
-const features = [
-  {
-    title: 'Strategic Advisor',
-    description:
-      'Intelligent interface to query risk intelligence, identify clusters, and get actionable recommendations.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-        />
-      </svg>
-    ),
-    color: 'teal',
-    href: '/advisor',
-  },
-  {
-    title: 'Scenario Simulator',
-    description:
-      'Model strategic alternatives and see real-time impact on KPIs, risk exposure, and portfolio health.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-        />
-      </svg>
-    ),
-    color: 'purple',
-    href: '/scenarios',
-  },
-  {
-    title: 'Portfolio Health Radar',
-    description:
-      'Visual heatmaps and matrices to quickly identify initiatives at risk and optimize resource allocation.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
-      </svg>
-    ),
-    color: 'amber',
-    href: '/portfolio',
-  },
-];
-
-const newFeatures = [
-  {
-    title: 'Strategy Tools Library',
-    description: '50+ world-class strategy frameworks and tools for diagnosis, growth, risk, and execution.',
-    href: '/tools',
-    icon: '🧰',
-    badge: 'New',
-  },
-  {
-    title: 'Diagnostic Wizard',
-    description: 'Guided problem-to-tools mapping. Answer questions and get personalized tool recommendations.',
-    href: '/diagnosis',
-    icon: '🔍',
-    badge: 'New',
-  },
-  {
-    title: 'Pricing & Plans',
-    description: 'Flexible pricing for individuals and teams. Free tier available with premium upgrades.',
-    href: '/pricing',
-    icon: '💎',
-    badge: null,
-  },
-];
-
-export default function Home() {
-  const router = useRouter();
-  const { setHelpOpen, currentUser } = useAppState();
-
-  const handleStartStrategy = () => {
-    if (currentUser) {
-      router.push('/dashboard');
-    } else {
-      router.push('/signin?returnUrl=/dashboard');
-    }
-  };
+  useEffect(() => {
+    const duration = 1500;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setDisplayValue(value);
+        clearInterval(timer);
+      } else {
+        setDisplayValue(Math.round(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [value]);
 
   return (
-    <PremiumBackground>
-    <div className="min-h-screen relative z-10">
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-800/80 backdrop-blur-md border-b border-navy-600">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+    <div className="metric-slider">
+      <div className="metric-header">
+        <span className="metric-icon">{icon}</span>
+        <span className="metric-label">{label}</span>
+        <span className="metric-value" style={{ color }}>{displayValue}%</span>
+      </div>
+      <div className="metric-track">
+        <div
+          className="metric-fill"
+          style={{
+            width: `${displayValue}%`,
+            background: `linear-gradient(90deg, ${color}80, ${color})`,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Floating orb animation
+function FloatingOrbs() {
+  return (
+    <div className="orbs-container">
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+      <div className="orb orb-4" />
+    </div>
+  );
+}
+
+export default function LandingPage() {
+  const router = useRouter();
+  const { currentUser } = useAppState();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // If already logged in, redirect to dashboard
+  useEffect(() => {
+    if (currentUser) {
+      router.push('/dashboard');
+    }
+  }, [currentUser, router]);
+
+  const handleMagicLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setIsSubmitting(true);
+    setTimeout(() => {
+      router.push(`/signin?email=${encodeURIComponent(email)}`);
+    }, 500);
+  };
+
+  const metrics = [
+    { label: 'Strategic Clarity', value: 87, color: '#14B8A6', icon: '🎯' },
+    { label: 'Execution Readiness', value: 72, color: '#A855F7', icon: '⚡' },
+    { label: 'Risk Awareness', value: 65, color: '#F59E0B', icon: '🛡️' },
+    { label: 'Growth Potential', value: 91, color: '#22C55E', icon: '📈' },
+  ];
+
+  return (
+    <div className="landing-page">
+      <FloatingOrbs />
+
+      {/* Navigation */}
+      <nav className="landing-nav">
+        <div className="nav-content">
+          <div className="logo">
+            <div className="logo-mark">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
-            <span className="text-xl font-bold text-white">Lumina S</span>
+            <span className="logo-text">Lumina <span className="logo-accent">S</span></span>
           </div>
-
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link href="/tools" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Tools
-            </Link>
-            <Link href="/diagnosis" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Diagnosis
-            </Link>
-            <Link href="/advisor" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Advisor
-            </Link>
-            <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Pricing
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <ThemeSwitcher />
-            <button
-              onClick={() => setHelpOpen(true)}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Help
-            </button>
-            <UserIndicator />
+          <div className="nav-links">
+            <Link href="/pricing" className="nav-link">Pricing</Link>
+            <Link href="/signin" className="nav-link signin-link">Sign In</Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Decorative circles */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 flex items-center justify-center opacity-20">
-              <div className="w-64 h-64 rounded-full border-2 border-teal-400 animate-pulse"></div>
-              <div className="absolute w-48 h-48 rounded-full border-2 border-purple-400 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="absolute w-32 h-32 rounded-full border-2 border-magenta-400 animate-pulse" style={{ animationDelay: '1s' }}></div>
+      {/* Hero Section */}
+      <main className="hero-section">
+        <div className="hero-content">
+          {/* Left: Branding & CTA */}
+          <div className="hero-left">
+            <div className="brand-badge">
+              <span className="badge-dot" />
+              Strategic Intelligence Platform
             </div>
 
-            {/* Logo mark */}
-            <div className="relative w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center shadow-2xl glow-purple">
-              <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
+            <h1 className="hero-title">
+              <span className="title-line">Transform Your</span>
+              <span className="title-gradient">Strategy</span>
+              <span className="title-line">Into Results</span>
+            </h1>
+
+            <p className="hero-description">
+              Lumina S guides you through a proven 5-step workflow to discover insights,
+              diagnose challenges, design solutions, decide on priorities, and deliver outcomes.
+            </p>
+
+            {/* Magic Link Sign Up */}
+            <div className="signup-section">
+              <form onSubmit={handleMagicLink} className="magic-link-form">
+                <div className="input-wrapper">
+                  <svg className="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email to start"
+                    className="email-input"
+                    required
+                  />
+                </div>
+                <button type="submit" className="start-btn" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <span className="btn-loading">
+                      <svg className="spinner" width="20" height="20" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.3" />
+                        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
+                      </svg>
+                    </span>
+                  ) : (
+                    <>
+                      Start Free
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
+              <p className="signup-hint">No credit card required. Get started in seconds.</p>
+            </div>
+
+            {/* Social Proof */}
+            <div className="social-proof">
+              <div className="user-avatars">
+                <div className="avatar" style={{ background: 'linear-gradient(135deg, #14B8A6, #2DD4BF)' }}>J</div>
+                <div className="avatar" style={{ background: 'linear-gradient(135deg, #A855F7, #EC4899)' }}>M</div>
+                <div className="avatar" style={{ background: 'linear-gradient(135deg, #3B82F6, #06B6D4)' }}>S</div>
+                <div className="avatar" style={{ background: 'linear-gradient(135deg, #F59E0B, #EF4444)' }}>A</div>
+              </div>
+              <span className="proof-text">Join 2,500+ strategists already using Lumina S</span>
             </div>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient">Lumina</span>
-            <span className="text-white"> S</span>
-          </h1>
+          {/* Right: Visual Dashboard Preview */}
+          <div className="hero-right">
+            <div className="dashboard-preview">
+              <div className="preview-header">
+                <div className="preview-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="preview-title">Strategy Dashboard</span>
+              </div>
 
-          <p className="text-xl text-gray-300 mb-4">
-            A fresh new build for the future of
-          </p>
-          <p className="text-2xl font-medium text-teal-400 mb-8">
-            Strategic Decision Intelligence
-          </p>
+              <div className="preview-content">
+                {/* Metrics Sliders */}
+                <div className="metrics-section">
+                  {metrics.map((metric) => (
+                    <MetricSlider
+                      key={metric.label}
+                      label={metric.label}
+                      value={metric.value}
+                      color={metric.color}
+                      icon={metric.icon}
+                    />
+                  ))}
+                </div>
 
-          <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Navigate organizational complexity with confidence. Our guided 5-step workflow
-            takes you from discovery to delivery, helping you build and execute winning strategies
-            with AI-powered insights every step of the way.
-          </p>
+                {/* Mini Workflow */}
+                <div className="workflow-preview">
+                  <div className="workflow-step active">
+                    <span className="step-icon">🔍</span>
+                    <span className="step-label">Discover</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">🩺</span>
+                    <span className="step-label">Diagnose</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">📐</span>
+                    <span className="step-label">Design</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">⚖️</span>
+                    <span className="step-label">Decide</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">🚀</span>
+                    <span className="step-label">Deliver</span>
+                  </div>
+                </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <button onClick={handleStartStrategy} className="btn-primary inline-flex items-center gap-2 text-lg px-8 py-4">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              Start Your Strategy Now
-            </button>
-            <Link href="/pricing" className="btn-secondary inline-flex items-center gap-2">
-              View Pricing Plans
+                {/* CTA in Preview */}
+                <div className="preview-cta">
+                  <span className="cta-text">Ready to build your strategy?</span>
+                  <Link href="/signin" className="preview-btn">
+                    Sign In to Start
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Features Strip */}
+      <section className="features-strip">
+        <div className="features-content">
+          <div className="feature-item">
+            <span className="feature-icon">🧰</span>
+            <span className="feature-text">50+ Strategy Tools</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">🤖</span>
+            <span className="feature-text">AI-Powered Insights</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">📊</span>
+            <span className="feature-text">Visual Frameworks</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">👥</span>
+            <span className="feature-text">Team Collaboration</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="bottom-cta">
+        <div className="cta-content">
+          <h2>Ready to Transform Your Strategy?</h2>
+          <div className="cta-buttons">
+            <Link href="/signin" className="cta-primary">
+              Get Started Free
+            </Link>
+            <Link href="/pricing" className="cta-secondary">
+              View Pricing
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 5-Step Workflow Section */}
-      <section className="py-16 px-6 bg-gradient-to-b from-navy-800/50 to-transparent border-t border-navy-700">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Your Strategy Journey in 5 Steps
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              A proven framework that guides you from understanding your business to executing winning strategies
-            </p>
-          </div>
+      <style jsx>{`
+        .landing-page {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0B0B0F 0%, #1a1a2e 50%, #0B0B0F 100%);
+          position: relative;
+          overflow: hidden;
+        }
 
-          <div className="relative">
-            {/* Connecting Line */}
-            <div className="absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 via-teal-500 to-green-500 hidden lg:block" />
+        .orbs-container {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
 
-            <div className="grid md:grid-cols-5 gap-6">
-              {workflowSteps.map((step) => (
-                <div key={step.number} className="relative">
-                  <div className="flex flex-col items-center text-center">
-                    {/* Step Number */}
-                    <div
-                      className="w-24 h-24 rounded-2xl flex flex-col items-center justify-center mb-4 relative z-10 transition-transform hover:scale-105"
-                      style={{
-                        background: `linear-gradient(135deg, ${step.color}20, ${step.color}10)`,
-                        border: `2px solid ${step.color}40`,
-                      }}
-                    >
-                      <span className="text-3xl mb-1">{step.icon}</span>
-                      <span className="text-xs font-bold" style={{ color: step.color }}>
-                        STEP {step.number}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-                    <p className="text-sm text-gray-400">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        .orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.4;
+          animation: float 20s infinite ease-in-out;
+        }
 
-          <div className="mt-12 text-center">
-            <button onClick={handleStartStrategy} className="btn-primary inline-flex items-center gap-2">
-              Begin Your Journey
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #A855F7, transparent);
+          top: -100px;
+          right: -100px;
+          animation-delay: 0s;
+        }
 
-      {/* New Features Section */}
-      <section className="py-12 px-6 bg-gradient-to-b from-transparent to-navy-800/30">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            {newFeatures.map((feature) => (
-              <Link
-                key={feature.title}
-                href={feature.href}
-                className="relative p-5 rounded-xl bg-navy-700/50 border border-navy-600 hover:border-teal-500/50 hover:bg-navy-700 transition-all group"
-              >
-                {feature.badge && (
-                  <span className="absolute top-3 right-3 px-2 py-0.5 text-xs font-medium bg-teal-500/20 text-teal-400 rounded-full border border-teal-500/30">
-                    {feature.badge}
-                  </span>
-                )}
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-2xl">{feature.icon}</span>
-                  <h3 className="font-semibold text-white group-hover:text-teal-400 transition-colors">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-gray-400">{feature.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+        .orb-2 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #14B8A6, transparent);
+          bottom: -50px;
+          left: -50px;
+          animation-delay: -5s;
+        }
 
-      {/* Features */}
-      <section className="py-20 px-6 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-4">
-            Intelligence at Your Fingertips
-          </h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Three powerful capabilities working together to transform how you approach strategic
-            decision-making.
-          </p>
+        .orb-3 {
+          width: 250px;
+          height: 250px;
+          background: radial-gradient(circle, #EC4899, transparent);
+          top: 50%;
+          left: 30%;
+          animation-delay: -10s;
+        }
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature) => (
-              <Link
-                key={feature.title}
-                href={feature.href}
-                className="card card-hover group"
-              >
-                <div
-                  className={`w-14 h-14 rounded-xl bg-${feature.color}-500/20 flex items-center justify-center text-${feature.color}-400 mb-4 group-hover:scale-110 transition-transform`}
-                >
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-teal-400 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
-                <div className="mt-4 text-teal-400 text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+        .orb-4 {
+          width: 200px;
+          height: 200px;
+          background: radial-gradient(circle, #3B82F6, transparent);
+          bottom: 30%;
+          right: 20%;
+          animation-delay: -15s;
+        }
 
-      {/* Case Studies Section */}
-      <LandingCaseStudies />
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(30px, -30px) scale(1.1); }
+          50% { transform: translate(-20px, 20px) scale(0.9); }
+          75% { transform: translate(-30px, -20px) scale(1.05); }
+        }
 
-      {/* Consulting Section */}
-      <section className="py-20 px-6 bg-navy-800/50 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Need More Than Software?
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Our strategy consultants can help you implement frameworks, facilitate workshops, and drive transformation. Choose the engagement that fits your needs.
-            </p>
-          </div>
-          <ConsultingPackagesShowcase />
-        </div>
-      </section>
+        .landing-nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          background: rgba(11, 11, 15, 0.8);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-      {/* Stats */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: '50+', label: 'Strategy Tools' },
-            { value: '12', label: 'Case Studies' },
-            { value: '3', label: 'Pricing Tiers' },
-            { value: 'Real-time', label: 'AI Insights' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl font-bold text-gradient mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+        .nav-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 16px 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
 
-      {/* CTA Banner */}
-      <section className="py-12 px-6">
-        <div className="max-w-4xl mx-auto">
-          <ConsultingCTA variant="banner" context="Ready to transform your strategic decision-making?" />
-        </div>
-      </section>
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
-      {/* User Switcher Panel */}
-      <UserSwitcherPanel />
+        .logo-mark {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #14B8A6, #A855F7, #EC4899);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="text-white font-semibold mb-3">Platform</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/workspace" className="text-gray-400 hover:text-white">Workspace</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Tools Library</Link></li>
-                <li><Link href="/diagnosis" className="text-gray-400 hover:text-white">Diagnostic Wizard</Link></li>
-                <li><Link href="/advisor" className="text-gray-400 hover:text-white">Strategic Advisor</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Solutions</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/scenarios" className="text-gray-400 hover:text-white">Scenario Planning</Link></li>
-                <li><Link href="/portfolio" className="text-gray-400 hover:text-white">Portfolio Management</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Risk Management</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Digital Strategy</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
-                <li><span className="text-gray-500">Documentation</span></li>
-                <li><span className="text-gray-500">API Reference</span></li>
-                <li><span className="text-gray-500">Blog</span></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><span className="text-gray-500">About Us</span></li>
-                <li><span className="text-gray-500">Contact</span></li>
-                <li><span className="text-gray-500">Careers</span></li>
-                <li><span className="text-gray-500">Privacy Policy</span></li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-navy-700">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <span>Lumina S</span>
-              <span>•</span>
-              <span>Demo Platform v1.0</span>
-            </div>
-            <div className="text-gray-500 text-sm">
-              Built for strategic decision intelligence
-            </div>
-          </div>
-        </div>
-      </footer>
+        .logo-text {
+          font-size: 24px;
+          font-weight: 700;
+          color: white;
+        }
 
-      <HelpModal />
+        .logo-accent {
+          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .nav-link {
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+          transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+          color: white;
+        }
+
+        .signin-link {
+          padding: 10px 20px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: white;
+        }
+
+        .signin-link:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-section {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          padding: 120px 24px 60px;
+        }
+
+        .hero-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: center;
+        }
+
+        .hero-left {
+          position: relative;
+          z-index: 10;
+        }
+
+        .brand-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          background: rgba(168, 85, 247, 0.15);
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 30px;
+          font-size: 13px;
+          font-weight: 500;
+          color: #C084FC;
+          margin-bottom: 24px;
+        }
+
+        .badge-dot {
+          width: 8px;
+          height: 8px;
+          background: #A855F7;
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-title {
+          font-size: 56px;
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 24px;
+        }
+
+        .title-line {
+          display: block;
+          color: white;
+        }
+
+        .title-gradient {
+          display: block;
+          background: linear-gradient(135deg, #14B8A6, #A855F7, #EC4899);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 72px;
+        }
+
+        .hero-description {
+          font-size: 18px;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 32px;
+          max-width: 500px;
+        }
+
+        .signup-section {
+          margin-bottom: 32px;
+        }
+
+        .magic-link-form {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .input-wrapper {
+          flex: 1;
+          position: relative;
+        }
+
+        .input-icon {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .email-input {
+          width: 100%;
+          padding: 16px 16px 16px 48px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 12px;
+          font-size: 16px;
+          color: white;
+          outline: none;
+          transition: all 0.2s ease;
+        }
+
+        .email-input::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .email-input:focus {
+          border-color: #A855F7;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .start-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 16px 28px;
+          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          border: none;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+
+        .start-btn:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+        }
+
+        .start-btn:disabled {
+          opacity: 0.7;
+          cursor: wait;
+        }
+
+        .btn-loading .spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        .signup-hint {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .social-proof {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .user-avatars {
+          display: flex;
+        }
+
+        .avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 600;
+          color: white;
+          border: 2px solid #0B0B0F;
+          margin-left: -8px;
+        }
+
+        .avatar:first-child {
+          margin-left: 0;
+        }
+
+        .proof-text {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-right {
+          position: relative;
+          z-index: 10;
+        }
+
+        .dashboard-preview {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          overflow: hidden;
+          backdrop-filter: blur(10px);
+        }
+
+        .preview-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px 20px;
+          background: rgba(0, 0, 0, 0.3);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-dots {
+          display: flex;
+          gap: 6px;
+        }
+
+        .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+
+        .dot.red { background: #EF4444; }
+        .dot.yellow { background: #F59E0B; }
+        .dot.green { background: #22C55E; }
+
+        .preview-title {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .preview-content {
+          padding: 24px;
+        }
+
+        .metrics-section {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+
+        .metric-slider {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          padding: 14px 16px;
+        }
+
+        .metric-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+
+        .metric-icon {
+          font-size: 18px;
+        }
+
+        .metric-label {
+          flex: 1;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .metric-value {
+          font-size: 15px;
+          font-weight: 700;
+        }
+
+        .metric-track {
+          height: 6px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
+        .metric-fill {
+          height: 100%;
+          border-radius: 3px;
+          transition: width 0.1s ease-out;
+        }
+
+        .workflow-preview {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          margin-bottom: 20px;
+        }
+
+        .workflow-step {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          opacity: 0.5;
+          transition: opacity 0.2s ease;
+        }
+
+        .workflow-step.active {
+          opacity: 1;
+        }
+
+        .step-icon {
+          font-size: 20px;
+        }
+
+        .step-label {
+          font-size: 10px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .workflow-connector {
+          width: 20px;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .preview-cta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(20, 184, 166, 0.2));
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 12px;
+        }
+
+        .cta-text {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .preview-btn {
+          padding: 10px 18px;
+          background: linear-gradient(135deg, #A855F7, #EC4899);
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .preview-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+
+        .features-strip {
+          background: rgba(0, 0, 0, 0.3);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 24px 0;
+        }
+
+        .features-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 24px;
+        }
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .feature-icon {
+          font-size: 24px;
+        }
+
+        .feature-text {
+          font-size: 15px;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bottom-cta {
+          padding: 80px 24px;
+          text-align: center;
+        }
+
+        .cta-content h2 {
+          font-size: 36px;
+          font-weight: 700;
+          color: white;
+          margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+
+        .cta-primary {
+          padding: 16px 32px;
+          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .cta-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+        }
+
+        .cta-secondary {
+          padding: 16px 32px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .cta-secondary:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 1024px) {
+          .hero-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+          }
+
+          .hero-left {
+            order: 1;
+          }
+
+          .hero-right {
+            order: 2;
+          }
+
+          .hero-title {
+            font-size: 42px;
+          }
+
+          .title-gradient {
+            font-size: 52px;
+          }
+
+          .hero-description {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .magic-link-form {
+            flex-direction: column;
+          }
+
+          .social-proof {
+            justify-content: center;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .hero-title {
+            font-size: 32px;
+          }
+
+          .title-gradient {
+            font-size: 40px;
+          }
+
+          .features-content {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .cta-buttons {
+            flex-direction: column;
+          }
+
+          .cta-content h2 {
+            font-size: 28px;
+          }
+        }
+      `}</style>
     </div>
-    </PremiumBackground>
   );
 }
