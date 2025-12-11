@@ -398,6 +398,9 @@ export default function LandingPage() {
           background: linear-gradient(135deg, #0a0a12 0%, #0d1117 25%, #0a0a12 50%, #111827 75%, #0a0a12 100%);
           position: relative;
           overflow: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
         }
 
         .landing-page::before {
@@ -560,7 +563,7 @@ export default function LandingPage() {
         }
 
         .nav-link {
-          color: rgba(255, 255, 255, 0.7);
+          color: #E5E7EB;
           text-decoration: none;
           font-size: 15px;
           font-weight: 500;
@@ -568,7 +571,7 @@ export default function LandingPage() {
         }
 
         .nav-link:hover {
-          color: white;
+          color: #ffffff;
         }
 
         .signin-link {
@@ -636,28 +639,32 @@ export default function LandingPage() {
           font-weight: 800;
           line-height: 1.2;
           margin-bottom: 20px;
-          color: white;
+          color: #ffffff;
+          letter-spacing: -0.02em;
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
         }
 
         .title-line {
           display: inline;
-          color: white;
+          color: #ffffff;
         }
 
         .title-gradient {
           display: inline;
-          background: linear-gradient(135deg, #14B8A6, #A855F7, #EC4899);
+          background: linear-gradient(135deg, #2DD4BF, #C084FC, #F472B6);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-weight: 800;
+          filter: brightness(1.1);
         }
 
         .hero-description {
           font-size: 17px;
           line-height: 1.7;
-          color: rgba(255, 255, 255, 0.7);
+          color: #D1D5DB;
           margin-bottom: 36px;
           max-width: 600px;
+          text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
         }
 
         .auth-section {
@@ -696,7 +703,7 @@ export default function LandingPage() {
           border: none;
           font-size: 17px;
           font-weight: 700;
-          color: rgba(255, 255, 255, 0.5);
+          color: #9CA3AF;
           cursor: pointer;
           transition: all 0.3s ease;
           position: relative;
@@ -705,7 +712,7 @@ export default function LandingPage() {
         }
 
         .auth-tab:hover {
-          color: rgba(255, 255, 255, 0.8);
+          color: #E5E7EB;
           background: rgba(255, 255, 255, 0.05);
         }
 
@@ -730,7 +737,7 @@ export default function LandingPage() {
 
         .auth-subtitle {
           font-size: 16px;
-          color: rgba(255, 255, 255, 0.8);
+          color: #D1D5DB;
           text-align: center;
           margin-bottom: 28px;
         }
@@ -798,7 +805,7 @@ export default function LandingPage() {
 
         .auth-divider span {
           font-size: 12px;
-          color: rgba(255, 255, 255, 0.5);
+          color: #9CA3AF;
         }
 
         .email-form {

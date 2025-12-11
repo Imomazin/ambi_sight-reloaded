@@ -29,16 +29,9 @@ export default function SignInPage() {
   const [oauthEmail, setOauthEmail] = useState('');
   const [error, setError] = useState('');
 
-  // Demo accounts for OAuth simulation
-  const demoGoogleAccounts = [
-    { email: 'demo.user@gmail.com', name: 'Demo User', avatar: 'DU' },
-    { email: 'john.smith@gmail.com', name: 'John Smith', avatar: 'JS' },
-  ];
-
-  const demoMicrosoftAccounts = [
-    { email: 'demo.user@outlook.com', name: 'Demo User', avatar: 'DU' },
-    { email: 'jane.doe@outlook.com', name: 'Jane Doe', avatar: 'JD' },
-  ];
+  // State for user's entered email to show as account option
+  const [userAccount, setUserAccount] = useState<{ email: string; name: string } | null>(null);
+  const [showAddAccount, setShowAddAccount] = useState(false);
 
   // Set initial state based on URL params - simulate OAuth redirect
   useEffect(() => {
@@ -132,8 +125,8 @@ export default function SignInPage() {
     }, 800);
   };
 
-  // Handle using a different account (custom email)
-  const handleUseOtherAccount = (e: React.FormEvent) => {
+  // Handle adding user's email as an account option
+  const handleAddAccount = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!oauthEmail) {
@@ -147,26 +140,15 @@ export default function SignInPage() {
       return;
     }
 
-    setIsLoading(true);
-    const provider = authMethod as 'google' | 'microsoft' | 'github';
+    // Add as user's account and hide the add form
+    const accountName = oauthEmail.split('@')[0].split('.').map(
+      part => part.charAt(0).toUpperCase() + part.slice(1)
+    ).join(' ') || 'User';
 
-    setTimeout(() => {
-      const newUser: UserProfile = {
-        id: `${provider}-${Date.now()}`,
-        name: oauthEmail.split('@')[0] || 'User',
-        email: oauthEmail,
-        role: 'User',
-        plan: 'Free',
-        level: 1,
-        avatar: oauthEmail[0].toUpperCase(),
-        lastActive: new Date().toISOString(),
-        registeredAt: new Date().toISOString(),
-        authProvider: provider,
-      };
-      setCurrentUser(newUser);
-      setOauthStep('complete');
-      router.push(returnUrl);
-    }, 800);
+    setUserAccount({ email: oauthEmail, name: accountName });
+    setShowAddAccount(false);
+    setOauthEmail('');
+    setError('');
   };
 
   const cancelOAuth = () => {
@@ -175,6 +157,8 @@ export default function SignInPage() {
     setOauthEmail('');
     setError('');
     setIsLoading(false);
+    setUserAccount(null);
+    setShowAddAccount(false);
     // Clear URL params
     router.replace('/signin');
   };
@@ -276,61 +260,93 @@ export default function SignInPage() {
 
               {/* Account List */}
               <div className="p-4">
-                <p className="text-sm text-gray-600 px-2 mb-2">Choose an account</p>
+                <p className="text-sm text-gray-600 px-2 mb-3">Choose an account</p>
 
-                {/* Demo accounts */}
                 <div className="space-y-1">
-                  {(authMethod === 'google' ? demoGoogleAccounts : demoMicrosoftAccounts).map((account) => (
+                  {/* User's account (if added) */}
+                  {userAccount && (
                     <button
-                      key={account.email}
-                      onClick={() => handleSelectOAuthAccount(account.email, account.name)}
+                      onClick={() => handleSelectOAuthAccount(userAccount.email, userAccount.name)}
                       disabled={isLoading}
-                      className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left disabled:opacity-50"
+                      className="w-full flex items-center gap-3 p-3 rounded-lg bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 transition-colors text-left disabled:opacity-50"
                     >
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-medium text-sm">
-                        {account.avatar}
+                        {userAccount.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-800 truncate">{account.name}</p>
-                        <p className="text-xs text-gray-500 truncate">{account.email}</p>
+                        <p className="text-sm font-medium text-gray-800 truncate">{userAccount.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{userAccount.email}</p>
                       </div>
-                      {isLoading && (
+                      {isLoading ? (
                         <svg className="w-5 h-5 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                         </svg>
+                      ) : (
+                        <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       )}
                     </button>
-                  ))}
+                  )}
+
+                  {/* Use another account button */}
+                  {!showAddAccount ? (
+                    <button
+                      onClick={() => setShowAddAccount(true)}
+                      className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-800">Use another account</p>
+                        <p className="text-xs text-gray-500">Sign in with a different {authMethod === 'google' ? 'Google' : authMethod === 'microsoft' ? 'Microsoft' : 'GitHub'} account</p>
+                      </div>
+                    </button>
+                  ) : (
+                    /* Add account form */
+                    <form onSubmit={handleAddAccount} className="p-3 rounded-lg bg-gray-50 border border-gray-200">
+                      <p className="text-sm text-gray-600 mb-2">Enter your {authMethod === 'google' ? 'Gmail' : authMethod === 'microsoft' ? 'Outlook' : ''} email</p>
+                      <div className="flex gap-2">
+                        <input
+                          type="email"
+                          value={oauthEmail}
+                          onChange={(e) => setOauthEmail(e.target.value)}
+                          placeholder={authMethod === 'google' ? 'you@gmail.com' : authMethod === 'microsoft' ? 'you@outlook.com' : 'you@example.com'}
+                          className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          autoFocus
+                          disabled={isLoading}
+                        />
+                        <button
+                          type="submit"
+                          disabled={isLoading || !oauthEmail}
+                          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                          Add
+                        </button>
+                      </div>
+                      {error && (
+                        <p className="text-red-500 text-xs mt-2">{error}</p>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => { setShowAddAccount(false); setOauthEmail(''); setError(''); }}
+                        className="text-xs text-gray-500 hover:text-gray-700 mt-2"
+                      >
+                        Cancel
+                      </button>
+                    </form>
+                  )}
                 </div>
 
-                {/* Divider */}
-                <div className="my-3 border-t border-gray-100" />
-
-                {/* Use another account */}
-                <form onSubmit={handleUseOtherAccount} className="px-2">
-                  <p className="text-sm text-gray-600 mb-2">Or use a different account</p>
-                  <div className="flex gap-2">
-                    <input
-                      type="email"
-                      value={oauthEmail}
-                      onChange={(e) => setOauthEmail(e.target.value)}
-                      placeholder={authMethod === 'google' ? 'Enter Gmail address' : authMethod === 'microsoft' ? 'Enter Outlook address' : 'Enter email'}
-                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      disabled={isLoading}
-                    />
-                    <button
-                      type="submit"
-                      disabled={isLoading || !oauthEmail}
-                      className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                      Go
-                    </button>
-                  </div>
-                  {error && (
-                    <p className="text-red-500 text-xs mt-2">{error}</p>
-                  )}
-                </form>
+                {!userAccount && !showAddAccount && (
+                  <p className="text-xs text-gray-400 text-center mt-4 px-4">
+                    Click &quot;Use another account&quot; to add your {authMethod === 'google' ? 'Gmail' : authMethod === 'microsoft' ? 'Outlook' : ''} email
+                  </p>
+                )}
               </div>
 
               {/* Footer */}
