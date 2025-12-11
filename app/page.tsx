@@ -420,7 +420,7 @@ export default function LandingPage() {
       <style jsx>{`
         .landing-page {
           min-height: 100vh;
-          background: #0a0a0f;
+          background: linear-gradient(135deg, #0a0a12 0%, #0d1117 25%, #0a0a12 50%, #111827 75%, #0a0a12 100%);
           position: relative;
           overflow: hidden;
         }
@@ -430,10 +430,18 @@ export default function LandingPage() {
           position: absolute;
           inset: 0;
           background:
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
-            radial-gradient(ellipse 60% 40% at 90% 100%, rgba(20, 184, 166, 0.2), transparent),
-            radial-gradient(ellipse 50% 30% at 10% 80%, rgba(168, 85, 247, 0.15), transparent);
+            radial-gradient(ellipse 100% 80% at 20% -30%, rgba(120, 119, 198, 0.4), transparent),
+            radial-gradient(ellipse 80% 60% at 100% 50%, rgba(20, 184, 166, 0.25), transparent),
+            radial-gradient(ellipse 70% 50% at 0% 80%, rgba(168, 85, 247, 0.2), transparent),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(236, 72, 153, 0.15), transparent),
+            radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 246, 0.1), transparent);
           pointer-events: none;
+          animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
         }
 
         .landing-page::after {
@@ -441,9 +449,11 @@ export default function LandingPage() {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-          background-size: 60px 60px;
+            radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(20, 184, 166, 0.03) 0%, transparent 50%),
+            linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+          background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
           pointer-events: none;
         }
 
@@ -457,52 +467,66 @@ export default function LandingPage() {
         .orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(100px);
-          opacity: 0.5;
-          animation: float 25s infinite ease-in-out;
+          filter: blur(120px);
+          opacity: 0.6;
         }
 
         .orb-1 {
-          width: 600px;
-          height: 600px;
-          background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent 70%);
-          top: -200px;
-          right: -150px;
-          animation-delay: 0s;
+          width: 800px;
+          height: 800px;
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.5), transparent 70%);
+          top: -300px;
+          right: -200px;
+          animation: float1 20s infinite ease-in-out;
         }
 
         .orb-2 {
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, rgba(20, 184, 166, 0.35), transparent 70%);
-          bottom: -100px;
-          left: -100px;
-          animation-delay: -7s;
+          width: 700px;
+          height: 700px;
+          background: radial-gradient(circle, rgba(20, 184, 166, 0.45), transparent 70%);
+          bottom: -200px;
+          left: -150px;
+          animation: float2 25s infinite ease-in-out;
         }
 
         .orb-3 {
-          width: 350px;
-          height: 350px;
-          background: radial-gradient(circle, rgba(236, 72, 153, 0.3), transparent 70%);
-          top: 40%;
-          left: 20%;
-          animation-delay: -12s;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+          top: 30%;
+          left: 10%;
+          animation: float3 18s infinite ease-in-out;
         }
 
         .orb-4 {
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
-          bottom: 20%;
-          right: 10%;
-          animation-delay: -18s;
+          width: 450px;
+          height: 450px;
+          background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent 70%);
+          bottom: 10%;
+          right: 5%;
+          animation: float4 22s infinite ease-in-out;
         }
 
-        @keyframes float {
+        @keyframes float1 {
           0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(40px, -40px) scale(1.1); }
-          50% { transform: translate(-30px, 30px) scale(0.95); }
-          75% { transform: translate(-40px, -30px) scale(1.05); }
+          33% { transform: translate(60px, -80px) scale(1.15); }
+          66% { transform: translate(-40px, 40px) scale(0.9); }
+        }
+
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-50px, -60px) scale(1.1); }
+          66% { transform: translate(70px, 30px) scale(0.95); }
+        }
+
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(80px, -50px) scale(1.2); }
+        }
+
+        @keyframes float4 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-60px, -70px) scale(1.1); }
         }
 
         .landing-nav {
@@ -587,15 +611,16 @@ export default function LandingPage() {
           min-height: 100vh;
           display: flex;
           align-items: center;
-          padding: 120px 24px 60px;
+          padding: 120px 48px 60px;
         }
 
         .hero-content {
-          max-width: 1200px;
+          max-width: 1400px;
+          width: 100%;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 80px;
           align-items: center;
         }
 
@@ -660,76 +685,82 @@ export default function LandingPage() {
         }
 
         .auth-section {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          padding: 24px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 24px;
+          padding: 32px;
           margin-bottom: 32px;
-          max-width: 420px;
+          max-width: 480px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
         }
 
         .auth-header {
           text-align: center;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
         }
 
         .auth-title {
-          font-size: 20px;
+          font-size: 24px;
           font-weight: 700;
           color: white;
-          margin-bottom: 4px;
+          margin-bottom: 8px;
         }
 
         .auth-subtitle {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
+          font-size: 15px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
         .oauth-buttons {
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          margin-bottom: 20px;
+          gap: 12px;
+          margin-bottom: 24px;
         }
 
         .oauth-btn {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 12px;
+          gap: 14px;
           width: 100%;
-          padding: 14px 20px;
-          border-radius: 12px;
-          font-size: 15px;
-          font-weight: 500;
+          padding: 16px 24px;
+          border-radius: 14px;
+          font-size: 16px;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s ease;
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          background: rgba(255, 255, 255, 0.08);
+          transition: all 0.25s ease;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
           color: white;
         }
 
         .oauth-btn:hover {
-          background: rgba(255, 255, 255, 0.12);
-          border-color: rgba(255, 255, 255, 0.25);
-          transform: translateY(-1px);
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .oauth-btn.google:hover {
           border-color: #4285F4;
+          box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25);
         }
 
         .oauth-btn.microsoft:hover {
           border-color: #00A4EF;
+          box-shadow: 0 8px 24px rgba(0, 164, 239, 0.25);
         }
 
         .oauth-btn.github:hover {
           border-color: #fff;
+          box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
         }
 
         .oauth-icon {
-          width: 20px;
-          height: 20px;
+          width: 22px;
+          height: 22px;
         }
 
         .auth-divider {
@@ -776,30 +807,33 @@ export default function LandingPage() {
 
         .logged-in-section {
           margin-bottom: 32px;
+          max-width: 480px;
         }
 
         .welcome-card {
           display: flex;
           align-items: center;
-          gap: 16px;
-          padding: 16px 20px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 16px;
-          margin-bottom: 16px;
+          gap: 20px;
+          padding: 24px;
+          background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(168, 85, 247, 0.1));
+          border: 1px solid rgba(20, 184, 166, 0.3);
+          border-radius: 20px;
+          margin-bottom: 20px;
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
         }
 
         .welcome-avatar {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
           background: linear-gradient(135deg, #14B8A6, #A855F7);
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: 700;
-          font-size: 18px;
+          font-size: 22px;
           color: white;
+          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
         }
 
         .welcome-info {
@@ -807,54 +841,59 @@ export default function LandingPage() {
         }
 
         .welcome-name {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 600;
           color: white;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
         }
 
         .welcome-plan {
-          font-size: 13px;
-          color: #14B8A6;
+          font-size: 14px;
+          color: #2DD4BF;
+          font-weight: 500;
         }
 
         .logged-in-actions {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 14px;
         }
 
         .dashboard-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 16px 28px;
+          gap: 10px;
+          padding: 18px 32px;
           background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-          border-radius: 12px;
-          font-size: 16px;
+          border-radius: 14px;
+          font-size: 17px;
           font-weight: 600;
           color: white;
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
         }
 
         .dashboard-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 32px rgba(20, 184, 166, 0.5);
         }
 
         .signout-btn {
-          background: transparent;
-          border: none;
-          color: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: rgba(255, 255, 255, 0.6);
           font-size: 14px;
           cursor: pointer;
-          padding: 8px;
-          transition: color 0.2s ease;
+          padding: 12px 16px;
+          transition: all 0.2s ease;
         }
 
         .signout-btn:hover {
+          background: rgba(236, 72, 153, 0.1);
+          border-color: rgba(236, 72, 153, 0.3);
           color: #EC4899;
         }
 
@@ -974,19 +1013,29 @@ export default function LandingPage() {
         }
 
         .dashboard-preview {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 24px;
           overflow: hidden;
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(20px);
+          box-shadow:
+            0 32px 64px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 80px rgba(168, 85, 247, 0.1);
+          transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
+          transition: transform 0.3s ease;
+        }
+
+        .dashboard-preview:hover {
+          transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
         }
 
         .preview-header {
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 16px 20px;
-          background: rgba(0, 0, 0, 0.3);
+          padding: 18px 24px;
+          background: rgba(0, 0, 0, 0.4);
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -1132,92 +1181,138 @@ export default function LandingPage() {
         }
 
         .features-strip {
-          background: rgba(0, 0, 0, 0.3);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 24px 0;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 32px 0;
         }
 
         .features-content {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 0 24px;
+          padding: 0 48px;
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           flex-wrap: wrap;
-          gap: 24px;
+          gap: 32px;
         }
 
         .feature-item {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 14px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 12px;
+          transition: all 0.2s ease;
+        }
+
+        .feature-item:hover {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
         }
 
         .feature-icon {
-          font-size: 24px;
+          font-size: 28px;
         }
 
         .feature-text {
-          font-size: 15px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.8);
+          font-size: 16px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
         }
 
         .bottom-cta {
-          padding: 80px 24px;
+          padding: 100px 48px;
           text-align: center;
+          position: relative;
+        }
+
+        .bottom-cta::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(168, 85, 247, 0.15), transparent);
+          pointer-events: none;
+        }
+
+        .cta-content {
+          position: relative;
+          z-index: 1;
         }
 
         .cta-content h2 {
-          font-size: 36px;
+          font-size: 42px;
           font-weight: 700;
           color: white;
-          margin-bottom: 24px;
+          margin-bottom: 32px;
+          background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.8));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .cta-buttons {
           display: flex;
           justify-content: center;
-          gap: 16px;
+          gap: 20px;
         }
 
         .cta-primary {
-          padding: 16px 32px;
+          padding: 18px 40px;
           background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-          border-radius: 12px;
-          font-size: 16px;
+          border-radius: 14px;
+          font-size: 17px;
           font-weight: 600;
           color: white;
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
         }
 
         .cta-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 32px rgba(20, 184, 166, 0.5);
         }
 
         .cta-secondary {
-          padding: 16px 32px;
-          background: rgba(255, 255, 255, 0.1);
+          padding: 18px 40px;
+          background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 12px;
-          font-size: 16px;
+          border-radius: 14px;
+          font-size: 17px;
           font-weight: 600;
           color: white;
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: all 0.25s ease;
         }
 
         .cta-secondary:hover {
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 1200px) {
+          .hero-section {
+            padding: 120px 32px 60px;
+          }
+
+          .hero-content {
+            gap: 50px;
+          }
+
+          .features-content {
+            padding: 0 32px;
+          }
         }
 
         @media (max-width: 1024px) {
           .hero-content {
             grid-template-columns: 1fr;
             text-align: center;
+            max-width: 700px;
           }
 
           .hero-left {
@@ -1242,16 +1337,38 @@ export default function LandingPage() {
             margin-right: auto;
           }
 
-          .magic-link-form {
+          .auth-section {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .logged-in-section {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .email-form {
             flex-direction: column;
           }
 
           .social-proof {
             justify-content: center;
           }
+
+          .trust-badges {
+            justify-content: center;
+          }
+
+          .features-content {
+            justify-content: center;
+          }
         }
 
         @media (max-width: 640px) {
+          .hero-section {
+            padding: 100px 20px 40px;
+          }
+
           .hero-title {
             font-size: 32px;
           }
@@ -1260,17 +1377,32 @@ export default function LandingPage() {
             font-size: 40px;
           }
 
+          .auth-section {
+            padding: 24px 20px;
+          }
+
           .features-content {
             flex-direction: column;
             align-items: center;
+            padding: 0 20px;
+          }
+
+          .feature-item {
+            width: 100%;
+            justify-content: center;
           }
 
           .cta-buttons {
             flex-direction: column;
+            padding: 0 20px;
           }
 
           .cta-content h2 {
             font-size: 28px;
+          }
+
+          .bottom-cta {
+            padding: 60px 20px;
           }
         }
       `}</style>
