@@ -73,6 +73,7 @@ export default function LandingPage() {
   const { currentUser, setCurrentUser, logout } = useAppState();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
   // Handle sign out
   const handleSignOut = () => {
@@ -80,11 +81,11 @@ export default function LandingPage() {
   };
 
   // Handle OAuth login directly from landing page
-  const handleOAuth = (provider: 'google' | 'microsoft' | 'github') => {
+  const handleOAuth = (provider: 'google' | 'microsoft') => {
     setIsSubmitting(true);
-    const providerNames = { google: 'Google User', microsoft: 'Microsoft User', github: 'GitHub User' };
-    const providerEmails = { google: 'gmail.com', microsoft: 'outlook.com', github: 'github.com' };
-    const providerAvatars = { google: 'G', microsoft: 'M', github: 'H' };
+    const providerNames = { google: 'Google User', microsoft: 'Microsoft User' };
+    const providerEmails = { google: 'gmail.com', microsoft: 'outlook.com' };
+    const providerAvatars = { google: 'G', microsoft: 'M' };
 
     setTimeout(() => {
       setCurrentUser({
@@ -103,12 +104,12 @@ export default function LandingPage() {
     }, 1000);
   };
 
-  const handleMagicLink = async (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setIsSubmitting(true);
     setTimeout(() => {
-      router.push(`/signin?email=${encodeURIComponent(email)}`);
+      router.push(`/signin?email=${encodeURIComponent(email)}&mode=${authMode}`);
     }, 500);
   };
 
@@ -166,51 +167,61 @@ export default function LandingPage() {
               diagnose challenges, design solutions, decide on priorities, and deliver outcomes.
             </p>
 
-            {/* Auth Section - Only show if not logged in */}
-            {!currentUser && (
-              <div className="auth-section">
-                <div className="auth-header">
-                  <h3 className="auth-title">Get Started for Free</h3>
-                  <p className="auth-subtitle">Sign in or register to access your strategic workspace</p>
-                </div>
+            {/* Auth Section - Always visible */}
+            <div className="auth-section">
+              {/* Auth Tabs */}
+              <div className="auth-tabs">
+                <button
+                  className={`auth-tab ${authMode === 'login' ? 'active' : ''}`}
+                  onClick={() => setAuthMode('login')}
+                >
+                  Log In
+                </button>
+                <button
+                  className={`auth-tab ${authMode === 'register' ? 'active' : ''}`}
+                  onClick={() => setAuthMode('register')}
+                >
+                  Register
+                </button>
+              </div>
+
+              <div className="auth-content">
+                <p className="auth-subtitle">
+                  {authMode === 'login'
+                    ? 'Welcome back! Sign in to continue'
+                    : 'Create your free account to get started'}
+                </p>
 
                 {/* OAuth Buttons */}
                 <div className="oauth-buttons">
-                  <button onClick={() => handleOAuth('google')} className="oauth-btn google">
+                  <button onClick={() => handleOAuth('google')} className="oauth-btn google" disabled={isSubmitting}>
                     <svg className="oauth-icon" viewBox="0 0 24 24">
                       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                       <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                       <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                       <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
-                    <span>Continue with Google</span>
+                    <span>{authMode === 'login' ? 'Sign in with Gmail' : 'Sign up with Gmail'}</span>
                   </button>
 
-                  <button onClick={() => handleOAuth('microsoft')} className="oauth-btn microsoft">
+                  <button onClick={() => handleOAuth('microsoft')} className="oauth-btn microsoft" disabled={isSubmitting}>
                     <svg className="oauth-icon" viewBox="0 0 24 24">
                       <path fill="#F25022" d="M1 1h10v10H1z"/>
                       <path fill="#00A4EF" d="M1 13h10v10H1z"/>
                       <path fill="#7FBA00" d="M13 1h10v10H13z"/>
                       <path fill="#FFB900" d="M13 13h10v10H13z"/>
                     </svg>
-                    <span>Continue with Microsoft</span>
-                  </button>
-
-                  <button onClick={() => handleOAuth('github')} className="oauth-btn github">
-                    <svg className="oauth-icon" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
-                    </svg>
-                    <span>Continue with GitHub</span>
+                    <span>{authMode === 'login' ? 'Sign in with Outlook' : 'Sign up with Outlook'}</span>
                   </button>
                 </div>
 
                 {/* Divider */}
                 <div className="auth-divider">
-                  <span>or register with email</span>
+                  <span>or use email</span>
                 </div>
 
                 {/* Email Form */}
-                <form onSubmit={handleMagicLink} className="email-form">
+                <form onSubmit={handleEmailSubmit} className="email-form">
                   <div className="input-wrapper">
                     <svg className="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -235,7 +246,7 @@ export default function LandingPage() {
                       </span>
                     ) : (
                       <>
-                        Register Free
+                        {authMode === 'login' ? 'Sign In' : 'Register Free'}
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
@@ -244,35 +255,20 @@ export default function LandingPage() {
                   </button>
                 </form>
 
-                <p className="auth-hint">
-                  Already have an account? <Link href="/signin" className="auth-link">Sign In</Link>
-                </p>
-              </div>
-            )}
-
-            {/* Show dashboard link if logged in */}
-            {currentUser && (
-              <div className="logged-in-section">
-                <div className="welcome-card">
-                  <div className="welcome-avatar">{currentUser.avatar}</div>
-                  <div className="welcome-info">
-                    <p className="welcome-name">Welcome back, {currentUser.name}!</p>
-                    <p className="welcome-plan">{currentUser.plan} Plan</p>
+                {/* Currently logged in notice */}
+                {currentUser && (
+                  <div className="logged-in-notice">
+                    <p>Currently signed in as <strong>{currentUser.name}</strong></p>
+                    <div className="logged-in-actions-inline">
+                      <Link href="/dashboard" className="go-dashboard-link">Go to Dashboard</Link>
+                      <span className="divider-dot">•</span>
+                      <button onClick={handleSignOut} className="signout-link">Sign out</button>
+                    </div>
                   </div>
-                </div>
-                <div className="logged-in-actions">
-                  <Link href="/dashboard" className="dashboard-btn">
-                    Go to Dashboard
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                  <button onClick={handleSignOut} className="signout-btn">
-                    Not you? Sign out
-                  </button>
-                </div>
+                )}
               </div>
-            )}
+            </div>
+
 
             {/* Social Proof */}
             <div className="social-proof">
@@ -688,28 +684,61 @@ export default function LandingPage() {
           background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
           border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 24px;
-          padding: 32px;
+          padding: 0;
           margin-bottom: 32px;
           max-width: 480px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
           backdrop-filter: blur(20px);
+          overflow: hidden;
         }
 
-        .auth-header {
-          text-align: center;
-          margin-bottom: 24px;
+        .auth-tabs {
+          display: flex;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .auth-title {
-          font-size: 24px;
-          font-weight: 700;
+        .auth-tab {
+          flex: 1;
+          padding: 18px 24px;
+          background: transparent;
+          border: none;
+          font-size: 16px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.5);
+          cursor: pointer;
+          transition: all 0.2s ease;
+          position: relative;
+        }
+
+        .auth-tab:hover {
+          color: rgba(255, 255, 255, 0.8);
+          background: rgba(255, 255, 255, 0.03);
+        }
+
+        .auth-tab.active {
           color: white;
-          margin-bottom: 8px;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .auth-tab.active::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #14B8A6, #A855F7);
+        }
+
+        .auth-content {
+          padding: 28px 32px 32px;
         }
 
         .auth-subtitle {
           font-size: 15px;
           color: rgba(255, 255, 255, 0.7);
+          text-align: center;
+          margin-bottom: 24px;
         }
 
         .oauth-buttons {
@@ -743,19 +772,14 @@ export default function LandingPage() {
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
-        .oauth-btn.google:hover {
+        .oauth-btn.google:hover:not(:disabled) {
           border-color: #4285F4;
           box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25);
         }
 
-        .oauth-btn.microsoft:hover {
+        .oauth-btn.microsoft:hover:not(:disabled) {
           border-color: #00A4EF;
           box-shadow: 0 8px 24px rgba(0, 164, 239, 0.25);
-        }
-
-        .oauth-btn.github:hover {
-          border-color: #fff;
-          box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
         }
 
         .oauth-icon {
@@ -789,6 +813,62 @@ export default function LandingPage() {
           margin-bottom: 16px;
         }
 
+        .logged-in-notice {
+          margin-top: 20px;
+          padding: 16px;
+          background: rgba(20, 184, 166, 0.1);
+          border: 1px solid rgba(20, 184, 166, 0.2);
+          border-radius: 12px;
+          text-align: center;
+        }
+
+        .logged-in-notice p {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+          margin-bottom: 10px;
+        }
+
+        .logged-in-notice strong {
+          color: #2DD4BF;
+        }
+
+        .logged-in-actions-inline {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+        }
+
+        .go-dashboard-link {
+          color: #14B8A6;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 14px;
+          transition: color 0.2s;
+        }
+
+        .go-dashboard-link:hover {
+          color: #2DD4BF;
+          text-decoration: underline;
+        }
+
+        .divider-dot {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .signout-link {
+          background: none;
+          border: none;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 14px;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+
+        .signout-link:hover {
+          color: #EC4899;
+        }
+
         .auth-hint {
           text-align: center;
           font-size: 13px;
@@ -805,106 +885,10 @@ export default function LandingPage() {
           text-decoration: underline;
         }
 
-        .logged-in-section {
-          margin-bottom: 32px;
-          max-width: 480px;
-        }
-
-        .welcome-card {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          padding: 24px;
-          background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(168, 85, 247, 0.1));
-          border: 1px solid rgba(20, 184, 166, 0.3);
-          border-radius: 20px;
-          margin-bottom: 20px;
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
-        }
-
-        .welcome-avatar {
-          width: 56px;
-          height: 56px;
-          border-radius: 14px;
-          background: linear-gradient(135deg, #14B8A6, #A855F7);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 22px;
-          color: white;
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
-        }
-
-        .welcome-info {
-          flex: 1;
-        }
-
-        .welcome-name {
-          font-size: 18px;
-          font-weight: 600;
-          color: white;
-          margin-bottom: 4px;
-        }
-
-        .welcome-plan {
-          font-size: 14px;
-          color: #2DD4BF;
-          font-weight: 500;
-        }
-
-        .logged-in-actions {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-
-        .dashboard-btn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: 18px 32px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-          border-radius: 14px;
-          font-size: 17px;
-          font-weight: 600;
-          color: white;
-          text-decoration: none;
-          transition: all 0.25s ease;
-          box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
-        }
-
-        .dashboard-btn:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 32px rgba(20, 184, 166, 0.5);
-        }
-
-        .signout-btn {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 14px;
-          cursor: pointer;
-          padding: 12px 16px;
-          transition: all 0.2s ease;
-        }
-
-        .signout-btn:hover {
-          background: rgba(236, 72, 153, 0.1);
-          border-color: rgba(236, 72, 153, 0.3);
-          color: #EC4899;
-        }
-
-        .signup-section {
-          margin-bottom: 32px;
-        }
-
-        .magic-link-form {
-          display: flex;
-          gap: 12px;
-          margin-bottom: 12px;
+        .oauth-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none !important;
         }
 
         .input-wrapper {
