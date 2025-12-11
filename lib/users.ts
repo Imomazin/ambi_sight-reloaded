@@ -3,6 +3,8 @@
 
 export type UserRole = 'KeyUser' | 'Admin' | 'User';
 
+export type UserLevel = 1 | 2 | 3 | 4; // Level 1 = Free, Level 2 = Starter, Level 3 = Pro, Level 4 = Enterprise
+
 export type Plan = 'Free' | 'Starter' | 'Pro' | 'Enterprise';
 
 export type Industry =
@@ -23,11 +25,32 @@ export interface UserProfile {
   email: string;
   role: UserRole;
   plan: Plan;
+  level: UserLevel; // User level 1-4
   company?: string;
   industry?: Industry;
   avatar: string;
   lastActive: string;
+  registeredAt?: string; // When user signed up
+  authProvider?: 'email' | 'google' | 'microsoft' | 'github'; // How they signed up
+  consultancyRequested?: boolean;
+  trialEndsAt?: string;
 }
+
+// Map plan to level
+export const planToLevel: Record<Plan, UserLevel> = {
+  Free: 1,
+  Starter: 2,
+  Pro: 3,
+  Enterprise: 4,
+};
+
+// Level display names
+export const levelDisplayNames: Record<UserLevel, string> = {
+  1: 'Level 1 (Free)',
+  2: 'Level 2 (Starter)',
+  3: 'Level 3 (Pro)',
+  4: 'Level 4 (Enterprise)',
+};
 
 // Role display names
 export const roleDisplayNames: Record<UserRole, string> = {
@@ -73,10 +96,13 @@ export const demoUsers: UserProfile[] = [
     email: 'keyuser@lumina-s.com',
     role: 'KeyUser',
     plan: 'Enterprise',
+    level: 4,
     company: 'Lumina S Demo',
     industry: 'Technology',
     avatar: 'KU',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-01-01T00:00:00.000Z',
+    authProvider: 'email',
   },
   {
     id: 'admin-demo',
@@ -84,10 +110,13 @@ export const demoUsers: UserProfile[] = [
     email: 'admin@lumina-s.com',
     role: 'Admin',
     plan: 'Enterprise',
+    level: 4,
     company: 'Lumina S Demo',
     industry: 'Technology',
     avatar: 'AD',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-01-01T00:00:00.000Z',
+    authProvider: 'email',
   },
   {
     id: 'user-free-demo',
@@ -95,10 +124,13 @@ export const demoUsers: UserProfile[] = [
     email: 'free@example.com',
     role: 'User',
     plan: 'Free',
+    level: 1,
     company: 'Startup Inc',
     industry: 'Technology',
     avatar: 'FU',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-06-15T00:00:00.000Z',
+    authProvider: 'google',
   },
   {
     id: 'user-starter-demo',
@@ -106,10 +138,13 @@ export const demoUsers: UserProfile[] = [
     email: 'starter@example.com',
     role: 'User',
     plan: 'Starter',
+    level: 2,
     company: 'Growing Business',
     industry: 'Retail',
     avatar: 'SU',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-05-10T00:00:00.000Z',
+    authProvider: 'microsoft',
   },
   {
     id: 'user-pro-demo',
@@ -117,10 +152,14 @@ export const demoUsers: UserProfile[] = [
     email: 'pro@example.com',
     role: 'User',
     plan: 'Pro',
+    level: 3,
     company: 'Growth Corp',
     industry: 'Financial Services',
     avatar: 'PU',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-04-20T00:00:00.000Z',
+    authProvider: 'email',
+    consultancyRequested: true,
   },
   {
     id: 'user-enterprise-demo',
@@ -128,10 +167,13 @@ export const demoUsers: UserProfile[] = [
     email: 'enterprise@example.com',
     role: 'User',
     plan: 'Enterprise',
+    level: 4,
     company: 'Global Enterprises',
     industry: 'Manufacturing',
     avatar: 'EU',
     lastActive: new Date().toISOString(),
+    registeredAt: '2024-03-01T00:00:00.000Z',
+    authProvider: 'github',
   },
 ];
 

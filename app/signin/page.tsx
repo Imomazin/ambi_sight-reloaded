@@ -4,10 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
-import { demoUsers, planColors, roleDisplayNames, type UserProfile } from '@/lib/users';
+import { demoUsers, planColors, roleDisplayNames, planToLevel, type UserProfile } from '@/lib/users';
 
 type AuthMode = 'signin' | 'signup';
-type AuthMethod = 'demo' | 'email' | 'google' | 'github';
+type AuthMethod = 'demo' | 'email' | 'google' | 'microsoft' | 'github';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -57,28 +57,50 @@ export default function SignInPage() {
         email: email,
         role: 'User',
         plan: 'Free',
+        level: 1,
         avatar: (name || email)[0].toUpperCase(),
         lastActive: new Date().toISOString(),
+        registeredAt: new Date().toISOString(),
+        authProvider: 'email',
       };
       setCurrentUser(newUser);
       router.push(returnUrl);
     }, 1000);
   };
 
-  const handleSSOAuth = (provider: 'google' | 'github') => {
+  const handleSSOAuth = (provider: 'google' | 'microsoft' | 'github') => {
     setIsLoading(true);
     setAuthMethod(provider);
 
     // Simulate SSO authentication
     setTimeout(() => {
+      const providerNames = {
+        google: 'Google User',
+        microsoft: 'Microsoft User',
+        github: 'GitHub User',
+      };
+      const providerEmails = {
+        google: 'gmail.com',
+        microsoft: 'outlook.com',
+        github: 'github.com',
+      };
+      const providerAvatars = {
+        google: 'G',
+        microsoft: 'M',
+        github: 'H',
+      };
+
       const newUser: UserProfile = {
         id: `${provider}-${Date.now()}`,
-        name: provider === 'google' ? 'Google User' : 'GitHub User',
-        email: `user@${provider === 'google' ? 'gmail.com' : 'github.com'}`,
+        name: providerNames[provider],
+        email: `user@${providerEmails[provider]}`,
         role: 'User',
         plan: 'Free',
-        avatar: provider === 'google' ? 'G' : 'H',
+        level: 1,
+        avatar: providerAvatars[provider],
         lastActive: new Date().toISOString(),
+        registeredAt: new Date().toISOString(),
+        authProvider: provider,
       };
       setCurrentUser(newUser);
       router.push(returnUrl);
@@ -163,6 +185,33 @@ export default function SignInPage() {
               )}
               <span className="font-medium">
                 {isLoading && authMethod === 'google' ? 'Connecting...' : `Continue with Google`}
+              </span>
+            </button>
+
+            <button
+              onClick={() => handleSSOAuth('microsoft')}
+              disabled={isLoading}
+              className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border transition-all ${
+                isLoading && authMethod === 'microsoft'
+                  ? 'bg-[var(--bg-card-hover)] border-teal-500/50'
+                  : 'border-[var(--border-color)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]'
+              } text-[var(--text-secondary)]`}
+            >
+              {isLoading && authMethod === 'microsoft' ? (
+                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="#F25022" d="M1 1h10v10H1z"/>
+                  <path fill="#00A4EF" d="M1 13h10v10H1z"/>
+                  <path fill="#7FBA00" d="M13 1h10v10H13z"/>
+                  <path fill="#FFB900" d="M13 13h10v10H13z"/>
+                </svg>
+              )}
+              <span className="font-medium">
+                {isLoading && authMethod === 'microsoft' ? 'Connecting...' : `Continue with Microsoft`}
               </span>
             </button>
 

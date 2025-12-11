@@ -9,6 +9,7 @@ interface NavItem {
   href: string;
   icon: React.ReactNode;
   adminOnly?: boolean;
+  keyUserOnly?: boolean;
 }
 
 const navItems: NavItem[] = [
@@ -104,15 +105,33 @@ const navItems: NavItem[] = [
     ),
     adminOnly: true,
   },
+  {
+    name: 'Key Users',
+    href: '/admin/key-users',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+      </svg>
+    ),
+    keyUserOnly: true,
+  },
 ];
 
 export default function SidebarNav() {
   const pathname = usePathname();
-  const { isSidebarCollapsed, setSidebarCollapsed, currentPersona } = useAppState();
+  const { isSidebarCollapsed, setSidebarCollapsed, currentPersona, currentUser } = useAppState();
 
-  const filteredItems = navItems.filter(
-    (item) => !item.adminOnly || currentPersona === 'admin'
-  );
+  const filteredItems = navItems.filter((item) => {
+    // Key User only items - only show if user is KeyUser
+    if (item.keyUserOnly) {
+      return currentUser?.role === 'KeyUser';
+    }
+    // Admin only items
+    if (item.adminOnly) {
+      return currentPersona === 'admin' || currentUser?.role === 'Admin' || currentUser?.role === 'KeyUser';
+    }
+    return true;
+  });
 
   return (
     <aside
