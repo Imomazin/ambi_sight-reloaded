@@ -80,28 +80,10 @@ export default function LandingPage() {
     logout();
   };
 
-  // Handle OAuth login directly from landing page
+  // Handle OAuth - redirect to signin for verification
   const handleOAuth = (provider: 'google' | 'microsoft') => {
-    setIsSubmitting(true);
-    const providerNames = { google: 'Google User', microsoft: 'Microsoft User' };
-    const providerEmails = { google: 'gmail.com', microsoft: 'outlook.com' };
-    const providerAvatars = { google: 'G', microsoft: 'M' };
-
-    setTimeout(() => {
-      setCurrentUser({
-        id: `${provider}-${Date.now()}`,
-        name: providerNames[provider],
-        email: `user@${providerEmails[provider]}`,
-        role: 'User',
-        plan: 'Free',
-        level: 1,
-        avatar: providerAvatars[provider],
-        lastActive: new Date().toISOString(),
-        registeredAt: new Date().toISOString(),
-        authProvider: provider,
-      });
-      router.push('/dashboard');
-    }, 1000);
+    // Redirect to signin page with provider - user must verify
+    router.push(`/signin?provider=${provider}&mode=${authMode}`);
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -157,14 +139,11 @@ export default function LandingPage() {
             </div>
 
             <h1 className="hero-title">
-              <span className="title-line">Transform Your</span>
-              <span className="title-gradient">Strategy</span>
-              <span className="title-line">Into Results</span>
+              <span className="title-line">Transform Your <span className="title-gradient">Strategy</span> Into Results</span>
             </h1>
 
             <p className="hero-description">
-              Lumina S guides you through a proven 5-step workflow to discover insights,
-              diagnose challenges, design solutions, decide on priorities, and deliver outcomes.
+              Lumina S guides you through a proven 5-step workflow to discover insights, diagnose challenges, design solutions, decide on priorities, and deliver outcomes.
             </p>
 
             {/* Auth Section - Always visible */}
@@ -653,71 +632,86 @@ export default function LandingPage() {
         }
 
         .hero-title {
-          font-size: 56px;
+          font-size: 48px;
           font-weight: 800;
-          line-height: 1.1;
-          margin-bottom: 24px;
+          line-height: 1.2;
+          margin-bottom: 20px;
+          color: white;
         }
 
         .title-line {
-          display: block;
+          display: inline;
           color: white;
         }
 
         .title-gradient {
-          display: block;
+          display: inline;
           background: linear-gradient(135deg, #14B8A6, #A855F7, #EC4899);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          font-size: 72px;
+          font-weight: 800;
         }
 
         .hero-description {
-          font-size: 18px;
+          font-size: 17px;
           line-height: 1.7;
           color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 32px;
-          max-width: 500px;
+          margin-bottom: 36px;
+          max-width: 600px;
         }
 
         .auth-section {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 24px;
+          background: linear-gradient(145deg, rgba(20, 20, 35, 0.95), rgba(15, 15, 25, 0.98));
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 28px;
           padding: 0;
-          margin-bottom: 32px;
-          max-width: 480px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(20px);
+          margin-bottom: 36px;
+          max-width: 520px;
+          box-shadow:
+            0 40px 80px rgba(0, 0, 0, 0.5),
+            0 0 60px rgba(168, 85, 247, 0.15),
+            0 0 120px rgba(20, 184, 166, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(30px);
           overflow: hidden;
+          animation: authBoxFloat 6s ease-in-out infinite;
+          transform-style: preserve-3d;
+        }
+
+        @keyframes authBoxFloat {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-8px) scale(1.01); }
         }
 
         .auth-tabs {
           display: flex;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(0, 0, 0, 0.2);
         }
 
         .auth-tab {
           flex: 1;
-          padding: 18px 24px;
+          padding: 20px 28px;
           background: transparent;
           border: none;
-          font-size: 16px;
-          font-weight: 600;
+          font-size: 17px;
+          font-weight: 700;
           color: rgba(255, 255, 255, 0.5);
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.3s ease;
           position: relative;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
 
         .auth-tab:hover {
           color: rgba(255, 255, 255, 0.8);
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(255, 255, 255, 0.05);
         }
 
         .auth-tab.active {
           color: white;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.08);
         }
 
         .auth-tab.active::after {
@@ -726,40 +720,40 @@ export default function LandingPage() {
           bottom: 0;
           left: 0;
           right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #14B8A6, #A855F7);
+          height: 3px;
+          background: linear-gradient(90deg, #14B8A6, #A855F7, #EC4899);
         }
 
         .auth-content {
-          padding: 28px 32px 32px;
+          padding: 36px 40px 40px;
         }
 
         .auth-subtitle {
-          font-size: 15px;
-          color: rgba(255, 255, 255, 0.7);
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.8);
           text-align: center;
-          margin-bottom: 24px;
+          margin-bottom: 28px;
         }
 
         .oauth-buttons {
           display: flex;
           flex-direction: column;
-          gap: 12px;
-          margin-bottom: 24px;
+          gap: 14px;
+          margin-bottom: 28px;
         }
 
         .oauth-btn {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 14px;
+          gap: 16px;
           width: 100%;
-          padding: 16px 24px;
-          border-radius: 14px;
-          font-size: 16px;
+          padding: 18px 28px;
+          border-radius: 16px;
+          font-size: 17px;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: all 0.3s ease;
           border: 1px solid rgba(255, 255, 255, 0.2);
           background: rgba(255, 255, 255, 0.1);
           color: white;
