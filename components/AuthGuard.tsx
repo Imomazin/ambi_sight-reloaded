@@ -4,11 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
 
-// ONLY these exact routes don't require authentication
-const publicRoutes = ['/signin', '/pricing'];
-
-// The landing page - shown to non-authenticated users, redirects authenticated users
-const landingRoute = '/';
+// Public routes - accessible to everyone (logged in or not)
+const publicRoutes = ['/', '/signin', '/pricing'];
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -22,32 +19,11 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    // Check if on landing page
-    const isLandingPage = pathname === landingRoute;
-
-    // Check if current route is public (signin, pricing)
+    // Check if current route is public
     const isPublicRoute = publicRoutes.includes(pathname);
 
-    // Landing page logic: show to non-authenticated, redirect authenticated to dashboard
-    if (isLandingPage) {
-      if (currentUser) {
-        router.push('/dashboard');
-        return;
-      } else {
-        // Show landing page to non-authenticated users
-        setIsAuthorized(true);
-        setIsChecking(false);
-        return;
-      }
-    }
-
-    // Public routes (signin, pricing) - accessible to all
+    // Public routes - accessible to everyone
     if (isPublicRoute) {
-      // If logged in and on signin page, redirect to dashboard
-      if (currentUser && pathname === '/signin') {
-        router.push('/dashboard');
-        return;
-      }
       setIsAuthorized(true);
       setIsChecking(false);
       return;
@@ -55,8 +31,8 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
     // Protected routes - require authentication
     if (!currentUser) {
-      // Not logged in - redirect to signin with return URL
-      router.push(`/signin?returnUrl=${encodeURIComponent(pathname)}`);
+      // Not logged in - redirect to landing page (which has login gate)
+      router.push('/');
       setIsAuthorized(false);
       setIsChecking(false);
       return;

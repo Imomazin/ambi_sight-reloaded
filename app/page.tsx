@@ -74,12 +74,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // If already logged in, redirect to dashboard
-  useEffect(() => {
-    if (currentUser) {
-      router.push('/dashboard');
-    }
-  }, [currentUser, router]);
+  // No redirect - landing page is always visible to everyone
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,7 +109,11 @@ export default function LandingPage() {
           </div>
           <div className="nav-links">
             <Link href="/pricing" className="nav-link">Pricing</Link>
-            <Link href="/signin" className="nav-link signin-link">Sign In</Link>
+            {currentUser ? (
+              <Link href="/dashboard" className="nav-link signin-link">Go to Dashboard</Link>
+            ) : (
+              <Link href="/signin" className="nav-link signin-link">Sign In</Link>
+            )}
           </div>
         </div>
       </nav>
@@ -247,9 +246,15 @@ export default function LandingPage() {
                 {/* CTA in Preview */}
                 <div className="preview-cta">
                   <span className="cta-text">Ready to build your strategy?</span>
-                  <Link href="/signin" className="preview-btn">
-                    Sign In to Start
-                  </Link>
+                  {currentUser ? (
+                    <Link href="/dashboard" className="preview-btn">
+                      Go to Dashboard
+                    </Link>
+                  ) : (
+                    <Link href="/signin" className="preview-btn">
+                      Sign In to Start
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -284,9 +289,15 @@ export default function LandingPage() {
         <div className="cta-content">
           <h2>Ready to Transform Your Strategy?</h2>
           <div className="cta-buttons">
-            <Link href="/signin" className="cta-primary">
-              Get Started Free
-            </Link>
+            {currentUser ? (
+              <Link href="/dashboard" className="cta-primary">
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link href="/signin" className="cta-primary">
+                Get Started Free
+              </Link>
+            )}
             <Link href="/pricing" className="cta-secondary">
               View Pricing
             </Link>
