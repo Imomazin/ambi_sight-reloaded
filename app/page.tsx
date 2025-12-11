@@ -1,360 +1,1396 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAppState } from '@/state/useAppState';
-import HelpModal from '@/components/HelpModal';
-import UserSwitcherPanel from '@/components/UserSwitcherPanel';
-import UserIndicator from '@/components/UserIndicator';
-import LandingCaseStudies from '@/components/LandingCaseStudies';
-import ThemeSwitcher from '@/components/ThemeSwitcher';
-import PremiumBackground from '@/components/PremiumBackground';
-import { ConsultingPackagesShowcase, ConsultingCTA } from '@/components/ConsultingCTA';
 
-const features = [
-  {
-    title: 'Strategic Advisor',
-    description:
-      'Intelligent interface to query risk intelligence, identify clusters, and get actionable recommendations.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-        />
-      </svg>
-    ),
-    color: 'teal',
-    href: '/advisor',
-  },
-  {
-    title: 'Scenario Simulator',
-    description:
-      'Model strategic alternatives and see real-time impact on KPIs, risk exposure, and portfolio health.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-        />
-      </svg>
-    ),
-    color: 'purple',
-    href: '/scenarios',
-  },
-  {
-    title: 'Portfolio Health Radar',
-    description:
-      'Visual heatmaps and matrices to quickly identify initiatives at risk and optimize resource allocation.',
-    icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
-      </svg>
-    ),
-    color: 'amber',
-    href: '/portfolio',
-  },
-];
+// Animated metric slider component
+function MetricSlider({
+  label,
+  value,
+  color,
+  icon,
+}: {
+  label: string;
+  value: number;
+  color: string;
+  icon: string;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
 
-const newFeatures = [
-  {
-    title: 'Strategy Tools Library',
-    description: '50+ world-class strategy frameworks and tools for diagnosis, growth, risk, and execution.',
-    href: '/tools',
-    icon: '🧰',
-    badge: 'New',
-  },
-  {
-    title: 'Diagnostic Wizard',
-    description: 'Guided problem-to-tools mapping. Answer questions and get personalized tool recommendations.',
-    href: '/diagnosis',
-    icon: '🔍',
-    badge: 'New',
-  },
-  {
-    title: 'Pricing & Plans',
-    description: 'Flexible pricing for individuals and teams. Free tier available with premium upgrades.',
-    href: '/pricing',
-    icon: '💎',
-    badge: null,
-  },
-];
-
-export default function Home() {
-  const { setHelpOpen } = useAppState();
+  useEffect(() => {
+    const duration = 1500;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setDisplayValue(value);
+        clearInterval(timer);
+      } else {
+        setDisplayValue(Math.round(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [value]);
 
   return (
-    <PremiumBackground>
-    <div className="min-h-screen relative z-10">
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-800/80 backdrop-blur-md border-b border-navy-600">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+    <div className="metric-slider">
+      <div className="metric-header">
+        <span className="metric-icon">{icon}</span>
+        <span className="metric-label">{label}</span>
+        <span className="metric-value" style={{ color }}>{displayValue}%</span>
+      </div>
+      <div className="metric-track">
+        <div
+          className="metric-fill"
+          style={{
+            width: `${displayValue}%`,
+            background: `linear-gradient(90deg, ${color}80, ${color})`,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Floating orb animation
+function FloatingOrbs() {
+  return (
+    <div className="orbs-container">
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+      <div className="orb orb-4" />
+    </div>
+  );
+}
+
+export default function LandingPage() {
+  const router = useRouter();
+  const { currentUser, setCurrentUser, logout } = useAppState();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+
+  // Handle sign out
+  const handleSignOut = () => {
+    logout();
+  };
+
+  // Handle OAuth - redirect to signin for verification
+  const handleOAuth = (provider: 'google' | 'microsoft') => {
+    // Redirect to signin page with provider - user must verify
+    router.push(`/signin?provider=${provider}&mode=${authMode}`);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setIsSubmitting(true);
+    setTimeout(() => {
+      router.push(`/signin?email=${encodeURIComponent(email)}&mode=${authMode}`);
+    }, 500);
+  };
+
+  const metrics = [
+    { label: 'Strategic Clarity', value: 87, color: '#14B8A6', icon: '🎯' },
+    { label: 'Execution Readiness', value: 72, color: '#A855F7', icon: '⚡' },
+    { label: 'Risk Awareness', value: 65, color: '#F59E0B', icon: '🛡️' },
+    { label: 'Growth Potential', value: 91, color: '#22C55E', icon: '📈' },
+  ];
+
+  return (
+    <div className="landing-page">
+      <FloatingOrbs />
+
+      {/* Navigation */}
+      <nav className="landing-nav">
+        <div className="nav-content">
+          <div className="logo">
+            <div className="logo-mark">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
-            <span className="text-xl font-bold text-white">Lumina S</span>
+            <span className="logo-text">Lumina <span className="logo-accent">S</span></span>
           </div>
-
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link href="/tools" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Tools
-            </Link>
-            <Link href="/diagnosis" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Diagnosis
-            </Link>
-            <Link href="/advisor" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Advisor
-            </Link>
-            <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">
-              Pricing
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <ThemeSwitcher />
-            <button
-              onClick={() => setHelpOpen(true)}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Help
-            </button>
-            <UserIndicator />
+          <div className="nav-links">
+            <Link href="/pricing" className="nav-link">Pricing</Link>
+            {currentUser ? (
+              <Link href="/dashboard" className="nav-link signin-link">Go to Dashboard</Link>
+            ) : (
+              <Link href="/signin" className="nav-link signin-link">Sign In</Link>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Decorative circles */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 flex items-center justify-center opacity-20">
-              <div className="w-64 h-64 rounded-full border-2 border-teal-400 animate-pulse"></div>
-              <div className="absolute w-48 h-48 rounded-full border-2 border-purple-400 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="absolute w-32 h-32 rounded-full border-2 border-magenta-400 animate-pulse" style={{ animationDelay: '1s' }}></div>
+      {/* Hero Section */}
+      <main className="hero-section">
+        <div className="hero-content">
+          {/* Left: Branding & CTA */}
+          <div className="hero-left">
+            <div className="brand-badge">
+              <span className="badge-dot" />
+              Strategic Intelligence Platform
             </div>
 
-            {/* Logo mark */}
-            <div className="relative w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center shadow-2xl glow-purple">
-              <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-          </div>
+            <h1 className="hero-title">
+              <span className="title-line">Transform Your <span className="title-gradient">Strategy</span> Into Results</span>
+            </h1>
 
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient">Lumina</span>
-            <span className="text-white"> S</span>
-          </h1>
-
-          <p className="text-xl text-gray-300 mb-4">
-            A fresh new build for the future of
-          </p>
-          <p className="text-2xl font-medium text-teal-400 mb-8">
-            Strategic Decision Intelligence
-          </p>
-
-          <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Navigate organizational complexity with confidence. Synthesize strategic signals,
-            identify risk clusters, simulate scenarios, and gain real-time portfolio insights—all
-            through an intuitive, human-centered platform designed for modern strategy teams.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/workspace" className="btn-primary inline-flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              Open Strategy Workspace
-            </Link>
-            <Link href="/diagnosis" className="btn-secondary inline-flex items-center gap-2">
-              <span>🔍</span>
-              Start Diagnostic Quiz
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* New Features Section */}
-      <section className="py-12 px-6 bg-gradient-to-b from-transparent to-navy-800/30">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            {newFeatures.map((feature) => (
-              <Link
-                key={feature.title}
-                href={feature.href}
-                className="relative p-5 rounded-xl bg-navy-700/50 border border-navy-600 hover:border-teal-500/50 hover:bg-navy-700 transition-all group"
-              >
-                {feature.badge && (
-                  <span className="absolute top-3 right-3 px-2 py-0.5 text-xs font-medium bg-teal-500/20 text-teal-400 rounded-full border border-teal-500/30">
-                    {feature.badge}
-                  </span>
-                )}
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-2xl">{feature.icon}</span>
-                  <h3 className="font-semibold text-white group-hover:text-teal-400 transition-colors">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-gray-400">{feature.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-20 px-6 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-4">
-            Intelligence at Your Fingertips
-          </h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Three powerful capabilities working together to transform how you approach strategic
-            decision-making.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature) => (
-              <Link
-                key={feature.title}
-                href={feature.href}
-                className="card card-hover group"
-              >
-                <div
-                  className={`w-14 h-14 rounded-xl bg-${feature.color}-500/20 flex items-center justify-center text-${feature.color}-400 mb-4 group-hover:scale-110 transition-transform`}
-                >
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-teal-400 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
-                <div className="mt-4 text-teal-400 text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Case Studies Section */}
-      <LandingCaseStudies />
-
-      {/* Consulting Section */}
-      <section className="py-20 px-6 bg-navy-800/50 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Need More Than Software?
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Our strategy consultants can help you implement frameworks, facilitate workshops, and drive transformation. Choose the engagement that fits your needs.
+            <p className="hero-description">
+              Lumina S guides you through a proven 5-step workflow to discover insights, diagnose challenges, design solutions, decide on priorities, and deliver outcomes.
             </p>
+
+            {/* Auth Section - Always visible */}
+            <div className="auth-section">
+              {/* Auth Tabs */}
+              <div className="auth-tabs">
+                <button
+                  className={`auth-tab ${authMode === 'login' ? 'active' : ''}`}
+                  onClick={() => setAuthMode('login')}
+                >
+                  Log In
+                </button>
+                <button
+                  className={`auth-tab ${authMode === 'register' ? 'active' : ''}`}
+                  onClick={() => setAuthMode('register')}
+                >
+                  Register
+                </button>
+              </div>
+
+              <div className="auth-content">
+                <p className="auth-subtitle">
+                  {authMode === 'login'
+                    ? 'Welcome back! Sign in to continue'
+                    : 'Create your free account to get started'}
+                </p>
+
+                {/* OAuth Buttons */}
+                <div className="oauth-buttons">
+                  <button onClick={() => handleOAuth('google')} className="oauth-btn google" disabled={isSubmitting}>
+                    <svg className="oauth-icon" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span>{authMode === 'login' ? 'Sign in with Gmail' : 'Sign up with Gmail'}</span>
+                  </button>
+
+                  <button onClick={() => handleOAuth('microsoft')} className="oauth-btn microsoft" disabled={isSubmitting}>
+                    <svg className="oauth-icon" viewBox="0 0 24 24">
+                      <path fill="#F25022" d="M1 1h10v10H1z"/>
+                      <path fill="#00A4EF" d="M1 13h10v10H1z"/>
+                      <path fill="#7FBA00" d="M13 1h10v10H13z"/>
+                      <path fill="#FFB900" d="M13 13h10v10H13z"/>
+                    </svg>
+                    <span>{authMode === 'login' ? 'Sign in with Outlook' : 'Sign up with Outlook'}</span>
+                  </button>
+                </div>
+
+                {/* Divider */}
+                <div className="auth-divider">
+                  <span>or use email</span>
+                </div>
+
+                {/* Email Form */}
+                <form onSubmit={handleEmailSubmit} className="email-form">
+                  <div className="input-wrapper">
+                    <svg className="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="email-input"
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="start-btn" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <span className="btn-loading">
+                        <svg className="spinner" width="20" height="20" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.3" />
+                          <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <>
+                        {authMode === 'login' ? 'Sign In' : 'Register Free'}
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                {/* Currently logged in notice */}
+                {currentUser && (
+                  <div className="logged-in-notice">
+                    <p>Currently signed in as <strong>{currentUser.name}</strong></p>
+                    <div className="logged-in-actions-inline">
+                      <Link href="/dashboard" className="go-dashboard-link">Go to Dashboard</Link>
+                      <span className="divider-dot">•</span>
+                      <button onClick={handleSignOut} className="signout-link">Sign out</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+
+            {/* Social Proof */}
+            <div className="social-proof">
+              <div className="trust-badges">
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  <span>Enterprise Security</span>
+                </div>
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                  <span>Free to Start</span>
+                </div>
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span>Setup in 2 mins</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <ConsultingPackagesShowcase />
+
+          {/* Right: Visual Dashboard Preview */}
+          <div className="hero-right">
+            <div className="dashboard-preview">
+              <div className="preview-header">
+                <div className="preview-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="preview-title">Strategy Dashboard</span>
+              </div>
+
+              <div className="preview-content">
+                {/* Metrics Sliders */}
+                <div className="metrics-section">
+                  {metrics.map((metric) => (
+                    <MetricSlider
+                      key={metric.label}
+                      label={metric.label}
+                      value={metric.value}
+                      color={metric.color}
+                      icon={metric.icon}
+                    />
+                  ))}
+                </div>
+
+                {/* Mini Workflow */}
+                <div className="workflow-preview">
+                  <div className="workflow-step active">
+                    <span className="step-icon">🔍</span>
+                    <span className="step-label">Discover</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">🩺</span>
+                    <span className="step-label">Diagnose</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">📐</span>
+                    <span className="step-label">Design</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">⚖️</span>
+                    <span className="step-label">Decide</span>
+                  </div>
+                  <div className="workflow-connector" />
+                  <div className="workflow-step">
+                    <span className="step-icon">🚀</span>
+                    <span className="step-label">Deliver</span>
+                  </div>
+                </div>
+
+                {/* CTA in Preview */}
+                <div className="preview-cta">
+                  <span className="cta-text">Ready to build your strategy?</span>
+                  {currentUser ? (
+                    <Link href="/dashboard" className="preview-btn">
+                      Go to Dashboard
+                    </Link>
+                  ) : (
+                    <Link href="/signin" className="preview-btn">
+                      Sign In to Start
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Features Strip */}
+      <section className="features-strip">
+        <div className="features-content">
+          <div className="feature-item">
+            <span className="feature-icon">🧰</span>
+            <span className="feature-text">50+ Strategy Tools</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">✨</span>
+            <span className="feature-text">Intelligent Insights</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">📊</span>
+            <span className="feature-text">Visual Frameworks</span>
+          </div>
+          <div className="feature-item">
+            <span className="feature-icon">👥</span>
+            <span className="feature-text">Team Collaboration</span>
+          </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: '50+', label: 'Strategy Tools' },
-            { value: '12', label: 'Case Studies' },
-            { value: '3', label: 'Pricing Tiers' },
-            { value: 'Real-time', label: 'AI Insights' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl font-bold text-gradient mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
-            </div>
-          ))}
+      {/* Bottom CTA */}
+      <section className="bottom-cta">
+        <div className="cta-content">
+          <h2>Ready to Transform Your Strategy?</h2>
+          <div className="cta-buttons">
+            {currentUser ? (
+              <Link href="/dashboard" className="cta-primary">
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link href="/signin" className="cta-primary">
+                Get Started Free
+              </Link>
+            )}
+            <Link href="/pricing" className="cta-secondary">
+              View Pricing
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="py-12 px-6">
-        <div className="max-w-4xl mx-auto">
-          <ConsultingCTA variant="banner" context="Ready to transform your strategic decision-making?" />
-        </div>
-      </section>
+      <style jsx>{`
+        .landing-page {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0a0a12 0%, #0d1117 25%, #0a0a12 50%, #111827 75%, #0a0a12 100%);
+          position: relative;
+          overflow: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
+        }
 
-      {/* User Switcher Panel */}
-      <UserSwitcherPanel />
+        .landing-page::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 100% 80% at 20% -30%, rgba(120, 119, 198, 0.4), transparent),
+            radial-gradient(ellipse 80% 60% at 100% 50%, rgba(20, 184, 166, 0.25), transparent),
+            radial-gradient(ellipse 70% 50% at 0% 80%, rgba(168, 85, 247, 0.2), transparent),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(236, 72, 153, 0.15), transparent),
+            radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 246, 0.1), transparent);
+          pointer-events: none;
+          animation: gradientShift 15s ease-in-out infinite;
+        }
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-navy-700">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="text-white font-semibold mb-3">Platform</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/workspace" className="text-gray-400 hover:text-white">Workspace</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Tools Library</Link></li>
-                <li><Link href="/diagnosis" className="text-gray-400 hover:text-white">Diagnostic Wizard</Link></li>
-                <li><Link href="/advisor" className="text-gray-400 hover:text-white">Strategic Advisor</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Solutions</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/scenarios" className="text-gray-400 hover:text-white">Scenario Planning</Link></li>
-                <li><Link href="/portfolio" className="text-gray-400 hover:text-white">Portfolio Management</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Risk Management</Link></li>
-                <li><Link href="/tools" className="text-gray-400 hover:text-white">Digital Strategy</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
-                <li><span className="text-gray-500">Documentation</span></li>
-                <li><span className="text-gray-500">API Reference</span></li>
-                <li><span className="text-gray-500">Blog</span></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><span className="text-gray-500">About Us</span></li>
-                <li><span className="text-gray-500">Contact</span></li>
-                <li><span className="text-gray-500">Careers</span></li>
-                <li><span className="text-gray-500">Privacy Policy</span></li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-navy-700">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <span>Lumina S</span>
-              <span>•</span>
-              <span>Demo Platform v1.0</span>
-            </div>
-            <div className="text-gray-500 text-sm">
-              Built for strategic decision intelligence
-            </div>
-          </div>
-        </div>
-      </footer>
+        @keyframes gradientShift {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
+        }
 
-      <HelpModal />
+        .landing-page::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image:
+            radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(20, 184, 166, 0.03) 0%, transparent 50%),
+            linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+          background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+          pointer-events: none;
+        }
+
+        .orbs-container {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+
+        .orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(120px);
+          opacity: 0.6;
+        }
+
+        .orb-1 {
+          width: 800px;
+          height: 800px;
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.5), transparent 70%);
+          top: -300px;
+          right: -200px;
+          animation: float1 20s infinite ease-in-out;
+        }
+
+        .orb-2 {
+          width: 700px;
+          height: 700px;
+          background: radial-gradient(circle, rgba(20, 184, 166, 0.45), transparent 70%);
+          bottom: -200px;
+          left: -150px;
+          animation: float2 25s infinite ease-in-out;
+        }
+
+        .orb-3 {
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+          top: 30%;
+          left: 10%;
+          animation: float3 18s infinite ease-in-out;
+        }
+
+        .orb-4 {
+          width: 450px;
+          height: 450px;
+          background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent 70%);
+          bottom: 10%;
+          right: 5%;
+          animation: float4 22s infinite ease-in-out;
+        }
+
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(60px, -80px) scale(1.15); }
+          66% { transform: translate(-40px, 40px) scale(0.9); }
+        }
+
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-50px, -60px) scale(1.1); }
+          66% { transform: translate(70px, 30px) scale(0.95); }
+        }
+
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(80px, -50px) scale(1.2); }
+        }
+
+        @keyframes float4 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-60px, -70px) scale(1.1); }
+        }
+
+        .landing-nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          background: rgba(11, 11, 15, 0.8);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 16px 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .logo-mark {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #14B8A6, #A855F7, #EC4899);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        .logo-text {
+          font-size: 24px;
+          font-weight: 700;
+          color: white;
+        }
+
+        .logo-accent {
+          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .nav-link {
+          color: #E5E7EB;
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+          transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+          color: #ffffff;
+        }
+
+        .signin-link {
+          padding: 10px 20px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: white;
+        }
+
+        .signin-link:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-section {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          padding: 120px 48px 60px;
+        }
+
+        .hero-content {
+          max-width: 1400px;
+          width: 100%;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 80px;
+          align-items: center;
+        }
+
+        .hero-left {
+          position: relative;
+          z-index: 10;
+        }
+
+        .brand-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          background: rgba(168, 85, 247, 0.15);
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 30px;
+          font-size: 13px;
+          font-weight: 500;
+          color: #C084FC;
+          margin-bottom: 24px;
+        }
+
+        .badge-dot {
+          width: 8px;
+          height: 8px;
+          background: #A855F7;
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-title {
+          font-size: 48px;
+          font-weight: 800;
+          line-height: 1.2;
+          margin-bottom: 20px;
+          color: #ffffff;
+          letter-spacing: -0.02em;
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .title-line {
+          display: inline;
+          color: #ffffff;
+        }
+
+        .title-gradient {
+          display: inline;
+          background: linear-gradient(135deg, #2DD4BF, #C084FC, #F472B6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-weight: 800;
+          filter: brightness(1.1);
+        }
+
+        .hero-description {
+          font-size: 17px;
+          line-height: 1.7;
+          color: #D1D5DB;
+          margin-bottom: 36px;
+          max-width: 600px;
+          text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-section {
+          background: linear-gradient(145deg, rgba(20, 20, 35, 0.95), rgba(15, 15, 25, 0.98));
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 28px;
+          padding: 0;
+          margin-bottom: 36px;
+          max-width: 520px;
+          box-shadow:
+            0 40px 80px rgba(0, 0, 0, 0.5),
+            0 0 60px rgba(168, 85, 247, 0.15),
+            0 0 120px rgba(20, 184, 166, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(30px);
+          overflow: hidden;
+          animation: authBoxFloat 6s ease-in-out infinite;
+          transform-style: preserve-3d;
+        }
+
+        @keyframes authBoxFloat {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-8px) scale(1.01); }
+        }
+
+        .auth-tabs {
+          display: flex;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-tab {
+          flex: 1;
+          padding: 20px 28px;
+          background: transparent;
+          border: none;
+          font-size: 17px;
+          font-weight: 700;
+          color: #9CA3AF;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .auth-tab:hover {
+          color: #E5E7EB;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .auth-tab.active {
+          color: white;
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .auth-tab.active::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #14B8A6, #A855F7, #EC4899);
+        }
+
+        .auth-content {
+          padding: 36px 40px 40px;
+        }
+
+        .auth-subtitle {
+          font-size: 16px;
+          color: #D1D5DB;
+          text-align: center;
+          margin-bottom: 28px;
+        }
+
+        .oauth-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          margin-bottom: 28px;
+        }
+
+        .oauth-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          width: 100%;
+          padding: 18px 28px;
+          border-radius: 16px;
+          font-size: 17px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+
+        .oauth-btn:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .oauth-btn.google:hover:not(:disabled) {
+          border-color: #4285F4;
+          box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25);
+        }
+
+        .oauth-btn.microsoft:hover:not(:disabled) {
+          border-color: #00A4EF;
+          box-shadow: 0 8px 24px rgba(0, 164, 239, 0.25);
+        }
+
+        .oauth-icon {
+          width: 22px;
+          height: 22px;
+        }
+
+        .auth-divider {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin-bottom: 20px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .auth-divider span {
+          font-size: 12px;
+          color: #9CA3AF;
+        }
+
+        .email-form {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 16px;
+        }
+
+        .logged-in-notice {
+          margin-top: 20px;
+          padding: 16px;
+          background: rgba(20, 184, 166, 0.1);
+          border: 1px solid rgba(20, 184, 166, 0.2);
+          border-radius: 12px;
+          text-align: center;
+        }
+
+        .logged-in-notice p {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+          margin-bottom: 10px;
+        }
+
+        .logged-in-notice strong {
+          color: #2DD4BF;
+        }
+
+        .logged-in-actions-inline {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+        }
+
+        .go-dashboard-link {
+          color: #14B8A6;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 14px;
+          transition: color 0.2s;
+        }
+
+        .go-dashboard-link:hover {
+          color: #2DD4BF;
+          text-decoration: underline;
+        }
+
+        .divider-dot {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .signout-link {
+          background: none;
+          border: none;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 14px;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+
+        .signout-link:hover {
+          color: #EC4899;
+        }
+
+        .auth-hint {
+          text-align: center;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-link {
+          color: #14B8A6;
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        .auth-link:hover {
+          text-decoration: underline;
+        }
+
+        .oauth-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none !important;
+        }
+
+        .input-wrapper {
+          flex: 1;
+          position: relative;
+        }
+
+        .input-icon {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .email-input {
+          width: 100%;
+          padding: 16px 16px 16px 48px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 12px;
+          font-size: 16px;
+          color: white;
+          outline: none;
+          transition: all 0.2s ease;
+        }
+
+        .email-input::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .email-input:focus {
+          border-color: #A855F7;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .start-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 16px 28px;
+          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          border: none;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+
+        .start-btn:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+        }
+
+        .start-btn:disabled {
+          opacity: 0.7;
+          cursor: wait;
+        }
+
+        .btn-loading .spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        .signup-hint {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .social-proof {
+          margin-top: 8px;
+        }
+
+        .trust-badges {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .trust-badge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 14px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .trust-badge svg {
+          color: #14B8A6;
+        }
+
+        .hero-right {
+          position: relative;
+          z-index: 10;
+        }
+
+        .dashboard-preview {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 24px;
+          overflow: hidden;
+          backdrop-filter: blur(20px);
+          box-shadow:
+            0 32px 64px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 80px rgba(168, 85, 247, 0.1);
+          transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
+          transition: transform 0.3s ease;
+        }
+
+        .dashboard-preview:hover {
+          transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .preview-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 18px 24px;
+          background: rgba(0, 0, 0, 0.4);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-dots {
+          display: flex;
+          gap: 6px;
+        }
+
+        .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+
+        .dot.red { background: #EF4444; }
+        .dot.yellow { background: #F59E0B; }
+        .dot.green { background: #22C55E; }
+
+        .preview-title {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .preview-content {
+          padding: 24px;
+        }
+
+        .metrics-section {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+
+        .metric-slider {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          padding: 14px 16px;
+        }
+
+        .metric-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+
+        .metric-icon {
+          font-size: 18px;
+        }
+
+        .metric-label {
+          flex: 1;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .metric-value {
+          font-size: 15px;
+          font-weight: 700;
+        }
+
+        .metric-track {
+          height: 6px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
+        .metric-fill {
+          height: 100%;
+          border-radius: 3px;
+          transition: width 0.1s ease-out;
+        }
+
+        .workflow-preview {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          margin-bottom: 20px;
+        }
+
+        .workflow-step {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          opacity: 0.5;
+          transition: opacity 0.2s ease;
+        }
+
+        .workflow-step.active {
+          opacity: 1;
+        }
+
+        .step-icon {
+          font-size: 20px;
+        }
+
+        .step-label {
+          font-size: 10px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .workflow-connector {
+          width: 20px;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .preview-cta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(20, 184, 166, 0.2));
+          border: 1px solid rgba(168, 85, 247, 0.3);
+          border-radius: 12px;
+        }
+
+        .cta-text {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .preview-btn {
+          padding: 10px 18px;
+          background: linear-gradient(135deg, #A855F7, #EC4899);
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .preview-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+
+        .features-strip {
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 32px 0;
+        }
+
+        .features-content {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 48px;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 32px;
+        }
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 12px;
+          transition: all 0.2s ease;
+        }
+
+        .feature-item:hover {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .feature-icon {
+          font-size: 28px;
+        }
+
+        .feature-text {
+          font-size: 16px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bottom-cta {
+          padding: 100px 48px;
+          text-align: center;
+          position: relative;
+        }
+
+        .bottom-cta::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(168, 85, 247, 0.15), transparent);
+          pointer-events: none;
+        }
+
+        .cta-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        .cta-content h2 {
+          font-size: 42px;
+          font-weight: 700;
+          color: white;
+          margin-bottom: 32px;
+          background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.8));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .cta-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        .cta-primary {
+          padding: 18px 40px;
+          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          border-radius: 14px;
+          font-size: 17px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
+        }
+
+        .cta-primary:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 32px rgba(20, 184, 166, 0.5);
+        }
+
+        .cta-secondary {
+          padding: 18px 40px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 14px;
+          font-size: 17px;
+          font-weight: 600;
+          color: white;
+          text-decoration: none;
+          transition: all 0.25s ease;
+        }
+
+        .cta-secondary:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 1200px) {
+          .hero-section {
+            padding: 120px 32px 60px;
+          }
+
+          .hero-content {
+            gap: 50px;
+          }
+
+          .features-content {
+            padding: 0 32px;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .hero-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+            max-width: 700px;
+          }
+
+          .hero-left {
+            order: 1;
+          }
+
+          .hero-right {
+            order: 2;
+          }
+
+          .hero-title {
+            font-size: 42px;
+          }
+
+          .title-gradient {
+            font-size: 52px;
+          }
+
+          .hero-description {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .auth-section {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .logged-in-section {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .email-form {
+            flex-direction: column;
+          }
+
+          .social-proof {
+            justify-content: center;
+          }
+
+          .trust-badges {
+            justify-content: center;
+          }
+
+          .features-content {
+            justify-content: center;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .hero-section {
+            padding: 100px 20px 40px;
+          }
+
+          .hero-title {
+            font-size: 32px;
+          }
+
+          .title-gradient {
+            font-size: 40px;
+          }
+
+          .auth-section {
+            padding: 24px 20px;
+          }
+
+          .features-content {
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+          }
+
+          .feature-item {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .cta-buttons {
+            flex-direction: column;
+            padding: 0 20px;
+          }
+
+          .cta-content h2 {
+            font-size: 28px;
+          }
+
+          .bottom-cta {
+            padding: 60px 20px;
+          }
+        }
+      `}</style>
     </div>
-    </PremiumBackground>
   );
 }

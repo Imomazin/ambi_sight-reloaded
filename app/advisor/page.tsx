@@ -1,8 +1,60 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import AppShell from '@/components/AppShell';
+import AIAssistant from '@/components/AIAssistant';
+
+export default function AdvisorPage() {
+  const [viewMode, setViewMode] = useState<'interactive' | 'classic'>('interactive');
+
+  return (
+    <AppShell>
+      <div className="h-[calc(100vh-8rem)]">
+        {/* Mode Toggle */}
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">Strategy Advisor</h1>
+            <p className="text-sm text-[var(--text-muted)]">Your personal strategic intelligence assistant</p>
+          </div>
+          <div className="flex items-center gap-2 bg-[var(--bg-card)] rounded-xl p-1 border border-[var(--border-color)]">
+            <button
+              onClick={() => setViewMode('interactive')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                viewMode === 'interactive'
+                  ? 'bg-teal-500 text-white'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              Interactive
+            </button>
+            <button
+              onClick={() => setViewMode('classic')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                viewMode === 'classic'
+                  ? 'bg-teal-500 text-white'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              Classic View
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="h-[calc(100%-4rem)] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl overflow-hidden">
+          {viewMode === 'interactive' ? (
+            <AIAssistant embedded />
+          ) : (
+            <ClassicAdvisorView />
+          )}
+        </div>
+      </div>
+    </AppShell>
+  );
+}
+
+// Classic view component (original advisor UI)
+import Link from 'next/link';
 import { useAppState } from '@/state/useAppState';
 import { PlanBadge, ProTag } from '@/components/LockedFeature';
 import {
@@ -22,7 +74,6 @@ interface Message {
   timestamp: Date;
 }
 
-// Prompt Button Component
 function PromptButton({
   prompt,
   onClick,
@@ -36,38 +87,28 @@ function PromptButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="w-full text-left p-4 bg-navy-700/50 hover:bg-navy-600/50 border border-navy-600 hover:border-teal-500/30 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+      className="w-full text-left p-4 bg-[var(--bg-secondary)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] hover:border-teal-500/30 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
     >
       <div className="flex items-start gap-3">
         <span className="text-2xl">{prompt.icon}</span>
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors">
+          <div className="text-sm font-medium text-[var(--text-primary)] group-hover:text-teal-400 transition-colors">
             {prompt.label}
           </div>
-          <div className="text-xs text-gray-400 mt-0.5">{prompt.description}</div>
+          <div className="text-xs text-[var(--text-muted)] mt-0.5">{prompt.description}</div>
         </div>
-        <svg
-          className="w-4 h-4 text-gray-500 group-hover:text-teal-400 transition-colors opacity-0 group-hover:opacity-100"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
       </div>
     </button>
   );
 }
 
-// Structured AI Response Component
 function AIResponseCard({ response }: { response: AdvisorResponse }) {
   const { currentUser } = useAppState();
   const userPlan = currentUser?.plan || 'Free';
 
   return (
     <div className="space-y-4">
-      {/* Diagnosis Section */}
-      <div className="p-4 bg-navy-700/30 rounded-xl border border-navy-600">
+      <div className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-6 h-6 rounded-lg bg-teal-500/20 flex items-center justify-center">
             <svg className="w-4 h-4 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,11 +117,10 @@ function AIResponseCard({ response }: { response: AdvisorResponse }) {
           </div>
           <h4 className="text-sm font-semibold text-teal-400 uppercase tracking-wider">Diagnosis</h4>
         </div>
-        <p className="text-sm text-gray-300 leading-relaxed">{response.diagnosis}</p>
+        <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{response.diagnosis}</p>
       </div>
 
-      {/* Suggested Tools Section */}
-      <div className="p-4 bg-navy-700/30 rounded-xl border border-navy-600">
+      <div className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-6 h-6 rounded-lg bg-purple-500/20 flex items-center justify-center">
             <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,33 +135,23 @@ function AIResponseCard({ response }: { response: AdvisorResponse }) {
               key={tool.id}
               className={`flex items-center justify-between p-3 rounded-lg ${
                 tool.isProOnly && userPlan === 'Free'
-                  ? 'bg-navy-800/50 opacity-75'
-                  : 'bg-navy-800 hover:bg-navy-700/80'
+                  ? 'bg-[var(--bg-card)] opacity-75'
+                  : 'bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)]'
               } transition-colors`}
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-white font-medium">{tool.name}</span>
+                  <span className="text-sm text-[var(--text-primary)] font-medium">{tool.name}</span>
                   {tool.isProOnly && userPlan === 'Free' && <ProTag />}
                 </div>
-                <span className="text-xs text-gray-400">{tool.description}</span>
+                <span className="text-xs text-[var(--text-muted)]">{tool.description}</span>
               </div>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                tool.complexity === 'Intro'
-                  ? 'bg-green-500/20 text-green-400'
-                  : tool.complexity === 'Intermediate'
-                  ? 'bg-amber-500/20 text-amber-400'
-                  : 'bg-red-500/20 text-red-400'
-              }`}>
-                {tool.complexity}
-              </span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Recommended Actions Section */}
-      <div className="p-4 bg-navy-700/30 rounded-xl border border-navy-600">
+      <div className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-6 h-6 rounded-lg bg-lime-500/20 flex items-center justify-center">
             <svg className="w-4 h-4 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,74 +165,26 @@ function AIResponseCard({ response }: { response: AdvisorResponse }) {
             <Link
               key={idx}
               href={action.link || '/workspace'}
-              className="flex items-center gap-3 p-3 bg-navy-800 hover:bg-navy-700/80 rounded-lg transition-colors group"
+              className="flex items-center gap-3 p-3 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] rounded-lg transition-colors group"
             >
               <div className="w-8 h-8 rounded-lg bg-lime-500/10 flex items-center justify-center text-lime-400 group-hover:bg-lime-500/20 transition-colors">
                 <span className="text-sm font-bold">{idx + 1}</span>
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-white font-medium group-hover:text-lime-400 transition-colors">
+                <div className="text-sm text-[var(--text-primary)] font-medium group-hover:text-lime-400 transition-colors">
                   {action.title}
                 </div>
-                <div className="text-xs text-gray-400">{action.description}</div>
+                <div className="text-xs text-[var(--text-muted)]">{action.description}</div>
               </div>
-              <svg
-                className="w-4 h-4 text-gray-500 group-hover:text-lime-400 transition-colors"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
             </Link>
           ))}
-        </div>
-      </div>
-
-      {/* Follow-up Questions */}
-      <div className="p-4 bg-navy-700/30 rounded-xl border border-navy-600">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-6 h-6 rounded-lg bg-amber-500/20 flex items-center justify-center">
-            <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h4 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">Follow-up Questions</h4>
-        </div>
-        <div className="space-y-2">
-          {response.followUpQuestions.map((question, idx) => (
-            <div key={idx} className="flex items-start gap-2 text-sm text-gray-400">
-              <span className="text-amber-400">•</span>
-              <span>{question}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Consulting Upsell */}
-      <div className="p-4 bg-gradient-to-r from-purple-500/10 to-teal-500/10 rounded-xl border border-purple-500/20">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-sm text-gray-300">{response.consultingNote}</p>
-            <button className="mt-2 text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors">
-              Request Discovery Call
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default function AdvisorPage() {
+function ClassicAdvisorView() {
   const { currentUser } = useAppState();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -222,7 +204,6 @@ export default function AdvisorPage() {
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI thinking
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const response = generateAdvisorResponse(query, currentUser);
@@ -240,168 +221,137 @@ export default function AdvisorPage() {
   };
 
   return (
-    <AppShell>
-      <div className="flex gap-6 h-[calc(100vh-8rem)]">
-        {/* Left Panel - Guided Prompts */}
-        <div className="w-80 flex-shrink-0 flex flex-col">
-          <div className="card flex-1 flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="mb-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-white">Strategic Advisor</h2>
-                <DataUploadButton label="Upload" variant="compact" />
-              </div>
-              <p className="text-sm text-gray-400 mt-1">
-                What are you trying to solve today?
-              </p>
-            </div>
-
-            {/* User Context Badge */}
-            {currentUser && (
-              <div className="mb-4 p-3 bg-navy-700/50 rounded-xl border border-navy-600">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs text-gray-400">Advising as:</span>
-                  <PlanBadge plan={currentUser.plan} size="sm" />
-                </div>
-                <div className="text-sm text-white font-medium">{currentUser.name}</div>
-                <div className="text-xs text-gray-400">{roleDisplayNames[currentUser.role]} - {currentUser.company}</div>
-              </div>
-            )}
-
-            {/* Pre-made Prompt Buttons */}
-            <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-              <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                Quick Actions
-              </div>
-              {strategyPrompts.map((prompt) => (
-                <PromptButton
-                  key={prompt.id}
-                  prompt={prompt}
-                  onClick={() => handleSubmit(prompt.prompt)}
-                  disabled={isTyping}
-                />
-              ))}
-            </div>
-
-            {/* Custom Input */}
-            <div className="mt-4 pt-4 border-t border-navy-600">
-              <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                Or Ask Your Own Question
-              </div>
-              <div className="relative">
-                <textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSubmit(input);
-                    }
-                  }}
-                  placeholder="Type your strategic question..."
-                  className="w-full h-20 bg-navy-800 border border-navy-600 rounded-xl p-3 text-sm text-gray-200 placeholder-gray-500 resize-none focus:outline-none focus:border-teal-400"
-                />
-                <button
-                  onClick={() => handleSubmit(input)}
-                  disabled={!input.trim() || isTyping}
-                  className="absolute bottom-3 right-3 p-2 bg-teal-500 hover:bg-teal-400 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+    <div className="flex gap-6 h-full p-6">
+      <div className="w-80 flex-shrink-0 flex flex-col">
+        <div className="mb-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">Quick Actions</h2>
+            <DataUploadButton label="Upload" variant="compact" />
           </div>
+          <p className="text-sm text-[var(--text-muted)] mt-1">
+            Select a strategy topic
+          </p>
         </div>
 
-        {/* Right Panel - Conversation */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="card flex-1 flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Advisor Response</h2>
-              {messages.length > 0 && (
-                <button
-                  onClick={() => setMessages([])}
-                  className="text-xs text-gray-400 hover:text-white transition-colors"
-                >
-                  Clear conversation
-                </button>
-              )}
+        {currentUser && (
+          <div className="mb-4 p-3 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs text-[var(--text-muted)]">Advising as:</span>
+              <PlanBadge plan={currentUser.plan} size="sm" />
             </div>
+            <div className="text-sm text-[var(--text-primary)] font-medium">{currentUser.name}</div>
+            <div className="text-xs text-[var(--text-muted)]">{roleDisplayNames[currentUser.role]}</div>
+          </div>
+        )}
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto pr-2 space-y-6">
-              {messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Ready to Help</h3>
-                  <p className="text-sm text-gray-400 max-w-sm">
-                    Select a quick action from the left panel or ask your own strategic question.
-                    I'll provide diagnosis, tool recommendations, and actionable next steps.
-                  </p>
-                </div>
-              ) : (
-                messages.map((message) => (
-                  <div key={message.id}>
-                    {message.type === 'user' ? (
-                      <div className="flex justify-end mb-4">
-                        <div className="max-w-[80%] p-4 bg-teal-500/20 border border-teal-500/30 rounded-2xl rounded-tr-sm">
-                          <p className="text-sm text-gray-200">{message.content}</p>
-                          <span className="text-[10px] text-gray-500 mt-2 block">
-                            {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                          </span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <span className="text-sm font-medium text-white">Strategic Advisor</span>
-                            {message.response && (
-                              <span className="ml-2 text-xs text-gray-400">
-                                {message.response.confidence}% confidence
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        {message.response && <AIResponseCard response={message.response} />}
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
+        <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+          {strategyPrompts.map((prompt) => (
+            <PromptButton
+              key={prompt.id}
+              prompt={prompt}
+              onClick={() => handleSubmit(prompt.prompt)}
+              disabled={isTyping}
+            />
+          ))}
+        </div>
 
-              {isTyping && (
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                  </div>
-                  <div className="p-3 bg-navy-700 rounded-2xl rounded-tl-sm">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                      <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+        <div className="mt-4 pt-4 border-t border-[var(--border-color)]">
+          <div className="relative">
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(input);
+                }
+              }}
+              placeholder="Type your question..."
+              className="w-full h-20 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl p-3 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] resize-none focus:outline-none focus:border-teal-400"
+            />
+            <button
+              onClick={() => handleSubmit(input)}
+              disabled={!input.trim() || isTyping}
+              className="absolute bottom-3 right-3 p-2 bg-teal-500 hover:bg-teal-400 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg transition-colors"
+            >
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
-    </AppShell>
+
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">Advisor Response</h2>
+          {messages.length > 0 && (
+            <button
+              onClick={() => setMessages([])}
+              className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
+        <div className="flex-1 overflow-y-auto pr-2 space-y-6">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 via-purple-500 to-pink-400 flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">Ready to Help</h3>
+              <p className="text-sm text-[var(--text-muted)] max-w-sm">
+                Select a quick action or ask your own strategic question.
+              </p>
+            </div>
+          ) : (
+            messages.map((message) => (
+              <div key={message.id}>
+                {message.type === 'user' ? (
+                  <div className="flex justify-end mb-4">
+                    <div className="max-w-[80%] p-4 bg-teal-500/20 border border-teal-500/30 rounded-2xl rounded-tr-sm">
+                      <p className="text-sm text-[var(--text-secondary)]">{message.content}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium text-[var(--text-primary)]">Strategic Advisor</span>
+                    </div>
+                    {message.response && <AIResponseCard response={message.response} />}
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+
+          {isTyping && (
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <div className="p-3 bg-[var(--bg-secondary)] rounded-2xl rounded-tl-sm">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" />
+                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

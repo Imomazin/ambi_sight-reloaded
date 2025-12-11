@@ -1,0 +1,64 @@
+{
+  "name": "Lumina S - Strategic Intelligence",
+  "short_name": "Lumina S",
+  "description": "AI-powered strategic business intelligence platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0F",
+  "theme_color": "#14B8A6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "AI Advisor",
+      "short_name": "Advisor",
+      "description": "Chat with AI business advisor",
+      "url": "/advisor",
+      "icons": [{ "src": "/icon-advisor.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Tools",
+      "short_name": "Tools",
+      "description": "Strategic analysis tools",
+      "url": "/tools",
+      "icons": [{ "src": "/icon-tools.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Workspace",
+      "short_name": "Workspace",
+      "description": "Your analysis workspace",
+      "url": "/workspace",
+      "icons": [{ "src": "/icon-workspace.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

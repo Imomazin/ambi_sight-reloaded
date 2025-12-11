@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import AppShell from '@/components/AppShell';
 import DashboardHeader from '@/components/DashboardHeader';
@@ -13,6 +13,8 @@ import CaseStudyCarousel from '@/components/CaseStudyCarousel';
 import LockedFeature, { PlanBadge } from '@/components/LockedFeature';
 import { UpgradeBanner } from '@/components/UpgradeModal';
 import { ConsultingCTA } from '@/components/ConsultingCTA';
+import ToolView from '@/components/ToolView';
+import DataUploadButton from '@/components/DataUploadButton';
 import { useAppState } from '@/state/useAppState';
 import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
 import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
@@ -33,9 +35,23 @@ function generateSparklineData(baseValue: number, volatility: number = 5): numbe
 }
 
 export default function WorkspacePage() {
-  const { currentScenario, currentPersona, currentUser } = useAppState();
+  const { currentScenario, currentPersona, currentUser, activeToolId, setActiveToolId } = useAppState();
   const { kpis: realTimeKpis } = useRealTimeKPIs();
   const userPlan = currentUser?.plan || 'Free';
+
+  // Handle closing the tool view
+  const handleCloseTool = () => {
+    setActiveToolId(null);
+  };
+
+  // If there's an active tool, show the ToolView instead of dashboard
+  if (activeToolId) {
+    return (
+      <AppShell>
+        <ToolView toolId={activeToolId} onClose={handleCloseTool} />
+      </AppShell>
+    );
+  }
 
   // Enhanced KPI data with sparklines
   const enhancedKpis = useMemo(() => [
