@@ -70,11 +70,14 @@ function FloatingOrbs() {
 
 export default function LandingPage() {
   const router = useRouter();
-  const { currentUser, setCurrentUser } = useAppState();
+  const { currentUser, setCurrentUser, logout } = useAppState();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // No redirect - landing page is always visible to everyone
+  // Handle sign out
+  const handleSignOut = () => {
+    logout();
+  };
 
   // Handle OAuth login directly from landing page
   const handleOAuth = (provider: 'google' | 'microsoft' | 'github') => {
@@ -250,25 +253,51 @@ export default function LandingPage() {
             {/* Show dashboard link if logged in */}
             {currentUser && (
               <div className="logged-in-section">
-                <p className="welcome-text">Welcome back, {currentUser.name}!</p>
-                <Link href="/dashboard" className="dashboard-btn">
-                  Go to Dashboard
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                <div className="welcome-card">
+                  <div className="welcome-avatar">{currentUser.avatar}</div>
+                  <div className="welcome-info">
+                    <p className="welcome-name">Welcome back, {currentUser.name}!</p>
+                    <p className="welcome-plan">{currentUser.plan} Plan</p>
+                  </div>
+                </div>
+                <div className="logged-in-actions">
+                  <Link href="/dashboard" className="dashboard-btn">
+                    Go to Dashboard
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                  <button onClick={handleSignOut} className="signout-btn">
+                    Not you? Sign out
+                  </button>
+                </div>
               </div>
             )}
 
             {/* Social Proof */}
             <div className="social-proof">
-              <div className="user-avatars">
-                <div className="avatar" style={{ background: 'linear-gradient(135deg, #14B8A6, #2DD4BF)' }}>J</div>
-                <div className="avatar" style={{ background: 'linear-gradient(135deg, #A855F7, #EC4899)' }}>M</div>
-                <div className="avatar" style={{ background: 'linear-gradient(135deg, #3B82F6, #06B6D4)' }}>S</div>
-                <div className="avatar" style={{ background: 'linear-gradient(135deg, #F59E0B, #EF4444)' }}>A</div>
+              <div className="trust-badges">
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  <span>Enterprise Security</span>
+                </div>
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                  <span>Free to Start</span>
+                </div>
+                <div className="trust-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span>Setup in 2 mins</span>
+                </div>
               </div>
-              <span className="proof-text">Join 2,500+ strategists already using Lumina S</span>
             </div>
           </div>
 
@@ -391,9 +420,31 @@ export default function LandingPage() {
       <style jsx>{`
         .landing-page {
           min-height: 100vh;
-          background: linear-gradient(135deg, #0B0B0F 0%, #1a1a2e 50%, #0B0B0F 100%);
+          background: #0a0a0f;
           position: relative;
           overflow: hidden;
+        }
+
+        .landing-page::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
+            radial-gradient(ellipse 60% 40% at 90% 100%, rgba(20, 184, 166, 0.2), transparent),
+            radial-gradient(ellipse 50% 30% at 10% 80%, rgba(168, 85, 247, 0.15), transparent);
+          pointer-events: none;
+        }
+
+        .landing-page::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          background-size: 60px 60px;
+          pointer-events: none;
         }
 
         .orbs-container {
@@ -406,52 +457,52 @@ export default function LandingPage() {
         .orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.4;
-          animation: float 20s infinite ease-in-out;
+          filter: blur(100px);
+          opacity: 0.5;
+          animation: float 25s infinite ease-in-out;
         }
 
         .orb-1 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #A855F7, transparent);
-          top: -100px;
-          right: -100px;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent 70%);
+          top: -200px;
+          right: -150px;
           animation-delay: 0s;
         }
 
         .orb-2 {
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, #14B8A6, transparent);
-          bottom: -50px;
-          left: -50px;
-          animation-delay: -5s;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(20, 184, 166, 0.35), transparent 70%);
+          bottom: -100px;
+          left: -100px;
+          animation-delay: -7s;
         }
 
         .orb-3 {
-          width: 250px;
-          height: 250px;
-          background: radial-gradient(circle, #EC4899, transparent);
-          top: 50%;
-          left: 30%;
-          animation-delay: -10s;
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, rgba(236, 72, 153, 0.3), transparent 70%);
+          top: 40%;
+          left: 20%;
+          animation-delay: -12s;
         }
 
         .orb-4 {
-          width: 200px;
-          height: 200px;
-          background: radial-gradient(circle, #3B82F6, transparent);
-          bottom: 30%;
-          right: 20%;
-          animation-delay: -15s;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
+          bottom: 20%;
+          right: 10%;
+          animation-delay: -18s;
         }
 
         @keyframes float {
           0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -30px) scale(1.1); }
-          50% { transform: translate(-20px, 20px) scale(0.9); }
-          75% { transform: translate(-30px, -20px) scale(1.05); }
+          25% { transform: translate(40px, -40px) scale(1.1); }
+          50% { transform: translate(-30px, 30px) scale(0.95); }
+          75% { transform: translate(-40px, -30px) scale(1.05); }
         }
 
         .landing-nav {
@@ -727,15 +778,56 @@ export default function LandingPage() {
           margin-bottom: 32px;
         }
 
-        .welcome-text {
-          font-size: 18px;
-          color: rgba(255, 255, 255, 0.8);
+        .welcome-card {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 16px 20px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 16px;
           margin-bottom: 16px;
+        }
+
+        .welcome-avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 18px;
+          color: white;
+        }
+
+        .welcome-info {
+          flex: 1;
+        }
+
+        .welcome-name {
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          margin-bottom: 2px;
+        }
+
+        .welcome-plan {
+          font-size: 13px;
+          color: #14B8A6;
+        }
+
+        .logged-in-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
         }
 
         .dashboard-btn {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
           padding: 16px 28px;
           background: linear-gradient(135deg, #14B8A6, #2DD4BF);
@@ -750,6 +842,20 @@ export default function LandingPage() {
         .dashboard-btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+        }
+
+        .signout-btn {
+          background: transparent;
+          border: none;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 14px;
+          cursor: pointer;
+          padding: 8px;
+          transition: color 0.2s ease;
+        }
+
+        .signout-btn:hover {
+          color: #EC4899;
         }
 
         .signup-section {
@@ -837,36 +943,29 @@ export default function LandingPage() {
         }
 
         .social-proof {
+          margin-top: 8px;
+        }
+
+        .trust-badges {
           display: flex;
-          align-items: center;
+          flex-wrap: wrap;
           gap: 12px;
         }
 
-        .user-avatars {
-          display: flex;
-        }
-
-        .avatar {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
+        .trust-badge {
           display: flex;
           align-items: center;
-          justify-content: center;
+          gap: 6px;
+          padding: 8px 14px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
           font-size: 12px;
-          font-weight: 600;
-          color: white;
-          border: 2px solid #0B0B0F;
-          margin-left: -8px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
-        .avatar:first-child {
-          margin-left: 0;
-        }
-
-        .proof-text {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
+        .trust-badge svg {
+          color: #14B8A6;
         }
 
         .hero-right {
