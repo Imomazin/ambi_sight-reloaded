@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import AppShell from '@/components/AppShell';
-import { useProjectState, getStepLabel, WORKFLOW_STEPS } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import AppShell from '../../components/AppShell';
+import { useProjectState, getStepLabel, WORKFLOW_STEPS } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 export default function ProjectDashboardPage() {
   const router = useRouter();

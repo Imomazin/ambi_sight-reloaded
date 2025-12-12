@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
+import { useRealTimeKPIs } from '../hooks/useRealTimeData';
 
 interface HealthSegment {
   label: string;

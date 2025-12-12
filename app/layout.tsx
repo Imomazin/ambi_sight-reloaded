@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import ClientLayout from '@/components/ClientLayout';
+import ClientLayout from '../components/ClientLayout';
 
 export const metadata: Metadata = {
   title: 'Lumina S | Strategic Intelligence',

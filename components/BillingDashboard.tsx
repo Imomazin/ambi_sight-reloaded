@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAppState, useUsageLimits, useTrialStatus } from '@/state/useAppState';
+import { useAppState, useUsageLimits, useTrialStatus } from '../state/useAppState';
 import ProgressIndicator from './ProgressIndicator';
 
 interface Invoice {

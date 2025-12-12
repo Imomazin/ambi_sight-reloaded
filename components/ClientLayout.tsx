@@ -4,7 +4,7 @@ import { Suspense, useEffect } from 'react';
 import AuthGuard from './AuthGuard';
 import CommandPalette from './CommandPalette';
 import OnboardingTour from './OnboardingTour';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 
 function LoadingFallback() {
   return (

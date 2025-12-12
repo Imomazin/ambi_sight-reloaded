@@ -2,8 +2,8 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Persona, Scenario } from '@/lib/demoData';
-import type { UserProfile } from '@/lib/users';
+import type { Persona, Scenario } from '../lib/demoData';
+import type { UserProfile } from '../lib/users';
 
 // Notification types
 export interface Notification {

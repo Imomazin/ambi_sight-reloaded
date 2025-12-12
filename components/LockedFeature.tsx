@@ -1,6 +1,6 @@
 'use client';
 
-import { type Plan, planColors } from '@/lib/users';
+import { type Plan, planColors } from '../lib/users';
 
 interface LockedFeatureProps {
   requiredPlan: Plan;

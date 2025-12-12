@@ -1,7 +1,7 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
-import { insights, type Insight } from '@/lib/demoData';
+import { useAppState } from '../state/useAppState';
+import { insights, type Insight } from '../lib/demoData';
 
 export default function InsightFeed() {
   const { currentPersona } = useAppState();

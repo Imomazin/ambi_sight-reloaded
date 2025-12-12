@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useAppState } from '@/state/useAppState';
-import { demoUsers, planColors, roleDisplayNames, planToLevel, type UserProfile } from '@/lib/users';
+import { useAppState } from '../../state/useAppState';
+import { demoUsers, planColors, roleDisplayNames, planToLevel, type UserProfile } from '../../lib/users';
 
 type AuthMode = 'signin' | 'signup';
 type AuthMethod = 'demo' | 'email' | 'google' | 'microsoft' | 'github';

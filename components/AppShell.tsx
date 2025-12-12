@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 import Navbar from './Navbar';
 import SidebarNav from './SidebarNav';
 import HelpModal from './HelpModal';

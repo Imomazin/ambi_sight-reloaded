@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useProjectState, OrganizationProfile, getNextStep } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, OrganizationProfile, getNextStep } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 const industries = [
   'Technology', 'Healthcare', 'Finance', 'Retail', 'Manufacturing',

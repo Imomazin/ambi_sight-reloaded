@@ -1,10 +1,10 @@
 'use client';
 
-import AppShell from '@/components/AppShell';
-import ScenarioCard from '@/components/ScenarioCard';
-import DataUploadButton from '@/components/DataUploadButton';
-import { useAppState } from '@/state/useAppState';
-import { scenarios } from '@/lib/demoData';
+import AppShell from '../../components/AppShell';
+import ScenarioCard from '../../components/ScenarioCard';
+import DataUploadButton from '../../components/DataUploadButton';
+import { useAppState } from '../../state/useAppState';
+import { scenarios } from '../../lib/demoData';
 
 export default function ScenariosPage() {
   const { currentScenario, setScenario } = useAppState();

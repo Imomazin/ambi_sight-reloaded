@@ -1,6 +1,6 @@
 'use client';
 
-import { useProjectState, WORKFLOW_STEPS, getStepLabel, getStepIndex, WorkflowStep } from '@/state/useProjectState';
+import { useProjectState, WORKFLOW_STEPS, getStepLabel, getStepIndex, WorkflowStep } from '../state/useProjectState';
 
 interface WorkflowProgressProps {
   onStepClick?: (step: WorkflowStep) => void;

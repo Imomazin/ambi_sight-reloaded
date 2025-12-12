@@ -10,7 +10,7 @@ import {
   roleDisplayNames,
   roleShortNames,
   planColors,
-} from '@/lib/users';
+} from '../lib/users';
 
 // Extended user list for demo purposes
 const allUsers: UserProfile[] = [

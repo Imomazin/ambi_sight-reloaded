@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import AppShell from '@/components/AppShell';
-import HeatmapGrid from '@/components/HeatmapGrid';
-import DataUploadButton from '@/components/DataUploadButton';
-import { initiatives, portfolios, owners, horizons } from '@/lib/demoData';
+import AppShell from '../../components/AppShell';
+import HeatmapGrid from '../../components/HeatmapGrid';
+import DataUploadButton from '../../components/DataUploadButton';
+import { initiatives, portfolios, owners, horizons } from '../../lib/demoData';
 
 export default function PortfolioPage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');

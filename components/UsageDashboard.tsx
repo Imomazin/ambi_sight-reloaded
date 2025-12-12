@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppState, useUsageLimits, useTrialStatus } from '@/state/useAppState';
+import { useAppState, useUsageLimits, useTrialStatus } from '../state/useAppState';
 import ProgressIndicator from './ProgressIndicator';
 
 export default function UsageDashboard() {

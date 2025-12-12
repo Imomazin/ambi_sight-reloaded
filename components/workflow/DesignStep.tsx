@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useProjectState, FrameworkData, getNextStep, getPreviousStep } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, FrameworkData, getNextStep, getPreviousStep } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 interface OKR {
   objective: string;

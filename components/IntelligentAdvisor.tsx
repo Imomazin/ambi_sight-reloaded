@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useProjectState, WorkflowStep, getStepLabel } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, WorkflowStep, getStepLabel } from '../state/useProjectState';
+import { useAppState } from '../state/useAppState';
 
 interface Message {
   id: string;

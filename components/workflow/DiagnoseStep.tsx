@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useProjectState, DiagnosticData, getNextStep, getPreviousStep } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, DiagnosticData, getNextStep, getPreviousStep } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 type DiagnosticTool = 'swot' | 'pestel' | 'porter';
 

@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useAppState } from '@/state/useAppState';
-import type { Scenario } from '@/lib/demoData';
+import { useAppState } from '../state/useAppState';
+import type { Scenario } from '../lib/demoData';
 
 interface ScenarioCardProps {
   scenario: Scenario;

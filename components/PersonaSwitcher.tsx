@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useAppState } from '@/state/useAppState';
-import { personas, type Persona } from '@/lib/demoData';
+import { useAppState } from '../state/useAppState';
+import { personas, type Persona } from '../lib/demoData';
 
 export default function PersonaSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
