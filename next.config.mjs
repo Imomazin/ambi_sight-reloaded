@@ -1,15 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
-  },
+  reactStrictMode: true,
+  swcMinify: true,
+  // Keep config minimal for StackBlitz / WebContainers
+  // No experimental.appDir, no turbo, nothing fancy
 };
 
 export default nextConfig;
