@@ -60,9 +60,13 @@ async function sendVerificationCode(email: string) {
   verificationCodes.set(email.toLowerCase(), { code, expiresAt });
 
   // Check if we have a valid Resend API key
-  const hasRealApiKey = process.env.RESEND_API_KEY &&
-    process.env.RESEND_API_KEY !== 're_demo_key' &&
-    process.env.RESEND_API_KEY.startsWith('re_');
+  const apiKey = process.env.RESEND_API_KEY;
+  const hasRealApiKey = apiKey && apiKey !== 're_demo_key' && apiKey.startsWith('re_');
+
+  // Log for debugging (check Vercel logs)
+  console.log('[Email API] API Key present:', !!apiKey);
+  console.log('[Email API] API Key valid:', hasRealApiKey);
+  console.log('[Email API] API Key prefix:', apiKey ? apiKey.substring(0, 10) + '...' : 'none');
 
   if (hasRealApiKey) {
     try {
