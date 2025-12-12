@@ -2,12 +2,11 @@
 
 import React from 'react';
 
-// use RELATIVE imports from the project root
-import AppShell from '../../components/AppShell';
-import AIAssistant from '../../components/AIAssistant';
-import LockedFeature from '../../components/LockedFeature';
-import { useAppState } from '../../state/useAppState';
-import advisorResponses from '../../lib/advisorResponses';
+import AppShell from '@/components/AppShell';
+import AIAssistant from '@/components/AIAssistant';
+import LockedFeature from '@/components/LockedFeature';
+import { useAppState } from '@/state/useAppState';
+import * as advisorResponses from '@/lib/advisorResponses';
 
 const AdvisorPage: React.FC = () => {
   // keep types relaxed so TS doesn't complain if shapes change

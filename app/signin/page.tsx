@@ -8,7 +8,7 @@ import { demoUsers, planColors, roleDisplayNames, planToLevel, type UserProfile 
 
 type AuthMode = 'signin' | 'signup';
 type AuthMethod = 'demo' | 'email' | 'google' | 'microsoft' | 'github';
-type OAuthStep = 'select' | 'connecting' | 'choose_account' | 'complete';
+type OAuthStep = 'select' | 'connecting' | 'choose_account' | 'verify_code' | 'complete';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -32,6 +32,13 @@ export default function SignInPage() {
   // State for user's entered email to show as account option
   const [userAccount, setUserAccount] = useState<{ email: string; name: string } | null>(null);
   const [showAddAccount, setShowAddAccount] = useState(false);
+
+  // Verification code state
+  const [verificationCode, setVerificationCode] = useState('');
+  const [generatedCode, setGeneratedCode] = useState('');
+  const [pendingAccount, setPendingAccount] = useState<{ email: string; name: string } | null>(null);
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [isSendingCode, setIsSendingCode] = useState(false);
 
   // Set initial state based on URL params - simulate OAuth redirect
   useEffect(() => {
@@ -100,21 +107,106 @@ export default function SignInPage() {
     }, 1500);
   };
 
-  // Handle selecting a demo OAuth account
-  const handleSelectOAuthAccount = (accountEmail: string, accountName: string) => {
-    setIsLoading(true);
-    const provider = authMethod as 'google' | 'microsoft' | 'github';
+  // Handle selecting an OAuth account - sends verification code via API
+  const handleSelectOAuthAccount = async (accountEmail: string, accountName: string) => {
+    setIsSendingCode(true);
+    setPendingAccount({ email: accountEmail, name: accountName });
+    setVerificationCode('');
+    setError('');
 
-    // Simulate OAuth completing
-    setTimeout(() => {
+    try {
+      // Call the email API to send verification code
+      const response = await fetch('/api/auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: accountEmail, action: 'send' }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Failed to send verification code');
+        setIsSendingCode(false);
+        return;
+      }
+
+      // Check if it's demo mode (API will return demo flag if no real API key)
+      if (data.demo) {
+        setIsDemoMode(true);
+        setGeneratedCode(data.demoCode);
+        console.log(`[DEMO] Verification code for ${accountEmail}: ${data.demoCode}`);
+      } else {
+        setIsDemoMode(false);
+        setGeneratedCode(''); // Don't show code if real email was sent
+      }
+
+      // Move to verification step
+      setOauthStep('verify_code');
+    } catch (err) {
+      console.error('Error sending verification code:', err);
+      setError('Failed to send verification code. Please try again.');
+    } finally {
+      setIsSendingCode(false);
+    }
+  };
+
+  // Handle verification code submission
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!verificationCode) {
+      setError('Please enter the verification code');
+      return;
+    }
+
+    if (!pendingAccount) {
+      setError('Session expired. Please try again.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // If in demo mode, verify locally; otherwise call API
+      if (isDemoMode) {
+        if (verificationCode !== generatedCode) {
+          setError('Invalid verification code. Please try again.');
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        // Verify via API
+        const response = await fetch('/api/auth/send-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: pendingAccount.email,
+            action: 'verify',
+            code: verificationCode
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data.error || 'Invalid verification code');
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      const provider = authMethod as 'google' | 'microsoft' | 'github';
+
+      // Code verified - create user and sign in
       const newUser: UserProfile = {
         id: `${provider}-${Date.now()}`,
-        name: accountName,
-        email: accountEmail,
+        name: pendingAccount.name,
+        email: pendingAccount.email,
         role: 'User',
         plan: 'Free',
         level: 1,
-        avatar: accountName.split(' ').map(n => n[0]).join('').toUpperCase(),
+        avatar: pendingAccount.name.split(' ').map(n => n[0]).join('').toUpperCase(),
         lastActive: new Date().toISOString(),
         registeredAt: new Date().toISOString(),
         authProvider: provider,
@@ -122,7 +214,54 @@ export default function SignInPage() {
       setCurrentUser(newUser);
       setOauthStep('complete');
       router.push(returnUrl);
-    }, 800);
+    } catch (err) {
+      console.error('Error verifying code:', err);
+      setError('Failed to verify code. Please try again.');
+      setIsLoading(false);
+    }
+  };
+
+  // Resend verification code
+  const handleResendCode = async () => {
+    if (!pendingAccount) return;
+
+    setIsSendingCode(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: pendingAccount.email, action: 'send' }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Failed to resend code');
+        return;
+      }
+
+      if (data.demo) {
+        setIsDemoMode(true);
+        setGeneratedCode(data.demoCode);
+        console.log(`[DEMO] New verification code: ${data.demoCode}`);
+      }
+
+      setVerificationCode('');
+    } catch (err) {
+      console.error('Error resending code:', err);
+      setError('Failed to resend code. Please try again.');
+    } finally {
+      setIsSendingCode(false);
+    }
+  };
+
+  // Go back from verify to choose account
+  const goBackToChooseAccount = () => {
+    setOauthStep('choose_account');
+    setVerificationCode('');
+    setError('');
   };
 
   // Handle adding user's email as an account option
@@ -159,6 +298,10 @@ export default function SignInPage() {
     setIsLoading(false);
     setUserAccount(null);
     setShowAddAccount(false);
+    setVerificationCode('');
+    setGeneratedCode('');
+    setPendingAccount(null);
+    setIsDemoMode(false);
     // Clear URL params
     router.replace('/signin');
   };
@@ -267,7 +410,7 @@ export default function SignInPage() {
                   {userAccount && (
                     <button
                       onClick={() => handleSelectOAuthAccount(userAccount.email, userAccount.name)}
-                      disabled={isLoading}
+                      disabled={isLoading || isSendingCode}
                       className="w-full flex items-center gap-3 p-3 rounded-lg bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 transition-colors text-left disabled:opacity-50"
                     >
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-medium text-sm">
@@ -277,7 +420,7 @@ export default function SignInPage() {
                         <p className="text-sm font-medium text-gray-800 truncate">{userAccount.name}</p>
                         <p className="text-xs text-gray-500 truncate">{userAccount.email}</p>
                       </div>
-                      {isLoading ? (
+                      {isLoading || isSendingCode ? (
                         <svg className="w-5 h-5 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -358,6 +501,124 @@ export default function SignInPage() {
                   Cancel
                 </button>
               </div>
+            </div>
+          ) : oauthStep === 'verify_code' && pendingAccount ? (
+            /* Verification Code Screen */
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              {/* Header */}
+              <div className="p-6 pb-4 border-b border-gray-100">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <h2 className="text-xl font-medium text-center text-gray-800">
+                  Verify your email
+                </h2>
+                <p className="text-sm text-gray-500 text-center mt-2">
+                  We sent a 6-digit code to<br />
+                  <span className="text-gray-800 font-medium">{pendingAccount.email}</span>
+                </p>
+              </div>
+
+              {/* Verification Code Display - Demo Mode (only shown when no real email was sent) */}
+              {isDemoMode && generatedCode ? (
+                <div className="px-6 pt-4">
+                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-sm font-medium text-amber-800">Demo Mode</span>
+                    </div>
+                    <p className="text-xs text-amber-700 mb-2">
+                      Set RESEND_API_KEY in .env for real emails. For demo purposes:
+                    </p>
+                    <div className="bg-white rounded-lg p-3 text-center border border-amber-200">
+                      <span className="text-2xl font-mono font-bold tracking-[0.3em] text-gray-800">{generatedCode}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="px-6 pt-4">
+                  <div className="p-4 rounded-xl bg-green-50 border border-green-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-sm font-medium text-green-800">Email Sent</span>
+                    </div>
+                    <p className="text-xs text-green-700">
+                      Check your inbox at <strong>{pendingAccount.email}</strong> for the verification code.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Code Input Form */}
+              <form onSubmit={handleVerifyCode} className="p-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Enter verification code
+                </label>
+                <input
+                  type="text"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  placeholder="000000"
+                  className="w-full px-4 py-4 text-center text-2xl font-mono tracking-[0.5em] border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  maxLength={6}
+                  autoFocus
+                />
+
+                {error && (
+                  <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isLoading || verificationCode.length !== 6}
+                  className={`w-full mt-4 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
+                    verificationCode.length === 6 && !isLoading
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  {isLoading ? (
+                    <>
+                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span>Verifying...</span>
+                    </>
+                  ) : (
+                    <span>Verify & Continue</span>
+                  )}
+                </button>
+
+                <div className="flex items-center justify-between mt-4 text-sm">
+                  <button
+                    type="button"
+                    onClick={goBackToChooseAccount}
+                    className="text-gray-500 hover:text-gray-700 flex items-center gap-1"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleResendCode}
+                    disabled={isSendingCode}
+                    className="text-blue-600 hover:text-blue-700 disabled:opacity-50"
+                  >
+                    {isSendingCode ? 'Sending...' : 'Resend code'}
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             <>
