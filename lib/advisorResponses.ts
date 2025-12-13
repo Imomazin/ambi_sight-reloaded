@@ -283,31 +283,367 @@ function generateFollowUps(category: ProblemCategory): string[] {
   return followUpsMap[category];
 }
 
-// Detect problem category from query
+// Advanced keyword analysis with weighted scoring
+interface CategoryScore {
+  category: ProblemCategory;
+  score: number;
+  matchedKeywords: string[];
+}
+
+// Comprehensive keyword mappings with weights
+const categoryKeywords: Record<ProblemCategory, { keyword: string; weight: number }[]> = {
+  risk: [
+    { keyword: 'risk', weight: 10 },
+    { keyword: 'threat', weight: 9 },
+    { keyword: 'vulnerability', weight: 9 },
+    { keyword: 'exposure', weight: 8 },
+    { keyword: 'danger', weight: 8 },
+    { keyword: 'uncertainty', weight: 7 },
+    { keyword: 'mitiga', weight: 8 },
+    { keyword: 'contingency', weight: 7 },
+    { keyword: 'resilience', weight: 6 },
+    { keyword: 'crisis', weight: 9 },
+    { keyword: 'disruption', weight: 7 },
+    { keyword: 'compliance', weight: 6 },
+    { keyword: 'audit', weight: 5 },
+    { keyword: 'liability', weight: 7 },
+    { keyword: 'hedge', weight: 6 },
+    { keyword: 'insurance', weight: 5 },
+    { keyword: 'safety', weight: 5 },
+    { keyword: 'security', weight: 6 },
+    { keyword: 'breach', weight: 8 },
+    { keyword: 'failure', weight: 6 },
+    { keyword: 'downside', weight: 7 },
+    { keyword: 'worst case', weight: 8 },
+  ],
+  growth: [
+    { keyword: 'growth', weight: 10 },
+    { keyword: 'expand', weight: 9 },
+    { keyword: 'scale', weight: 9 },
+    { keyword: 'revenue', weight: 8 },
+    { keyword: 'market share', weight: 9 },
+    { keyword: 'acquisition', weight: 8 },
+    { keyword: 'merger', weight: 8 },
+    { keyword: 'partnership', weight: 7 },
+    { keyword: 'new market', weight: 9 },
+    { keyword: 'innovation', weight: 7 },
+    { keyword: 'opportunity', weight: 6 },
+    { keyword: 'customer', weight: 5 },
+    { keyword: 'sales', weight: 6 },
+    { keyword: 'competitive', weight: 6 },
+    { keyword: 'differentiat', weight: 7 },
+    { keyword: 'pricing', weight: 5 },
+    { keyword: 'product', weight: 5 },
+    { keyword: 'launch', weight: 7 },
+    { keyword: 'international', weight: 7 },
+    { keyword: 'global', weight: 6 },
+    { keyword: 'invest', weight: 6 },
+    { keyword: 'profit', weight: 7 },
+    { keyword: 'margin', weight: 6 },
+    { keyword: 'valuation', weight: 7 },
+  ],
+  execution: [
+    { keyword: 'execute', weight: 10 },
+    { keyword: 'deliver', weight: 9 },
+    { keyword: 'implement', weight: 9 },
+    { keyword: 'milestone', weight: 8 },
+    { keyword: 'deadline', weight: 8 },
+    { keyword: 'progress', weight: 7 },
+    { keyword: 'slow', weight: 6 },
+    { keyword: 'behind', weight: 7 },
+    { keyword: 'delay', weight: 8 },
+    { keyword: 'bottleneck', weight: 9 },
+    { keyword: 'roadblock', weight: 9 },
+    { keyword: 'blocker', weight: 9 },
+    { keyword: 'timeline', weight: 7 },
+    { keyword: 'schedule', weight: 6 },
+    { keyword: 'velocity', weight: 7 },
+    { keyword: 'capacity', weight: 6 },
+    { keyword: 'team', weight: 4 },
+    { keyword: 'hire', weight: 5 },
+    { keyword: 'talent', weight: 5 },
+    { keyword: 'okr', weight: 8 },
+    { keyword: 'kpi', weight: 7 },
+    { keyword: 'metric', weight: 5 },
+    { keyword: 'tracking', weight: 6 },
+    { keyword: 'accountability', weight: 7 },
+    { keyword: 'project', weight: 4 },
+    { keyword: 'agile', weight: 6 },
+    { keyword: 'sprint', weight: 6 },
+  ],
+  portfolio: [
+    { keyword: 'portfolio', weight: 10 },
+    { keyword: 'priorit', weight: 9 },
+    { keyword: 'initiative', weight: 8 },
+    { keyword: 'resource', weight: 7 },
+    { keyword: 'allocat', weight: 8 },
+    { keyword: 'budget', weight: 7 },
+    { keyword: 'funding', weight: 7 },
+    { keyword: 'balance', weight: 6 },
+    { keyword: 'trade-off', weight: 8 },
+    { keyword: 'tradeoff', weight: 8 },
+    { keyword: 'program', weight: 5 },
+    { keyword: 'optimize', weight: 7 },
+    { keyword: 'rationalize', weight: 8 },
+    { keyword: 'sunset', weight: 8 },
+    { keyword: 'retire', weight: 6 },
+    { keyword: 'consolidate', weight: 7 },
+    { keyword: 'synergy', weight: 6 },
+    { keyword: 'overlap', weight: 6 },
+    { keyword: 'duplicate', weight: 6 },
+    { keyword: 'roi', weight: 7 },
+    { keyword: 'return', weight: 5 },
+    { keyword: 'value', weight: 4 },
+    { keyword: 'impact', weight: 5 },
+  ],
+  transformation: [
+    { keyword: 'digital', weight: 10 },
+    { keyword: 'transform', weight: 10 },
+    { keyword: 'technology', weight: 8 },
+    { keyword: 'modern', weight: 7 },
+    { keyword: 'automat', weight: 8 },
+    { keyword: 'ai', weight: 9 },
+    { keyword: 'machine learning', weight: 9 },
+    { keyword: 'cloud', weight: 7 },
+    { keyword: 'data', weight: 5 },
+    { keyword: 'analytics', weight: 6 },
+    { keyword: 'legacy', weight: 7 },
+    { keyword: 'tech debt', weight: 8 },
+    { keyword: 'platform', weight: 6 },
+    { keyword: 'architecture', weight: 6 },
+    { keyword: 'infrastructure', weight: 6 },
+    { keyword: 'devops', weight: 7 },
+    { keyword: 'agile', weight: 5 },
+    { keyword: 'software', weight: 5 },
+    { keyword: 'system', weight: 4 },
+    { keyword: 'integration', weight: 6 },
+    { keyword: 'api', weight: 6 },
+    { keyword: 'cybersecurity', weight: 7 },
+    { keyword: 'digitiz', weight: 9 },
+    { keyword: 'digitalis', weight: 9 },
+  ],
+  governance: [
+    { keyword: 'board', weight: 10 },
+    { keyword: 'govern', weight: 10 },
+    { keyword: 'esg', weight: 9 },
+    { keyword: 'report', weight: 6 },
+    { keyword: 'stakeholder', weight: 8 },
+    { keyword: 'shareholder', weight: 8 },
+    { keyword: 'investor', weight: 7 },
+    { keyword: 'compliance', weight: 7 },
+    { keyword: 'regulat', weight: 8 },
+    { keyword: 'sustainab', weight: 8 },
+    { keyword: 'transparent', weight: 6 },
+    { keyword: 'accountab', weight: 7 },
+    { keyword: 'oversight', weight: 8 },
+    { keyword: 'committee', weight: 6 },
+    { keyword: 'audit', weight: 7 },
+    { keyword: 'disclosure', weight: 7 },
+    { keyword: 'executive', weight: 5 },
+    { keyword: 'leadership', weight: 5 },
+    { keyword: 'communication', weight: 4 },
+    { keyword: 'quarterly', weight: 5 },
+    { keyword: 'annual', weight: 4 },
+    { keyword: 'ethics', weight: 7 },
+    { keyword: 'policy', weight: 5 },
+    { keyword: 'framework', weight: 4 },
+  ],
+};
+
+// Detect problem category using weighted scoring
 function detectCategory(query: string): ProblemCategory {
   const lowerQuery = query.toLowerCase();
+  const scores: CategoryScore[] = [];
 
-  if (lowerQuery.includes('risk') || lowerQuery.includes('threat') || lowerQuery.includes('danger') || lowerQuery.includes('exposure')) {
-    return 'risk';
-  }
-  if (lowerQuery.includes('growth') || lowerQuery.includes('expand') || lowerQuery.includes('revenue') || lowerQuery.includes('market')) {
-    return 'growth';
-  }
-  if (lowerQuery.includes('execute') || lowerQuery.includes('deliver') || lowerQuery.includes('milestone') || lowerQuery.includes('progress') || lowerQuery.includes('slow')) {
-    return 'execution';
-  }
-  if (lowerQuery.includes('portfolio') || lowerQuery.includes('priorit') || lowerQuery.includes('initiative') || lowerQuery.includes('resource')) {
-    return 'portfolio';
-  }
-  if (lowerQuery.includes('digital') || lowerQuery.includes('transform') || lowerQuery.includes('technology') || lowerQuery.includes('modern')) {
-    return 'transformation';
-  }
-  if (lowerQuery.includes('board') || lowerQuery.includes('govern') || lowerQuery.includes('esg') || lowerQuery.includes('report') || lowerQuery.includes('stakeholder')) {
-    return 'governance';
+  for (const [category, keywords] of Object.entries(categoryKeywords)) {
+    let score = 0;
+    const matchedKeywords: string[] = [];
+
+    for (const { keyword, weight } of keywords) {
+      if (lowerQuery.includes(keyword)) {
+        score += weight;
+        matchedKeywords.push(keyword);
+      }
+    }
+
+    scores.push({
+      category: category as ProblemCategory,
+      score,
+      matchedKeywords,
+    });
   }
 
-  // Default to portfolio for general strategic queries
-  return 'portfolio';
+  // Sort by score descending
+  scores.sort((a, b) => b.score - a.score);
+
+  // Return highest scoring category, or 'portfolio' as default
+  return scores[0].score > 0 ? scores[0].category : 'portfolio';
+}
+
+// Extract key entities and topics from query
+function extractQueryInsights(query: string): {
+  hasTimeframe: boolean;
+  hasNumbers: boolean;
+  isQuestion: boolean;
+  urgencyLevel: 'low' | 'medium' | 'high';
+  specificity: 'vague' | 'moderate' | 'specific';
+  mentionedConcepts: string[];
+} {
+  const lowerQuery = query.toLowerCase();
+
+  const urgentKeywords = ['urgent', 'asap', 'immediately', 'critical', 'crisis', 'now', 'today', 'emergency'];
+  const moderateUrgency = ['soon', 'quickly', 'this week', 'priority', 'important'];
+
+  const timeframes = ['quarter', 'month', 'year', 'week', 'q1', 'q2', 'q3', 'q4', '2024', '2025', 'next', 'this'];
+  const numbers = query.match(/\d+/g);
+
+  const strategicConcepts = [
+    'swot', 'porter', 'bcg', 'pestle', 'pest', 'five forces', 'blue ocean',
+    'competitive advantage', 'value chain', 'core competency', 'disruption',
+    'first mover', 'differentiation', 'cost leadership', 'market leader'
+  ];
+
+  const mentionedConcepts = strategicConcepts.filter(c => lowerQuery.includes(c));
+
+  let urgencyLevel: 'low' | 'medium' | 'high' = 'low';
+  if (urgentKeywords.some(k => lowerQuery.includes(k))) {
+    urgencyLevel = 'high';
+  } else if (moderateUrgency.some(k => lowerQuery.includes(k))) {
+    urgencyLevel = 'medium';
+  }
+
+  let specificity: 'vague' | 'moderate' | 'specific' = 'vague';
+  if (query.length > 100 || mentionedConcepts.length > 0 || (numbers && numbers.length > 1)) {
+    specificity = 'specific';
+  } else if (query.length > 40 || numbers) {
+    specificity = 'moderate';
+  }
+
+  return {
+    hasTimeframe: timeframes.some(t => lowerQuery.includes(t)),
+    hasNumbers: !!numbers && numbers.length > 0,
+    isQuestion: query.includes('?') || lowerQuery.startsWith('how') || lowerQuery.startsWith('what') || lowerQuery.startsWith('why') || lowerQuery.startsWith('should'),
+    urgencyLevel,
+    specificity,
+    mentionedConcepts,
+  };
+}
+
+// Industry-specific insights
+const industryInsights: Record<string, {
+  trends: string[];
+  challenges: string[];
+  opportunities: string[];
+}> = {
+  Technology: {
+    trends: ['AI/ML adoption accelerating', 'Platform consolidation', 'Security-first architecture', 'Developer experience focus'],
+    challenges: ['Talent competition', 'Technical debt', 'Rapid obsolescence', 'Regulatory complexity'],
+    opportunities: ['Adjacent market expansion', 'Enterprise upsell', 'API monetization', 'Vertical integration'],
+  },
+  Healthcare: {
+    trends: ['Telehealth normalization', 'AI diagnostics', 'Value-based care', 'Patient experience digitization'],
+    challenges: ['Regulatory compliance', 'Data privacy', 'Legacy system integration', 'Workforce burnout'],
+    opportunities: ['Digital therapeutics', 'Population health', 'Care coordination platforms', 'Home health expansion'],
+  },
+  Finance: {
+    trends: ['Embedded finance', 'Real-time payments', 'ESG integration', 'Open banking expansion'],
+    challenges: ['Fintech disruption', 'Regulatory burden', 'Cybersecurity threats', 'Legacy modernization'],
+    opportunities: ['Wealth tech', 'SMB banking', 'Cross-border payments', 'Alternative data'],
+  },
+  Retail: {
+    trends: ['Unified commerce', 'Sustainability focus', 'Social commerce', 'Quick commerce'],
+    challenges: ['Supply chain volatility', 'Margin pressure', 'Customer acquisition costs', 'Labor shortages'],
+    opportunities: ['Private label expansion', 'Retail media', 'Subscription models', 'Experience retail'],
+  },
+  Manufacturing: {
+    trends: ['Industry 4.0', 'Reshoring', 'Circular economy', 'Predictive maintenance'],
+    challenges: ['Supply chain resilience', 'Skilled labor gap', 'Sustainability mandates', 'Capex constraints'],
+    opportunities: ['Smart factory', 'Servitization', 'Direct-to-consumer', 'Custom manufacturing'],
+  },
+  default: {
+    trends: ['Digital acceleration', 'Sustainability imperative', 'Workforce transformation', 'Platform business models'],
+    challenges: ['Market uncertainty', 'Competitive pressure', 'Talent acquisition', 'Technology debt'],
+    opportunities: ['Digital channels', 'New revenue streams', 'Operational efficiency', 'Strategic partnerships'],
+  },
+};
+
+// Generate enhanced diagnosis with query context
+function generateEnhancedDiagnosis(
+  query: string,
+  user: UserProfile | null,
+  category: ProblemCategory,
+  insights: ReturnType<typeof extractQueryInsights>
+): string {
+  const industry = user?.industry || 'Technology';
+  const plan = user?.plan || 'Enterprise';
+  const company = user?.company || 'your organization';
+  const roleLabel = user?.role === 'KeyUser' ? 'strategic leader' : user?.role === 'Admin' ? 'administrator' : 'team member';
+
+  const industryData = industryInsights[industry] || industryInsights.default;
+
+  let diagnosis = generateDiagnosis(query, user, category);
+
+  // Add urgency-aware opening
+  if (insights.urgencyLevel === 'high') {
+    diagnosis = `I understand the urgency. Let me provide an accelerated assessment. ` + diagnosis;
+  }
+
+  // Add industry-specific context
+  const relevantTrend = industryData.trends[Math.floor(Math.random() * industryData.trends.length)];
+  const relevantChallenge = industryData.challenges[Math.floor(Math.random() * industryData.challenges.length)];
+
+  diagnosis += ` Looking at ${industry} sector dynamics, "${relevantTrend}" is reshaping competitive landscapes, while "${relevantChallenge}" remains a common strategic friction point.`;
+
+  // Add concept-specific depth if strategic frameworks mentioned
+  if (insights.mentionedConcepts.length > 0) {
+    const concept = insights.mentionedConcepts[0];
+    const conceptInsights: Record<string, string> = {
+      'swot': 'Your mention of SWOT analysis suggests you\'re looking for a holistic view. I\'ll ensure we balance internal capabilities with external factors.',
+      'porter': 'Referencing Porter\'s framework indicates competitive positioning is key. Let\'s examine the five forces affecting your strategic options.',
+      'bcg': 'The BCG matrix reference suggests portfolio optimization is a priority. I\'ll help you categorize initiatives by market growth and relative share.',
+      'blue ocean': 'Blue Ocean thinking points to value innovation. Let\'s explore how to make competition irrelevant by creating new market space.',
+      'five forces': 'Competitive force analysis is crucial here. I\'ll help you map supplier power, buyer power, competitive rivalry, and substitution threats.',
+    };
+    diagnosis += ` ${conceptInsights[concept] || 'I\'ll incorporate the strategic frameworks you\'ve mentioned into my analysis.'}`;
+  }
+
+  // Add timeframe acknowledgment
+  if (insights.hasTimeframe) {
+    diagnosis += ` I\'ll calibrate recommendations to align with your planning horizon.`;
+  }
+
+  return diagnosis;
+}
+
+// Generate contextual follow-ups based on query
+function generateContextualFollowUps(
+  category: ProblemCategory,
+  insights: ReturnType<typeof extractQueryInsights>,
+  user: UserProfile | null
+): string[] {
+  const baseFollowUps = generateFollowUps(category);
+  const contextualFollowUps: string[] = [];
+
+  const industry = user?.industry || 'Technology';
+  const industryData = industryInsights[industry] || industryInsights.default;
+
+  // Add specificity-based follow-ups
+  if (insights.specificity === 'vague') {
+    contextualFollowUps.push('Could you share more details about your specific strategic context?');
+    contextualFollowUps.push('What\'s the primary outcome you\'re hoping to achieve?');
+  }
+
+  // Add industry-specific follow-ups
+  const opportunity = industryData.opportunities[Math.floor(Math.random() * industryData.opportunities.length)];
+  contextualFollowUps.push(`Would you like me to explore how "${opportunity}" might apply to your situation?`);
+
+  // Add timeframe-based follow-ups
+  if (!insights.hasTimeframe) {
+    contextualFollowUps.push('What\'s your target timeline for this strategic initiative?');
+  }
+
+  // Combine and limit
+  return [...contextualFollowUps.slice(0, 2), ...baseFollowUps.slice(0, 2)];
 }
 
 // Main response generator
@@ -317,25 +653,52 @@ export function generateAdvisorResponse(
 ): AdvisorResponse {
   const category = detectCategory(query);
   const userPlan = user?.plan || 'Free';
+  const insights = extractQueryInsights(query);
 
-  const diagnosis = generateDiagnosis(query, user, category);
+  const diagnosis = generateEnhancedDiagnosis(query, user, category, insights);
   const tools = getToolsForCategory(category, userPlan);
   const actions = generateActions(category);
-  const followUps = generateFollowUps(category);
+  const followUps = generateContextualFollowUps(category, insights, user);
 
-  // Confidence based on query specificity and user context
-  let confidence = 75;
-  if (user) confidence += 10;
-  if (query.length > 50) confidence += 5;
-  if (query.includes('?')) confidence += 3;
-  confidence = Math.min(confidence, 95);
+  // Enhanced confidence scoring
+  let confidence = 70;
+
+  // User context bonuses
+  if (user) {
+    confidence += 8;
+    if (user.industry) confidence += 4;
+    if (user.company) confidence += 3;
+  }
+
+  // Query quality bonuses
+  if (insights.specificity === 'specific') confidence += 10;
+  else if (insights.specificity === 'moderate') confidence += 5;
+
+  if (insights.isQuestion) confidence += 3;
+  if (insights.mentionedConcepts.length > 0) confidence += 5;
+  if (insights.hasTimeframe) confidence += 3;
+
+  // Cap confidence
+  confidence = Math.min(confidence, 96);
+
+  // Urgency affects confidence display
+  if (insights.urgencyLevel === 'high') {
+    confidence = Math.max(confidence - 5, 65); // Slightly lower for urgent queries to show we're being careful
+  }
+
+  const consultingNotes: string[] = [
+    'For a deeper review with customized frameworks and hands-on facilitation, you can request a consulting sprint from Ambidexters.',
+    'Want to go deeper? Our strategy consultants can run a comprehensive workshop tailored to your specific challenges.',
+    'This analysis scratches the surface. Consider a strategic deep-dive session for actionable playbooks.',
+    'Ready for implementation support? Our consulting team can help translate these insights into execution plans.',
+  ];
 
   return {
     diagnosis,
     suggestedTools: tools,
     recommendedActions: actions,
     followUpQuestions: followUps,
-    consultingNote: 'For a deeper review with customized frameworks and hands-on facilitation, you can request a consulting sprint from Ambidexters.',
+    consultingNote: consultingNotes[Math.floor(Math.random() * consultingNotes.length)],
     confidence,
   };
 }
