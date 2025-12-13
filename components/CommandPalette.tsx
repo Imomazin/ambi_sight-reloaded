@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 
 interface Command {
   id: string;

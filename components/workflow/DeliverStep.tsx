@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useProjectState, getPreviousStep } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, getPreviousStep } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 import ProgressIndicator from '../ProgressIndicator';
 
 interface Task {

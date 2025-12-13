@@ -1,7 +1,7 @@
 'use client';
 
-import type { KPI } from '@/lib/demoData';
-import { useAppState } from '@/state/useAppState';
+import type { KPI } from '../lib/demoData';
+import { useAppState } from '../state/useAppState';
 
 interface KpiCardProps {
   kpi: KPI;

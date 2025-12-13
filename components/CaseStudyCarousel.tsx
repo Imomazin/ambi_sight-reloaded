@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { CaseStudy } from '@/lib/demoData';
+import { CaseStudy } from '../lib/demoData';
 
 interface CaseStudyCarouselProps {
   caseStudies: CaseStudy[];

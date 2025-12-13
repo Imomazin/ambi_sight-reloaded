@@ -3,16 +3,16 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import AppShell from '@/components/AppShell';
-import WorkflowProgress from '@/components/WorkflowProgress';
-import IntelligentAdvisor from '@/components/IntelligentAdvisor';
-import DiscoverStep from '@/components/workflow/DiscoverStep';
-import DiagnoseStep from '@/components/workflow/DiagnoseStep';
-import DesignStep from '@/components/workflow/DesignStep';
-import DecideStep from '@/components/workflow/DecideStep';
-import DeliverStep from '@/components/workflow/DeliverStep';
-import { useProjectState, WorkflowStep, getStepLabel, getStepDescription } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import AppShell from '../../components/AppShell';
+import WorkflowProgress from '../../components/WorkflowProgress';
+import IntelligentAdvisor from '../../components/IntelligentAdvisor';
+import DiscoverStep from '../../components/workflow/DiscoverStep';
+import DiagnoseStep from '../../components/workflow/DiagnoseStep';
+import DesignStep from '../../components/workflow/DesignStep';
+import DecideStep from '../../components/workflow/DecideStep';
+import DeliverStep from '../../components/workflow/DeliverStep';
+import { useProjectState, WorkflowStep, getStepLabel, getStepDescription } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 export default function StrategyWorkflowPage() {
   const router = useRouter();

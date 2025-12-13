@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 
 // Public routes - accessible to everyone (logged in or not)
 const publicRoutes = ['/', '/signin', '/pricing'];

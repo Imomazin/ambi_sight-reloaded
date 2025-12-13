@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { initiatives, portfolios, type Initiative } from '@/lib/demoData';
+import { initiatives, portfolios, type Initiative } from '../lib/demoData';
 
 interface HeatmapGridProps {
   filteredInitiatives?: Initiative[];

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 
 export default function HelpModal() {
   const { isHelpOpen, setHelpOpen } = useAppState();

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAppState, Notification } from '@/state/useAppState';
+import { useAppState, Notification } from '../state/useAppState';
 
 export default function NotificationCenter() {
   const [isOpen, setIsOpen] = useState(false);

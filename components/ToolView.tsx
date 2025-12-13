@@ -1,7 +1,7 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
-import { getToolById, complexityColors, planColors, type StrategyToolFull } from '@/lib/strategyToolsLibrary';
+import { useAppState } from '../state/useAppState';
+import { getToolById, complexityColors, planColors, type StrategyToolFull } from '../lib/strategyToolsLibrary';
 import Link from 'next/link';
 
 interface ToolViewProps {

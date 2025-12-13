@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 
 interface ThemeToggleProps {
   size?: 'small' | 'medium' | 'large';

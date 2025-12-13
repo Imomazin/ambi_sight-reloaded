@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useAppState } from '@/state/useAppState';
-import { planColors, roleShortNames } from '@/lib/users';
+import { useAppState } from '../state/useAppState';
+import { planColors, roleShortNames } from '../lib/users';
 import UserSwitcherModal from './UserSwitcherModal';
 
 export default function UserIndicator() {

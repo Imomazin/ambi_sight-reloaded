@@ -1,7 +1,7 @@
 'use client';
 
-import { useAppState } from '@/state/useAppState';
-import { demoUsers, planColors, roleDisplayNames, roleShortNames, type UserProfile } from '@/lib/users';
+import { useAppState } from '../state/useAppState';
+import { demoUsers, planColors, roleDisplayNames, roleShortNames, type UserProfile } from '../lib/users';
 import { useRouter } from 'next/navigation';
 
 interface UserCardProps {

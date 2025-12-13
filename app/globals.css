@@ -12,25 +12,25 @@
 
 /* CSS Variables for theming */
 :root {
-  /* Dark theme (default) */
-  --bg-primary: #0B0B0F;
-  --bg-secondary: #1A1A25;
-  --bg-tertiary: #252535;
-  --bg-card: #1A1A25;
-  --bg-card-hover: #252535;
+  /* Dark theme (default) - Darker to match landing page */
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #18181b;
+  --bg-card: #0a0a0a;
+  --bg-card-hover: #18181b;
   --text-primary: #FFFFFF;
-  --text-secondary: #E0E0E0;
-  --text-muted: #9CA3AF;
-  --border: #252535;
-  --border-color: #252535;
-  --border-hover: #353545;
-  --overlay-bg: rgba(11, 11, 15, 0.55);
-  --scrollbar-track: #1A1A25;
-  --scrollbar-thumb: #3B3B4F;
-  --sidebar-bg: rgba(26, 26, 37, 0.85);
-  --navbar-bg: rgba(26, 26, 37, 0.85);
-  --accent: #14B8A6;
-  --accent-hover: #2DD4BF;
+  --text-secondary: #e4e4e7;
+  --text-muted: #a1a1aa;
+  --border: #18181b;
+  --border-color: #18181b;
+  --border-hover: #27272a;
+  --overlay-bg: rgba(0, 0, 0, 0.55);
+  --scrollbar-track: #0a0a0a;
+  --scrollbar-thumb: #27272a;
+  --sidebar-bg: rgba(10, 10, 10, 0.85);
+  --navbar-bg: rgba(0, 0, 0, 0.85);
+  --accent: #a855f7;
+  --accent-hover: #c084fc;
 }
 
 /* Light theme - supports both class and data-attribute */
@@ -68,7 +68,7 @@ body {
 
 /* Background overlay classes for city skylines - semi-transparent to show beautiful backdrops */
 .bg-overlay-dark {
-  background: linear-gradient(135deg, rgba(11, 11, 15, 0.55) 0%, rgba(26, 26, 37, 0.50) 50%, rgba(18, 18, 26, 0.55) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(10, 10, 10, 0.60) 50%, rgba(0, 0, 0, 0.65) 100%);
 }
 
 .bg-overlay-light {
@@ -127,7 +127,11 @@ body {
 }
 
 .glow-purple {
-  box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
 /* Card styles */
@@ -150,24 +154,24 @@ body {
 }
 
 .card-hover:hover {
-  border-color: rgba(45, 212, 191, 0.3);
-  box-shadow: 0 8px 30px rgba(45, 212, 191, 0.15);
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.15);
   transform: translateY(-2px);
 }
 
 /* Button styles */
 .btn-primary {
   padding: 0.75rem 1.5rem;
-  background-color: #14B8A6;
+  background-color: #a855f7;
   color: white;
   font-weight: 500;
   border-radius: 0.75rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.25);
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.25);
 }
 
 .btn-primary:hover {
-  background-color: #2DD4BF;
+  background-color: #c084fc;
 }
 
 .btn-secondary {
@@ -182,12 +186,12 @@ body {
 
 .btn-secondary:hover {
   background-color: var(--border-color);
-  border-color: rgba(45, 212, 191, 0.5);
+  border-color: rgba(168, 85, 247, 0.5);
 }
 
 /* Text gradient */
 .text-gradient {
-  background: linear-gradient(135deg, #2DD4BF 0%, #A855F7 50%, #E879F9 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e879f9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -224,15 +228,15 @@ body {
 }
 
 .sidebar-link.active {
-  background-color: rgba(45, 212, 191, 0.1);
-  color: #2DD4BF;
-  border-left: 2px solid #2DD4BF;
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+  border-left: 2px solid #a855f7;
 }
 
 .light-theme .sidebar-link.active,
 [data-theme="light"] .sidebar-link.active {
-  background-color: rgba(20, 184, 166, 0.1);
-  color: #0D9488;
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #8b5cf6;
 }
 
 /* KPI card accent borders */
@@ -534,10 +538,10 @@ body {
 /* Glow pulse */
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(45, 212, 191, 0.3);
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(45, 212, 191, 0.6);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
   }
 }
 
@@ -757,7 +761,7 @@ input[type="range"].slider-thumb::-moz-range-thumb {
   position: absolute;
   inset: -2px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #2DD4BF, #A855F7, #E879F9);
+  background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
   z-index: -1;
 }
 
@@ -860,13 +864,13 @@ input[type="range"].slider-thumb::-moz-range-thumb {
 /* Mobile-specific tap highlight */
 @media (hover: none) and (pointer: coarse) {
   * {
-    -webkit-tap-highlight-color: rgba(45, 212, 191, 0.15);
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.15);
   }
 
   button,
   a,
   [role="button"] {
-    -webkit-tap-highlight-color: rgba(45, 212, 191, 0.2);
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.2);
   }
 }
 

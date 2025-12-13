@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 import UserIndicator from './UserIndicator';
 import ThemeSwitcher from './ThemeSwitcher';
 

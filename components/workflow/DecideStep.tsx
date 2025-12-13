@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useProjectState, getNextStep, getPreviousStep } from '@/state/useProjectState';
-import { useAppState } from '@/state/useAppState';
+import { useProjectState, getNextStep, getPreviousStep } from '../../state/useProjectState';
+import { useAppState } from '../../state/useAppState';
 
 interface PriorityItem {
   item: string;

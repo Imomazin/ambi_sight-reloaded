@@ -2,23 +2,23 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import AppShell from '@/components/AppShell';
-import DashboardHeader from '@/components/DashboardHeader';
-import EnhancedKPICard from '@/components/EnhancedKPICard';
-import PortfolioHealthWidget from '@/components/PortfolioHealthWidget';
-import QuickActionsPanel from '@/components/QuickActionsPanel';
-import ActivityTimeline from '@/components/ActivityTimeline';
-import ChartCard from '@/components/ChartCard';
-import CaseStudyCarousel from '@/components/CaseStudyCarousel';
-import LockedFeature, { PlanBadge } from '@/components/LockedFeature';
-import { UpgradeBanner } from '@/components/UpgradeModal';
-import { ConsultingCTA } from '@/components/ConsultingCTA';
-import ToolView from '@/components/ToolView';
-import DataUploadButton from '@/components/DataUploadButton';
-import { useAppState } from '@/state/useAppState';
-import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
-import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
-import { hasFeatureAccess, roleDisplayNames } from '@/lib/users';
+import AppShell from '../../components/AppShell';
+import DashboardHeader from '../../components/DashboardHeader';
+import EnhancedKPICard from '../../components/EnhancedKPICard';
+import PortfolioHealthWidget from '../../components/PortfolioHealthWidget';
+import QuickActionsPanel from '../../components/QuickActionsPanel';
+import ActivityTimeline from '../../components/ActivityTimeline';
+import ChartCard from '../../components/ChartCard';
+import CaseStudyCarousel from '../../components/CaseStudyCarousel';
+import LockedFeature, { PlanBadge } from '../../components/LockedFeature';
+import { UpgradeBanner } from '../../components/UpgradeModal';
+import { ConsultingCTA } from '../../components/ConsultingCTA';
+import ToolView from '../../components/ToolView';
+import DataUploadButton from '../../components/DataUploadButton';
+import { useAppState } from '../../state/useAppState';
+import { useRealTimeKPIs } from '../../hooks/useRealTimeData';
+import { kpis, initiatives, resourceAllocationData, caseStudies } from '../../lib/demoData';
+import { hasFeatureAccess, roleDisplayNames } from '../../lib/users';
 
 // Generate sparkline data for KPIs
 function generateSparklineData(baseValue: number, volatility: number = 5): number[] {

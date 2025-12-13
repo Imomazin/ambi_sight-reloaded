@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 import DataChart from './DataChart';
 import ProgressIndicator from './ProgressIndicator';
 

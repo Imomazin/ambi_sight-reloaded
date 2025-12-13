@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
-import AppShell from '@/components/AppShell';
-import ScenarioBuilder from '@/components/ScenarioBuilder';
-import RiskCorrelationMatrix from '@/components/RiskCorrelationMatrix';
-import PredictiveAnalytics from '@/components/PredictiveAnalytics';
-import ExecutiveSummary from '@/components/ExecutiveSummary';
-import DataUploadButton from '@/components/DataUploadButton';
-import { NotificationPanel, NotificationToast } from '@/components/NotificationPanel';
-import { useAlertSystem, RealTimeAlert } from '@/hooks/useRealTimeData';
-import { useAppState } from '@/state/useAppState';
+import AppShell from '../../components/AppShell';
+import ScenarioBuilder from '../../components/ScenarioBuilder';
+import RiskCorrelationMatrix from '../../components/RiskCorrelationMatrix';
+import PredictiveAnalytics from '../../components/PredictiveAnalytics';
+import ExecutiveSummary from '../../components/ExecutiveSummary';
+import DataUploadButton from '../../components/DataUploadButton';
+import { NotificationPanel, NotificationToast } from '../../components/NotificationPanel';
+import { useAlertSystem, RealTimeAlert } from '../../hooks/useRealTimeData';
+import { useAppState } from '../../state/useAppState';
 
 type TabId = 'scenario' | 'risk' | 'predictive' | 'executive';
 

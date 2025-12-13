@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAppState } from '@/state/useAppState';
+import { useAppState } from '../state/useAppState';
 import { useRouter } from 'next/navigation';
 
 interface TourStep {

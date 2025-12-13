@@ -8,7 +8,7 @@ import {
   roleFocusColors,
   roleFocusLabels,
   filterCaseStudiesByRole,
-} from '@/lib/caseStudies';
+} from '../lib/caseStudies';
 
 // Case Study Detail Modal
 function CaseStudyModal({
