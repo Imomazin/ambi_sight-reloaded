@@ -5,23 +5,40 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppState } from '../state/useAppState';
 
-// Animated 3D Cube Component (Resend-style)
+// Animated 3D Cube Component (Resend-style) with lightning effects
 function AnimatedCube() {
   return (
     <div className="cube-container">
       <div className="cube">
-        <div className="cube-face front"></div>
-        <div className="cube-face back"></div>
-        <div className="cube-face right"></div>
-        <div className="cube-face left"></div>
-        <div className="cube-face top"></div>
-        <div className="cube-face bottom"></div>
+        <div className="cube-face front">
+          <div className="lightning lightning-1"></div>
+          <div className="lightning lightning-2"></div>
+        </div>
+        <div className="cube-face back">
+          <div className="lightning lightning-3"></div>
+        </div>
+        <div className="cube-face right">
+          <div className="lightning lightning-4"></div>
+          <div className="lightning lightning-5"></div>
+        </div>
+        <div className="cube-face left">
+          <div className="lightning lightning-6"></div>
+        </div>
+        <div className="cube-face top">
+          <div className="lightning lightning-7"></div>
+          <div className="lightning lightning-8"></div>
+        </div>
+        <div className="cube-face bottom">
+          <div className="lightning lightning-9"></div>
+        </div>
       </div>
+      <div className="cube-glow"></div>
       <style jsx>{`
         .cube-container {
           width: 280px;
           height: 280px;
           perspective: 1000px;
+          position: relative;
         }
         .cube {
           width: 100%;
@@ -37,6 +54,7 @@ function AnimatedCube() {
           border: 1px solid rgba(139, 92, 246, 0.3);
           background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
           backdrop-filter: blur(10px);
+          overflow: hidden;
         }
         .front  { transform: rotateY(0deg) translateZ(140px); }
         .back   { transform: rotateY(180deg) translateZ(140px); }
@@ -44,6 +62,165 @@ function AnimatedCube() {
         .left   { transform: rotateY(-90deg) translateZ(140px); }
         .top    { transform: rotateX(90deg) translateZ(140px); }
         .bottom { transform: rotateX(-90deg) translateZ(140px); }
+
+        /* Lightning flash effects */
+        .lightning {
+          position: absolute;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .lightning-1 {
+          width: 100%;
+          height: 2px;
+          top: 30%;
+          left: 0;
+          animation: flash1 4s infinite 0.5s;
+        }
+
+        .lightning-2 {
+          width: 2px;
+          height: 100%;
+          top: 0;
+          left: 70%;
+          background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+          animation: flash2 5s infinite 1.2s;
+        }
+
+        .lightning-3 {
+          width: 120%;
+          height: 3px;
+          top: 60%;
+          left: -10%;
+          transform: rotate(-15deg);
+          animation: flash3 6s infinite 2s;
+        }
+
+        .lightning-4 {
+          width: 2px;
+          height: 80%;
+          top: 10%;
+          left: 40%;
+          background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+          animation: flash4 4.5s infinite 0.8s;
+        }
+
+        .lightning-5 {
+          width: 100%;
+          height: 2px;
+          top: 80%;
+          left: 0;
+          animation: flash5 5.5s infinite 3s;
+        }
+
+        .lightning-6 {
+          width: 80%;
+          height: 2px;
+          top: 50%;
+          left: 10%;
+          transform: rotate(10deg);
+          animation: flash6 7s infinite 1.5s;
+        }
+
+        .lightning-7 {
+          width: 2px;
+          height: 100%;
+          top: 0;
+          left: 25%;
+          background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+          animation: flash7 4s infinite 2.5s;
+        }
+
+        .lightning-8 {
+          width: 100%;
+          height: 2px;
+          top: 45%;
+          left: 0;
+          animation: flash8 5s infinite 0.3s;
+        }
+
+        .lightning-9 {
+          width: 60%;
+          height: 3px;
+          top: 70%;
+          left: 20%;
+          transform: rotate(-8deg);
+          animation: flash9 6s infinite 4s;
+        }
+
+        @keyframes flash1 {
+          0%, 94%, 100% { opacity: 0; }
+          95%, 97% { opacity: 1; }
+          96% { opacity: 0.3; }
+        }
+
+        @keyframes flash2 {
+          0%, 88%, 100% { opacity: 0; }
+          89%, 91%, 93% { opacity: 0.9; }
+          90%, 92% { opacity: 0.2; }
+        }
+
+        @keyframes flash3 {
+          0%, 82%, 100% { opacity: 0; }
+          83%, 85% { opacity: 0.8; }
+          84% { opacity: 0.4; }
+        }
+
+        @keyframes flash4 {
+          0%, 90%, 100% { opacity: 0; }
+          91%, 93% { opacity: 1; }
+          92% { opacity: 0.3; }
+        }
+
+        @keyframes flash5 {
+          0%, 85%, 100% { opacity: 0; }
+          86%, 88% { opacity: 0.7; }
+          87% { opacity: 0.2; }
+        }
+
+        @keyframes flash6 {
+          0%, 92%, 100% { opacity: 0; }
+          93%, 95% { opacity: 0.8; }
+          94% { opacity: 0.4; }
+        }
+
+        @keyframes flash7 {
+          0%, 88%, 100% { opacity: 0; }
+          89%, 91% { opacity: 0.9; }
+          90% { opacity: 0.3; }
+        }
+
+        @keyframes flash8 {
+          0%, 96%, 100% { opacity: 0; }
+          97%, 99% { opacity: 1; }
+          98% { opacity: 0.5; }
+        }
+
+        @keyframes flash9 {
+          0%, 84%, 100% { opacity: 0; }
+          85%, 87% { opacity: 0.6; }
+          86% { opacity: 0.2; }
+        }
+
+        /* Ambient glow effect that pulses with lightning */
+        .cube-glow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 320px;
+          height: 320px;
+          transform: translate(-50%, -50%);
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+          animation: glowPulse 3s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes glowPulse {
+          0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
         @keyframes rotateCube {
           0% { transform: rotateX(-20deg) rotateY(0deg); }
           100% { transform: rotateX(-20deg) rotateY(360deg); }
@@ -219,7 +396,7 @@ export default function LandingPage() {
           <div className="nav-links">
             <Link href="/pricing" className="nav-link">Pricing</Link>
             <Link href="/tools" className="nav-link">Tools</Link>
-            <a href="https://docs.example.com" className="nav-link" target="_blank" rel="noopener noreferrer">Docs</a>
+            <Link href="/docs" className="nav-link">Docs</Link>
             {currentUser ? (
               <Link href="/dashboard" className="nav-cta">Dashboard</Link>
             ) : (
@@ -438,9 +615,9 @@ const insights = await strategy.ai.analyze({
             </div>
             <div className="footer-col">
               <h4>Resources</h4>
-              <a href="#">Documentation</a>
-              <a href="#">API Reference</a>
-              <a href="#">Changelog</a>
+              <Link href="/docs">Documentation</Link>
+              <Link href="/docs#api">API Reference</Link>
+              <Link href="/docs#changelog">Changelog</Link>
             </div>
             <div className="footer-col">
               <h4>Company</h4>
