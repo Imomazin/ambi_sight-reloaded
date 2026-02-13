@@ -52,309 +52,360 @@ export default function LuminaSPage() {
   })();
 
   /* ═══════════════════════════════════════════════
-     LANDING PAGE — Full-screen dark with 3D cube
+     LANDING PAGE — Dark with 3D rotating cube
      ═══════════════════════════════════════════════ */
   if (!session_id) {
     return (
-      <div className="ls-landing-root">
-        {/* Nav */}
-        <nav className="ls-nav">
-          <div className="nav-logo">
-            <div className="logo-mark">
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#lg)" strokeWidth="2" fill="none"/>
-                <path d="M10 22V10h4v8h4V10h4v12" stroke="url(#lg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#14B8A6"/><stop offset="1" stopColor="#A855F7"/></linearGradient></defs>
+      <div className="lp">
+        {/* ── Navbar ── */}
+        <nav className="lp-nav">
+          <div className="lp-nav-inner">
+            <div className="nav-left">
+              <svg className="nav-icon" width="26" height="26" viewBox="0 0 32 32" fill="none">
+                <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#navg)" strokeWidth="2"/>
+                <path d="M10 22V10h4v8h4V10h4v12" stroke="url(#navg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <defs><linearGradient id="navg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#14B8A6"/><stop offset="1" stopColor="#A855F7"/></linearGradient></defs>
               </svg>
+              <span className="nav-brand">Lumina <span className="nav-s">S</span></span>
             </div>
-            <span className="logo-text">Lumina <span className="logo-s">S</span></span>
+            <div className="nav-center">
+              <a className="nav-link" href="#pricing">Pricing</a>
+              <a className="nav-link" href="#tools">Tools</a>
+              <a className="nav-link" href="#docs">Docs</a>
+              <button className="nav-link nav-link-btn" onClick={() => startSession('architect')}>Dashboard</button>
+            </div>
+            <button className="nav-get-started" onClick={() => startSession('architect')}>Get Started</button>
           </div>
-          <div className="nav-links">
-            <a href="#features">Features</a>
-            <a href="#tools">Tools</a>
-            <a href="#docs">Docs</a>
-            <button className="nav-dash" onClick={() => startSession('architect')}>Dashboard</button>
-          </div>
-          <button className="nav-cta" onClick={() => startSession('architect')}>Get Started</button>
         </nav>
 
-        {/* Hero */}
-        <div className="ls-hero">
-          <div className="hero-content">
-            <div className="hero-badge-row">
-              <span className="hero-badge">Strategic Intelligence Engine</span>
-            </div>
-            <h1 className={`hero-title ${mounted ? 'visible' : ''}`}>
-              Build winning strategies<br/>
-              <span className="hero-gradient">with intelligence</span>
+        {/* ── Hero ── */}
+        <section className="lp-hero">
+          <div className="hero-left">
+            <h1 className={`hero-h1 ${mounted ? 'hero-visible' : ''}`}>
+              Build winning<br/>strategies<br/>
+              <span className="hero-grad">with intelligence</span>
             </h1>
-            <p className="hero-sub">
-              AI-powered strategic planning and simulation engine. Model scenarios,
-              optimise portfolios, and make decisions backed by computational intelligence.
+            <p className="hero-p">
+              AI-powered strategic intelligence engine. Model competitive dynamics,
+              simulate scenarios, and optimise portfolios — all computationally grounded.
             </p>
-            <div className="hero-actions">
-              <button className="hero-btn primary" onClick={() => startSession('architect')}>
-                Start Strategy Session
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-              <button className="hero-btn secondary" onClick={() => startSession('workspace')}>
-                Upload Data
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            <div className="hero-email-row">
+              <input
+                type="email"
+                className="hero-email"
+                placeholder="Enter your email"
+                onKeyDown={e => { if (e.key === 'Enter') startSession('architect'); }}
+              />
+              <button className="hero-go" onClick={() => startSession('architect')}>
+                Get Started
               </button>
             </div>
             <div className="hero-stats">
-              <div className="stat"><span className="stat-num">9</span><span className="stat-label">Computation Engines</span></div>
-              <div className="stat-divider"/>
-              <div className="stat"><span className="stat-num">7</span><span className="stat-label">Strategic Phases</span></div>
-              <div className="stat-divider"/>
-              <div className="stat"><span className="stat-num">∞</span><span className="stat-label">Scenarios</span></div>
+              <div className="hs"><span className="hs-n">9</span><span className="hs-l">Engines</span></div>
+              <div className="hs-d"/>
+              <div className="hs"><span className="hs-n">7</span><span className="hs-l">Strategic Phases</span></div>
+              <div className="hs-d"/>
+              <div className="hs"><span className="hs-n">&infin;</span><span className="hs-l">Scenarios</span></div>
             </div>
           </div>
 
-          {/* 3D Rotating Cube */}
-          <div className="cube-container">
-            <div className="cube-glow"/>
-            <div className="cube-scene">
-              <div className="cube">
-                <div className="cube-face front"/>
-                <div className="cube-face back"/>
-                <div className="cube-face right"/>
-                <div className="cube-face left"/>
-                <div className="cube-face top"/>
-                <div className="cube-face bottom"/>
+          {/* ── 3D Cube ── */}
+          <div className="hero-right">
+            <div className="cube-glow-outer"/>
+            <div className="cube-glow-inner"/>
+            <div className="cube-wrapper">
+              <div className="cube-box">
+                <div className="face face-front"/>
+                <div className="face face-back"/>
+                <div className="face face-right"/>
+                <div className="face face-left"/>
+                <div className="face face-top"/>
+                <div className="face face-bottom"/>
+                {/* edge lines for extra wireframe feel */}
+                <div className="face face-front wire"/>
+                <div className="face face-back wire"/>
+                <div className="face face-right wire"/>
+                <div className="face face-left wire"/>
+                <div className="face face-top wire"/>
+                <div className="face face-bottom wire"/>
               </div>
             </div>
-            <div className="cube-particles">
-              {Array.from({ length: 20 }, (_, i) => (
-                <div key={i} className="particle" style={{
-                  '--delay': `${i * 0.5}s`,
-                  '--x': `${Math.random() * 200 - 100}px`,
-                  '--y': `${Math.random() * 200 - 100}px`,
-                  '--size': `${2 + Math.random() * 3}px`,
-                } as React.CSSProperties}/>
-              ))}
+            {/* floating particles */}
+            <div className="ptcls">
+              {Array.from({ length: 24 }, (_, i) => {
+                const angle = (i / 24) * Math.PI * 2;
+                const radius = 160 + Math.random() * 80;
+                return (
+                  <div key={i} className="ptcl" style={{
+                    '--px': `${Math.cos(angle) * radius}px`,
+                    '--py': `${Math.sin(angle) * radius}px`,
+                    '--d': `${i * 0.4}s`,
+                    '--sz': `${2 + Math.random() * 3}px`,
+                    '--dur': `${4 + Math.random() * 4}s`,
+                  } as React.CSSProperties}/>
+                );
+              })}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Feature cards */}
-        <div className="feature-strip">
+        {/* ── Feature row ── */}
+        <section className="lp-features">
           {[
-            { icon: '◎', title: 'Five Forces Analysis', desc: 'Porter\'s competitive dynamics scoring' },
-            { icon: '◈', title: 'Capability Heatmap', desc: 'Readiness and gap identification' },
-            { icon: '⬡', title: 'Monte Carlo Simulation', desc: 'Probabilistic scenario modelling' },
-            { icon: '◉', title: 'Portfolio Optimisation', desc: 'Constrained efficient frontier' },
+            { icon: '◎', t: 'Five Forces Analysis', d: 'Porter\'s competitive dynamics scoring' },
+            { icon: '◈', t: 'Capability Heatmap', d: 'Readiness and gap identification' },
+            { icon: '⬡', t: 'Scenario Simulation', d: 'Probabilistic Monte Carlo modelling' },
+            { icon: '◉', t: 'Portfolio Optimisation', d: 'Constrained efficient frontier' },
           ].map((f, i) => (
-            <div key={i} className="feature-card">
-              <span className="fc-icon">{f.icon}</span>
-              <span className="fc-title">{f.title}</span>
-              <span className="fc-desc">{f.desc}</span>
+            <div key={i} className="feat-card">
+              <span className="feat-icon">{f.icon}</span>
+              <span className="feat-t">{f.t}</span>
+              <span className="feat-d">{f.d}</span>
             </div>
           ))}
-        </div>
+        </section>
+
+        <style jsx global>{`
+          @keyframes lp-cube-spin {
+            0%   { transform: rotateX(-25deg) rotateY(0deg); }
+            100% { transform: rotateX(-25deg) rotateY(360deg); }
+          }
+          @keyframes lp-glow-pulse {
+            0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+            50%      { transform: translate(-50%,-50%) scale(1.15); opacity: 0.85; }
+          }
+          @keyframes lp-ptcl-orbit {
+            0%   { transform: translate(0,0) scale(0); opacity: 0; }
+            15%  { opacity: 0.7; transform: translate(calc(var(--px) * 0.3), calc(var(--py) * 0.3)) scale(1); }
+            85%  { opacity: 0.3; }
+            100% { transform: translate(var(--px), var(--py)) scale(0); opacity: 0; }
+          }
+          @keyframes lp-hero-in {
+            0%   { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
 
         <style jsx>{`
-          .ls-landing-root {
-            min-height: 100vh; background: #06060B;
-            color: #fff; overflow-x: hidden;
-            font-family: 'Inter', system-ui, sans-serif;
+          /* ─── Root ─── */
+          .lp {
+            min-height: 100vh;
+            background: #08080F;
+            color: #fff;
+            overflow-x: hidden;
           }
 
-          /* ── Nav ── */
-          .ls-nav {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 16px 40px; position: relative; z-index: 10;
+          /* ─── Navbar ─── */
+          .lp-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 32px;
+            background: rgba(8,8,15,0.7);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.06);
           }
-          .nav-logo { display: flex; align-items: center; gap: 10px; }
-          .logo-mark { display: flex; align-items: center; }
-          .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-          .logo-s {
+          .lp-nav-inner {
+            max-width: 1280px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+          }
+          .nav-left { display: flex; align-items: center; gap: 10px; }
+          .nav-brand { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; }
+          .nav-s {
             background: linear-gradient(135deg, #14B8A6, #A855F7);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
           }
-          .nav-links { display: flex; align-items: center; gap: 32px; }
-          .nav-links a {
-            font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none;
-            font-weight: 500; transition: color 0.2s;
+          .nav-center { display: flex; align-items: center; gap: 36px; }
+          .nav-link {
+            font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.45);
+            text-decoration: none; transition: color 0.2s; cursor: pointer;
           }
-          .nav-links a:hover { color: #fff; }
-          .nav-dash {
-            font-size: 14px; color: rgba(255,255,255,0.5); background: none;
-            border: none; font-weight: 500; cursor: pointer; transition: color 0.2s;
-            font-family: inherit;
+          .nav-link:hover { color: #fff; }
+          .nav-link-btn { background: none; border: none; font-family: inherit; padding: 0; }
+          .nav-get-started {
+            padding: 9px 22px;
+            background: #fff; color: #08080F;
+            border: none; border-radius: 10px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; font-family: inherit;
           }
-          .nav-dash:hover { color: #fff; }
-          .nav-cta {
-            padding: 10px 24px; background: #fff; color: #06060B;
-            border: none; border-radius: 10px; font-size: 14px;
-            font-weight: 600; cursor: pointer; transition: all 0.2s;
-            font-family: inherit;
-          }
-          .nav-cta:hover { background: #E0E0E0; transform: translateY(-1px); }
+          .nav-get-started:hover { background: #E8E8E8; transform: translateY(-1px); }
 
-          /* ── Hero ── */
-          .ls-hero {
+          /* ─── Hero Section ─── */
+          .lp-hero {
             display: grid; grid-template-columns: 1fr 1fr;
-            max-width: 1280px; margin: 0 auto; padding: 80px 40px 40px;
-            align-items: center; gap: 40px; min-height: calc(100vh - 200px);
+            max-width: 1280px; margin: 0 auto;
+            padding: 140px 40px 60px;
+            align-items: center; gap: 20px;
+            min-height: 100vh;
           }
-          .hero-badge-row { margin-bottom: 20px; }
-          .hero-badge {
-            display: inline-block; padding: 6px 16px;
-            background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.2);
-            border-radius: 20px; font-size: 12px; font-weight: 600; color: #2DD4BF;
-            text-transform: uppercase; letter-spacing: 1.5px;
-          }
-          .hero-title {
-            font-size: 56px; font-weight: 800; line-height: 1.1;
-            letter-spacing: -2px; margin: 0 0 20px;
-            opacity: 0; transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-          }
-          .hero-title.visible { opacity: 1; transform: translateY(0); }
-          .hero-gradient {
-            background: linear-gradient(135deg, #14B8A6 0%, #A855F7 50%, #E879F9 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-          }
-          .hero-sub {
-            font-size: 17px; color: rgba(255,255,255,0.45); line-height: 1.7;
-            max-width: 480px; margin-bottom: 36px;
-          }
-          .hero-actions { display: flex; gap: 14px; margin-bottom: 48px; }
-          .hero-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 14px 28px; border-radius: 12px;
-            font-size: 15px; font-weight: 600; cursor: pointer;
-            transition: all 0.25s; border: none; font-family: inherit;
-          }
-          .hero-btn.primary {
-            background: linear-gradient(135deg, #14B8A6, #0D9488);
-            color: #fff; box-shadow: 0 8px 32px rgba(20, 184, 166, 0.25);
-          }
-          .hero-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(20, 184, 166, 0.35);
-          }
-          .hero-btn.secondary {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.8);
-          }
-          .hero-btn.secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.2);
-          }
-          .hero-stats { display: flex; align-items: center; gap: 24px; }
-          .stat { display: flex; flex-direction: column; gap: 2px; }
-          .stat-num { font-size: 24px; font-weight: 800; color: #fff; }
-          .stat-label { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; }
-          .stat-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.1); }
 
-          /* ── 3D Cube ── */
-          .cube-container {
-            position: relative; display: flex; align-items: center;
-            justify-content: center; height: 460px;
+          /* Hero Left */
+          .hero-left { z-index: 2; }
+          .hero-h1 {
+            font-size: 60px; font-weight: 800;
+            line-height: 1.05; letter-spacing: -2.5px;
+            margin: 0 0 24px;
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
           }
-          .cube-glow {
-            position: absolute; width: 260px; height: 260px;
-            background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(40px);
-            animation: glow-breathe 4s ease-in-out infinite;
+          .hero-h1.hero-visible { opacity: 1; transform: translateY(0); }
+          .hero-grad {
+            background: linear-gradient(135deg, #14B8A6 0%, #818CF8 50%, #C084FC 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
           }
-          @keyframes glow-breathe {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
+          .hero-p {
+            font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.4);
+            max-width: 460px; margin: 0 0 32px;
           }
-          .cube-scene {
+          .hero-email-row {
+            display: flex; gap: 0; max-width: 440px; margin-bottom: 40px;
+            border-radius: 14px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+          }
+          .hero-email {
+            flex: 1; padding: 16px 20px;
+            background: transparent; border: none;
+            font-size: 15px; color: #fff; outline: none;
+            font-family: inherit;
+          }
+          .hero-email::placeholder { color: rgba(255,255,255,0.25); }
+          .hero-go {
+            padding: 16px 28px; white-space: nowrap;
+            background: linear-gradient(135deg, #14B8A6, #0D9488);
+            border: none; color: #fff; font-size: 14px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s; font-family: inherit;
+          }
+          .hero-go:hover { filter: brightness(1.1); }
+          .hero-stats { display: flex; align-items: center; gap: 28px; }
+          .hs { display: flex; flex-direction: column; gap: 2px; }
+          .hs-n { font-size: 26px; font-weight: 800; color: #fff; }
+          .hs-l { font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 500; }
+          .hs-d { width: 1px; height: 36px; background: rgba(255,255,255,0.08); }
+
+          /* ─── 3D Rotating Cube ─── */
+          .hero-right {
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            height: 520px;
+          }
+          .cube-glow-outer {
+            position: absolute; top: 50%; left: 50%;
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+            filter: blur(60px);
+            animation: lp-glow-pulse 5s ease-in-out infinite;
+          }
+          .cube-glow-inner {
+            position: absolute; top: 50%; left: 50%;
             width: 200px; height: 200px;
-            perspective: 600px;
+            background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+            filter: blur(30px);
+            animation: lp-glow-pulse 5s ease-in-out infinite 0.5s;
+          }
+          .cube-wrapper {
+            width: 280px; height: 280px;
+            perspective: 800px;
             position: relative; z-index: 2;
           }
-          .cube {
+          .cube-box {
             width: 100%; height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            animation: cube-rotate 12s linear infinite;
+            animation: lp-cube-spin 10s linear infinite;
           }
-          @keyframes cube-rotate {
-            0% { transform: rotateX(-20deg) rotateY(0deg); }
-            100% { transform: rotateX(-20deg) rotateY(360deg); }
+          .face {
+            position: absolute; width: 280px; height: 280px;
+            backface-visibility: visible;
           }
-          .cube-face {
-            position: absolute; width: 200px; height: 200px;
-            border: 1.5px solid rgba(20, 184, 166, 0.4);
-            background: rgba(20, 184, 166, 0.03);
-            backdrop-filter: blur(2px);
+          .face:not(.wire) {
+            background: linear-gradient(
+              135deg,
+              rgba(20, 184, 166, 0.04) 0%,
+              rgba(168, 85, 247, 0.02) 100%
+            );
           }
-          .cube-face.front  { transform: translateZ(100px); }
-          .cube-face.back   { transform: rotateY(180deg) translateZ(100px); }
-          .cube-face.right  { transform: rotateY(90deg) translateZ(100px); }
-          .cube-face.left   { transform: rotateY(-90deg) translateZ(100px); }
-          .cube-face.top    { transform: rotateX(90deg) translateZ(100px); }
-          .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); }
+          .face.wire {
+            background: none;
+            border: 1.5px solid rgba(20, 184, 166, 0.35);
+            box-shadow:
+              inset 0 0 30px rgba(20, 184, 166, 0.03),
+              0 0 15px rgba(20, 184, 166, 0.05);
+          }
+          .face-front  { transform: translateZ(140px); }
+          .face-back   { transform: rotateY(180deg) translateZ(140px); }
+          .face-right  { transform: rotateY(90deg) translateZ(140px); }
+          .face-left   { transform: rotateY(-90deg) translateZ(140px); }
+          .face-top    { transform: rotateX(90deg) translateZ(140px); }
+          .face-bottom { transform: rotateX(-90deg) translateZ(140px); }
 
           /* Particles */
-          .cube-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-          .particle {
+          .ptcls {
             position: absolute; top: 50%; left: 50%;
-            width: var(--size); height: var(--size);
-            background: #14B8A6; border-radius: 50%;
-            opacity: 0;
-            animation: particle-float 6s ease-in-out infinite;
-            animation-delay: var(--delay);
+            width: 0; height: 0; z-index: 1; pointer-events: none;
           }
-          @keyframes particle-float {
-            0% { transform: translate(0, 0); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.3; }
-            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+          .ptcl {
+            position: absolute;
+            width: var(--sz); height: var(--sz);
+            background: #2DD4BF; border-radius: 50%;
+            opacity: 0;
+            animation: lp-ptcl-orbit var(--dur) ease-in-out infinite;
+            animation-delay: var(--d);
           }
 
-          /* ── Feature strip ── */
-          .feature-strip {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-            background: rgba(255,255,255,0.04); max-width: 1280px;
-            margin: 0 auto; padding: 0 40px 60px;
+          /* ─── Feature Cards ─── */
+          .lp-features {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+            max-width: 1280px; margin: 0 auto;
+            padding: 0 40px 80px;
           }
-          .feature-card {
-            display: flex; flex-direction: column; gap: 8px;
+          .feat-card {
+            display: flex; flex-direction: column; gap: 10px;
             padding: 28px 24px;
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 16px;
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px; transition: all 0.3s;
           }
-          .feature-card:hover {
-            background: rgba(20, 184, 166, 0.04);
-            border-color: rgba(20, 184, 166, 0.15);
+          .feat-card:hover {
+            background: rgba(20,184,166,0.04);
+            border-color: rgba(20,184,166,0.15);
             transform: translateY(-4px);
           }
-          .fc-icon { font-size: 22px; color: #14B8A6; }
-          .fc-title { font-size: 14px; font-weight: 600; color: #fff; }
-          .fc-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+          .feat-icon { font-size: 24px; color: #14B8A6; }
+          .feat-t { font-size: 14px; font-weight: 600; color: #fff; }
+          .feat-d { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.5; }
 
-          @media (max-width: 900px) {
-            .ls-hero { grid-template-columns: 1fr; text-align: center; padding: 40px 20px; }
-            .hero-title { font-size: 36px; }
-            .hero-sub { margin: 0 auto 28px; }
-            .hero-actions { justify-content: center; flex-wrap: wrap; }
+          /* ─── Responsive ─── */
+          @media (max-width: 960px) {
+            .lp-hero { grid-template-columns: 1fr; text-align: center; padding: 120px 24px 40px; }
+            .hero-h1 { font-size: 40px; }
+            .hero-p { margin: 0 auto 28px; }
+            .hero-email-row { max-width: 100%; margin: 0 auto 32px; }
             .hero-stats { justify-content: center; }
-            .cube-container { height: 300px; }
-            .cube-scene { width: 140px; height: 140px; }
-            .cube-face { width: 140px; height: 140px; }
-            .cube-face.front  { transform: translateZ(70px); }
-            .cube-face.back   { transform: rotateY(180deg) translateZ(70px); }
-            .cube-face.right  { transform: rotateY(90deg) translateZ(70px); }
-            .cube-face.left   { transform: rotateY(-90deg) translateZ(70px); }
-            .cube-face.top    { transform: rotateX(90deg) translateZ(70px); }
-            .cube-face.bottom { transform: rotateX(-90deg) translateZ(70px); }
-            .feature-strip { grid-template-columns: 1fr 1fr; padding: 0 20px 40px; }
-            .nav-links { display: none; }
-            .ls-nav { padding: 16px 20px; }
+            .hero-right { height: 360px; }
+            .cube-wrapper { width: 200px; height: 200px; }
+            .face { width: 200px; height: 200px; }
+            .face-front  { transform: translateZ(100px); }
+            .face-back   { transform: rotateY(180deg) translateZ(100px); }
+            .face-right  { transform: rotateY(90deg) translateZ(100px); }
+            .face-left   { transform: rotateY(-90deg) translateZ(100px); }
+            .face-top    { transform: rotateX(90deg) translateZ(100px); }
+            .face-bottom { transform: rotateX(-90deg) translateZ(100px); }
+            .lp-features { grid-template-columns: 1fr 1fr; padding: 0 24px 60px; }
+            .nav-center { display: none; }
+            .lp-nav { padding: 0 20px; }
           }
-          @media (max-width: 480px) {
-            .feature-strip { grid-template-columns: 1fr; }
+          @media (max-width: 520px) {
+            .hero-h1 { font-size: 32px; letter-spacing: -1.5px; }
+            .hero-email-row { flex-direction: column; }
+            .hero-go { padding: 14px; }
+            .lp-features { grid-template-columns: 1fr; }
           }
         `}</style>
       </div>
