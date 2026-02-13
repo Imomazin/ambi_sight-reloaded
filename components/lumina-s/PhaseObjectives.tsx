@@ -193,90 +193,96 @@ export default function PhaseObjectives() {
       <style jsx>{`
         .phase-form { max-width: 900px; }
         .phase-description {
-          font-size: 14px; color: var(--text-muted); margin-bottom: 28px;
-          padding: 12px 16px; background: rgba(245, 158, 11, 0.08);
-          border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 10px;
-          border-left: 3px solid #F59E0B;
+          font-size: 13px; color: rgba(245, 158, 11, 0.8); margin-bottom: 28px;
+          padding: 12px 16px; background: rgba(245, 158, 11, 0.06);
+          border: 1px solid rgba(245, 158, 11, 0.12); border-radius: 12px;
+          border-left: 3px solid rgba(245, 158, 11, 0.5); line-height: 1.5;
         }
         .form-section { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
         .form-input, .form-select, .form-textarea {
           width: 100%; padding: 10px 14px;
-          background: var(--bg-tertiary); border: 1px solid var(--border);
-          border-radius: 8px; font-size: 14px; color: var(--text-primary);
-          outline: none; transition: border-color 0.2s;
+          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 10px; font-size: 14px; color: #fff;
+          outline: none; transition: border-color 0.2s; font-family: inherit;
         }
         .form-textarea { resize: vertical; font-family: inherit; }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #A855F7; }
-        .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(168, 85, 247, 0.4); }
+        .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 8px; }
         .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
         .chip {
-          padding: 8px 16px; background: var(--bg-tertiary); border: 1px solid var(--border);
-          border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary);
-          cursor: pointer; transition: all 0.2s;
+          padding: 8px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 10px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5);
+          cursor: pointer; transition: all 0.2s; font-family: inherit;
         }
-        .chip.active { background: rgba(168, 85, 247, 0.15); border-color: #A855F7; color: #C084FC; }
+        .chip:hover { border-color: rgba(168, 85, 247, 0.25); }
+        .chip.active { background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.3); color: #C084FC; }
         .add-form {
-          padding: 20px; background: var(--bg-secondary); border: 1px solid var(--border);
-          border-radius: 12px; margin-bottom: 24px;
+          padding: 20px; background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 14px; margin-bottom: 24px;
         }
-        .add-form h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0 0 16px; }
+        .add-form h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 16px; }
         .add-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
         .form-range { width: 100%; }
         .range-val { font-size: 13px; color: #A855F7; font-weight: 600; }
         .btn-add {
-          padding: 10px 20px; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3);
-          border-radius: 8px; font-size: 13px; font-weight: 600; color: #C084FC;
-          cursor: pointer; transition: all 0.2s;
+          padding: 10px 20px; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2);
+          border-radius: 10px; font-size: 13px; font-weight: 600; color: #C084FC;
+          cursor: pointer; transition: all 0.2s; font-family: inherit;
         }
-        .btn-add:hover:not(:disabled) { background: rgba(168, 85, 247, 0.25); }
-        .btn-add:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-add:hover:not(:disabled) { background: rgba(168, 85, 247, 0.2); }
+        .btn-add:disabled { opacity: 0.35; cursor: not-allowed; }
         .obj-tree {
-          background: var(--bg-secondary); border: 1px solid var(--border);
-          border-radius: 12px; padding: 20px; margin-bottom: 16px;
+          background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 14px; padding: 20px; margin-bottom: 16px;
         }
-        .obj-tree h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0 0 16px; }
-        .empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
+        .obj-tree h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 16px; }
+        .empty { font-size: 13px; color: rgba(255,255,255,0.25); font-style: italic; }
         .tree-levels { display: flex; flex-direction: column; gap: 16px; }
         .tree-level { display: flex; flex-direction: column; gap: 8px; }
         .level-badge {
-          font-size: 11px; font-weight: 600; color: var(--text-muted);
-          text-transform: uppercase; letter-spacing: 0.5px;
+          font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.25);
+          text-transform: uppercase; letter-spacing: 1px;
         }
         .obj-card {
           display: flex; justify-content: space-between; align-items: center;
-          padding: 12px 16px; background: var(--bg-tertiary);
-          border: 1px solid var(--border); border-radius: 10px;
+          padding: 12px 16px; background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+          transition: all 0.2s;
         }
+        .obj-card:hover { border-color: rgba(255,255,255,0.1); }
         .obj-main { display: flex; flex-direction: column; gap: 2px; }
-        .obj-label { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-        .obj-metric { font-size: 12px; color: var(--text-muted); }
+        .obj-label { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); }
+        .obj-metric { font-size: 12px; color: rgba(255,255,255,0.35); }
         .obj-meta { display: flex; align-items: center; gap: 10px; }
         .obj-priority {
-          padding: 2px 8px; background: rgba(20, 184, 166, 0.15); border-radius: 4px;
-          font-size: 11px; font-weight: 600; color: #14B8A6;
+          padding: 3px 8px; background: rgba(20, 184, 166, 0.1);
+          border: 1px solid rgba(20, 184, 166, 0.2);
+          border-radius: 6px; font-size: 11px; font-weight: 600; color: #14B8A6;
         }
-        .obj-deadline { font-size: 11px; color: var(--text-muted); }
+        .obj-deadline { font-size: 11px; color: rgba(255,255,255,0.3); }
         .obj-remove {
-          width: 24px; height: 24px; background: rgba(239, 68, 68, 0.1);
-          border: none; border-radius: 6px; color: #EF4444;
+          width: 26px; height: 26px; background: rgba(239, 68, 68, 0.06);
+          border: 1px solid rgba(239, 68, 68, 0.12); border-radius: 8px; color: #EF4444;
           cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
         }
+        .obj-remove:hover { background: rgba(239, 68, 68, 0.12); }
         .warning-box {
-          padding: 12px 16px; background: rgba(239, 68, 68, 0.08);
-          border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 10px;
-          font-size: 13px; color: #F87171; margin-bottom: 16px;
+          padding: 12px 16px; background: rgba(239, 68, 68, 0.05);
+          border: 1px solid rgba(239, 68, 68, 0.12); border-radius: 12px;
+          font-size: 13px; color: #F87171; margin-bottom: 16px; line-height: 1.5;
         }
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
-          display: flex; align-items: center; gap: 8px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          display: flex; align-items: center; gap: 10px;
+          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #0D9488);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
-          color: white; cursor: pointer; transition: all 0.2s;
+          color: white; cursor: pointer; transition: all 0.25s; font-family: inherit;
         }
-        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
-        .btn-complete:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3); }
+        .btn-complete:disabled { opacity: 0.35; cursor: not-allowed; }
         @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .add-grid { grid-template-columns: 1fr; } }
       `}</style>
     </div>

@@ -17,9 +17,11 @@ export default function UploadFlow() {
   const [parsing, setParsing] = useState(false);
   const [detected, setDetected] = useState<DetectedData[]>([]);
   const [clarifications, setClarifications] = useState<string[]>([]);
+  const [dragOver, setDragOver] = useState(false);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    setDragOver(false);
     const dropped = Array.from(e.dataTransfer.files);
     setFiles(prev => [...prev, ...dropped]);
   };
@@ -63,56 +65,83 @@ export default function UploadFlow() {
     setPhase('objectives');
   };
 
+  const fileIcon = (name: string) => {
+    if (name.endsWith('.csv')) return 'CSV';
+    if (name.endsWith('.pdf')) return 'PDF';
+    return 'XLS';
+  };
+
+  const fileColor = (name: string) => {
+    if (name.endsWith('.csv')) return '#22C55E';
+    if (name.endsWith('.pdf')) return '#EF4444';
+    return '#3B82F6';
+  };
+
   return (
-    <div className="upload-flow">
+    <div className="uf-root">
       <div className="uf-header">
         <button className="uf-back" onClick={resetSession}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-          Back
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Landing
         </button>
         <h2>Upload Strategic Data</h2>
-        <p>Parse market data, revenue forecasts, competitor data. Auto-map to Strategic Object Model.</p>
+        <p>Parse market data, revenue forecasts, and competitor intelligence into the Strategic Object Model.</p>
       </div>
 
       {/* Drop Zone */}
-      <div className="drop-zone" onDragOver={e => e.preventDefault()} onDrop={handleDrop}>
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
-        </svg>
-        <p>Drag & drop files here</p>
-        <span>or</span>
-        <label className="file-btn">
+      <div
+        className={`drop-zone ${dragOver ? 'active' : ''}`}
+        onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={handleDrop}
+      >
+        <div className="dz-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+        </div>
+        <p className="dz-title">Drag & drop files here</p>
+        <span className="dz-or">or</span>
+        <label className="dz-browse">
           Browse Files
-          <input type="file" multiple accept=".csv,.xlsx,.xls,.pdf" onChange={handleFileSelect} hidden />
+          <input type="file" multiple accept=".csv,.xlsx,.xls,.pdf" onChange={handleFileSelect} hidden/>
         </label>
-        <span className="formats">Supports: Excel, CSV, PDF</span>
+        <div className="dz-formats">
+          <span className="fmt">XLSX</span>
+          <span className="fmt">CSV</span>
+          <span className="fmt">PDF</span>
+        </div>
       </div>
 
       {/* File List */}
       {files.length > 0 && (
-        <div className="file-list">
-          <h4>Uploaded Files ({files.length})</h4>
-          {files.map((f, i) => (
-            <div key={i} className="file-item">
-              <span className="file-icon">
-                {f.name.endsWith('.csv') ? 'CSV' : f.name.endsWith('.pdf') ? 'PDF' : 'XLS'}
-              </span>
-              <div className="file-info">
-                <span className="file-name">{f.name}</span>
-                <span className="file-size">{(f.size / 1024).toFixed(1)} KB</span>
+        <div className="file-section">
+          <div className="file-header">
+            <h4>Uploaded Files</h4>
+            <span className="file-count">{files.length} file{files.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div className="file-list">
+            {files.map((f, i) => (
+              <div key={i} className="file-row">
+                <div className="file-badge" style={{ color: fileColor(f.name), borderColor: fileColor(f.name) }}>
+                  {fileIcon(f.name)}
+                </div>
+                <div className="file-info">
+                  <span className="file-name">{f.name}</span>
+                  <span className="file-size">{(f.size / 1024).toFixed(1)} KB</span>
+                </div>
+                <button className="file-rm" onClick={() => setFiles(files.filter((_, j) => j !== i))}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
               </div>
-              <button className="file-remove" onClick={() => setFiles(files.filter((_, j) => j !== i))}>x</button>
-            </div>
-          ))}
+            ))}
+          </div>
           {detected.length === 0 && (
             <button className="btn-parse" onClick={simulateParse} disabled={parsing}>
               {parsing ? (
-                <>
-                  <div className="spinner" />
-                  Parsing & Mapping...
-                </>
+                <><div className="spinner"/>Parsing & Mapping...</>
               ) : (
-                'Parse & Map to Strategic Model'
+                <>Parse & Map to Strategic Model<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></>
               )}
             </button>
           )}
@@ -121,13 +150,16 @@ export default function UploadFlow() {
 
       {/* Detection Results */}
       {detected.length > 0 && (
-        <div className="detected-section">
-          <h4>Detected Data Objects</h4>
+        <div className="det-section">
+          <div className="det-header">
+            <h4>Detected Data Objects</h4>
+            <span className="det-count">{detected.filter(d => d.status === 'mapped').length}/{detected.length} mapped</span>
+          </div>
           <div className="det-grid">
             {detected.map((d, i) => (
               <div key={i} className={`det-card ${d.status}`}>
-                <div className="det-header">
-                  <span className={`det-status ${d.status}`}>
+                <div className="det-top">
+                  <span className={`det-badge ${d.status}`}>
                     {d.status === 'mapped' ? 'Mapped' : 'Missing'}
                   </span>
                   <span className="det-type">{d.type}</span>
@@ -140,9 +172,9 @@ export default function UploadFlow() {
                     <span className="det-rows">{d.rows} rows detected</span>
                   </>
                 ) : (
-                  <div className="det-clarify">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" /><path d="M12 8v4m0 4h.01" />
+                  <div className="det-warn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
                     </svg>
                     <span>{d.clarification}</span>
                   </div>
@@ -152,12 +184,12 @@ export default function UploadFlow() {
           </div>
 
           {clarifications.length > 0 && (
-            <div className="clarify-section">
+            <div className="clarify-box">
               <h4>AI Clarification Required</h4>
               {clarifications.map((c, i) => (
                 <div key={i} className="clarify-item">
                   <span className="clarify-q">{c}</span>
-                  <input type="text" className="clarify-input" placeholder="Enter value..." />
+                  <input type="text" className="clarify-input" placeholder="Enter value..."/>
                 </div>
               ))}
             </div>
@@ -165,119 +197,173 @@ export default function UploadFlow() {
 
           <button className="btn-proceed" onClick={handleProceed}>
             Proceed to Strategy Journey
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
       )}
 
       <style jsx>{`
-        .upload-flow { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
-        .uf-header { margin-bottom: 28px; }
+        .uf-root { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
+
+        /* ── Header ── */
+        .uf-header { margin-bottom: 32px; }
         .uf-back {
           display: inline-flex; align-items: center; gap: 6px;
-          padding: 0; background: none; border: none; color: var(--text-muted);
-          font-size: 13px; cursor: pointer; margin-bottom: 16px;
+          padding: 0; background: none; border: none;
+          color: rgba(255,255,255,0.35); font-size: 13px; font-weight: 500;
+          cursor: pointer; margin-bottom: 20px; transition: color 0.2s;
+          font-family: inherit;
         }
-        .uf-back:hover { color: var(--text-primary); }
-        .uf-header h2 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin: 0 0 8px; }
-        .uf-header p { font-size: 14px; color: var(--text-muted); margin: 0; }
+        .uf-back:hover { color: #fff; }
+        .uf-header h2 {
+          font-size: 24px; font-weight: 700; color: #fff;
+          margin: 0 0 8px; letter-spacing: -0.5px;
+        }
+        .uf-header p { font-size: 14px; color: rgba(255,255,255,0.4); margin: 0; line-height: 1.6; }
+
+        /* ── Drop Zone ── */
         .drop-zone {
-          display: flex; flex-direction: column; align-items: center; gap: 12px;
-          padding: 48px 24px; border: 2px dashed var(--border);
-          border-radius: 16px; text-align: center;
-          color: var(--text-muted); margin-bottom: 24px;
-          transition: all 0.2s;
+          display: flex; flex-direction: column; align-items: center; gap: 14px;
+          padding: 52px 24px;
+          border: 2px dashed rgba(255,255,255,0.08);
+          border-radius: 20px; text-align: center;
+          background: rgba(255,255,255,0.02);
+          margin-bottom: 20px; transition: all 0.25s;
         }
-        .drop-zone:hover { border-color: #A855F7; }
-        .drop-zone p { font-size: 16px; font-weight: 500; color: var(--text-secondary); margin: 0; }
-        .drop-zone span { font-size: 13px; }
-        .file-btn {
-          padding: 10px 24px; background: rgba(168, 85, 247, 0.15);
-          border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 10px;
-          font-size: 14px; font-weight: 600; color: #C084FC; cursor: pointer;
+        .drop-zone.active, .drop-zone:hover {
+          border-color: rgba(168, 85, 247, 0.4);
+          background: rgba(168, 85, 247, 0.03);
         }
-        .formats { font-size: 12px; color: var(--text-muted); }
-        .file-list {
-          background: var(--bg-secondary); border: 1px solid var(--border);
-          border-radius: 14px; padding: 20px; margin-bottom: 24px;
+        .dz-icon { color: rgba(255,255,255,0.2); }
+        .drop-zone.active .dz-icon { color: #A855F7; }
+        .dz-title { font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.6); margin: 0; }
+        .dz-or { font-size: 12px; color: rgba(255,255,255,0.2); }
+        .dz-browse {
+          padding: 10px 24px;
+          background: rgba(168, 85, 247, 0.1);
+          border: 1px solid rgba(168, 85, 247, 0.2);
+          border-radius: 10px; font-size: 14px; font-weight: 600;
+          color: #C084FC; cursor: pointer; transition: all 0.2s;
         }
-        h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0 0 14px; }
-        .file-item {
-          display: flex; align-items: center; gap: 12px;
-          padding: 10px 14px; background: var(--bg-tertiary);
-          border-radius: 10px; margin-bottom: 8px;
+        .dz-browse:hover { background: rgba(168, 85, 247, 0.18); }
+        .dz-formats { display: flex; gap: 8px; margin-top: 4px; }
+        .fmt {
+          padding: 3px 10px; border-radius: 6px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.06);
+          font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3);
         }
-        .file-icon {
-          width: 36px; height: 36px; border-radius: 8px;
-          background: rgba(20, 184, 166, 0.1); display: flex;
+
+        /* ── File Section ── */
+        .file-section {
+          background: linear-gradient(135deg, rgba(26,26,37,0.7), rgba(20,20,30,0.85));
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 16px; padding: 22px; margin-bottom: 20px;
+        }
+        .file-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .file-header h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0; }
+        .file-count { font-size: 12px; color: rgba(255,255,255,0.35); }
+        .file-list { display: flex; flex-direction: column; gap: 8px; }
+        .file-row {
+          display: flex; align-items: center; gap: 14px;
+          padding: 12px 14px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.04);
+          border-radius: 12px; transition: all 0.2s;
+        }
+        .file-row:hover { border-color: rgba(255,255,255,0.08); }
+        .file-badge {
+          width: 40px; height: 40px; border-radius: 10px;
+          border: 1px solid; display: flex;
           align-items: center; justify-content: center;
-          font-size: 10px; font-weight: 700; color: #14B8A6;
+          font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.02);
         }
         .file-info { flex: 1; }
-        .file-name { display: block; font-size: 13px; font-weight: 500; color: var(--text-primary); }
-        .file-size { font-size: 11px; color: var(--text-muted); }
-        .file-remove {
-          width: 24px; height: 24px; background: rgba(239, 68, 68, 0.1);
-          border: none; border-radius: 6px; color: #EF4444; cursor: pointer;
-          font-size: 12px;
+        .file-name { display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
+        .file-size { font-size: 11px; color: rgba(255,255,255,0.3); }
+        .file-rm {
+          width: 28px; height: 28px; background: rgba(239,68,68,0.06);
+          border: 1px solid rgba(239,68,68,0.12); border-radius: 8px;
+          color: #EF4444; cursor: pointer; display: flex;
+          align-items: center; justify-content: center; transition: all 0.2s;
         }
+        .file-rm:hover { background: rgba(239,68,68,0.12); }
         .btn-parse {
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          width: 100%; padding: 14px; margin-top: 12px;
+          display: flex; align-items: center; justify-content: center; gap: 10px;
+          width: 100%; padding: 14px; margin-top: 14px;
           background: linear-gradient(135deg, #A855F7, #7C3AED);
           border: none; border-radius: 12px; font-size: 15px;
           font-weight: 600; color: white; cursor: pointer;
+          transition: all 0.25s; font-family: inherit;
         }
-        .btn-parse:disabled { opacity: 0.7; }
+        .btn-parse:hover { box-shadow: 0 8px 32px rgba(168, 85, 247, 0.3); transform: translateY(-1px); }
+        .btn-parse:disabled { opacity: 0.6; transform: none; box-shadow: none; }
         .spinner {
           width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
           border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .detected-section {
-          background: var(--bg-secondary); border: 1px solid var(--border);
-          border-radius: 14px; padding: 20px;
+
+        /* ── Detection ── */
+        .det-section {
+          background: linear-gradient(135deg, rgba(26,26,37,0.7), rgba(20,20,30,0.85));
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 16px; padding: 22px;
         }
+        .det-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .det-header h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0; }
+        .det-count { font-size: 12px; font-weight: 600; color: #22C55E; }
         .det-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .det-card {
-          padding: 14px; background: var(--bg-tertiary);
-          border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 12px; transition: all 0.2s;
         }
-        .det-card.missing { border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.04); }
-        .det-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        .det-status {
-          padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600;
+        .det-card:hover { border-color: rgba(255,255,255,0.1); }
+        .det-card.missing { border-color: rgba(245, 158, 11, 0.2); background: rgba(245, 158, 11, 0.03); }
+        .det-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .det-badge {
+          padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .det-status.mapped { background: rgba(34, 197, 94, 0.15); color: #22C55E; }
-        .det-status.missing { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
-        .det-type { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-        .det-fields { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+        .det-badge.mapped { background: rgba(34, 197, 94, 0.1); color: #22C55E; }
+        .det-badge.missing { background: rgba(245, 158, 11, 0.1); color: #F59E0B; }
+        .det-type { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
+        .det-fields { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
         .det-field {
-          padding: 2px 8px; background: rgba(20, 184, 166, 0.1);
-          border-radius: 4px; font-size: 10px; color: #14B8A6;
+          padding: 3px 8px; background: rgba(20, 184, 166, 0.08);
+          border: 1px solid rgba(20, 184, 166, 0.15);
+          border-radius: 5px; font-size: 10px; color: #14B8A6; font-weight: 500;
         }
-        .det-rows { font-size: 11px; color: var(--text-muted); }
-        .det-clarify {
+        .det-rows { font-size: 11px; color: rgba(255,255,255,0.3); }
+        .det-warn {
           display: flex; align-items: flex-start; gap: 8px;
-          font-size: 12px; color: #F59E0B;
+          font-size: 12px; color: #F59E0B; line-height: 1.5;
         }
-        .clarify-section { margin-bottom: 20px; }
+        .clarify-box { margin-bottom: 20px; }
+        .clarify-box h4 { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); margin: 0 0 12px; }
         .clarify-item { margin-bottom: 12px; }
-        .clarify-q { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+        .clarify-q { display: block; font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
         .clarify-input {
-          width: 100%; padding: 10px 14px; background: var(--bg-tertiary);
-          border: 1px solid var(--border); border-radius: 8px;
-          font-size: 14px; color: var(--text-primary); outline: none;
+          width: 100%; padding: 10px 14px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 10px; font-size: 14px; color: #fff;
+          outline: none; transition: border-color 0.2s; font-family: inherit;
         }
-        .clarify-input:focus { border-color: #A855F7; }
+        .clarify-input:focus { border-color: rgba(168, 85, 247, 0.4); }
+        .clarify-input::placeholder { color: rgba(255,255,255,0.2); }
         .btn-proceed {
-          display: flex; align-items: center; justify-content: center; gap: 8px;
+          display: flex; align-items: center; justify-content: center; gap: 10px;
           width: 100%; padding: 14px;
           background: linear-gradient(135deg, #14B8A6, #0D9488);
           border: none; border-radius: 12px; font-size: 15px;
           font-weight: 600; color: white; cursor: pointer;
+          transition: all 0.25s; font-family: inherit;
         }
-        .btn-proceed:hover { box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
+        .btn-proceed:hover { box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3); transform: translateY(-1px); }
+
         @media (max-width: 640px) { .det-grid { grid-template-columns: 1fr; } }
       `}</style>
     </div>

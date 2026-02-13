@@ -45,32 +45,29 @@ export default function PhaseContext() {
   };
 
   return (
-    <div className="phase-form">
-      <p className="phase-description">
+    <div className="pf">
+      <p className="pf-note">
         Mandatory enterprise context capture. No strategic option generation until this phase is completed.
       </p>
 
-      <div className="form-section">
-        <label className="form-label">Organisation Name *</label>
+      <div className="pf-group">
+        <label className="pf-label">Organisation Name *</label>
         <input
-          type="text"
-          className="form-input"
+          type="text" className="pf-input"
           value={enterprise.organisation_name}
           onChange={e => updateEnterprise({ organisation_name: e.target.value })}
           placeholder="e.g., Acme Corporation"
         />
       </div>
 
-      <div className="form-row">
-        <div className="form-section">
-          <label className="form-label">Organisation Type *</label>
-          <div className="chip-group">
+      <div className="pf-row">
+        <div className="pf-group">
+          <label className="pf-label">Organisation Type *</label>
+          <div className="pf-chips">
             {(['startup', 'sme', 'corporate', 'public_sector'] as const).map(type => (
-              <button
-                key={type}
-                className={`chip ${enterprise.organisation_type === type ? 'active' : ''}`}
-                onClick={() => updateEnterprise({ organisation_type: type })}
-              >
+              <button key={type}
+                className={`pf-chip ${enterprise.organisation_type === type ? 'on' : ''}`}
+                onClick={() => updateEnterprise({ organisation_type: type })}>
                 {type === 'sme' ? 'SME' : type === 'public_sector' ? 'Public Sector' : type.charAt(0).toUpperCase() + type.slice(1)}
               </button>
             ))}
@@ -78,65 +75,57 @@ export default function PhaseContext() {
         </div>
       </div>
 
-      <div className="form-section">
-        <label className="form-label">Industry Classification *</label>
-        <div className="industry-grid">
+      <div className="pf-group">
+        <label className="pf-label">Industry Classification *</label>
+        <div className="pf-ind-grid">
           {INDUSTRIES.map(ind => (
-            <button
-              key={ind.code}
-              className={`industry-chip ${enterprise.industry_code === ind.code ? 'active' : ''}`}
-              onClick={() => updateEnterprise({ industry_code: ind.code, industry_label: ind.label })}
-            >
+            <button key={ind.code}
+              className={`pf-ind ${enterprise.industry_code === ind.code ? 'on' : ''}`}
+              onClick={() => updateEnterprise({ industry_code: ind.code, industry_label: ind.label })}>
               {ind.label}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="form-section">
-        <label className="form-label">Geographic Footprint *</label>
-        <div className="chip-group">
+      <div className="pf-group">
+        <label className="pf-label">Geographic Footprint *</label>
+        <div className="pf-chips">
           {REGIONS.map(region => (
-            <button
-              key={region}
-              className={`chip ${enterprise.geographic_footprint.includes(region) ? 'active' : ''}`}
-              onClick={() => enterprise.geographic_footprint.includes(region) ? removeRegion(region) : addRegion(region)}
-            >
+            <button key={region}
+              className={`pf-chip ${enterprise.geographic_footprint.includes(region) ? 'on' : ''}`}
+              onClick={() => enterprise.geographic_footprint.includes(region) ? removeRegion(region) : addRegion(region)}>
               {region}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="form-row">
-        <div className="form-section">
-          <label className="form-label">Market Maturity *</label>
-          <div className="chip-group">
+      <div className="pf-row">
+        <div className="pf-group">
+          <label className="pf-label">Market Maturity *</label>
+          <div className="pf-chips">
             {(['emerging', 'growth', 'mature', 'declining'] as const).map(type => (
-              <button
-                key={type}
-                className={`chip ${enterprise.market_type === type ? 'active' : ''}`}
-                onClick={() => updateEnterprise({ market_type: type })}
-              >
+              <button key={type}
+                className={`pf-chip ${enterprise.market_type === type ? 'on' : ''}`}
+                onClick={() => updateEnterprise({ market_type: type })}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="form-section">
-          <label className="form-label">Time Horizon *</label>
-          <div className="chip-group">
+        <div className="pf-group">
+          <label className="pf-label">Time Horizon *</label>
+          <div className="pf-chips">
             {([
               { key: 'short' as const, label: 'Short (1-2 yrs)' },
               { key: 'medium' as const, label: 'Medium (3-5 yrs)' },
               { key: 'long' as const, label: 'Long (5+ yrs)' },
             ]).map(h => (
-              <button
-                key={h.key}
-                className={`chip ${enterprise.horizon === h.key ? 'active' : ''}`}
-                onClick={() => updateEnterprise({ horizon: h.key, horizon_years: h.label })}
-              >
+              <button key={h.key}
+                className={`pf-chip ${enterprise.horizon === h.key ? 'on' : ''}`}
+                onClick={() => updateEnterprise({ horizon: h.key, horizon_years: h.label })}>
                 {h.label}
               </button>
             ))}
@@ -144,121 +133,118 @@ export default function PhaseContext() {
         </div>
       </div>
 
-      {/* Enterprise Object Preview */}
       {enterprise.organisation_name && (
-        <div className="object-preview">
+        <div className="pf-preview">
           <h4>Enterprise Object Preview</h4>
-          <div className="preview-grid">
-            <div className="preview-item"><span className="key">Organisation</span><span className="val">{enterprise.organisation_name}</span></div>
-            <div className="preview-item"><span className="key">Type</span><span className="val">{enterprise.organisation_type}</span></div>
-            <div className="preview-item"><span className="key">Industry</span><span className="val">{enterprise.industry_label || '—'}</span></div>
-            <div className="preview-item"><span className="key">Market</span><span className="val">{enterprise.market_type}</span></div>
-            <div className="preview-item"><span className="key">Horizon</span><span className="val">{enterprise.horizon_years}</span></div>
-            <div className="preview-item"><span className="key">Geography</span><span className="val">{enterprise.geographic_footprint.join(', ') || '—'}</span></div>
+          <div className="pv-grid">
+            <div className="pv-item"><span className="pv-k">Organisation</span><span className="pv-v">{enterprise.organisation_name}</span></div>
+            <div className="pv-item"><span className="pv-k">Type</span><span className="pv-v">{enterprise.organisation_type}</span></div>
+            <div className="pv-item"><span className="pv-k">Industry</span><span className="pv-v">{enterprise.industry_label || '—'}</span></div>
+            <div className="pv-item"><span className="pv-k">Market</span><span className="pv-v">{enterprise.market_type}</span></div>
+            <div className="pv-item"><span className="pv-k">Horizon</span><span className="pv-v">{enterprise.horizon_years}</span></div>
+            <div className="pv-item"><span className="pv-k">Geography</span><span className="pv-v">{enterprise.geographic_footprint.join(', ') || '—'}</span></div>
           </div>
         </div>
       )}
 
-      <div className="form-actions">
-        <button
-          className="btn-complete"
-          onClick={completeEnterprise}
-          disabled={!isComplete}
-        >
+      <div className="pf-actions">
+        <button className="pf-submit" onClick={completeEnterprise} disabled={!isComplete}>
           Complete Phase 1 & Continue
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
 
       <style jsx>{`
-        .phase-form { max-width: 900px; }
-        .phase-description {
-          font-size: 14px; color: var(--text-muted); margin-bottom: 28px;
+        .pf { max-width: 900px; }
+        .pf-note {
+          font-size: 13px; color: rgba(245, 158, 11, 0.8); margin-bottom: 28px;
           padding: 12px 16px;
-          background: rgba(245, 158, 11, 0.08);
-          border: 1px solid rgba(245, 158, 11, 0.2);
-          border-radius: 10px;
-          border-left: 3px solid #F59E0B;
+          background: rgba(245, 158, 11, 0.06);
+          border: 1px solid rgba(245, 158, 11, 0.12);
+          border-radius: 12px; border-left: 3px solid rgba(245, 158, 11, 0.5);
+          line-height: 1.5;
         }
-        .form-section { margin-bottom: 24px; }
-        .form-label {
+        .pf-group { margin-bottom: 24px; }
+        .pf-label {
           display: block; font-size: 13px; font-weight: 600;
-          color: var(--text-secondary); margin-bottom: 8px;
+          color: rgba(255,255,255,0.5); margin-bottom: 10px;
         }
-        .form-input {
+        .pf-input {
           width: 100%; padding: 12px 16px;
-          background: var(--bg-tertiary); border: 1px solid var(--border);
-          border-radius: 10px; font-size: 15px; color: var(--text-primary);
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px; font-size: 15px; color: #fff;
           outline: none; transition: border-color 0.2s;
+          font-family: inherit;
         }
-        .form-input:focus { border-color: #A855F7; }
-        .form-input::placeholder { color: var(--text-muted); }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
-        .chip {
+        .pf-input:focus { border-color: rgba(168, 85, 247, 0.4); }
+        .pf-input::placeholder { color: rgba(255,255,255,0.2); }
+        .pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .pf-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pf-chip {
           padding: 8px 16px;
-          background: var(--bg-tertiary); border: 1px solid var(--border);
-          border-radius: 8px; font-size: 13px; font-weight: 500;
-          color: var(--text-secondary); cursor: pointer;
-          transition: all 0.2s;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 10px; font-size: 13px; font-weight: 500;
+          color: rgba(255,255,255,0.5); cursor: pointer;
+          transition: all 0.2s; font-family: inherit;
         }
-        .chip:hover { border-color: rgba(168, 85, 247, 0.3); }
-        .chip.active {
-          background: rgba(168, 85, 247, 0.15);
-          border-color: #A855F7;
+        .pf-chip:hover { border-color: rgba(168, 85, 247, 0.25); color: rgba(255,255,255,0.7); }
+        .pf-chip.on {
+          background: rgba(168, 85, 247, 0.12);
+          border-color: rgba(168, 85, 247, 0.3);
           color: #C084FC;
         }
-        .industry-grid {
-          display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-          gap: 8px;
+        .pf-ind-grid {
+          display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px;
         }
-        .industry-chip {
+        .pf-ind {
           padding: 10px 14px;
-          background: var(--bg-tertiary); border: 1px solid var(--border);
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06);
           border-radius: 10px; font-size: 13px; font-weight: 500;
-          color: var(--text-secondary); cursor: pointer;
-          transition: all 0.2s; text-align: left;
+          color: rgba(255,255,255,0.5); cursor: pointer;
+          transition: all 0.2s; text-align: left; font-family: inherit;
         }
-        .industry-chip:hover { border-color: rgba(20, 184, 166, 0.3); }
-        .industry-chip.active {
-          background: rgba(20, 184, 166, 0.12);
-          border-color: #14B8A6; color: #2DD4BF;
+        .pf-ind:hover { border-color: rgba(20, 184, 166, 0.25); }
+        .pf-ind.on {
+          background: rgba(20, 184, 166, 0.1);
+          border-color: rgba(20, 184, 166, 0.3);
+          color: #2DD4BF;
         }
-        .object-preview {
+        .pf-preview {
           margin-top: 8px; padding: 20px;
-          background: var(--bg-tertiary); border: 1px solid var(--border);
-          border-radius: 12px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 14px;
         }
-        .object-preview h4 {
-          font-size: 13px; font-weight: 600; color: var(--text-muted);
-          margin: 0 0 12px; text-transform: uppercase; letter-spacing: 0.5px;
+        .pf-preview h4 {
+          font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.25);
+          margin: 0 0 14px; text-transform: uppercase; letter-spacing: 1px;
         }
-        .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .preview-item {
-          display: flex; justify-content: space-between; padding: 6px 0;
-          border-bottom: 1px solid rgba(255,255,255,0.05);
+        .pv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .pv-item {
+          display: flex; justify-content: space-between; padding: 7px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.04);
         }
-        .key { font-size: 12px; color: var(--text-muted); }
-        .val { font-size: 12px; color: var(--text-primary); font-weight: 500; }
-        .form-actions { margin-top: 32px; display: flex; justify-content: flex-end; }
-        .btn-complete {
-          display: flex; align-items: center; gap: 8px;
+        .pv-k { font-size: 12px; color: rgba(255,255,255,0.3); }
+        .pv-v { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+        .pf-actions { margin-top: 32px; display: flex; justify-content: flex-end; }
+        .pf-submit {
+          display: flex; align-items: center; gap: 10px;
           padding: 14px 28px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-          border: none; border-radius: 12px;
-          font-size: 15px; font-weight: 600; color: white;
-          cursor: pointer; transition: all 0.2s;
+          background: linear-gradient(135deg, #14B8A6, #0D9488);
+          border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
+          color: white; cursor: pointer; transition: all 0.25s; font-family: inherit;
         }
-        .btn-complete:hover:not(:disabled) {
+        .pf-submit:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3);
         }
-        .btn-complete:disabled { opacity: 0.4; cursor: not-allowed; }
+        .pf-submit:disabled { opacity: 0.35; cursor: not-allowed; }
         @media (max-width: 768px) {
-          .form-row { grid-template-columns: 1fr; }
-          .preview-grid { grid-template-columns: 1fr; }
+          .pf-row { grid-template-columns: 1fr; }
+          .pv-grid { grid-template-columns: 1fr; }
         }
       `}</style>
     </div>
