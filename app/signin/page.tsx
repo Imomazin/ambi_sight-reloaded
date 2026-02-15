@@ -168,7 +168,7 @@ export default function SignInPage() {
       {/* Header */}
       <header className="p-6">
         <Link href="/" className="flex items-center gap-3 w-fit">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 via-purple-500 to-magenta-400 flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>
@@ -367,7 +367,7 @@ export default function SignInPage() {
                   onClick={() => { setMode('signin'); setAuthMethod(null); setError(''); }}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
                     mode === 'signin'
-                      ? 'bg-teal-500 text-white'
+                      ? 'bg-purple-500 text-white'
                       : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
@@ -377,7 +377,7 @@ export default function SignInPage() {
                   onClick={() => { setMode('signup'); setAuthMethod(null); setError(''); }}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
                     mode === 'signup'
-                      ? 'bg-teal-500 text-white'
+                      ? 'bg-purple-500 text-white'
                       : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
@@ -403,7 +403,7 @@ export default function SignInPage() {
               disabled={isLoading}
               className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border transition-all ${
                 isLoading && authMethod === 'google'
-                  ? 'bg-[var(--bg-card-hover)] border-teal-500/50'
+                  ? 'bg-[var(--bg-card-hover)] border-purple-500/50'
                   : 'border-[var(--border-color)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]'
               } text-[var(--text-secondary)]`}
             >
@@ -430,7 +430,7 @@ export default function SignInPage() {
               disabled={isLoading}
               className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border transition-all ${
                 isLoading && authMethod === 'microsoft'
-                  ? 'bg-[var(--bg-card-hover)] border-teal-500/50'
+                  ? 'bg-[var(--bg-card-hover)] border-purple-500/50'
                   : 'border-[var(--border-color)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]'
               } text-[var(--text-secondary)]`}
             >
@@ -457,7 +457,7 @@ export default function SignInPage() {
               disabled={isLoading}
               className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border transition-all ${
                 isLoading && authMethod === 'github'
-                  ? 'bg-[var(--bg-card-hover)] border-teal-500/50'
+                  ? 'bg-[var(--bg-card-hover)] border-purple-500/50'
                   : 'border-[var(--border-color)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]'
               } text-[var(--text-secondary)]`}
             >
@@ -496,7 +496,7 @@ export default function SignInPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-teal-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
             )}
@@ -510,7 +510,7 @@ export default function SignInPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
 
@@ -523,7 +523,7 @@ export default function SignInPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
 
@@ -536,8 +536,8 @@ export default function SignInPage() {
               disabled={isLoading && authMethod === 'email'}
               className={`w-full py-3.5 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
                 isLoading && authMethod === 'email'
-                  ? 'bg-teal-600 text-white'
-                  : 'bg-teal-500 hover:bg-teal-400 text-white'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-purple-500 hover:bg-purple-400 text-white'
               }`}
               onClick={() => setAuthMethod('email')}
             >
@@ -583,14 +583,14 @@ export default function SignInPage() {
                     onClick={() => setSelectedUser(user)}
                     className={`w-full text-left p-3 rounded-xl border transition-all ${
                       selectedUser?.id === user.id
-                        ? 'bg-teal-500/10 border-teal-500/50 ring-1 ring-teal-500/30'
+                        ? 'bg-purple-500/10 border-purple-500/50 ring-1 ring-purple-500/30'
                         : 'bg-[var(--bg-secondary)] border-[var(--border-color)] hover:border-[var(--border-hover)]'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className={`w-9 h-9 rounded-lg flex items-center justify-center text-white font-semibold text-sm ${
-                          selectedUser?.id === user.id ? 'bg-teal-500' : 'bg-[var(--bg-card-hover)]'
+                          selectedUser?.id === user.id ? 'bg-purple-500' : 'bg-[var(--bg-card-hover)]'
                         }`}
                       >
                         {user.avatar}
@@ -605,7 +605,7 @@ export default function SignInPage() {
                         <span className="text-xs text-[var(--text-muted)]">{roleDisplayNames[user.role]}</span>
                       </div>
                       {selectedUser?.id === user.id && (
-                        <svg className="w-4 h-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -630,7 +630,7 @@ export default function SignInPage() {
 
           {/* Footer Links */}
           <div className="mt-6 text-center text-sm">
-            <Link href="/pricing" className="text-teal-500 hover:text-teal-400 font-medium">
+            <Link href="/pricing" className="text-purple-500 hover:text-purple-400 font-medium">
               View Plans & Pricing
             </Link>
           </div>

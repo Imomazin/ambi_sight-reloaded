@@ -141,7 +141,7 @@ export default function BillingDashboard() {
             {aiQueriesLimit !== Infinity && (
               <ProgressIndicator
                 progress={((aiQueriesLimit - aiQueriesRemaining) / aiQueriesLimit) * 100}
-                color={aiQueriesRemaining < 5 ? 'red' : 'teal'}
+                color={aiQueriesRemaining < 5 ? 'red' : 'purple'}
                 showLabel={false}
                 size="sm"
               />
@@ -266,8 +266,8 @@ export default function BillingDashboard() {
         }
 
         .plan-badge.starter {
-          background: rgba(20, 184, 166, 0.2);
-          color: #2DD4BF;
+          background: rgba(124, 58, 237, 0.2);
+          color: #C084FC;
         }
 
         .plan-badge.pro {
@@ -328,7 +328,7 @@ export default function BillingDashboard() {
 
         .btn-upgrade {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          background: linear-gradient(135deg, #A855F7, #A855F7);
           border: none;
           border-radius: 8px;
           font-size: 14px;
@@ -340,7 +340,7 @@ export default function BillingDashboard() {
 
         .btn-upgrade:hover {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         .btn-cancel {

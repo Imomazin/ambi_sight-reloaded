@@ -332,9 +332,9 @@ export default function UploadFlow() {
         .det-type { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
         .det-fields { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
         .det-field {
-          padding: 3px 8px; background: rgba(20, 184, 166, 0.08);
-          border: 1px solid rgba(20, 184, 166, 0.15);
-          border-radius: 5px; font-size: 10px; color: #14B8A6; font-weight: 500;
+          padding: 3px 8px; background: rgba(124, 58, 237, 0.08);
+          border: 1px solid rgba(124, 58, 237, 0.15);
+          border-radius: 5px; font-size: 10px; color: #A855F7; font-weight: 500;
         }
         .det-rows { font-size: 11px; color: rgba(255,255,255,0.3); }
         .det-warn {
@@ -357,12 +357,12 @@ export default function UploadFlow() {
         .btn-proceed {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           width: 100%; padding: 14px;
-          background: linear-gradient(135deg, #14B8A6, #0D9488);
+          background: linear-gradient(135deg, #A855F7, #7C3AED);
           border: none; border-radius: 12px; font-size: 15px;
           font-weight: 600; color: white; cursor: pointer;
           transition: all 0.25s; font-family: inherit;
         }
-        .btn-proceed:hover { box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3); transform: translateY(-1px); }
+        .btn-proceed:hover { box-shadow: 0 8px 32px rgba(124, 58, 237, 0.3); transform: translateY(-1px); }
 
         @media (max-width: 640px) { .det-grid { grid-template-columns: 1fr; } }
       `}</style>

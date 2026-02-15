@@ -135,7 +135,7 @@ export function NotificationPanel({
                   {unreadCount > 0 && (
                     <button
                       onClick={onAcknowledgeAll}
-                      className="text-xs text-teal-400 hover:text-teal-300"
+                      className="text-xs text-purple-400 hover:text-purple-300"
                     >
                       Mark all read
                     </button>
@@ -159,7 +159,7 @@ export function NotificationPanel({
                     onClick={() => setFilter(f)}
                     className={`px-2 py-1 text-xs rounded-md transition-colors ${
                       filter === f
-                        ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                        ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
                         : 'text-gray-400 hover:text-white hover:bg-navy-600'
                     }`}
                   >
@@ -231,7 +231,7 @@ export function NotificationPanel({
                             {!alert.acknowledged && (
                               <button
                                 onClick={() => onAcknowledge(alert.id)}
-                                className="text-xs text-teal-400 hover:text-teal-300"
+                                className="text-xs text-purple-400 hover:text-purple-300"
                               >
                                 Mark read
                               </button>

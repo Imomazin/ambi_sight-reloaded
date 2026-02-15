@@ -30,7 +30,7 @@ export default function PersonaSwitcher() {
   const getPersonaColor = (id: Persona): string => {
     switch (id) {
       case 'strategy-leader':
-        return 'from-teal-400 to-teal-600';
+        return 'from-purple-400 to-purple-600';
       case 'risk-officer':
         return 'from-amber-400 to-amber-600';
       case 'product-owner':
@@ -81,7 +81,7 @@ export default function PersonaSwitcher() {
                 onClick={() => handleSelect(persona.id)}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
                   currentPersona === persona.id
-                    ? 'bg-teal-500/10 border border-teal-500/30'
+                    ? 'bg-purple-500/10 border border-purple-500/30'
                     : 'hover:bg-navy-600'
                 }`}
               >
@@ -97,7 +97,7 @@ export default function PersonaSwitcher() {
                   <div className="text-xs text-gray-400">{persona.role}</div>
                 </div>
                 {currentPersona === persona.id && (
-                  <svg className="w-5 h-5 text-teal-400 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-purple-400 ml-auto" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

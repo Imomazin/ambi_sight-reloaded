@@ -22,7 +22,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
         <p className="text-[var(--text-muted)] mb-4">The requested tool could not be found.</p>
         <button
           onClick={onClose}
-          className="px-4 py-2 bg-teal-500 hover:bg-teal-400 text-white rounded-lg transition-colors"
+          className="px-4 py-2 bg-purple-500 hover:bg-purple-400 text-white rounded-lg transition-colors"
         >
           Back to Dashboard
         </button>
@@ -55,7 +55,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
         </div>
 
         <div className="flex items-start gap-3 md:gap-4">
-          <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center text-2xl md:text-3xl flex-shrink-0">
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/20 flex items-center justify-center text-2xl md:text-3xl flex-shrink-0">
             {tool.icon}
           </div>
           <div className="flex-1 min-w-0">
@@ -86,12 +86,12 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
           {/* Best For */}
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <span className="text-teal-400">👥</span> Best For
+              <span className="text-purple-400">👥</span> Best For
             </h2>
             <ul className="space-y-3">
               {tool.bestFor.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center text-xs">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs">
                     ✓
                   </span>
                   <span className="text-[var(--text-secondary)]">{item}</span>
@@ -108,7 +108,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
             <div className="space-y-4">
               {tool.keyQuestions.map((question, idx) => (
                 <div key={idx} className="flex items-start gap-4 p-4 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)]">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-teal-500/20 flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-500/20 flex items-center justify-center text-sm font-bold text-[var(--text-primary)]">
                     {idx + 1}
                   </div>
                   <span className="text-[var(--text-secondary)] pt-1">{question}</span>
@@ -129,7 +129,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
                 This interactive workspace allows you to apply the {tool.name} framework to your specific situation.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <button className="w-full sm:w-auto px-5 py-3 bg-teal-500 hover:bg-teal-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2 touch-manipulation">
+                <button className="w-full sm:w-auto px-5 py-3 bg-purple-500 hover:bg-purple-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2 touch-manipulation">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
@@ -177,19 +177,19 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Quick Actions</h2>
             <div className="space-y-2">
-              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-purple-500/30 hover:text-purple-400 transition-colors">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
                 Share Template
               </button>
-              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-purple-500/30 hover:text-purple-400 transition-colors">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
                 Export to PDF
               </button>
-              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+              <button className="w-full flex items-center gap-3 p-3 bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-color)] text-sm text-[var(--text-secondary)] hover:border-purple-500/30 hover:text-purple-400 transition-colors">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                 </svg>
@@ -199,14 +199,14 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
           </div>
 
           {/* Need Help */}
-          <div className="bg-gradient-to-br from-teal-500/10 to-purple-500/10 border border-teal-500/20 rounded-xl p-6">
+          <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/10 border border-purple-500/20 rounded-xl p-6">
             <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-2">Need Expert Help?</h3>
             <p className="text-xs text-[var(--text-muted)] mb-4">
               Our strategy consultants can guide you through this framework.
             </p>
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 text-sm text-teal-400 hover:text-teal-300 font-medium"
+              className="inline-flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 font-medium"
             >
               Book Consultation
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

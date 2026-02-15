@@ -68,7 +68,7 @@ export default function PhaseScenarios() {
                 </div>
                 <div className="sc-metric">
                   <span className="scm-label">Capital Stress</span>
-                  <span className="scm-val" style={{ color: sc.capital_stress > 50 ? '#EF4444' : '#14B8A6' }}>
+                  <span className="scm-val" style={{ color: sc.capital_stress > 50 ? '#EF4444' : '#A855F7' }}>
                     {sc.capital_stress}%
                   </span>
                 </div>

@@ -46,7 +46,7 @@ export default function HelpModal() {
           {/* Product Story */}
           <div className="mb-8">
             <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center text-teal-400">
+              <span className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
                 🎯
               </span>
               The 60-Second Story

@@ -142,7 +142,7 @@ export default function PhaseGovernance() {
         .sum-status.pending { color: var(--text-muted); }
         .output-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
         .output-card { padding: 14px; background: var(--bg-tertiary); border-radius: 10px; }
-        .output-card.highlight { border: 1px solid rgba(20, 184, 166, 0.3); background: rgba(20, 184, 166, 0.05); }
+        .output-card.highlight { border: 1px solid rgba(124, 58, 237, 0.3); background: rgba(124, 58, 237, 0.05); }
         .out-title { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
         .out-val { display: block; font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
         .out-sub { font-size: 11px; color: var(--text-muted); }

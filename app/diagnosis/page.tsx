@@ -73,7 +73,7 @@ function ChallengeStep({
         <h2 className="text-2xl font-bold text-white mb-2">What strategic challenges are you facing?</h2>
         <p className="text-slate-400">Select all that apply - you can choose multiple challenges</p>
         {selected.length > 0 && (
-          <div className="mt-3 inline-flex items-center gap-2 bg-teal-500/20 text-teal-400 px-3 py-1 rounded-full text-sm">
+          <div className="mt-3 inline-flex items-center gap-2 bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">
             <span>{selected.length} selected</span>
           </div>
         )}
@@ -87,7 +87,7 @@ function ChallengeStep({
               onClick={() => onSelect(cat.id)}
               className={`text-left p-5 rounded-xl border transition-all ${
                 isSelected
-                  ? 'bg-teal-600/20 border-teal-500 ring-2 ring-teal-500/50'
+                  ? 'bg-purple-600/20 border-purple-500 ring-2 ring-purple-500/50'
                   : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
               }`}
             >
@@ -95,7 +95,7 @@ function ChallengeStep({
                 <div className="relative">
                   <span className="text-3xl">{cat.icon}</span>
                   {isSelected && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-teal-500 rounded-full flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
                       <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
@@ -324,19 +324,19 @@ function ResultsStep({
             <button
               key={tool.id}
               onClick={() => onLaunchTool(tool)}
-              className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-teal-500/50 rounded-xl p-4 transition-all text-left group"
+              className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-purple-500/50 rounded-xl p-4 transition-all text-left group"
             >
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{tool.icon}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     {idx === 0 && (
-                      <span className="text-xs bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded">
+                      <span className="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">
                         Start Here
                       </span>
                     )}
                   </div>
-                  <h4 className="font-medium text-white truncate group-hover:text-teal-400 transition-colors">{tool.name}</h4>
+                  <h4 className="font-medium text-white truncate group-hover:text-purple-400 transition-colors">{tool.name}</h4>
                   <p className="text-xs text-slate-400 mt-1 line-clamp-2">{tool.description}</p>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center gap-2">
@@ -345,7 +345,7 @@ function ResultsStep({
                       </span>
                       <span className="text-xs text-slate-500">{tool.estimatedTime}</span>
                     </div>
-                    <span className="text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                    <span className="text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                       Launch
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -547,7 +547,7 @@ export default function DiagnosisPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="text-2xl font-bold text-white">
-                Lumina <span className="text-teal-500">S</span>
+                Lumina <span className="text-purple-500">S</span>
               </Link>
               <span className="text-slate-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Diagnostic Wizard</h1>

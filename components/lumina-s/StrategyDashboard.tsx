@@ -70,7 +70,7 @@ export default function StrategyDashboard() {
         {[
           { label: 'Strategic Alignment', value: `${alignmentScore}%`, pct: alignmentScore, color: kpiColor(alignmentScore), badge: 'AI Verified' },
           { label: 'Market Position', value: `${marketPositionIndex}`, pct: marketPositionIndex, color: '#3B82F6', badge: null },
-          { label: 'Capital Utilisation', value: `${capitalUtilisation}%`, pct: Math.min(100, capitalUtilisation), color: capitalUtilisation > 100 ? '#EF4444' : '#14B8A6', badge: null },
+          { label: 'Capital Utilisation', value: `${capitalUtilisation}%`, pct: Math.min(100, capitalUtilisation), color: capitalUtilisation > 100 ? '#EF4444' : '#A855F7', badge: null },
           { label: 'Strategic Readiness', value: `${readinessScore}`, pct: readinessScore, color: kpiColor(readinessScore), badge: null },
         ].map((kpi, i) => (
           <div key={i} className="kpi-card">
@@ -159,7 +159,7 @@ export default function StrategyDashboard() {
                 </div>
                 <div className="cm-stat">
                   <span className="cm-stat-label">Intensity</span>
-                  <span className="cm-stat-val" style={{ color: market.competitive_intensity_index > 60 ? '#EF4444' : '#14B8A6' }}>
+                  <span className="cm-stat-val" style={{ color: market.competitive_intensity_index > 60 ? '#EF4444' : '#A855F7' }}>
                     {market.competitive_intensity_index}%
                   </span>
                 </div>
@@ -289,10 +289,10 @@ export default function StrategyDashboard() {
         .kpi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .kpi-label { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; }
         .kpi-badge {
-          padding: 3px 8px; background: rgba(20, 184, 166, 0.12);
-          border: 1px solid rgba(20, 184, 166, 0.2);
+          padding: 3px 8px; background: rgba(124, 58, 237, 0.12);
+          border: 1px solid rgba(124, 58, 237, 0.2);
           border-radius: 6px; font-size: 9px; font-weight: 700;
-          color: #14B8A6; text-transform: uppercase; letter-spacing: 0.5px;
+          color: #A855F7; text-transform: uppercase; letter-spacing: 0.5px;
         }
         .kpi-value { display: block; font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; }
         .kpi-track { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
@@ -391,9 +391,9 @@ export default function StrategyDashboard() {
         .ef-dot:hover { transform: translate(-50%, 50%) scale(1.5); background: #A855F7; }
         .ef-current {
           position: absolute; width: 16px; height: 16px;
-          background: #14B8A6; border: 2px solid rgba(20, 184, 166, 0.4);
+          background: #A855F7; border: 2px solid rgba(124, 58, 237, 0.4);
           border-radius: 50%; transform: translate(-50%, 50%);
-          box-shadow: 0 0 20px rgba(20, 184, 166, 0.4); z-index: 2;
+          box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); z-index: 2;
         }
         .ef-x-label { position: absolute; bottom: 6px; right: 12px; font-size: 10px; color: rgba(255,255,255,0.2); }
         .ef-y-label { position: absolute; top: 6px; left: 8px; font-size: 10px; color: rgba(255,255,255,0.2); }

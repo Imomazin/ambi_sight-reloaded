@@ -29,7 +29,6 @@ export default function KpiCard({ kpi }: KpiCardProps) {
   }
 
   const colorClasses = {
-    teal: 'kpi-teal',
     amber: 'kpi-amber',
     magenta: 'kpi-magenta',
     lime: 'kpi-lime',

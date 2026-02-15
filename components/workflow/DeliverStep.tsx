@@ -116,7 +116,7 @@ export default function DeliverStep({ onComplete }: DeliverStepProps) {
             <h4>Task Progress</h4>
             <ProgressIndicator
               progress={taskProgress}
-              color="teal"
+              color="purple"
               size="md"
               label={`${completedTasks}/${tasks.length} completed`}
             />

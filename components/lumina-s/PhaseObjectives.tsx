@@ -258,9 +258,9 @@ export default function PhaseObjectives() {
         .obj-metric { font-size: 12px; color: rgba(255,255,255,0.35); }
         .obj-meta { display: flex; align-items: center; gap: 10px; }
         .obj-priority {
-          padding: 3px 8px; background: rgba(20, 184, 166, 0.1);
-          border: 1px solid rgba(20, 184, 166, 0.2);
-          border-radius: 6px; font-size: 11px; font-weight: 600; color: #14B8A6;
+          padding: 3px 8px; background: rgba(124, 58, 237, 0.1);
+          border: 1px solid rgba(124, 58, 237, 0.2);
+          border-radius: 6px; font-size: 11px; font-weight: 600; color: #A855F7;
         }
         .obj-deadline { font-size: 11px; color: rgba(255,255,255,0.3); }
         .obj-remove {
@@ -277,11 +277,11 @@ export default function PhaseObjectives() {
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
           display: flex; align-items: center; gap: 10px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #0D9488);
+          padding: 14px 28px; background: linear-gradient(135deg, #A855F7, #7C3AED);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.25s; font-family: inherit;
         }
-        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3); }
+        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124, 58, 237, 0.3); }
         .btn-complete:disabled { opacity: 0.35; cursor: not-allowed; }
         @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .add-grid { grid-template-columns: 1fr; } }
       `}</style>

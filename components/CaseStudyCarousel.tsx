@@ -8,13 +8,6 @@ interface CaseStudyCarouselProps {
 }
 
 const accentColors = {
-  teal: {
-    border: 'border-teal-500/30',
-    bg: 'bg-teal-500/10',
-    text: 'text-teal-400',
-    glow: 'hover:shadow-teal-500/20',
-    pill: 'bg-teal-500/20 text-teal-400',
-  },
   amber: {
     border: 'border-amber-500/30',
     bg: 'bg-amber-500/10',
@@ -237,7 +230,7 @@ export default function CaseStudyCarousel({ caseStudies }: CaseStudyCarouselProp
 
       {/* Auto-scroll indicator */}
       <div className="absolute top-0 right-24 flex items-center gap-2">
-        <span className={`text-xs ${isAutoScrolling ? 'text-teal-400' : 'text-gray-500'}`}>
+        <span className={`text-xs ${isAutoScrolling ? 'text-purple-400' : 'text-gray-500'}`}>
           {isAutoScrolling ? '● Auto-scrolling' : '○ Paused'}
         </span>
       </div>

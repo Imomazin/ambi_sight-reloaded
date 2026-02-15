@@ -50,7 +50,7 @@ const advisorProfiles: AdvisorProfile[] = [
     role: 'Innovation Director',
     specialty: 'Digital Transformation',
     avatar: '👩‍🔬',
-    primaryColor: '#14B8A6',
+    primaryColor: '#A855F7',
     secondaryColor: '#22C55E',
     personality: 'creative and forward-thinking',
   },

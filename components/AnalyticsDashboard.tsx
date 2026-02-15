@@ -23,7 +23,7 @@ export default function AnalyticsDashboard() {
   ];
 
   const toolUsageData = [
-    { label: 'SWOT Analysis', value: 35, color: '#14B8A6' },
+    { label: 'SWOT Analysis', value: 35, color: '#A855F7' },
     { label: "Porter's 5 Forces", value: 28, color: '#A855F7' },
     { label: 'PESTEL', value: 22, color: '#F59E0B' },
     { label: 'Scenario Planning', value: 15, color: '#EF4444' }
@@ -144,7 +144,7 @@ export default function AnalyticsDashboard() {
                 </div>
                 <ProgressIndicator
                   progress={(cat.value / 50) * 100}
-                  color={index === 0 ? 'teal' : index === 1 ? 'red' : index === 2 ? 'purple' : 'amber'}
+                  color={index === 0 ? 'purple' : index === 1 ? 'red' : index === 2 ? 'purple' : 'amber'}
                   showLabel={false}
                   size="sm"
                 />
@@ -179,7 +179,7 @@ export default function AnalyticsDashboard() {
               progress={75}
               variant="circular"
               size="lg"
-              color="teal"
+              color="purple"
               label="75%"
             />
             <span>Query Success Rate</span>

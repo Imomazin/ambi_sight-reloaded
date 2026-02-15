@@ -94,7 +94,7 @@ export default function PhaseCompetitive() {
         <div className="metrics-grid">
           <div className="metric-card">
             <span className="metric-label">Competitive Intensity</span>
-            <span className="metric-val" style={{ color: preview.competitive_intensity_index > 60 ? '#EF4444' : '#14B8A6' }}>
+            <span className="metric-val" style={{ color: preview.competitive_intensity_index > 60 ? '#EF4444' : '#A855F7' }}>
               {preview.competitive_intensity_index}%
             </span>
             <div className="metric-bar"><div className="bar-fill intensity" style={{ width: `${preview.competitive_intensity_index}%` }} /></div>
@@ -186,16 +186,16 @@ export default function PhaseCompetitive() {
         .metric-bar { height: 4px; background: var(--bg-secondary); border-radius: 2px; overflow: hidden; }
         .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
         .bar-fill.intensity { background: linear-gradient(90deg, #22C55E, #F59E0B, #EF4444); }
-        .bar-fill.attract { background: linear-gradient(90deg, #14B8A6, #22C55E); }
+        .bar-fill.attract { background: linear-gradient(90deg, #A855F7, #22C55E); }
         .metric-hint { font-size: 11px; color: var(--text-muted); }
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
           display: flex; align-items: center; gap: 8px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          padding: 14px 28px; background: linear-gradient(135deg, #A855F7, #C084FC);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.2s;
         }
-        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
+        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3); }
         .btn-complete:disabled { opacity: 0.4; cursor: not-allowed; }
         @media (max-width: 768px) { .metrics-grid { grid-template-columns: 1fr; } }
       `}</style>

@@ -216,26 +216,26 @@ export default function PhaseConstraints() {
           padding: 12px; background: var(--bg-tertiary); border-radius: 10px;
           display: flex; flex-direction: column; gap: 4px;
         }
-        .env-item.highlight { background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.2); }
+        .env-item.highlight { background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.2); }
         .env-label { font-size: 11px; color: var(--text-muted); }
         .env-val { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-        .env-item.highlight .env-val { color: #14B8A6; }
+        .env-item.highlight .env-val { color: #A855F7; }
         .capital-bar { margin-top: 8px; }
         .bar-track { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--bg-tertiary); }
-        .bar-equity { background: #14B8A6; transition: width 0.3s; }
+        .bar-equity { background: #A855F7; transition: width 0.3s; }
         .bar-debt { background: #A855F7; transition: width 0.3s; }
         .bar-legend { display: flex; gap: 16px; margin-top: 6px; }
         .leg-equity, .leg-debt { font-size: 11px; display: flex; align-items: center; gap: 4px; color: var(--text-muted); }
-        .leg-equity::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: #14B8A6; }
+        .leg-equity::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: #A855F7; }
         .leg-debt::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: #A855F7; }
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
           display: flex; align-items: center; gap: 8px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          padding: 14px 28px; background: linear-gradient(135deg, #A855F7, #C084FC);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.2s;
         }
-        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
+        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3); }
         .btn-complete:disabled { opacity: 0.4; cursor: not-allowed; }
         @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .envelope-grid { grid-template-columns: 1fr 1fr; } }
       `}</style>

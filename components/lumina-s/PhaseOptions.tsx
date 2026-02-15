@@ -49,7 +49,7 @@ export default function PhaseOptions() {
             </span>
           </div>
           <div className="budget-track">
-            <div className="budget-fill" style={{ width: `${Math.min(100, (selectedCapital / capitalCeiling) * 100)}%`, background: selectedCapital > capitalCeiling ? '#EF4444' : '#14B8A6' }} />
+            <div className="budget-fill" style={{ width: `${Math.min(100, (selectedCapital / capitalCeiling) * 100)}%`, background: selectedCapital > capitalCeiling ? '#EF4444' : '#A855F7' }} />
           </div>
         </div>
       )}
@@ -194,7 +194,7 @@ export default function PhaseOptions() {
           padding: 16px; background: var(--bg-tertiary); border: 1px solid var(--border);
           border-radius: 12px; transition: all 0.2s;
         }
-        .option-card.selected { border-color: #14B8A6; background: rgba(20, 184, 166, 0.05); }
+        .option-card.selected { border-color: #A855F7; background: rgba(124, 58, 237, 0.05); }
         .opt-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
         .select-btn {
           width: 28px; height: 28px; border-radius: 8px;
@@ -202,7 +202,7 @@ export default function PhaseOptions() {
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; transition: all 0.2s; color: var(--text-muted);
         }
-        .select-btn.on { background: #14B8A6; border-color: #14B8A6; color: white; }
+        .select-btn.on { background: #A855F7; border-color: #A855F7; color: white; }
         .select-empty { width: 12px; height: 12px; border-radius: 3px; background: var(--bg-tertiary); }
         .opt-title { flex: 1; }
         .opt-name { display: block; font-size: 15px; font-weight: 600; color: var(--text-primary); }

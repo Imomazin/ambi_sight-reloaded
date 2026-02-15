@@ -48,7 +48,7 @@ export default function UsageDashboard() {
               <>
                 <ProgressIndicator
                   progress={aiUsagePercent}
-                  color={aiUsagePercent > 80 ? 'red' : aiUsagePercent > 50 ? 'amber' : 'teal'}
+                  color={aiUsagePercent > 80 ? 'red' : aiUsagePercent > 50 ? 'amber' : 'purple'}
                   showLabel={false}
                   size="sm"
                 />
@@ -139,8 +139,8 @@ export default function UsageDashboard() {
         }
 
         .plan-badge.starter {
-          background: rgba(20, 184, 166, 0.2);
-          color: #2DD4BF;
+          background: rgba(124, 58, 237, 0.2);
+          color: #C084FC;
         }
 
         .plan-badge.pro {
@@ -267,7 +267,7 @@ export default function UsageDashboard() {
           align-items: center;
           justify-content: space-between;
           padding: 16px;
-          background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(168, 85, 247, 0.1));
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(168, 85, 247, 0.1));
           border-radius: 12px;
           gap: 16px;
         }
@@ -280,7 +280,7 @@ export default function UsageDashboard() {
 
         .upgrade-btn {
           padding: 8px 16px;
-          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          background: linear-gradient(135deg, #A855F7, #A855F7);
           color: white;
           font-size: 13px;
           font-weight: 600;
@@ -292,7 +292,7 @@ export default function UsageDashboard() {
 
         .upgrade-btn:hover {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         @media (max-width: 640px) {

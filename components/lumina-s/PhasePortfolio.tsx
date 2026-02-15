@@ -70,7 +70,7 @@ export default function PhasePortfolio() {
             </div>
             <div className="port-metric">
               <span className="pm-label">Portfolio Risk</span>
-              <span className="pm-val" style={{ color: portfolio.portfolio_risk > 60 ? '#EF4444' : '#14B8A6' }}>
+              <span className="pm-val" style={{ color: portfolio.portfolio_risk > 60 ? '#EF4444' : '#A855F7' }}>
                 {portfolio.portfolio_risk}
               </span>
             </div>
@@ -87,7 +87,7 @@ export default function PhasePortfolio() {
               {Object.entries(portfolio.optimal_allocation).map(([optId, amount], i) => {
                 const option = strategic_options.find(o => o.id === optId);
                 const pct = budget > 0 ? (amount / budget) * 100 : 0;
-                const colors = ['#14B8A6', '#A855F7', '#3B82F6', '#F59E0B', '#EC4899', '#22C55E'];
+                const colors = ['#A855F7', '#A855F7', '#3B82F6', '#F59E0B', '#EC4899', '#22C55E'];
                 return (
                   <div key={optId} className="alloc-item">
                     <div className="alloc-color" style={{ background: colors[i % colors.length] }} />
@@ -147,9 +147,9 @@ export default function PhasePortfolio() {
         .phase-form { max-width: 960px; }
         .phase-description {
           font-size: 14px; color: var(--text-muted); margin-bottom: 24px;
-          padding: 12px 16px; background: rgba(20, 184, 166, 0.08);
-          border: 1px solid rgba(20, 184, 166, 0.2); border-radius: 10px;
-          border-left: 3px solid #14B8A6;
+          padding: 12px 16px; background: rgba(124, 58, 237, 0.08);
+          border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 10px;
+          border-left: 3px solid #A855F7;
         }
         .run-section { text-align: center; }
         .pre-summary {
@@ -163,11 +163,11 @@ export default function PhasePortfolio() {
         .pre-val { font-size: 18px; font-weight: 700; color: var(--text-primary); }
         .btn-run {
           display: inline-flex; align-items: center; gap: 10px;
-          padding: 16px 32px; background: linear-gradient(135deg, #14B8A6, #22C55E);
+          padding: 16px 32px; background: linear-gradient(135deg, #A855F7, #22C55E);
           border: none; border-radius: 12px; font-size: 16px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.2s;
         }
-        .btn-run:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4); }
+        .btn-run:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4); }
         .port-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
         .port-metric {
           padding: 16px; background: var(--bg-secondary); border: 1px solid var(--border);
@@ -203,9 +203,9 @@ export default function PhasePortfolio() {
         }
         .frontier-current {
           position: absolute; width: 14px; height: 14px;
-          background: #14B8A6; border: 2px solid white;
+          background: #A855F7; border: 2px solid white;
           border-radius: 50%; transform: translate(-50%, 50%);
-          box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+          box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
           z-index: 2;
         }
         .frontier-axes { display: flex; justify-content: space-between; margin-top: 8px; }
@@ -213,11 +213,11 @@ export default function PhasePortfolio() {
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
           display: flex; align-items: center; gap: 8px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #22C55E);
+          padding: 14px 28px; background: linear-gradient(135deg, #A855F7, #22C55E);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.2s;
         }
-        .btn-complete:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
+        .btn-complete:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3); }
         @media (max-width: 768px) { .port-metrics { grid-template-columns: 1fr 1fr; } .pre-grid { grid-template-columns: 1fr 1fr; } }
       `}</style>
     </div>

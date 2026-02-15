@@ -27,11 +27,11 @@ export default function HeatmapGrid({ filteredInitiatives }: HeatmapGridProps) {
       if (value >= 80) return 'bg-red-500/70 hover:bg-red-500/90';
       if (value >= 60) return 'bg-amber-500/70 hover:bg-amber-500/90';
       if (value >= 40) return 'bg-yellow-500/70 hover:bg-yellow-500/90';
-      if (value >= 20) return 'bg-teal-500/70 hover:bg-teal-500/90';
+      if (value >= 20) return 'bg-purple-500/70 hover:bg-purple-500/90';
       return 'bg-green-500/70 hover:bg-green-500/90';
     } else {
       if (value >= 80) return 'bg-green-500/70 hover:bg-green-500/90';
-      if (value >= 60) return 'bg-teal-500/70 hover:bg-teal-500/90';
+      if (value >= 60) return 'bg-purple-500/70 hover:bg-purple-500/90';
       if (value >= 40) return 'bg-yellow-500/70 hover:bg-yellow-500/90';
       if (value >= 20) return 'bg-amber-500/70 hover:bg-amber-500/90';
       return 'bg-red-500/70 hover:bg-red-500/90';
@@ -103,7 +103,7 @@ export default function HeatmapGrid({ filteredInitiatives }: HeatmapGridProps) {
           <span>Excellent</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-teal-500/70"></div>
+          <div className="w-4 h-4 rounded bg-purple-500/70"></div>
           <span>Good</span>
         </div>
         <div className="flex items-center gap-2">

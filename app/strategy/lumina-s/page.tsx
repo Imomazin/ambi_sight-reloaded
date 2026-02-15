@@ -64,7 +64,7 @@ export default function LuminaSPage() {
               <svg className="nav-icon" width="26" height="26" viewBox="0 0 32 32" fill="none">
                 <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#navg)" strokeWidth="2"/>
                 <path d="M10 22V10h4v8h4V10h4v12" stroke="url(#navg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="navg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#14B8A6"/><stop offset="1" stopColor="#A855F7"/></linearGradient></defs>
+                <defs><linearGradient id="navg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#A855F7"/><stop offset="1" stopColor="#A855F7"/></linearGradient></defs>
               </svg>
               <span className="nav-brand">Lumina <span className="nav-s">S</span></span>
             </div>
@@ -211,7 +211,7 @@ export default function LuminaSPage() {
           .nav-left { display: flex; align-items: center; gap: 10px; }
           .nav-brand { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; }
           .nav-s {
-            background: linear-gradient(135deg, #14B8A6, #A855F7);
+            background: linear-gradient(135deg, #A855F7, #A855F7);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
           }
@@ -251,7 +251,7 @@ export default function LuminaSPage() {
           }
           .hero-h1.hero-visible { opacity: 1; transform: translateY(0); }
           .hero-grad {
-            background: linear-gradient(135deg, #14B8A6 0%, #818CF8 50%, #C084FC 100%);
+            background: linear-gradient(135deg, #A855F7 0%, #818CF8 50%, #C084FC 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
           }
@@ -274,7 +274,7 @@ export default function LuminaSPage() {
           .hero-email::placeholder { color: rgba(255,255,255,0.25); }
           .hero-go {
             padding: 16px 28px; white-space: nowrap;
-            background: linear-gradient(135deg, #14B8A6, #0D9488);
+            background: linear-gradient(135deg, #A855F7, #7C3AED);
             border: none; color: #fff; font-size: 14px; font-weight: 700;
             cursor: pointer; transition: all 0.2s; font-family: inherit;
           }
@@ -327,16 +327,16 @@ export default function LuminaSPage() {
           .face:not(.wire) {
             background: linear-gradient(
               135deg,
-              rgba(20, 184, 166, 0.04) 0%,
+              rgba(124, 58, 237, 0.04) 0%,
               rgba(168, 85, 247, 0.02) 100%
             );
           }
           .face.wire {
             background: none;
-            border: 1.5px solid rgba(20, 184, 166, 0.35);
+            border: 1.5px solid rgba(124, 58, 237, 0.35);
             box-shadow:
-              inset 0 0 30px rgba(20, 184, 166, 0.03),
-              0 0 15px rgba(20, 184, 166, 0.05);
+              inset 0 0 30px rgba(124, 58, 237, 0.03),
+              0 0 15px rgba(124, 58, 237, 0.05);
           }
           .face-front  { transform: translateZ(140px); }
           .face-back   { transform: rotateY(180deg) translateZ(140px); }
@@ -353,7 +353,7 @@ export default function LuminaSPage() {
           .ptcl {
             position: absolute;
             width: var(--sz); height: var(--sz);
-            background: #2DD4BF; border-radius: 50%;
+            background: #C084FC; border-radius: 50%;
             opacity: 0;
             animation: lp-ptcl-orbit var(--dur) ease-in-out infinite;
             animation-delay: var(--d);
@@ -377,7 +377,7 @@ export default function LuminaSPage() {
             border-color: rgba(20,184,166,0.15);
             transform: translateY(-4px);
           }
-          .feat-icon { font-size: 24px; color: #14B8A6; }
+          .feat-icon { font-size: 24px; color: #A855F7; }
           .feat-t { font-size: 14px; font-weight: 600; color: #fff; }
           .feat-d { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.5; }
 
@@ -453,7 +453,7 @@ export default function LuminaSPage() {
             <div className="readiness-pill">
               <svg width="16" height="16" viewBox="0 0 16 16">
                 <circle cx="8" cy="8" r="6" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="2"/>
-                <circle cx="8" cy="8" r="6" fill="none" stroke="#14B8A6" strokeWidth="2"
+                <circle cx="8" cy="8" r="6" fill="none" stroke="#A855F7" strokeWidth="2"
                   strokeDasharray={`${(readiness / 100) * 37.7} 37.7`}
                   strokeLinecap="round"
                   transform="rotate(-90 8 8)"
@@ -546,7 +546,7 @@ export default function LuminaSPage() {
           .topbar-left { display: flex; align-items: center; gap: 16px; }
           .topbar-logo { font-size: 18px; font-weight: 800; color: #fff; }
           .la {
-            background: linear-gradient(135deg, #14B8A6, #A855F7);
+            background: linear-gradient(135deg, #A855F7, #A855F7);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           }
           .topbar-org {
@@ -555,7 +555,7 @@ export default function LuminaSPage() {
           }
           .topbar-center { flex: 1; display: flex; justify-content: center; }
           .readiness-pill { display: flex; align-items: center; gap: 8px; }
-          .readiness-text { font-size: 13px; font-weight: 600; color: #14B8A6; }
+          .readiness-text { font-size: 13px; font-weight: 600; color: #A855F7; }
           .topbar-right { display: flex; align-items: center; gap: 10px; }
           .view-toggle {
             display: flex; align-items: center; gap: 6px;
@@ -567,7 +567,7 @@ export default function LuminaSPage() {
             transition: all 0.2s; font-family: inherit;
           }
           .view-toggle:hover { background: rgba(255,255,255,0.08); color: #fff; }
-          .view-toggle.active { background: rgba(20, 184, 166, 0.12); border-color: rgba(20, 184, 166, 0.25); color: #14B8A6; }
+          .view-toggle.active { background: rgba(124, 58, 237, 0.12); border-color: rgba(124, 58, 237, 0.25); color: #A855F7; }
           .topbar-reset {
             width: 36px; height: 36px;
             background: rgba(255,255,255,0.04);
@@ -596,7 +596,7 @@ export default function LuminaSPage() {
             margin-bottom: 8px;
           }
           .rail-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1.5px; }
-          .rail-progress { font-size: 12px; font-weight: 700; color: #14B8A6; }
+          .rail-progress { font-size: 12px; font-weight: 700; color: #A855F7; }
           .rail-step {
             display: flex; align-items: center; gap: 12px;
             padding: 10px 12px; border-radius: 12px; border: none;
@@ -604,7 +604,7 @@ export default function LuminaSPage() {
             text-align: left; position: relative; font-family: inherit;
           }
           .rail-step:hover:not(:disabled) { background: rgba(255,255,255,0.04); }
-          .rail-step.active { background: rgba(20, 184, 166, 0.08); }
+          .rail-step.active { background: rgba(124, 58, 237, 0.08); }
           .rail-step.locked { opacity: 0.3; cursor: not-allowed; }
           .step-ind {
             width: 32px; height: 32px; border-radius: 10px;
@@ -616,9 +616,9 @@ export default function LuminaSPage() {
           }
           .step-icon { font-size: 14px; }
           .rail-step.active .step-ind {
-            background: rgba(20, 184, 166, 0.15);
-            border-color: rgba(20, 184, 166, 0.3);
-            color: #14B8A6;
+            background: rgba(124, 58, 237, 0.15);
+            border-color: rgba(124, 58, 237, 0.3);
+            color: #A855F7;
           }
           .rail-step.done .step-ind {
             background: rgba(34, 197, 94, 0.12);
@@ -635,7 +635,7 @@ export default function LuminaSPage() {
           }
           .active-mark {
             position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px;
-            background: linear-gradient(180deg, #14B8A6, #0D9488);
+            background: linear-gradient(180deg, #A855F7, #7C3AED);
             border-radius: 2px;
           }
 
@@ -649,10 +649,10 @@ export default function LuminaSPage() {
           .content-header { margin-bottom: 28px; }
           .content-badge {
             display: inline-block; padding: 4px 12px; margin-bottom: 12px;
-            background: rgba(20, 184, 166, 0.08);
-            border: 1px solid rgba(20, 184, 166, 0.15);
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
             border-radius: 8px; font-size: 11px; font-weight: 600;
-            color: #14B8A6; text-transform: uppercase; letter-spacing: 0.5px;
+            color: #A855F7; text-transform: uppercase; letter-spacing: 0.5px;
           }
           .content-title {
             font-size: 22px; font-weight: 700; color: #fff;

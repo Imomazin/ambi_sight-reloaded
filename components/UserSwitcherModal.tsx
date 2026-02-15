@@ -18,15 +18,15 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
       onClick={onSelect}
       className={`w-full p-4 rounded-xl border transition-all duration-200 text-left ${
         isSelected
-          ? 'bg-teal-500/10 border-teal-500/50 ring-2 ring-teal-500/30'
-          : 'bg-navy-700/50 border-navy-600 hover:border-teal-500/30 hover:bg-navy-700'
+          ? 'bg-purple-500/10 border-purple-500/50 ring-2 ring-purple-500/30'
+          : 'bg-navy-700/50 border-navy-600 hover:border-purple-500/30 hover:bg-navy-700'
       }`}
     >
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div
           className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-semibold ${
-            isSelected ? 'bg-teal-500' : 'bg-navy-500'
+            isSelected ? 'bg-purple-500' : 'bg-navy-500'
           }`}
         >
           {user.avatar}
@@ -42,7 +42,7 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
               {user.plan}
             </span>
           </div>
-          <p className="text-sm text-teal-400 mb-1">{roleDisplayNames[user.role]}</p>
+          <p className="text-sm text-purple-400 mb-1">{roleDisplayNames[user.role]}</p>
           <p className="text-xs text-gray-400 truncate">{user.company}</p>
           {user.industry && (
             <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
@@ -53,7 +53,7 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
 
         {/* Selection indicator */}
         {isSelected && (
-          <div className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center flex-shrink-0">
+          <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center flex-shrink-0">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
@@ -139,7 +139,7 @@ export default function UserSwitcherModal({ isOpen, onClose, navigateOnSelect = 
                 <span>Starter</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-teal-500"></span>
+                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
                 <span>Pro</span>
               </div>
               <div className="flex items-center gap-1.5">

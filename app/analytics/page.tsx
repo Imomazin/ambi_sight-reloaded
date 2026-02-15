@@ -115,7 +115,7 @@ export default function AnalyticsPage() {
           <div>
             <div className="flex items-center gap-3 mb-1">
               <h1 className="text-2xl font-bold text-white">Advanced Analytics Hub</h1>
-              <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-teal-500/20 to-purple-500/20 text-teal-400 rounded-full border border-teal-500/30">
+              <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-500/20 to-purple-500/20 text-purple-400 rounded-full border border-purple-500/30">
                 Premium
               </span>
             </div>
@@ -153,7 +153,7 @@ export default function AnalyticsPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-teal-500/20 to-purple-500/20 text-white border border-teal-500/30 shadow-lg shadow-teal-500/10'
+                  ? 'bg-gradient-to-r from-purple-500/20 to-purple-500/20 text-white border border-purple-500/30 shadow-lg shadow-purple-500/10'
                   : 'bg-navy-700/50 text-gray-400 border border-navy-600 hover:bg-navy-600/50 hover:text-white'
               }`}
             >
@@ -164,7 +164,7 @@ export default function AnalyticsPage() {
                   {tab.badge && (
                     <span className={`px-1.5 py-0.5 text-[10px] rounded-full ${
                       activeTab === tab.id
-                        ? 'bg-teal-500/30 text-teal-300'
+                        ? 'bg-purple-500/30 text-purple-300'
                         : 'bg-navy-600 text-gray-400'
                     }`}>
                       {tab.badge}
@@ -189,14 +189,14 @@ export default function AnalyticsPage() {
       {/* Quick Stats Footer */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Models Running', value: '4', icon: '⚙️', color: 'text-teal-400' },
+          { label: 'Models Running', value: '4', icon: '⚙️', color: 'text-purple-400' },
           { label: 'Data Points Analyzed', value: '12.4K', icon: '📊', color: 'text-purple-400' },
           { label: 'Forecasts Generated', value: '847', icon: '📈', color: 'text-blue-400' },
           { label: 'Reports This Month', value: '23', icon: '📋', color: 'text-amber-400' },
         ].map(stat => (
           <div
             key={stat.label}
-            className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-teal-500/30 transition-colors"
+            className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-purple-500/30 transition-colors"
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">{stat.icon}</span>

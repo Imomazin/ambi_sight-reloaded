@@ -325,7 +325,7 @@ export default function ProjectDashboardPage() {
             align-items: center;
             gap: 8px;
             padding: 12px 20px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            background: linear-gradient(135deg, #A855F7, #C084FC);
             border: none;
             border-radius: 10px;
             font-size: 14px;
@@ -337,7 +337,7 @@ export default function ProjectDashboardPage() {
 
           .create-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
           }
 
           .stats-row {
@@ -371,8 +371,8 @@ export default function ProjectDashboardPage() {
           }
 
           .stat-icon.active {
-            background: rgba(20, 184, 166, 0.2);
-            color: #14B8A6;
+            background: rgba(124, 58, 237, 0.2);
+            color: #A855F7;
           }
 
           .stat-icon.completed {
@@ -433,7 +433,7 @@ export default function ProjectDashboardPage() {
             align-items: center;
             gap: 8px;
             padding: 14px 28px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            background: linear-gradient(135deg, #A855F7, #C084FC);
             border: none;
             border-radius: 12px;
             font-size: 16px;
@@ -445,7 +445,7 @@ export default function ProjectDashboardPage() {
 
           .create-btn-large:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
           }
 
           .projects-grid {
@@ -527,8 +527,8 @@ export default function ProjectDashboardPage() {
           }
 
           .status-badge.in-progress {
-            background: rgba(20, 184, 166, 0.2);
-            color: #2DD4BF;
+            background: rgba(124, 58, 237, 0.2);
+            color: #C084FC;
           }
 
           .status-badge.completed {
@@ -611,7 +611,7 @@ export default function ProjectDashboardPage() {
 
           .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #14B8A6, #A855F7);
+            background: linear-gradient(90deg, #A855F7, #A855F7);
             border-radius: 3px;
             transition: width 0.3s ease;
           }
@@ -631,7 +631,7 @@ export default function ProjectDashboardPage() {
           }
 
           .step-dot.completed {
-            background: #14B8A6;
+            background: #A855F7;
           }
 
           .step-dot.current {
@@ -841,7 +841,7 @@ export default function ProjectDashboardPage() {
 
           .btn-primary {
             padding: 10px 24px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            background: linear-gradient(135deg, #A855F7, #C084FC);
             border: none;
             border-radius: 8px;
             font-size: 14px;

@@ -56,7 +56,7 @@ function getCorrelationColor(correlation: number): string {
   const absCorr = Math.abs(correlation);
   if (absCorr >= 0.7) return correlation > 0 ? 'bg-red-500' : 'bg-blue-500';
   if (absCorr >= 0.5) return correlation > 0 ? 'bg-orange-500' : 'bg-cyan-500';
-  if (absCorr >= 0.3) return correlation > 0 ? 'bg-yellow-500' : 'bg-teal-500';
+  if (absCorr >= 0.3) return correlation > 0 ? 'bg-yellow-500' : 'bg-purple-500';
   return 'bg-gray-600';
 }
 
@@ -251,7 +251,7 @@ export default function RiskCorrelationMatrix() {
                           } ${
                             isSelected ? 'ring-2 ring-white' : ''
                           } ${
-                            isHighlighted ? 'ring-2 ring-teal-400' : ''
+                            isHighlighted ? 'ring-2 ring-purple-400' : ''
                           } flex items-center justify-center transition-all hover:scale-110`}
                           style={{ opacity: correlation ? 0.3 + Math.abs(correlation.correlation) * 0.7 : 0.2 }}
                         >

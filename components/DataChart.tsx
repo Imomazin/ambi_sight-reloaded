@@ -18,7 +18,7 @@ interface DataChartProps {
 }
 
 const defaultColors = [
-  '#14B8A6', '#A855F7', '#F59E0B', '#EF4444', '#22C55E',
+  '#A855F7', '#A855F7', '#F59E0B', '#EF4444', '#22C55E',
   '#3B82F6', '#EC4899', '#8B5CF6', '#06B6D4', '#F97316'
 ];
 
@@ -109,7 +109,7 @@ export default function DataChart({
         <path
           d={pathD}
           fill="none"
-          stroke="#14B8A6"
+          stroke="#A855F7"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -161,7 +161,7 @@ export default function DataChart({
 
         <defs>
           <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#14B8A6" />
+            <stop offset="0%" stopColor="#A855F7" />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
         </defs>

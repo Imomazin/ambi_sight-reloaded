@@ -104,7 +104,7 @@ export default function PhaseCapability() {
               <svg width="120" height="120" viewBox="0 0 120 120">
                 <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-tertiary)" strokeWidth="10" />
                 <circle cx="60" cy="60" r="50" fill="none"
-                  stroke={preview.strategic_readiness_score >= 60 ? '#14B8A6' : preview.strategic_readiness_score >= 40 ? '#F59E0B' : '#EF4444'}
+                  stroke={preview.strategic_readiness_score >= 60 ? '#A855F7' : preview.strategic_readiness_score >= 40 ? '#F59E0B' : '#EF4444'}
                   strokeWidth="10" strokeLinecap="round"
                   strokeDasharray={`${preview.strategic_readiness_score * 3.14} 314`}
                   transform="rotate(-90 60 60)"
@@ -189,7 +189,7 @@ export default function PhaseCapability() {
           border: 1px solid var(--border); border-radius: 6px;
           font-size: 12px; color: var(--text-secondary);
         }
-        .tag.diff { border-color: rgba(20, 184, 166, 0.3); color: #14B8A6; }
+        .tag.diff { border-color: rgba(124, 58, 237, 0.3); color: #A855F7; }
         .tag button { background: none; border: none; color: #EF4444; cursor: pointer; font-size: 14px; padding: 0; }
         .readiness-grid { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
         .score-ring { display: flex; justify-content: center; }
@@ -212,11 +212,11 @@ export default function PhaseCapability() {
         .form-actions { margin-top: 24px; display: flex; justify-content: flex-end; }
         .btn-complete {
           display: flex; align-items: center; gap: 8px;
-          padding: 14px 28px; background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          padding: 14px 28px; background: linear-gradient(135deg, #A855F7, #C084FC);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.2s;
         }
-        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3); }
+        .btn-complete:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3); }
         @media (max-width: 768px) { .cap-grid { grid-template-columns: 1fr; } .readiness-grid { grid-template-columns: 1fr; } }
       `}</style>
     </div>

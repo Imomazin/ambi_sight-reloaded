@@ -206,11 +206,11 @@ export default function PhaseContext() {
           color: rgba(255,255,255,0.5); cursor: pointer;
           transition: all 0.2s; text-align: left; font-family: inherit;
         }
-        .pf-ind:hover { border-color: rgba(20, 184, 166, 0.25); }
+        .pf-ind:hover { border-color: rgba(124, 58, 237, 0.25); }
         .pf-ind.on {
-          background: rgba(20, 184, 166, 0.1);
-          border-color: rgba(20, 184, 166, 0.3);
-          color: #2DD4BF;
+          background: rgba(124, 58, 237, 0.1);
+          border-color: rgba(124, 58, 237, 0.3);
+          color: #C084FC;
         }
         .pf-preview {
           margin-top: 8px; padding: 20px;
@@ -233,13 +233,13 @@ export default function PhaseContext() {
         .pf-submit {
           display: flex; align-items: center; gap: 10px;
           padding: 14px 28px;
-          background: linear-gradient(135deg, #14B8A6, #0D9488);
+          background: linear-gradient(135deg, #A855F7, #7C3AED);
           border: none; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: white; cursor: pointer; transition: all 0.25s; font-family: inherit;
         }
         .pf-submit:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 8px 32px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 8px 32px rgba(124, 58, 237, 0.3);
         }
         .pf-submit:disabled { opacity: 0.35; cursor: not-allowed; }
         @media (max-width: 768px) {

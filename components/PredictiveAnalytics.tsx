@@ -204,7 +204,7 @@ function MetricForecastCard({ metric }: { metric: ForecastMetric }) {
     (metric.id !== 'risk' && metric.trend === 'up');
 
   return (
-    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-teal-500/30 transition-colors">
+    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-purple-500/30 transition-colors">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xl">{metric.icon}</span>
@@ -314,7 +314,7 @@ export default function PredictiveAnalytics() {
             <select
               value={forecastHorizon}
               onChange={(e) => setForecastHorizon(parseInt(e.target.value))}
-              className="px-3 py-2 text-sm bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-500"
+              className="px-3 py-2 text-sm bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-purple-500"
             >
               <option value={3}>3 Month Forecast</option>
               <option value={6}>6 Month Forecast</option>
@@ -331,7 +331,7 @@ export default function PredictiveAnalytics() {
               onClick={() => setSelectedMetric(metric.id)}
               className={`px-3 py-1.5 text-xs rounded-lg transition-colors flex items-center gap-1 ${
                 selectedMetric === metric.id
-                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                  ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
                   : 'text-gray-400 hover:text-white hover:bg-navy-700 border border-transparent'
               }`}
             >
@@ -411,10 +411,10 @@ export default function PredictiveAnalytics() {
                 <Line
                   type="monotone"
                   dataKey="actual"
-                  stroke="#2DD4BF"
+                  stroke="#C084FC"
                   strokeWidth={2}
-                  dot={{ fill: '#2DD4BF', strokeWidth: 0, r: 3 }}
-                  activeDot={{ r: 5, fill: '#2DD4BF' }}
+                  dot={{ fill: '#C084FC', strokeWidth: 0, r: 3 }}
+                  activeDot={{ r: 5, fill: '#C084FC' }}
                 />
 
                 {/* Predicted Line */}
@@ -434,7 +434,7 @@ export default function PredictiveAnalytics() {
           {/* Legend */}
           <div className="flex items-center justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-0.5 bg-teal-400" />
+              <div className="w-8 h-0.5 bg-purple-400" />
               <span className="text-xs text-gray-400">Historical</span>
             </div>
             <div className="flex items-center gap-2">

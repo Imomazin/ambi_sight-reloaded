@@ -188,7 +188,7 @@ export default function PhaseSimulation() {
         .cf-bars { display: flex; gap: 12px; align-items: flex-end; height: 120px; padding: 8px 0; }
         .cf-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
         .cf-bar { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.3s; }
-        .cf-bar.pos { background: linear-gradient(180deg, #22C55E, #14B8A6); }
+        .cf-bar.pos { background: linear-gradient(180deg, #22C55E, #A855F7); }
         .cf-bar.neg { background: linear-gradient(180deg, #EF4444, #F97316); }
         .cf-val { font-size: 10px; font-weight: 600; color: var(--text-primary); margin-top: 4px; }
         .cf-yr { font-size: 10px; color: var(--text-muted); }
@@ -202,7 +202,7 @@ export default function PhaseSimulation() {
         .ro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
         .ro-item { padding: 12px; background: rgba(0,0,0,0.15); border-radius: 10px; text-align: center; }
         .ro-label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-        .ro-val { font-size: 16px; font-weight: 700; color: #14B8A6; }
+        .ro-val { font-size: 16px; font-weight: 700; color: #A855F7; }
         .sens-section { }
         .sens-table { display: flex; flex-direction: column; gap: 8px; }
         .sens-row { display: flex; align-items: center; gap: 12px; }
