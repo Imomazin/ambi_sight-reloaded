@@ -167,13 +167,13 @@ export default function SignInPage() {
     <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
       <header className="p-6">
-        <Link href="/" className="flex items-center gap-3 w-fit">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 via-purple-500 to-magenta-400 flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-          </div>
-          <span className="text-xl font-bold text-[var(--text-primary)]">Lumina S</span>
+        <Link href="/" className="flex items-center gap-2.5 w-fit">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#si-lg)" strokeWidth="2"/>
+            <path d="M10 22V10h4v8h4V10h4v12" stroke="url(#si-lg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <defs><linearGradient id="si-lg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#A855F7"/><stop offset="1" stopColor="#EC4899"/></linearGradient></defs>
+          </svg>
+          <span className="text-lg font-bold text-[var(--text-primary)]">Lumina S</span>
         </Link>
       </header>
 
