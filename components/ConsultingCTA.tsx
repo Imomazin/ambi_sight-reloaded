@@ -44,7 +44,7 @@ function ConsultingRequestModal({
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden"
+        className="bg-[#111118] border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
         {submitted ? (
@@ -57,7 +57,7 @@ function ConsultingRequestModal({
           </div>
         ) : (
           <>
-            <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 p-6 border-b border-slate-700">
+            <div className="bg-gradient-to-r from-purple-900/50 to-purple-900/50 p-6 border-b border-slate-700">
               <h2 className="text-xl font-bold text-white">Request Consulting</h2>
               <p className="text-slate-400 text-sm mt-1">
                 Tell us about your strategic challenge and we&apos;ll match you with the right solution
@@ -72,7 +72,7 @@ function ConsultingRequestModal({
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500"
                   />
                 </div>
                 <div>
@@ -82,7 +82,7 @@ function ConsultingRequestModal({
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500"
                   />
                 </div>
               </div>
@@ -93,7 +93,7 @@ function ConsultingRequestModal({
                   value={formData.company}
                   onChange={e => setFormData({ ...formData, company: e.target.value })}
                   required
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500"
                 />
               </div>
               <div>
@@ -101,7 +101,7 @@ function ConsultingRequestModal({
                 <select
                   value={formData.package}
                   onChange={e => setFormData({ ...formData, package: e.target.value })}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500"
                 >
                   <option value="">Select a package (optional)</option>
                   {consultingPackages.map(pkg => (
@@ -116,7 +116,7 @@ function ConsultingRequestModal({
                   onChange={e => setFormData({ ...formData, challenge: e.target.value })}
                   rows={3}
                   placeholder="What strategic challenge are you facing?"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500 resize-none"
                 />
               </div>
               <div className="flex gap-3 pt-2">
@@ -129,7 +129,7 @@ function ConsultingRequestModal({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-2 rounded-lg transition-all font-medium"
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white py-2 rounded-lg transition-all font-medium"
                 >
                   Submit Request
                 </button>
@@ -150,7 +150,7 @@ export function ConsultingCTA({ variant = 'banner', context }: ConsultingCTAProp
       <>
         <button
           onClick={() => setShowModal(true)}
-          className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors"
+          className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
         >
           Request consulting support
         </button>
@@ -162,7 +162,7 @@ export function ConsultingCTA({ variant = 'banner', context }: ConsultingCTAProp
   if (variant === 'card') {
     return (
       <>
-        <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500/30 transition-colors">
+        <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-purple-500/30 transition-colors">
           <div className="flex items-start gap-4">
             <div className="text-3xl">👨‍💼</div>
             <div className="flex-1">
@@ -172,7 +172,7 @@ export function ConsultingCTA({ variant = 'banner', context }: ConsultingCTAProp
               </p>
               <button
                 onClick={() => setShowModal(true)}
-                className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+                className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
               >
                 Request Consulting →
               </button>
@@ -187,7 +187,7 @@ export function ConsultingCTA({ variant = 'banner', context }: ConsultingCTAProp
   // Default: banner
   return (
     <>
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6">
+      <div className="bg-gradient-to-r from-purple-900/30 to-purple-900/30 border border-purple-500/20 rounded-xl p-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="text-4xl">🎯</div>
@@ -202,7 +202,7 @@ export function ConsultingCTA({ variant = 'banner', context }: ConsultingCTAProp
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium px-6 py-3 rounded-lg transition-all whitespace-nowrap"
+            className="bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium px-6 py-3 rounded-lg transition-all whitespace-nowrap"
           >
             Request Consulting
           </button>
@@ -229,13 +229,13 @@ export function ConsultingPackagesShowcase() {
         {consultingPackages.map(pkg => (
           <div
             key={pkg.id}
-            className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500/30 transition-colors"
+            className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-purple-500/30 transition-colors"
           >
             <div className="flex items-start gap-3 mb-4">
               <span className="text-3xl">{pkg.icon}</span>
               <div>
                 <h3 className="text-lg font-semibold text-white">{pkg.name}</h3>
-                <p className="text-sm text-blue-400">{pkg.duration} • {pkg.price}</p>
+                <p className="text-sm text-purple-400">{pkg.duration} • {pkg.price}</p>
               </div>
             </div>
             <p className="text-slate-400 text-sm mb-4">{pkg.description}</p>

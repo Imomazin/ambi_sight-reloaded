@@ -865,6 +865,6 @@ export const complexityColors: Record<ToolComplexity, string> = {
 export const planColors: Record<Plan, string> = {
   'Free': 'bg-slate-500/20 text-slate-300 border-slate-500/30',
   'Starter': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  'Pro': 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+  'Pro': 'bg-violet-500/20 text-violet-400 border-violet-500/30',
   'Enterprise': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
 };

@@ -32,8 +32,8 @@ function ToolCard({
   return (
     <div
       onClick={() => onSelect(tool)}
-      className={`relative bg-slate-800/50 border rounded-xl p-5 cursor-pointer transition-all hover:bg-slate-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 ${
-        hasAccess ? 'border-slate-700' : 'border-slate-700/50 opacity-75'
+      className={`relative bg-[#1a1a25]/50 border rounded-xl p-5 cursor-pointer transition-all hover:bg-[#1a1a25] hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 ${
+        hasAccess ? 'border-[rgba(255,255,255,0.08)]' : 'border-[rgba(255,255,255,0.08)]/50 opacity-75'
       }`}
     >
       {/* Plan Badge */}
@@ -59,13 +59,13 @@ function ToolCard({
         <span className={`text-xs px-2 py-1 rounded-full border ${complexityColors[tool.complexity]}`}>
           {tool.complexity}
         </span>
-        <span className="text-xs text-slate-500">•</span>
+        <span className="text-xs text-gray-500">•</span>
         <span className="text-xs text-slate-400">{tool.estimatedTime}</span>
       </div>
 
       {/* Lock Overlay */}
       {!hasAccess && (
-        <div className="absolute inset-0 bg-slate-900/50 rounded-xl flex items-center justify-center">
+        <div className="absolute inset-0 bg-[#111118]/50 rounded-xl flex items-center justify-center">
           <div className="text-center">
             <span className="text-2xl">🔒</span>
             <p className="text-xs text-slate-400 mt-1">Upgrade to {tool.requiredPlan}</p>
@@ -95,11 +95,11 @@ function ToolDetailModal({
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-[#111118] border border-[rgba(255,255,255,0.08)] rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-slate-900 border-b border-slate-700 p-6 flex items-start justify-between">
+        <div className="sticky top-0 bg-[#111118] border-b border-[rgba(255,255,255,0.08)] p-6 flex items-start justify-between">
           <div className="flex items-start gap-4">
             <span className="text-4xl">{tool.icon}</span>
             <div>
@@ -109,7 +109,7 @@ function ToolDetailModal({
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            className="text-slate-400 hover:text-white p-2 hover:bg-[#1a1a25] rounded-lg transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -142,8 +142,8 @@ function ToolDetailModal({
           </div>
 
           {/* Deliverable */}
-          <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-            <h4 className="text-sm font-semibold text-blue-400 mb-1">Deliverable</h4>
+          <div className="bg-[#1a1a25]/50 rounded-lg p-4 border border-[rgba(255,255,255,0.08)]">
+            <h4 className="text-sm font-semibold text-purple-400 mb-1">Deliverable</h4>
             <p className="text-slate-300">{tool.deliverable}</p>
           </div>
 
@@ -152,7 +152,7 @@ function ToolDetailModal({
             <h3 className="text-lg font-semibold text-white mb-3">Best For</h3>
             <div className="flex flex-wrap gap-2">
               {tool.bestFor.map((role, idx) => (
-                <span key={idx} className="text-sm bg-slate-800 text-slate-300 px-3 py-1 rounded-full">
+                <span key={idx} className="text-sm bg-[#1a1a25] text-slate-300 px-3 py-1 rounded-full">
                   {role}
                 </span>
               ))}
@@ -165,7 +165,7 @@ function ToolDetailModal({
             <ul className="space-y-2">
               {tool.keyQuestions.map((question, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-slate-300">
-                  <span className="text-blue-400 mt-1">•</span>
+                  <span className="text-purple-400 mt-1">•</span>
                   <span>{question}</span>
                 </li>
               ))}
@@ -181,7 +181,7 @@ function ToolDetailModal({
                   <button
                     key={relatedTool.id}
                     onClick={() => onSelectRelated(relatedTool)}
-                    className="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-blue-500/50 rounded-lg p-3 transition-all text-left"
+                    className="flex items-center gap-3 bg-[#1a1a25]/50 hover:bg-[#1a1a25] border border-[rgba(255,255,255,0.08)] hover:border-purple-500/50 rounded-lg p-3 transition-all text-left"
                   >
                     <span className="text-xl">{relatedTool.icon}</span>
                     <div className="flex-1 min-w-0">
@@ -195,23 +195,23 @@ function ToolDetailModal({
           )}
 
           {/* Action Button */}
-          <div className="pt-4 border-t border-slate-700">
+          <div className="pt-4 border-t border-[rgba(255,255,255,0.08)]">
             {hasAccess ? (
               <Link
                 href="/workspace"
-                className="w-full block text-center bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                className="w-full block text-center bg-purple-600 hover:bg-purple-500 text-white font-medium py-3 px-6 rounded-lg transition-colors"
               >
                 Launch Tool in Workspace
               </Link>
             ) : (
               <div className="text-center">
-                <div className="bg-slate-800 rounded-lg p-4 mb-4">
+                <div className="bg-[#1a1a25] rounded-lg p-4 mb-4">
                   <span className="text-3xl">🔒</span>
                   <p className="text-slate-300 mt-2">
-                    This tool requires a <span className="text-blue-400 font-medium">{tool.requiredPlan}</span> plan
+                    This tool requires a <span className="text-purple-400 font-medium">{tool.requiredPlan}</span> plan
                   </p>
                 </div>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium py-3 px-6 rounded-lg transition-all">
+                <button className="w-full bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium py-3 px-6 rounded-lg transition-all">
                   Upgrade to {tool.requiredPlan}
                 </button>
               </div>
@@ -240,8 +240,8 @@ function CategoryButton({
       onClick={onClick}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all whitespace-nowrap ${
         isActive
-          ? 'bg-blue-600/20 border-blue-500/50 text-blue-400'
-          : 'bg-slate-800/50 border-slate-700 text-slate-300 hover:border-slate-600 hover:bg-slate-800'
+          ? 'bg-purple-600/20 border-purple-500/50 text-purple-400'
+          : 'bg-[#1a1a25]/50 border-[rgba(255,255,255,0.08)] text-slate-300 hover:border-navy-600 hover:bg-[#1a1a25]'
       }`}
     >
       {category ? (
@@ -252,7 +252,7 @@ function CategoryButton({
       ) : (
         <span className="text-sm font-medium">All Tools</span>
       )}
-      <span className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-blue-500/30' : 'bg-slate-700'}`}>
+      <span className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-purple-500/30' : 'bg-navy-700'}`}>
         {count}
       </span>
     </button>
@@ -313,21 +313,21 @@ export default function StrategyToolsPage() {
   }, [userPlan]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[#060609] text-white">
       {/* Header */}
-      <header className="bg-slate-900/80 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-40">
+      <header className="bg-[#111118]/80 backdrop-blur-sm border-b border-[rgba(255,255,255,0.06)] sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="text-2xl font-bold text-white">
-                Lumina <span className="text-blue-500">S</span>
+                Lumina <span className="text-purple-500">S</span>
               </Link>
-              <span className="text-slate-500">/</span>
+              <span className="text-gray-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Strategy Tools Library</h1>
             </div>
             <div className="flex items-center gap-3">
               {currentUser && (
-                <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
+                <div className="flex items-center gap-2 bg-[#1a1a25] px-3 py-1.5 rounded-lg">
                   <span className="text-sm text-slate-300">{currentUser.name}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
                     {currentUser.plan}
@@ -336,7 +336,7 @@ export default function StrategyToolsPage() {
               )}
               <Link
                 href="/workspace"
-                className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                className="bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
               >
                 Open Workspace
               </Link>
@@ -346,7 +346,7 @@ export default function StrategyToolsPage() {
       </header>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-[rgba(255,255,255,0.06)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold text-white mb-4">
@@ -360,7 +360,7 @@ export default function StrategyToolsPage() {
             {/* Stats */}
             <div className="flex items-center justify-center gap-8 mb-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">{stats.total}</div>
+                <div className="text-3xl font-bold text-purple-400">{stats.total}</div>
                 <div className="text-sm text-slate-400">Tools</div>
               </div>
               <div className="text-center">
@@ -376,7 +376,7 @@ export default function StrategyToolsPage() {
             {/* Search Bar */}
             <div className="relative max-w-xl mx-auto">
               <svg
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -393,7 +393,7 @@ export default function StrategyToolsPage() {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Search tools by name, category, or role..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full bg-[#1a1a25] border border-[rgba(255,255,255,0.08)] rounded-xl pl-12 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
               />
             </div>
           </div>
@@ -411,7 +411,7 @@ export default function StrategyToolsPage() {
                 type="checkbox"
                 checked={showAccessibleOnly}
                 onChange={e => setShowAccessibleOnly(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-blue-600 focus:ring-blue-500 focus:ring-offset-0"
+                className="w-4 h-4 rounded border-navy-600 bg-[#1a1a25] text-purple-600 focus:ring-purple-500 focus:ring-offset-0"
               />
               <span className="text-sm text-slate-400">Show accessible only</span>
             </label>
@@ -441,10 +441,10 @@ export default function StrategyToolsPage() {
           <p className="text-slate-400">
             Showing <span className="text-white font-medium">{filteredTools.length}</span> tools
             {selectedCategory && (
-              <span> in <span className="text-blue-400">{selectedCategory}</span></span>
+              <span> in <span className="text-purple-400">{selectedCategory}</span></span>
             )}
             {searchQuery && (
-              <span> matching &quot;<span className="text-blue-400">{searchQuery}</span>&quot;</span>
+              <span> matching &quot;<span className="text-purple-400">{searchQuery}</span>&quot;</span>
             )}
           </p>
         </div>
@@ -474,7 +474,7 @@ export default function StrategyToolsPage() {
                 setSelectedCategory(null);
                 setShowAccessibleOnly(false);
               }}
-              className="mt-4 text-blue-400 hover:text-blue-300 text-sm"
+              className="mt-4 text-purple-400 hover:text-purple-300 text-sm"
             >
               Clear all filters
             </button>
@@ -490,14 +490,14 @@ export default function StrategyToolsPage() {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className="text-left bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-blue-500/50 rounded-xl p-6 transition-all"
+                  className="text-left bg-[#1a1a25]/50 hover:bg-[#1a1a25] border border-[rgba(255,255,255,0.08)] hover:border-purple-500/50 rounded-xl p-6 transition-all"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-3xl">{cat.icon}</span>
                     <h4 className="text-lg font-semibold text-white">{cat.label}</h4>
                   </div>
                   <p className="text-slate-400 text-sm">{cat.description}</p>
-                  <div className="mt-4 text-blue-400 text-sm font-medium">
+                  <div className="mt-4 text-purple-400 text-sm font-medium">
                     {categoryCounts[cat.id]} tools →
                   </div>
                 </button>
@@ -507,7 +507,7 @@ export default function StrategyToolsPage() {
         )}
 
         {/* CTA Section */}
-        <div className="mt-16 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-2xl p-8 text-center">
+        <div className="mt-16 bg-gradient-to-r from-purple-900/30 to-purple-900/30 border border-purple-500/20 rounded-2xl p-8 text-center">
           <h3 className="text-2xl font-bold text-white mb-3">Need Help Choosing?</h3>
           <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
             Not sure which tool is right for your strategic challenge? Our AI Advisor can recommend
@@ -516,13 +516,13 @@ export default function StrategyToolsPage() {
           <div className="flex items-center justify-center gap-4">
             <Link
               href="/advisor"
-              className="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+              className="bg-purple-600 hover:bg-purple-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
             >
               Ask AI Advisor
             </Link>
             <Link
               href="/workspace"
-              className="bg-slate-800 hover:bg-slate-700 text-white font-medium px-6 py-3 rounded-lg border border-slate-700 transition-colors"
+              className="bg-[#1a1a25] hover:bg-navy-700 text-white font-medium px-6 py-3 rounded-lg border border-[rgba(255,255,255,0.08)] transition-colors"
             >
               Start Diagnosis
             </Link>

@@ -244,7 +244,7 @@ function AnomalyCard({ anomaly }: { anomaly: AnomalyAlert }) {
   const severityStyles = {
     high: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', icon: '🚨' },
     medium: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', icon: '⚠️' },
-    low: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', icon: 'ℹ️' },
+    low: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', icon: 'ℹ️' },
   };
 
   const style = severityStyles[anomaly.severity];
@@ -267,7 +267,7 @@ function AnomalyCard({ anomaly }: { anomaly: AnomalyAlert }) {
               <div
                 className={`h-full rounded-full ${
                   anomaly.probability >= 70 ? 'bg-red-500' :
-                  anomaly.probability >= 50 ? 'bg-amber-500' : 'bg-blue-500'
+                  anomaly.probability >= 50 ? 'bg-amber-500' : 'bg-purple-500'
                 }`}
                 style={{ width: `${anomaly.probability}%` }}
               />
@@ -299,7 +299,7 @@ export default function PredictiveAnalytics() {
   return (
     <div className="bg-navy-800/50 border border-navy-600 rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="p-6 border-b border-navy-600 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+      <div className="p-6 border-b border-navy-600 bg-gradient-to-r from-purple-900/20 to-purple-900/20">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -438,11 +438,11 @@ export default function PredictiveAnalytics() {
               <span className="text-xs text-gray-400">Historical</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-0.5 bg-blue-400" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #3B82F6, #3B82F6 4px, transparent 4px, transparent 8px)' }} />
+              <div className="w-8 h-0.5 bg-purple-400" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #3B82F6, #3B82F6 4px, transparent 4px, transparent 8px)' }} />
               <span className="text-xs text-gray-400">Forecast</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-500/30 rounded" />
+              <div className="w-4 h-4 bg-purple-500/30 rounded" />
               <span className="text-xs text-gray-400">Confidence Band</span>
             </div>
           </div>

@@ -4,8 +4,8 @@
   "description": "AI-powered strategic business intelligence platform",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0B0F",
-  "theme_color": "#14B8A6",
+  "background_color": "#060609",
+  "theme_color": "#A855F7",
   "orientation": "portrait-primary",
   "icons": [
     {

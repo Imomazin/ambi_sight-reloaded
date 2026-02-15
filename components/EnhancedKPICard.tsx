@@ -83,7 +83,7 @@ const colorMap = {
   purple: { text: 'text-purple-400', bg: 'bg-purple-500/20', border: 'border-purple-500/30', hex: '#a855f7' },
   amber: { text: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/30', hex: '#fbbf24' },
   red: { text: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-500/30', hex: '#f87171' },
-  blue: { text: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-500/30', hex: '#60a5fa' },
+  blue: { text: 'text-purple-400', bg: 'bg-purple-500/20', border: 'border-purple-500/30', hex: '#60a5fa' },
   green: { text: 'text-green-400', bg: 'bg-green-500/20', border: 'border-green-500/30', hex: '#4ade80' },
 };
 

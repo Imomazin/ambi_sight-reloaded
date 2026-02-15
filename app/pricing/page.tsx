@@ -26,14 +26,14 @@ function PlanCard({
     <div
       className={`relative rounded-2xl border p-6 ${
         plan.highlighted
-          ? 'bg-gradient-to-b from-blue-900/30 to-slate-900 border-blue-500/50 shadow-lg shadow-blue-500/10'
-          : 'bg-slate-800/50 border-slate-700'
+          ? 'bg-gradient-to-b from-purple-900/30 to-slate-900 border-purple-500/50 shadow-lg shadow-purple-500/10'
+          : 'bg-[#1a1a25]/50 border-[rgba(255,255,255,0.08)]'
       }`}
     >
       {/* Popular Badge */}
       {plan.highlighted && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-medium px-3 py-1 rounded-full">
+          <span className="bg-gradient-to-r from-purple-600 to-purple-600 text-white text-xs font-medium px-3 py-1 rounded-full">
             Most Popular
           </span>
         </div>
@@ -59,7 +59,7 @@ function PlanCard({
         {plan.id === 'Enterprise' ? (
           <div>
             <span className="text-4xl font-bold text-white">Custom</span>
-            <p className="text-sm text-slate-500 mt-1">Contact us for pricing</p>
+            <p className="text-sm text-gray-500 mt-1">Contact us for pricing</p>
           </div>
         ) : (
           <div>
@@ -93,22 +93,22 @@ function PlanCard({
         {isCurrentPlan ? (
           <button
             disabled
-            className="w-full bg-slate-700 text-slate-400 py-3 rounded-lg font-medium cursor-not-allowed"
+            className="w-full bg-navy-700 text-slate-400 py-3 rounded-lg font-medium cursor-not-allowed"
           >
             Current Plan
           </button>
         ) : isDowngrade ? (
-          <button className="w-full bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-lg font-medium transition-colors">
+          <button className="w-full bg-navy-700 hover:bg-navy-600 text-white py-3 rounded-lg font-medium transition-colors">
             Downgrade
           </button>
         ) : (
           <button
             className={`w-full py-3 rounded-lg font-medium transition-all ${
               plan.ctaVariant === 'gradient'
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white'
+                ? 'bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white'
                 : plan.ctaVariant === 'primary'
-                ? 'bg-blue-600 hover:bg-blue-500 text-white'
-                : 'bg-slate-700 hover:bg-slate-600 text-white'
+                ? 'bg-purple-600 hover:bg-purple-500 text-white'
+                : 'bg-navy-700 hover:bg-navy-600 text-white'
             }`}
           >
             {plan.ctaText}
@@ -125,7 +125,7 @@ function FeatureComparison() {
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-slate-700">
+          <tr className="border-b border-[rgba(255,255,255,0.08)]">
             <th className="text-left py-4 px-4 text-slate-400 font-medium">Feature</th>
             {pricingPlans.map(plan => (
               <th key={plan.id} className="text-center py-4 px-4 text-white font-medium">
@@ -136,10 +136,10 @@ function FeatureComparison() {
         </thead>
         <tbody>
           {planFeatures.map(feature => (
-            <tr key={feature.id} className="border-b border-slate-800">
+            <tr key={feature.id} className="border-b border-[rgba(255,255,255,0.06)]">
               <td className="py-4 px-4">
                 <div className="text-slate-300">{feature.name}</div>
-                <div className="text-xs text-slate-500">{feature.description}</div>
+                <div className="text-xs text-gray-500">{feature.description}</div>
               </td>
               {pricingPlans.map(plan => (
                 <td key={plan.id} className="text-center py-4 px-4">
@@ -152,7 +152,7 @@ function FeatureComparison() {
                       </svg>
                     )
                   ) : (
-                    <svg className="w-5 h-5 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   )}
@@ -196,13 +196,13 @@ export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[#060609] text-white">
       {/* Header */}
-      <header className="bg-slate-900/80 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-40">
+      <header className="bg-[#111118]/80 backdrop-blur-sm border-b border-[rgba(255,255,255,0.06)] sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-2xl font-bold text-white">
-              Lumina <span className="text-blue-500">S</span>
+              Lumina <span className="text-purple-500">S</span>
             </Link>
             <div className="flex items-center gap-4">
               <Link href="/tools" className="text-slate-400 hover:text-white text-sm transition-colors">
@@ -210,7 +210,7 @@ export default function PricingPage() {
               </Link>
               <Link
                 href="/workspace"
-                className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                className="bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
               >
                 Open Workspace
               </Link>
@@ -220,7 +220,7 @@ export default function PricingPage() {
       </header>
 
       {/* Hero */}
-      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-[rgba(255,255,255,0.06)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Simple, Transparent Pricing
@@ -231,11 +231,11 @@ export default function PricingPage() {
 
           {/* Billing Toggle */}
           <div className="flex items-center justify-center gap-4">
-            <span className={`text-sm ${!isAnnual ? 'text-white' : 'text-slate-500'}`}>Monthly</span>
+            <span className={`text-sm ${!isAnnual ? 'text-white' : 'text-gray-500'}`}>Monthly</span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
               className={`relative w-14 h-7 rounded-full transition-colors ${
-                isAnnual ? 'bg-blue-600' : 'bg-slate-700'
+                isAnnual ? 'bg-purple-600' : 'bg-navy-700'
               }`}
             >
               <div
@@ -244,7 +244,7 @@ export default function PricingPage() {
                 }`}
               />
             </button>
-            <span className={`text-sm ${isAnnual ? 'text-white' : 'text-slate-500'}`}>
+            <span className={`text-sm ${isAnnual ? 'text-white' : 'text-gray-500'}`}>
               Annual
               <span className="ml-1 text-green-400">(Save 20%)</span>
             </span>
@@ -269,13 +269,13 @@ export default function PricingPage() {
       {/* Feature Comparison */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-2xl font-bold text-white text-center mb-8">Compare Plans</h2>
-        <div className="bg-slate-900/50 rounded-xl border border-slate-800 overflow-hidden">
+        <div className="bg-[#111118]/50 rounded-xl border border-[rgba(255,255,255,0.06)] overflow-hidden">
           <FeatureComparison />
         </div>
       </div>
 
       {/* Consulting Section */}
-      <div className="bg-slate-900/50 border-y border-slate-800">
+      <div className="bg-[#111118]/50 border-y border-[rgba(255,255,255,0.06)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Need More Than Software?</h2>
@@ -292,7 +292,7 @@ export default function PricingPage() {
         <h2 className="text-2xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
-            <div key={idx} className="bg-slate-800/50 rounded-xl border border-slate-700 p-6">
+            <div key={idx} className="bg-[#1a1a25]/50 rounded-xl border border-[rgba(255,255,255,0.08)] p-6">
               <h3 className="text-white font-medium mb-2">{faq.q}</h3>
               <p className="text-slate-400 text-sm">{faq.a}</p>
             </div>
@@ -301,7 +301,7 @@ export default function PricingPage() {
       </div>
 
       {/* Final CTA */}
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-t border-blue-500/20">
+      <div className="bg-gradient-to-r from-purple-900/30 to-purple-900/30 border-t border-purple-500/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Transform Your Strategy?
@@ -312,13 +312,13 @@ export default function PricingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/workspace"
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium px-8 py-3 rounded-lg transition-all"
+              className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium px-8 py-3 rounded-lg transition-all"
             >
               Start Free Trial
             </Link>
             <Link
               href="/diagnosis"
-              className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-medium px-8 py-3 rounded-lg border border-slate-700 transition-colors"
+              className="w-full sm:w-auto bg-[#1a1a25] hover:bg-navy-700 text-white font-medium px-8 py-3 rounded-lg border border-[rgba(255,255,255,0.08)] transition-colors"
             >
               Take Diagnostic Quiz
             </Link>

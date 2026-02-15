@@ -92,7 +92,7 @@ export default function ActivityTimeline() {
       case 'ai': return { icon: '📊', color: 'from-purple-500 to-pink-500', bg: 'bg-purple-500/20' };
       case 'alert': return { icon: '⚠️', color: 'from-red-500 to-orange-500', bg: 'bg-red-500/20' };
       case 'milestone': return { icon: '🎯', color: 'from-green-500 to-emerald-500', bg: 'bg-green-500/20' };
-      case 'update': return { icon: '🔄', color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-500/20' };
+      case 'update': return { icon: '🔄', color: 'from-purple-500 to-cyan-500', bg: 'bg-purple-500/20' };
       case 'insight': return { icon: '🧭', color: 'from-amber-500 to-yellow-500', bg: 'bg-amber-500/20' };
       default: return { icon: '📌', color: 'from-gray-500 to-gray-400', bg: 'bg-gray-500/20' };
     }
@@ -126,7 +126,7 @@ export default function ActivityTimeline() {
     <div className="bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-6 h-full">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

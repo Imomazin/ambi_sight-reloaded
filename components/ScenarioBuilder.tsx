@@ -129,7 +129,7 @@ const defaultVariables: ScenarioVariable[] = [
 ];
 
 const categoryColors = {
-  market: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', icon: '📊' },
+  market: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', icon: '📊' },
   operational: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400', icon: '⚙️' },
   financial: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', icon: '💰' },
   strategic: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', icon: '🎯' },

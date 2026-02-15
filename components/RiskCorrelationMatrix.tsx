@@ -45,7 +45,7 @@ const correlations: RiskCorrelation[] = [
 ];
 
 const categoryColors: Record<RiskFactor['category'], { bg: string; text: string; border: string }> = {
-  market: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
+  market: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
   operational: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
   financial: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/30' },
   regulatory: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
@@ -54,7 +54,7 @@ const categoryColors: Record<RiskFactor['category'], { bg: string; text: string;
 
 function getCorrelationColor(correlation: number): string {
   const absCorr = Math.abs(correlation);
-  if (absCorr >= 0.7) return correlation > 0 ? 'bg-red-500' : 'bg-blue-500';
+  if (absCorr >= 0.7) return correlation > 0 ? 'bg-red-500' : 'bg-purple-500';
   if (absCorr >= 0.5) return correlation > 0 ? 'bg-orange-500' : 'bg-cyan-500';
   if (absCorr >= 0.3) return correlation > 0 ? 'bg-yellow-500' : 'bg-purple-500';
   return 'bg-gray-600';

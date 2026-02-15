@@ -22,7 +22,7 @@ const premiumCities = [
   {
     url: 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=1920&h=1080&fit=crop&q=80',
     city: 'New York Night',
-    accent: 'from-blue-500/20 to-indigo-500/10',
+    accent: 'from-purple-500/20 to-indigo-500/10',
   },
   {
     url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1920&h=1080&fit=crop&q=80',

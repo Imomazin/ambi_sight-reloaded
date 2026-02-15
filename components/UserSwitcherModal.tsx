@@ -135,7 +135,7 @@ export default function UserSwitcherModal({ isOpen, onClose, navigateOnSelect = 
                 <span>Free</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
                 <span>Starter</span>
               </div>
               <div className="flex items-center gap-1.5">

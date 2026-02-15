@@ -7,7 +7,15 @@ interface CaseStudyCarouselProps {
   caseStudies: CaseStudy[];
 }
 
-const accentColors = {
+const purpleColor = {
+  border: 'border-purple-500/30',
+  bg: 'bg-purple-500/10',
+  text: 'text-purple-400',
+  glow: 'hover:shadow-purple-500/20',
+  pill: 'bg-purple-500/20 text-purple-400',
+};
+
+const accentColors: Record<string, typeof purpleColor> = {
   amber: {
     border: 'border-amber-500/30',
     bg: 'bg-amber-500/10',
@@ -29,13 +37,8 @@ const accentColors = {
     glow: 'hover:shadow-lime-500/20',
     pill: 'bg-lime-500/20 text-lime-400',
   },
-  purple: {
-    border: 'border-purple-500/30',
-    bg: 'bg-purple-500/10',
-    text: 'text-purple-400',
-    glow: 'hover:shadow-purple-500/20',
-    pill: 'bg-purple-500/20 text-purple-400',
-  },
+  purple: purpleColor,
+  teal: purpleColor,
 };
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {

@@ -159,7 +159,7 @@ export default function ToolView({ toolId, onClose }: ToolViewProps) {
           {/* Related Tools */}
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <span className="text-blue-400">🔗</span> Related Tools
+              <span className="text-purple-400">🔗</span> Related Tools
             </h2>
             <div className="space-y-2">
               {tool.relatedTools.slice(0, 3).map((toolId, idx) => (

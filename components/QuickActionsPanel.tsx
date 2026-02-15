@@ -50,7 +50,7 @@ export default function QuickActionsPanel() {
       description: 'Create executive summary',
       icon: '📋',
       href: '/analytics',
-      color: 'from-blue-500 to-indigo-500',
+      color: 'from-purple-500 to-indigo-500',
     },
     {
       id: 'portfolio',

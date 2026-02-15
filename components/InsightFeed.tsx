@@ -36,10 +36,10 @@ export default function InsightFeed() {
       case 'info':
       default:
         return {
-          bg: 'bg-blue-500/10',
-          border: 'border-blue-500/30',
+          bg: 'bg-purple-500/10',
+          border: 'border-purple-500/30',
           icon: 'ℹ',
-          color: 'text-blue-400',
+          color: 'text-purple-400',
         };
     }
   };

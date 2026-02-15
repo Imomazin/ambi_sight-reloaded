@@ -30,11 +30,11 @@ const alertTypeStyles = {
     pulse: '',
   },
   info: {
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/30',
+    bg: 'bg-purple-500/10',
+    border: 'border-purple-500/30',
     icon: 'ℹ️',
-    iconBg: 'bg-blue-500/20',
-    text: 'text-blue-400',
+    iconBg: 'bg-purple-500/20',
+    text: 'text-purple-400',
     pulse: '',
   },
   success: {

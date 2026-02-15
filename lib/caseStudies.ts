@@ -29,7 +29,7 @@ export const roleFocusLabels: Record<RoleFocus, string> = {
 };
 
 export const roleFocusColors: Record<RoleFocus, { bg: string; text: string; border: string }> = {
-  CSO: { bg: 'bg-teal-500/20', text: 'text-teal-400', border: 'border-teal-500/30' },
+  CSO: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
   CRO: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
   CTO: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
   Ops: { bg: 'bg-lime-500/20', text: 'text-lime-400', border: 'border-lime-500/30' },
@@ -76,7 +76,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     timeframe: '18 months',
     accentColor: 'teal',
     imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop',
-    imageBg: 'from-teal-600/30 via-cyan-500/20 to-blue-500/10',
+    imageBg: 'from-purple-600/30 via-cyan-500/20 to-blue-500/10',
   },
   {
     id: 'case-3',
@@ -160,7 +160,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     timeframe: '12 months',
     accentColor: 'teal',
     imageUrl: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&h=400&fit=crop',
-    imageBg: 'from-teal-600/30 via-emerald-500/20 to-green-500/10',
+    imageBg: 'from-purple-600/30 via-emerald-500/20 to-green-500/10',
   },
   {
     id: 'case-7',
@@ -181,7 +181,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     timeframe: '8 months',
     accentColor: 'lime',
     imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop',
-    imageBg: 'from-lime-600/30 via-green-500/20 to-teal-500/10',
+    imageBg: 'from-lime-600/30 via-green-500/20 to-purple-500/10',
   },
   {
     id: 'case-8',
@@ -223,7 +223,7 @@ export const landingCaseStudies: LandingCaseStudy[] = [
     timeframe: '24 months',
     accentColor: 'teal',
     imageUrl: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=400&fit=crop',
-    imageBg: 'from-teal-600/30 via-green-500/20 to-lime-500/10',
+    imageBg: 'from-purple-600/30 via-green-500/20 to-lime-500/10',
   },
   {
     id: 'case-10',

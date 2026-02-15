@@ -32,8 +32,8 @@ function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSt
                 idx < currentStep
                   ? 'bg-green-500 text-white'
                   : idx === currentStep
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-slate-700 text-slate-400'
+                  ? 'bg-purple-500 text-white'
+                  : 'bg-navy-700 text-slate-400'
               }`}
             >
               {idx < currentStep ? '✓' : idx + 1}
@@ -41,16 +41,16 @@ function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSt
             {idx < wizardSteps.length - 1 && (
               <div
                 className={`w-12 sm:w-24 h-1 mx-2 rounded transition-colors ${
-                  idx < currentStep ? 'bg-green-500' : 'bg-slate-700'
+                  idx < currentStep ? 'bg-green-500' : 'bg-navy-700'
                 }`}
               />
             )}
           </div>
         ))}
       </div>
-      <div className="flex justify-between text-xs text-slate-500">
+      <div className="flex justify-between text-xs text-gray-500">
         {wizardSteps.map((step, idx) => (
-          <span key={step.id} className={`${idx === currentStep ? 'text-blue-400' : ''} hidden sm:block`}>
+          <span key={step.id} className={`${idx === currentStep ? 'text-purple-400' : ''} hidden sm:block`}>
             {step.title}
           </span>
         ))}
@@ -88,7 +88,7 @@ function ChallengeStep({
               className={`text-left p-5 rounded-xl border transition-all ${
                 isSelected
                   ? 'bg-purple-600/20 border-purple-500 ring-2 ring-purple-500/50'
-                  : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
+                  : 'bg-[#1a1a25]/50 border-[rgba(255,255,255,0.08)] hover:border-navy-600 hover:bg-[#1a1a25]'
               }`}
             >
               <div className="flex items-start gap-4">
@@ -107,7 +107,7 @@ function ChallengeStep({
                   <p className="text-sm text-slate-400 mb-3">{cat.description}</p>
                   <div className="flex flex-wrap gap-1">
                     {cat.examples.slice(0, 2).map((ex, idx) => (
-                      <span key={idx} className="text-xs bg-slate-700/50 text-slate-300 px-2 py-1 rounded">
+                      <span key={idx} className="text-xs bg-navy-700/50 text-slate-300 px-2 py-1 rounded">
                         {ex}
                       </span>
                     ))}
@@ -143,8 +143,8 @@ function UrgencyStep({
             onClick={() => onSelect(level.id)}
             className={`text-left p-5 rounded-xl border transition-all ${
               selected === level.id
-                ? 'bg-blue-600/20 border-blue-500 ring-2 ring-blue-500/50'
-                : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
+                ? 'bg-purple-600/20 border-purple-500 ring-2 ring-purple-500/50'
+                : 'bg-[#1a1a25]/50 border-[rgba(255,255,255,0.08)] hover:border-navy-600 hover:bg-[#1a1a25]'
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -180,8 +180,8 @@ function ScopeStep({
             onClick={() => onSelect(level.id)}
             className={`text-left p-5 rounded-xl border transition-all ${
               selected === level.id
-                ? 'bg-blue-600/20 border-blue-500 ring-2 ring-blue-500/50'
-                : 'bg-slate-800/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800'
+                ? 'bg-purple-600/20 border-purple-500 ring-2 ring-purple-500/50'
+                : 'bg-[#1a1a25]/50 border-[rgba(255,255,255,0.08)] hover:border-navy-600 hover:bg-[#1a1a25]'
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -212,7 +212,7 @@ function CapabilitiesStep({
       </div>
       <div className="max-w-2xl mx-auto space-y-8">
         {capabilityQuestions.map((q, qIdx) => (
-          <div key={q.id} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+          <div key={q.id} className="bg-[#1a1a25]/50 rounded-xl p-6 border border-[rgba(255,255,255,0.08)]">
             <h3 className="font-medium text-white mb-4">
               {qIdx + 1}. {q.question}
             </h3>
@@ -223,14 +223,14 @@ function CapabilitiesStep({
                   onClick={() => onAnswer(q.id, opt.id)}
                   className={`w-full text-left p-3 rounded-lg border transition-all ${
                     answers[q.id] === opt.id
-                      ? 'bg-blue-600/20 border-blue-500 text-white'
-                      : 'bg-slate-900/50 border-slate-700 text-slate-300 hover:border-slate-600'
+                      ? 'bg-purple-600/20 border-purple-500 text-white'
+                      : 'bg-[#111118]/50 border-[rgba(255,255,255,0.08)] text-slate-300 hover:border-navy-600'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        answers[q.id] === opt.id ? 'border-blue-500 bg-blue-500' : 'border-slate-500'
+                        answers[q.id] === opt.id ? 'border-purple-500 bg-purple-500' : 'border-navy-500'
                       }`}
                     >
                       {answers[q.id] === opt.id && (
@@ -276,22 +276,22 @@ function ResultsStep({
 
       {/* Diagnosis Summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
+        <div className="bg-[#1a1a25]/50 rounded-xl p-4 border border-[rgba(255,255,255,0.08)]">
           <div className="text-2xl mb-2">{result.primaryChallenge.icon}</div>
           <div className="text-xs text-slate-400 uppercase tracking-wider">Challenge</div>
           <div className="text-sm font-medium text-white">{result.primaryChallenge.title}</div>
         </div>
-        <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
+        <div className="bg-[#1a1a25]/50 rounded-xl p-4 border border-[rgba(255,255,255,0.08)]">
           <div className="text-2xl mb-2">{result.urgency.icon}</div>
           <div className="text-xs text-slate-400 uppercase tracking-wider">Urgency</div>
           <div className="text-sm font-medium text-white">{result.urgency.title}</div>
         </div>
-        <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
+        <div className="bg-[#1a1a25]/50 rounded-xl p-4 border border-[rgba(255,255,255,0.08)]">
           <div className="text-2xl mb-2">{result.scope.icon}</div>
           <div className="text-xs text-slate-400 uppercase tracking-wider">Scope</div>
           <div className="text-sm font-medium text-white">{result.scope.title}</div>
         </div>
-        <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
+        <div className="bg-[#1a1a25]/50 rounded-xl p-4 border border-[rgba(255,255,255,0.08)]">
           <div className="text-2xl mb-2">📊</div>
           <div className="text-xs text-slate-400 uppercase tracking-wider">Maturity</div>
           <div className="text-sm font-medium text-white">{maturityLabel}</div>
@@ -299,7 +299,7 @@ function ResultsStep({
       </div>
 
       {/* Suggested Approach */}
-      <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6">
+      <div className="bg-purple-900/20 border border-purple-500/30 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
           <span>🧭</span> Suggested Approach
         </h3>
@@ -324,7 +324,7 @@ function ResultsStep({
             <button
               key={tool.id}
               onClick={() => onLaunchTool(tool)}
-              className="bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-purple-500/50 rounded-xl p-4 transition-all text-left group"
+              className="bg-[#1a1a25]/50 hover:bg-[#1a1a25] border border-[rgba(255,255,255,0.08)] hover:border-purple-500/50 rounded-xl p-4 transition-all text-left group"
             >
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{tool.icon}</span>
@@ -343,7 +343,7 @@ function ResultsStep({
                       <span className={`text-xs px-2 py-0.5 rounded-full border ${complexityColors[tool.complexity]}`}>
                         {tool.complexity}
                       </span>
-                      <span className="text-xs text-slate-500">{tool.estimatedTime}</span>
+                      <span className="text-xs text-gray-500">{tool.estimatedTime}</span>
                     </div>
                     <span className="text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                       Launch
@@ -415,14 +415,14 @@ function ResultsStep({
       )}
 
       {/* Next Steps */}
-      <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+      <div className="bg-[#1a1a25]/50 rounded-xl p-6 border border-[rgba(255,255,255,0.08)]">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <span>📋</span> Next Steps
         </h3>
         <ol className="space-y-3">
           {result.nextSteps.map((step, idx) => (
             <li key={idx} className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center text-sm">
+              <span className="flex-shrink-0 w-6 h-6 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center text-sm">
                 {idx + 1}
               </span>
               <span className="text-slate-300">{step}</span>
@@ -432,12 +432,12 @@ function ResultsStep({
       </div>
 
       {/* Consulting CTA */}
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6 text-center">
+      <div className="bg-gradient-to-r from-purple-900/30 to-purple-900/30 border border-purple-500/20 rounded-xl p-6 text-center">
         <h3 className="text-xl font-bold text-white mb-2">Need Expert Guidance?</h3>
         <p className="text-slate-300 mb-4">
           Our strategy consultants can help you implement these tools and accelerate your results.
         </p>
-        <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium px-6 py-3 rounded-lg transition-all">
+        <button className="bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium px-6 py-3 rounded-lg transition-all">
           Request Consulting Sprint
         </button>
       </div>
@@ -446,13 +446,13 @@ function ResultsStep({
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/tools"
-          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-medium px-8 py-3 rounded-lg transition-colors text-center"
+          className="w-full sm:w-auto bg-purple-600 hover:bg-purple-500 text-white font-medium px-8 py-3 rounded-lg transition-colors text-center"
         >
           Browse All Tools
         </Link>
         <Link
           href="/workspace"
-          className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-medium px-8 py-3 rounded-lg border border-slate-700 transition-colors text-center"
+          className="w-full sm:w-auto bg-[#1a1a25] hover:bg-navy-700 text-white font-medium px-8 py-3 rounded-lg border border-[rgba(255,255,255,0.08)] transition-colors text-center"
         >
           Open Workspace
         </Link>
@@ -540,22 +540,22 @@ export default function DiagnosisPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[#060609] text-white">
       {/* Header */}
-      <header className="bg-slate-900/80 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-40">
+      <header className="bg-[#111118]/80 backdrop-blur-sm border-b border-[rgba(255,255,255,0.06)] sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="text-2xl font-bold text-white">
                 Lumina <span className="text-purple-500">S</span>
               </Link>
-              <span className="text-slate-500">/</span>
+              <span className="text-gray-500">/</span>
               <h1 className="text-lg font-medium text-slate-300">Diagnostic Wizard</h1>
             </div>
             <div className="flex items-center gap-3">
               <DataUploadButton label="Upload Data" variant="compact" />
               {currentUser && (
-                <div className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg">
+                <div className="flex items-center gap-2 bg-[#1a1a25] px-3 py-1.5 rounded-lg">
                   <span className="text-sm text-slate-300">{currentUser.name}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full ${planColors[currentUser.plan]}`}>
                     {currentUser.plan}
@@ -598,14 +598,14 @@ export default function DiagnosisPage() {
 
         {/* Navigation Buttons */}
         {currentStep < 4 && (
-          <div className="flex items-center justify-between mt-8 pt-8 border-t border-slate-800">
+          <div className="flex items-center justify-between mt-8 pt-8 border-t border-[rgba(255,255,255,0.06)]">
             <button
               onClick={handleBack}
               disabled={currentStep === 0}
               className={`px-6 py-2 rounded-lg transition-colors ${
                 currentStep === 0
-                  ? 'text-slate-600 cursor-not-allowed'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                  ? 'text-gray-500 cursor-not-allowed'
+                  : 'text-slate-300 hover:text-white hover:bg-[#1a1a25]'
               }`}
             >
               ← Back
@@ -615,8 +615,8 @@ export default function DiagnosisPage() {
               disabled={!isStepComplete}
               className={`px-8 py-3 rounded-lg font-medium transition-all ${
                 isStepComplete
-                  ? 'bg-blue-600 hover:bg-blue-500 text-white'
-                  : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                  ? 'bg-purple-600 hover:bg-purple-500 text-white'
+                  : 'bg-navy-700 text-slate-400 cursor-not-allowed'
               }`}
             >
               {currentStep === 3 ? 'Get Recommendations' : 'Continue →'}
@@ -626,7 +626,7 @@ export default function DiagnosisPage() {
 
         {/* Restart Button (on results page) */}
         {currentStep === 4 && (
-          <div className="mt-8 pt-8 border-t border-slate-800 text-center">
+          <div className="mt-8 pt-8 border-t border-[rgba(255,255,255,0.06)] text-center">
             <button
               onClick={handleRestart}
               className="text-slate-400 hover:text-white transition-colors"

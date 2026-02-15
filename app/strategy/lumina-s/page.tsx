@@ -294,7 +294,7 @@ export default function LuminaSPage() {
           .cube-glow-outer {
             position: absolute; top: 50%; left: 50%;
             width: 380px; height: 380px;
-            background: radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
             border-radius: 50%;
             transform: translate(-50%,-50%);
             filter: blur(60px);
@@ -373,8 +373,8 @@ export default function LuminaSPage() {
             border-radius: 16px; transition: all 0.3s;
           }
           .feat-card:hover {
-            background: rgba(20,184,166,0.04);
-            border-color: rgba(20,184,166,0.15);
+            background: rgba(168,85,247,0.04);
+            border-color: rgba(168,85,247,0.15);
             transform: translateY(-4px);
           }
           .feat-icon { font-size: 24px; color: #A855F7; }

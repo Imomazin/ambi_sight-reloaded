@@ -32,7 +32,7 @@ const aiProfiles: AIProfile[] = [
     personality: 'Sharp, analytical, with a dry sense of humor. The strategist who sees patterns others miss.',
     avatar: '👨‍💼',
     voiceStyle: 'Calm and analytical',
-    accentColor: 'from-blue-500 to-cyan-500',
+    accentColor: 'from-purple-500 to-cyan-500',
     greeting: "I'm Max. Think of me as your strategic co-pilot - I'll help you navigate the complexity and spot the opportunities. What's on your mind?",
   },
 ];
@@ -299,7 +299,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
             {isSpeaking && (
               <>
                 <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${selectedProfile.accentColor} animate-ping opacity-30`} />
-                <div className={`absolute -inset-2 rounded-full border-2 ${selectedProfile.gender === 'female' ? 'border-purple-400' : 'border-blue-400'} animate-pulse`} />
+                <div className={`absolute -inset-2 rounded-full border-2 ${selectedProfile.gender === 'female' ? 'border-purple-400' : 'border-purple-400'} animate-pulse`} />
               </>
             )}
           </div>

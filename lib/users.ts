@@ -77,7 +77,7 @@ export const roleShortNames: Record<UserRole, string> = {
 export const planColors: Record<Plan, { bg: string; text: string; border: string }> = {
   Free: { bg: 'bg-gray-500/20', text: 'text-gray-400', border: 'border-gray-500/30' },
   Starter: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
-  Pro: { bg: 'bg-teal-500/20', text: 'text-teal-400', border: 'border-teal-500/30' },
+  Pro: { bg: 'bg-violet-500/20', text: 'text-violet-400', border: 'border-violet-500/30' },
   Enterprise: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
 };
 
