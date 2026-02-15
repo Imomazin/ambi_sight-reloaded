@@ -3,23 +3,21 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-// Route metadata for breadcrumbs
-const routeMetadata: Record<string, { label: string; icon: string; parent?: string }> = {
-  '/': { label: 'Home', icon: '🏠' },
-  '/workspace': { label: 'Workspace', icon: '📊', parent: '/' },
-  '/tools': { label: 'Strategy Tools', icon: '🧰', parent: '/' },
-  '/diagnosis': { label: 'Diagnostic Wizard', icon: '🔍', parent: '/' },
-  '/advisor': { label: 'Strategic Advisor', icon: '💬', parent: '/' },
-  '/pricing': { label: 'Pricing', icon: '💎', parent: '/' },
-  '/scenarios': { label: 'Scenarios', icon: '📁', parent: '/workspace' },
-  '/portfolio': { label: 'Portfolio', icon: '📈', parent: '/workspace' },
-  '/admin': { label: 'Admin Studio', icon: '⚙️', parent: '/' },
+const routeMetadata: Record<string, { label: string; parent?: string }> = {
+  '/': { label: 'Home' },
+  '/workspace': { label: 'Workspace', parent: '/' },
+  '/tools': { label: 'Tools', parent: '/' },
+  '/diagnosis': { label: 'Diagnosis', parent: '/' },
+  '/advisor': { label: 'Advisor', parent: '/' },
+  '/pricing': { label: 'Pricing', parent: '/' },
+  '/scenarios': { label: 'Scenarios', parent: '/workspace' },
+  '/portfolio': { label: 'Portfolio', parent: '/workspace' },
+  '/admin': { label: 'Settings', parent: '/' },
 };
 
 interface BreadcrumbItem {
   label: string;
   href: string;
-  icon: string;
   isLast: boolean;
 }
 
@@ -27,14 +25,12 @@ function getBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const crumbs: BreadcrumbItem[] = [];
   let currentPath = pathname;
 
-  // Build breadcrumb trail by following parent chain
   while (currentPath) {
     const meta = routeMetadata[currentPath];
     if (meta) {
       crumbs.unshift({
         label: meta.label,
         href: currentPath,
-        icon: meta.icon,
         isLast: currentPath === pathname,
       });
       currentPath = meta.parent || '';
@@ -51,41 +47,33 @@ interface BreadcrumbsProps {
   showIcon?: boolean;
 }
 
-export default function Breadcrumbs({ className = '', showIcon = true }: BreadcrumbsProps) {
+export default function Breadcrumbs({ className = '' }: BreadcrumbsProps) {
   const pathname = usePathname();
   const breadcrumbs = getBreadcrumbs(pathname);
 
-  // Don't show breadcrumbs on home page or if only one item
   if (pathname === '/' || breadcrumbs.length <= 1) {
     return null;
   }
 
   return (
     <nav className={`flex items-center text-sm ${className}`} aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2">
+      <ol className="flex items-center gap-1.5">
         {breadcrumbs.map((crumb, index) => (
-          <li key={crumb.href} className="flex items-center gap-2">
+          <li key={crumb.href} className="flex items-center gap-1.5">
             {index > 0 && (
-              <svg
-                className="w-4 h-4 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg className="w-3.5 h-3.5 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             )}
             {crumb.isLast ? (
-              <span className="flex items-center gap-1.5 text-teal-400 font-medium">
-                {showIcon && <span className="text-base">{crumb.icon}</span>}
+              <span className="text-[var(--accent)] font-medium text-[13px]">
                 {crumb.label}
               </span>
             ) : (
               <Link
                 href={crumb.href}
-                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors text-[13px]"
               >
-                {showIcon && <span className="text-base">{crumb.icon}</span>}
                 {crumb.label}
               </Link>
             )}
@@ -96,5 +84,4 @@ export default function Breadcrumbs({ className = '', showIcon = true }: Breadcr
   );
 }
 
-// Export route metadata for use in page titles
 export { routeMetadata };
