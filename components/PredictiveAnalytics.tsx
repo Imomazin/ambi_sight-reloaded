@@ -204,7 +204,7 @@ function MetricForecastCard({ metric }: { metric: ForecastMetric }) {
     (metric.id !== 'risk' && metric.trend === 'up');
 
   return (
-    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-teal-500/30 transition-colors">
+    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-purple-500/30 transition-colors">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xl">{metric.icon}</span>
@@ -244,7 +244,7 @@ function AnomalyCard({ anomaly }: { anomaly: AnomalyAlert }) {
   const severityStyles = {
     high: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', icon: '🚨' },
     medium: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', icon: '⚠️' },
-    low: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', icon: 'ℹ️' },
+    low: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', icon: 'ℹ️' },
   };
 
   const style = severityStyles[anomaly.severity];
@@ -267,7 +267,7 @@ function AnomalyCard({ anomaly }: { anomaly: AnomalyAlert }) {
               <div
                 className={`h-full rounded-full ${
                   anomaly.probability >= 70 ? 'bg-red-500' :
-                  anomaly.probability >= 50 ? 'bg-amber-500' : 'bg-blue-500'
+                  anomaly.probability >= 50 ? 'bg-amber-500' : 'bg-purple-500'
                 }`}
                 style={{ width: `${anomaly.probability}%` }}
               />
@@ -299,7 +299,7 @@ export default function PredictiveAnalytics() {
   return (
     <div className="bg-navy-800/50 border border-navy-600 rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="p-6 border-b border-navy-600 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+      <div className="p-6 border-b border-navy-600 bg-gradient-to-r from-purple-900/20 to-purple-900/20">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -314,7 +314,7 @@ export default function PredictiveAnalytics() {
             <select
               value={forecastHorizon}
               onChange={(e) => setForecastHorizon(parseInt(e.target.value))}
-              className="px-3 py-2 text-sm bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-teal-500"
+              className="px-3 py-2 text-sm bg-navy-700 border border-navy-600 rounded-lg text-white focus:outline-none focus:border-purple-500"
             >
               <option value={3}>3 Month Forecast</option>
               <option value={6}>6 Month Forecast</option>
@@ -331,7 +331,7 @@ export default function PredictiveAnalytics() {
               onClick={() => setSelectedMetric(metric.id)}
               className={`px-3 py-1.5 text-xs rounded-lg transition-colors flex items-center gap-1 ${
                 selectedMetric === metric.id
-                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                  ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
                   : 'text-gray-400 hover:text-white hover:bg-navy-700 border border-transparent'
               }`}
             >
@@ -411,10 +411,10 @@ export default function PredictiveAnalytics() {
                 <Line
                   type="monotone"
                   dataKey="actual"
-                  stroke="#2DD4BF"
+                  stroke="#C084FC"
                   strokeWidth={2}
-                  dot={{ fill: '#2DD4BF', strokeWidth: 0, r: 3 }}
-                  activeDot={{ r: 5, fill: '#2DD4BF' }}
+                  dot={{ fill: '#C084FC', strokeWidth: 0, r: 3 }}
+                  activeDot={{ r: 5, fill: '#C084FC' }}
                 />
 
                 {/* Predicted Line */}
@@ -434,15 +434,15 @@ export default function PredictiveAnalytics() {
           {/* Legend */}
           <div className="flex items-center justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-0.5 bg-teal-400" />
+              <div className="w-8 h-0.5 bg-purple-400" />
               <span className="text-xs text-gray-400">Historical</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-0.5 bg-blue-400" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #3B82F6, #3B82F6 4px, transparent 4px, transparent 8px)' }} />
+              <div className="w-8 h-0.5 bg-purple-400" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #3B82F6, #3B82F6 4px, transparent 4px, transparent 8px)' }} />
               <span className="text-xs text-gray-400">Forecast</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-500/30 rounded" />
+              <div className="w-4 h-4 bg-purple-500/30 rounded" />
               <span className="text-xs text-gray-400">Confidence Band</span>
             </div>
           </div>

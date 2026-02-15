@@ -534,7 +534,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .btn-primary {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #A855F7, #C084FC);
           border: none;
           border-radius: 8px;
           font-size: 14px;
@@ -546,7 +546,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .btn-primary:hover:not(:disabled) {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         .btn-primary:disabled {

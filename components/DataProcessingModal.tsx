@@ -192,11 +192,11 @@ export default function DataProcessingModal({
               <div className="flex flex-col items-center py-8">
                 {/* Animated Icon */}
                 <div className="relative mb-6">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-500/20 flex items-center justify-center">
                     <span className="text-4xl animate-pulse">{currentStage.icon}</span>
                   </div>
                   {/* Spinning Ring */}
-                  <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-teal-500 animate-spin" />
+                  <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 animate-spin" />
                   <div className="absolute inset-2 rounded-full border-4 border-transparent border-b-purple-500 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }} />
                 </div>
 
@@ -212,7 +212,7 @@ export default function DataProcessingModal({
                 <div className="w-full max-w-md">
                   <div className="h-2 bg-[var(--bg-secondary)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-teal-500 to-purple-500 transition-all duration-100 ease-out"
+                      className="h-full bg-gradient-to-r from-purple-500 to-purple-500 transition-all duration-100 ease-out"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -230,9 +230,9 @@ export default function DataProcessingModal({
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
                         idx < currentStageIndex
-                          ? 'bg-teal-500 text-white'
+                          ? 'bg-purple-500 text-white'
                           : idx === currentStageIndex
-                          ? 'bg-teal-500/20 text-teal-400 ring-2 ring-teal-500'
+                          ? 'bg-purple-500/20 text-purple-400 ring-2 ring-purple-500'
                           : 'bg-[var(--bg-secondary)] text-[var(--text-muted)]'
                       }`}
                     >
@@ -247,7 +247,7 @@ export default function DataProcessingModal({
                     {idx < processingStages.length - 2 && (
                       <div
                         className={`w-8 sm:w-16 h-0.5 mx-1 transition-colors ${
-                          idx < currentStageIndex ? 'bg-teal-500' : 'bg-[var(--bg-secondary)]'
+                          idx < currentStageIndex ? 'bg-purple-500' : 'bg-[var(--bg-secondary)]'
                         }`}
                       />
                     )}
@@ -288,7 +288,7 @@ export default function DataProcessingModal({
                     <div className="text-xs text-[var(--text-muted)] mb-1">{metric.label}</div>
                     <div className="text-lg font-semibold text-[var(--text-primary)]">{metric.value}</div>
                     {metric.change && (
-                      <div className="text-xs text-teal-400">{metric.change}</div>
+                      <div className="text-xs text-purple-400">{metric.change}</div>
                     )}
                   </div>
                 ))}
@@ -302,7 +302,7 @@ export default function DataProcessingModal({
                 <ul className="space-y-2">
                   {result?.keyInsights.slice(0, 3).map((insight, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                      <span className="text-teal-400 mt-0.5">•</span>
+                      <span className="text-purple-400 mt-0.5">•</span>
                       {insight}
                     </li>
                   ))}
@@ -313,7 +313,7 @@ export default function DataProcessingModal({
               <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[var(--border-color)]">
                 <button
                   onClick={onClose}
-                  className="flex-1 py-3 px-4 bg-teal-500 hover:bg-teal-400 text-white font-medium rounded-xl transition-colors"
+                  className="flex-1 py-3 px-4 bg-purple-500 hover:bg-purple-400 text-white font-medium rounded-xl transition-colors"
                 >
                   View Full Report
                 </button>

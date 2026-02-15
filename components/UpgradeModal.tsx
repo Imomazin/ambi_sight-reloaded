@@ -32,16 +32,16 @@ export function UpgradeModal({
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden"
+        className="bg-[#111118] border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-center">
+        <div className="bg-gradient-to-r from-purple-600 to-purple-600 p-6 text-center">
           <div className="text-4xl mb-3">🚀</div>
           <h2 className="text-2xl font-bold text-white mb-2">
             Upgrade to {targetPlanData.name}
           </h2>
-          <p className="text-blue-100">
+          <p className="text-purple-100">
             {message || `Unlock ${feature || 'premium features'} and accelerate your strategy`}
           </p>
         </div>
@@ -78,7 +78,7 @@ export function UpgradeModal({
           <div className="space-y-3">
             <Link
               href="/pricing"
-              className="block w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium py-3 px-6 rounded-lg text-center transition-all"
+              className="block w-full bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium py-3 px-6 rounded-lg text-center transition-all"
             >
               {targetPlanData.ctaText}
             </Link>
@@ -124,16 +124,16 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
 
   if (compact) {
     return (
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-lg p-3 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-purple-900/30 to-purple-900/30 border border-purple-500/20 rounded-lg p-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-blue-400">→</span>
+          <span className="text-purple-400">→</span>
           <span className="text-sm text-slate-300">
             Upgrade to {targetPlan} for {feature}
           </span>
         </div>
         <Link
           href="/pricing"
-          className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded transition-colors"
+          className="text-sm bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded transition-colors"
         >
           Upgrade
         </Link>
@@ -142,7 +142,7 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6">
+    <div className="bg-gradient-to-r from-purple-900/30 to-purple-900/30 border border-purple-500/20 rounded-xl p-6">
       <div className="flex items-start gap-4">
         <div className="text-3xl">🔓</div>
         <div className="flex-1">
@@ -155,13 +155,13 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
           <div className="flex items-center gap-3">
             <Link
               href="/pricing"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium px-4 py-2 rounded-lg transition-all text-sm"
+              className="bg-gradient-to-r from-purple-600 to-purple-600 hover:from-purple-500 hover:to-purple-500 text-white font-medium px-4 py-2 rounded-lg transition-all text-sm"
             >
               Upgrade to {targetPlan}
             </Link>
             <Link
               href="/pricing"
-              className="text-blue-400 hover:text-blue-300 text-sm"
+              className="text-purple-400 hover:text-purple-300 text-sm"
             >
               Compare plans →
             </Link>
@@ -176,8 +176,8 @@ export function UpgradeBanner({ currentPlan, feature, compact = false }: Upgrade
 export function UpgradeTag({ plan }: { plan: Plan }) {
   const colors: Record<Plan, string> = {
     Free: 'bg-slate-500/20 text-slate-400 border-slate-500/30',
-    Starter: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    Pro: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+    Starter: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+    Pro: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
     Enterprise: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
   };
 

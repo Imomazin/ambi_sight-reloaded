@@ -67,7 +67,7 @@ function CaseStudyModal({
         {/* Content */}
         <div className="px-6 py-6 overflow-y-auto max-h-[60vh]">
           {/* Headline Metric */}
-          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-teal-500/10 to-purple-500/10 border border-teal-500/20">
+          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-purple-500/10 to-purple-500/10 border border-purple-500/20">
             <div className="text-center">
               <div className="text-3xl font-bold text-gradient mb-1">{study.headlineMetric}</div>
               <div className="text-sm text-gray-400">Key Result</div>
@@ -85,7 +85,7 @@ function CaseStudyModal({
 
           {/* Solution */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-teal-400 uppercase tracking-wider mb-2">Solution</h3>
+            <h3 className="text-sm font-semibold text-purple-400 uppercase tracking-wider mb-2">Solution</h3>
             <p className="text-gray-400 text-sm">{study.solution}</p>
           </div>
 
@@ -121,7 +121,7 @@ function CaseStudyModal({
             </p>
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-teal-500/20 text-teal-400 text-sm font-medium rounded-lg hover:bg-teal-500/30 transition-colors"
+              className="px-4 py-2 bg-purple-500/20 text-purple-400 text-sm font-medium rounded-lg hover:bg-purple-500/30 transition-colors"
             >
               Close
             </button>
@@ -145,7 +145,7 @@ function CaseStudyCard({
   return (
     <button
       onClick={onClick}
-      className="flex-shrink-0 w-[340px] rounded-xl bg-gradient-to-br from-navy-700/80 to-navy-800/90 border border-navy-600 hover:border-teal-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/10 text-left group overflow-hidden"
+      className="flex-shrink-0 w-[340px] rounded-xl bg-gradient-to-br from-navy-700/80 to-navy-800/90 border border-navy-600 hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 text-left group overflow-hidden"
     >
       {/* Image Banner */}
       <div className="h-40 relative overflow-hidden">
@@ -166,7 +166,7 @@ function CaseStudyCard({
       {/* Content */}
       <div className="p-4">
         {/* Title */}
-        <h3 className="text-white font-semibold mb-2 group-hover:text-teal-400 transition-colors line-clamp-2">
+        <h3 className="text-white font-semibold mb-2 group-hover:text-purple-400 transition-colors line-clamp-2">
           {study.title}
         </h3>
 
@@ -175,7 +175,7 @@ function CaseStudyCard({
 
         {/* Headline Metric */}
         <div className="flex items-center justify-between">
-          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/20">
+          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-500/20 to-purple-500/20 border border-purple-500/20">
             <span className="text-sm font-bold text-gradient">{study.headlineMetric}</span>
           </div>
           <div className="flex items-center gap-1 text-xs text-gray-500">
@@ -188,7 +188,7 @@ function CaseStudyCard({
         </div>
 
         {/* Read More */}
-        <div className="mt-3 flex items-center gap-1 text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="mt-3 flex items-center gap-1 text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">
           <span>Read case study</span>
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -214,7 +214,7 @@ function FilterChips({
       {filters.map((filter) => {
         const isActive = activeFilter === filter;
         const colors = filter === 'All'
-          ? { bg: 'bg-teal-500/20', text: 'text-teal-400', border: 'border-teal-500/30' }
+          ? { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' }
           : roleFocusColors[filter];
 
         return (
@@ -353,7 +353,7 @@ export default function LandingCaseStudies() {
         {/* Filter Chips */}
         <div className="mb-6 flex items-center justify-between">
           <FilterChips activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-          <span className={`text-xs ${isAutoScrolling ? 'text-teal-400' : 'text-gray-500'}`}>
+          <span className={`text-xs ${isAutoScrolling ? 'text-purple-400' : 'text-gray-500'}`}>
             {isAutoScrolling ? '● Auto-scrolling' : '○ Paused'}
           </span>
         </div>

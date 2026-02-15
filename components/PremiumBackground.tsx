@@ -12,7 +12,7 @@ const premiumCities = [
   {
     url: 'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1920&h=1080&fit=crop&q=80',
     city: 'Singapore Marina Bay',
-    accent: 'from-teal-500/20 to-cyan-500/10',
+    accent: 'from-purple-500/20 to-cyan-500/10',
   },
   {
     url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1920&h=1080&fit=crop&q=80',
@@ -22,7 +22,7 @@ const premiumCities = [
   {
     url: 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=1920&h=1080&fit=crop&q=80',
     city: 'New York Night',
-    accent: 'from-blue-500/20 to-indigo-500/10',
+    accent: 'from-purple-500/20 to-indigo-500/10',
   },
   {
     url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1920&h=1080&fit=crop&q=80',
@@ -131,7 +131,7 @@ export default function PremiumBackground({ children, className = '' }: PremiumB
         <div
           className="absolute w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
           style={{
-            background: 'radial-gradient(circle, rgba(45, 212, 191, 0.4) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%)',
             top: `${30 + mousePosition.y * 10}%`,
             left: `${10 + mousePosition.x * 10}%`,
             transition: 'top 0.5s ease-out, left 0.5s ease-out',
@@ -199,13 +199,13 @@ export default function PremiumBackground({ children, className = '' }: PremiumB
         }}
       >
         <div className="relative">
-          <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-          <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-75" />
+          <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+          <div className="absolute inset-0 w-2 h-2 rounded-full bg-purple-400 animate-ping opacity-75" />
         </div>
         <span className={`transition-all duration-700 ${isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
           {currentBg.city}
         </span>
-        <svg className="w-4 h-4 text-teal-400 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-4 h-4 text-purple-400 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>

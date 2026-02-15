@@ -32,7 +32,7 @@ const aiProfiles: AIProfile[] = [
     personality: 'Sharp, analytical, with a dry sense of humor. The strategist who sees patterns others miss.',
     avatar: '👨‍💼',
     voiceStyle: 'Calm and analytical',
-    accentColor: 'from-blue-500 to-cyan-500',
+    accentColor: 'from-purple-500 to-cyan-500',
     greeting: "I'm Max. Think of me as your strategic co-pilot - I'll help you navigate the complexity and spot the opportunities. What's on your mind?",
   },
 ];
@@ -259,7 +259,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
                     <div className="text-xs text-[var(--text-muted)]">{profile.voiceStyle}</div>
                   </div>
                   {selectedProfile.id === profile.id && (
-                    <svg className="w-5 h-5 text-teal-400 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-purple-400 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -299,7 +299,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
             {isSpeaking && (
               <>
                 <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${selectedProfile.accentColor} animate-ping opacity-30`} />
-                <div className={`absolute -inset-2 rounded-full border-2 ${selectedProfile.gender === 'female' ? 'border-purple-400' : 'border-blue-400'} animate-pulse`} />
+                <div className={`absolute -inset-2 rounded-full border-2 ${selectedProfile.gender === 'female' ? 'border-purple-400' : 'border-purple-400'} animate-pulse`} />
               </>
             )}
           </div>
@@ -316,8 +316,8 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
                 </span>
               </div>
             ) : isSpeaking ? (
-              <div className="flex items-center justify-center gap-2 text-sm text-teal-400">
-                <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+              <div className="flex items-center justify-center gap-2 text-sm text-purple-400">
+                <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
                 <span>{selectedProfile.name} is speaking</span>
               </div>
             ) : (
@@ -338,12 +338,12 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
               <div
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-teal-500 text-white'
+                    ? 'bg-purple-500 text-white'
                     : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)] border border-[var(--border-color)]'
                 }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
-                <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-teal-200' : 'text-[var(--text-muted)]'}`}>
+                <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-purple-200' : 'text-[var(--text-muted)]'}`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
@@ -407,7 +407,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={`Message ${selectedProfile.name}...`}
-                className="w-full px-4 py-3 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-3 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
 
@@ -417,7 +417,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
               disabled={!inputValue.trim() || isTyping}
               className={`p-3 rounded-xl transition-all ${
                 inputValue.trim() && !isTyping
-                  ? 'bg-teal-500 text-white hover:bg-teal-400'
+                  ? 'bg-purple-500 text-white hover:bg-purple-400'
                   : 'bg-[var(--bg-card)] text-[var(--text-muted)] cursor-not-allowed border border-[var(--border-color)]'
               }`}
             >

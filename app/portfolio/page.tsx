@@ -66,7 +66,7 @@ export default function PortfolioPage() {
               {
                 label: 'High Confidence',
                 count: filteredInitiatives.filter((i) => i.confidence >= 80).length,
-                color: 'teal',
+                color: 'purple',
               },
             ].map((stat) => (
               <div key={stat.label} className="card">
@@ -90,7 +90,7 @@ export default function PortfolioPage() {
               <select
                 value={selectedPortfolio}
                 onChange={(e) => setSelectedPortfolio(e.target.value)}
-                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-400"
+                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-purple-400"
               >
                 <option value="all">All Portfolios</option>
                 {portfolios.map((p) => (
@@ -107,7 +107,7 @@ export default function PortfolioPage() {
               <select
                 value={selectedOwner}
                 onChange={(e) => setSelectedOwner(e.target.value)}
-                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-400"
+                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-purple-400"
               >
                 <option value="all">All Owners</option>
                 {owners.map((o) => (
@@ -165,10 +165,10 @@ export default function PortfolioPage() {
           <div className="card">
             <h3 className="text-sm font-medium text-white mb-4">Export</h3>
             <div className="space-y-2">
-              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors">
+              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-purple-400/50 transition-colors">
                 Export as PNG
               </button>
-              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors">
+              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-purple-400/50 transition-colors">
                 Export as CSV
               </button>
             </div>

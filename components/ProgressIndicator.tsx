@@ -3,7 +3,7 @@
 interface ProgressIndicatorProps {
   progress: number; // 0-100
   size?: 'sm' | 'md' | 'lg';
-  color?: 'teal' | 'amber' | 'purple' | 'red' | 'green';
+  color?: 'purple' | 'amber' | 'purple' | 'red' | 'green';
   showLabel?: boolean;
   label?: string;
   animated?: boolean;
@@ -13,7 +13,7 @@ interface ProgressIndicatorProps {
 export default function ProgressIndicator({
   progress,
   size = 'md',
-  color = 'teal',
+  color = 'purple',
   showLabel = true,
   label,
   animated = true,
@@ -22,7 +22,6 @@ export default function ProgressIndicator({
   const clampedProgress = Math.min(100, Math.max(0, progress));
 
   const colors = {
-    teal: { primary: '#14B8A6', secondary: '#2DD4BF', bg: 'rgba(20, 184, 166, 0.2)' },
     amber: { primary: '#F59E0B', secondary: '#FBBF24', bg: 'rgba(245, 158, 11, 0.2)' },
     purple: { primary: '#A855F7', secondary: '#C084FC', bg: 'rgba(168, 85, 247, 0.2)' },
     red: { primary: '#EF4444', secondary: '#F87171', bg: 'rgba(239, 68, 68, 0.2)' },

@@ -173,7 +173,7 @@ export default function StrategyWorkflowPage() {
               width: 80px;
               height: 80px;
               margin: 0 auto 24px;
-              background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(168, 85, 247, 0.2));
+              background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(168, 85, 247, 0.2));
               border: 1px solid rgba(168, 85, 247, 0.3);
               border-radius: 24px;
               display: flex;
@@ -264,7 +264,7 @@ export default function StrategyWorkflowPage() {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              background: linear-gradient(135deg, #14B8A6, #A855F7);
+              background: linear-gradient(135deg, #A855F7, #A855F7);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -314,7 +314,7 @@ export default function StrategyWorkflowPage() {
 
             .btn-primary {
               padding: 12px 28px;
-              background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+              background: linear-gradient(135deg, #A855F7, #C084FC);
               border: none;
               border-radius: 10px;
               font-size: 14px;
@@ -326,7 +326,7 @@ export default function StrategyWorkflowPage() {
 
             .btn-primary:hover:not(:disabled) {
               transform: translateY(-1px);
-              box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+              box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
             }
 
             .btn-primary:disabled {
@@ -399,7 +399,7 @@ export default function StrategyWorkflowPage() {
 
             .progress-fill {
               height: 100%;
-              background: linear-gradient(90deg, #14B8A6, #A855F7);
+              background: linear-gradient(90deg, #A855F7, #A855F7);
               border-radius: 3px;
               transition: width 0.3s ease;
             }

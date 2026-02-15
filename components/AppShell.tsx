@@ -21,12 +21,12 @@ export default function AppShell({ children, showBreadcrumbs = true }: AppShellP
       <Navbar />
       <SidebarNav />
       <main
-        className={`pt-16 pb-20 md:pb-6 transition-all duration-300 ${
-          isSidebarCollapsed ? 'md:pl-20' : 'md:pl-64'
+        className={`pt-14 pb-16 md:pb-6 transition-all duration-200 ${
+          isSidebarCollapsed ? 'md:pl-16' : 'md:pl-56'
         }`}
       >
-        <div className="p-4 md:p-6">
-          {showBreadcrumbs && <Breadcrumbs className="mb-4" />}
+        <div className="p-4 md:p-5">
+          {showBreadcrumbs && <Breadcrumbs className="mb-3" />}
           {children}
         </div>
       </main>

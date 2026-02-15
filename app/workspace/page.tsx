@@ -62,7 +62,7 @@ export default function WorkspacePage() {
       trend: realTimeKpis.portfolioHealth >= 80 ? 'up' as const : 'down' as const,
       sparklineData: generateSparklineData(realTimeKpis.portfolioHealth, 3),
       icon: '💼',
-      color: 'teal' as const,
+      color: 'purple' as const,
       subtitle: '12 active initiatives',
       target: 85,
       format: 'percentage' as const,
@@ -153,7 +153,7 @@ export default function WorkspacePage() {
             type="line"
             data={agilityData}
             dataKeys={[
-              { key: 'agility', color: '#2DD4BF', name: 'Strategic Agility' },
+              { key: 'agility', color: '#C084FC', name: 'Strategic Agility' },
               { key: 'readiness', color: '#A3E635', name: 'Execution Readiness' },
             ]}
           />
@@ -175,7 +175,7 @@ export default function WorkspacePage() {
                 <p className="text-xs text-gray-400">{initiatives.length} active projects</p>
               </div>
             </div>
-            <Link href="/portfolio" className="flex items-center gap-2 text-sm text-teal-400 hover:text-teal-300 transition-colors">
+            <Link href="/portfolio" className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors">
               View Portfolio
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -220,14 +220,14 @@ export default function WorkspacePage() {
                           init.status === 'At Risk' ? 'bg-amber-400' : 'bg-red-400'
                         }`} />
                         <div>
-                          <span className="text-sm text-white font-medium group-hover:text-teal-400 transition-colors">{init.name}</span>
+                          <span className="text-sm text-white font-medium group-hover:text-purple-400 transition-colors">{init.name}</span>
                           <span className="block text-xs text-gray-500">{init.portfolio}</span>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center text-[10px] text-white font-medium">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center text-[10px] text-white font-medium">
                           {init.owner.charAt(0)}
                         </div>
                         <span className="text-sm text-gray-300">{init.owner}</span>
@@ -256,7 +256,7 @@ export default function WorkspacePage() {
                               init.confidence >= 80
                                 ? 'bg-gradient-to-r from-green-500 to-green-400'
                                 : init.confidence >= 60
-                                ? 'bg-gradient-to-r from-teal-500 to-teal-400'
+                                ? 'bg-gradient-to-r from-purple-500 to-purple-400'
                                 : 'bg-gradient-to-r from-amber-500 to-amber-400'
                             }`}
                             style={{ width: `${init.confidence}%` }}
@@ -297,7 +297,7 @@ export default function WorkspacePage() {
           <div className="mt-4 pt-4 border-t border-navy-600/50 flex justify-center">
             <Link
               href="/portfolio"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-teal-400 hover:text-teal-300 hover:bg-teal-500/10 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 rounded-lg transition-colors"
             >
               View All {initiatives.length} Initiatives
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -320,7 +320,7 @@ export default function WorkspacePage() {
           type="bar"
           data={resourceAllocationData}
           dataKeys={[
-            { key: 'allocated', color: '#2DD4BF', name: 'Allocated ($K)' },
+            { key: 'allocated', color: '#C084FC', name: 'Allocated ($K)' },
             { key: 'utilized', color: '#A855F7', name: 'Utilized ($K)' },
           ]}
         />
@@ -336,8 +336,8 @@ export default function WorkspacePage() {
         >
           <div className="bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-6 h-48">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/20 flex items-center justify-center">
-                <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>

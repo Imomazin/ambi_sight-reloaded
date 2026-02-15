@@ -50,9 +50,9 @@ export default function DashboardHeader() {
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy-800/90 via-navy-700/80 to-navy-800/90 border border-navy-600/50 mb-8">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" />
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-teal-500/5 to-transparent rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-purple-500/5 to-transparent rounded-full" />
       </div>
 
       {/* Grid pattern overlay */}
@@ -69,7 +69,7 @@ export default function DashboardHeader() {
         <div className="flex items-start justify-between mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/25">
                 <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -103,11 +103,11 @@ export default function DashboardHeader() {
           {heroMetrics.map((metric, index) => (
             <div
               key={metric.label}
-              className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-teal-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/5"
+              className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-teal-500/0 to-purple-500/0 group-hover:from-teal-500/5 group-hover:to-purple-500/5 transition-all duration-300" />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500/0 to-purple-500/0 group-hover:from-purple-500/5 group-hover:to-purple-500/5 transition-all duration-300" />
 
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-3">
@@ -123,14 +123,14 @@ export default function DashboardHeader() {
                     {Math.abs(metric.change).toFixed(1)}%
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-white mb-1 group-hover:text-teal-400 transition-colors">
+                <div className="text-3xl font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
                   {metric.value}
                 </div>
                 <div className="text-sm text-gray-400">{metric.label}</div>
               </div>
 
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-teal-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
         </div>

@@ -7,34 +7,30 @@ import UserIndicator from './UserIndicator';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const navLinks = [
-  { href: '/workspace', label: 'Workspace', icon: '📊' },
-  { href: '/tools', label: 'Tools', icon: '⚙️' },
-  { href: '/diagnosis', label: 'Diagnosis', icon: '🔍' },
-  { href: '/advisor', label: 'Advisor', icon: '💬' },
-  { href: '/pricing', label: 'Pricing', icon: '💳' },
+  { href: '/workspace', label: 'Workspace' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/diagnosis', label: 'Diagnosis' },
+  { href: '/advisor', label: 'Advisor' },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { currentScenario, setHelpOpen } = useAppState();
+  const { setHelpOpen } = useAppState();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-sm border-b border-[var(--border-color)]">
-      <div className="flex items-center justify-between px-6 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-xl border-b border-[var(--border-color)]">
+      <div className="flex items-center justify-between px-5 h-14">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-          </div>
-          <div>
-            <span className="text-lg font-semibold text-[var(--text-primary)]">Lumina S</span>
-            <span className="text-xs text-[var(--text-muted)] block">Strategic Intelligence</span>
-          </div>
+        <Link href="/" className="flex items-center gap-2.5">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#nav-lg)" strokeWidth="2"/>
+            <path d="M10 22V10h4v8h4V10h4v12" stroke="url(#nav-lg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <defs><linearGradient id="nav-lg" x1="0" y1="0" x2="32" y2="32"><stop stopColor="#A855F7"/><stop offset="1" stopColor="#EC4899"/></linearGradient></defs>
+          </svg>
+          <span className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">Lumina S</span>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Center Nav */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
@@ -42,66 +38,32 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors ${
                   isActive
-                    ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                    ? 'bg-[var(--accent-subtle)] text-[var(--accent)]'
                     : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
                 }`}
               >
-                <span>{link.icon}</span>
-                <span>{link.label}</span>
+                {link.label}
               </Link>
             );
           })}
         </div>
 
-        {/* Current Scenario Indicator */}
-        {currentScenario && (
-          <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[var(--bg-card)] rounded-lg border border-[var(--border-color)]">
-            <span className="text-xs text-[var(--text-muted)]">Active Scenario:</span>
-            <span className="text-sm font-medium text-teal-400">{currentScenario.name}</span>
-          </div>
-        )}
-
         {/* Right side */}
-        <div className="flex items-center gap-2">
-          {/* Theme Switcher */}
+        <div className="flex items-center gap-1.5">
           <ThemeSwitcher />
-
-          {/* Help Button */}
           <button
             onClick={() => setHelpOpen(true)}
             className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] rounded-lg transition-colors"
             title="Help"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
             </svg>
           </button>
-
-          {/* User Indicator */}
           <UserIndicator />
         </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className="md:hidden flex items-center gap-1 px-4 pb-3 overflow-x-auto">
-        {navLinks.map((link) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
-                isActive
-                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-card)]'
-              }`}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
       </div>
     </nav>
   );

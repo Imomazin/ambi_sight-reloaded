@@ -28,12 +28,12 @@ export default function KpiCard({ kpi }: KpiCardProps) {
     adjustedValue = Math.round(adjustedValue * riskMultiplier * 10) / 10;
   }
 
-  const colorClasses = {
-    teal: 'kpi-teal',
+  const colorClasses: Record<string, string> = {
     amber: 'kpi-amber',
     magenta: 'kpi-magenta',
     lime: 'kpi-lime',
     purple: 'kpi-purple',
+    teal: 'kpi-purple',
   };
 
   const trendIcons = {

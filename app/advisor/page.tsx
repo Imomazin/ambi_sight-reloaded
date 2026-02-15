@@ -7,7 +7,7 @@ import AppShell from '../../components/AppShell';
 import AIAssistant from '../../components/AIAssistant';
 import LockedFeature from '../../components/LockedFeature';
 import { useAppState } from '../../state/useAppState';
-import advisorResponses from '../../lib/advisorResponses';
+import * as advisorResponses from '../../lib/advisorResponses';
 
 const AdvisorPage: React.FC = () => {
   // keep types relaxed so TS doesn't complain if shapes change
@@ -20,10 +20,10 @@ const AdvisorPage: React.FC = () => {
     <AppShell>
       <div className="min-h-screen flex flex-col gap-6">
         <header className="space-y-2">
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
             Strategy AI Advisor
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-[var(--text-muted)]">
             Use Lumina S to ask focused questions, explore scenarios, and stress-test your
             current strategy.
           </p>

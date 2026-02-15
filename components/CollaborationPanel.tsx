@@ -92,7 +92,7 @@ export default function CollaborationPanel() {
     switch (role) {
       case 'owner': return '#FBBF24';
       case 'admin': return '#A855F7';
-      case 'member': return '#14B8A6';
+      case 'member': return '#A855F7';
       case 'viewer': return '#64748B';
       default: return '#64748B';
     }
