@@ -48,7 +48,7 @@ const categoryColors: Record<RiskFactor['category'], { bg: string; text: string;
   market: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
   operational: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
   financial: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/30' },
-  regulatory: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
+  regulatory: { bg: 'bg-purple-500/20', text: 'text-purple-500', border: 'border-purple-500/30' },
   technology: { bg: 'bg-red-500/20', text: 'text-red-400', border: 'border-red-500/30' },
 };
 

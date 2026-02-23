@@ -73,7 +73,7 @@ function ChallengeStep({
         <h2 className="text-2xl font-bold text-white mb-2">What strategic challenges are you facing?</h2>
         <p className="text-slate-400">Select all that apply - you can choose multiple challenges</p>
         {selected.length > 0 && (
-          <div className="mt-3 inline-flex items-center gap-2 bg-teal-500/20 text-teal-400 px-3 py-1 rounded-full text-sm">
+          <div className="mt-3 inline-flex items-center gap-2 bg-teal-500/10 text-teal-500 px-3 py-1 rounded-full text-sm">
             <span>{selected.length} selected</span>
           </div>
         )}
@@ -331,12 +331,12 @@ function ResultsStep({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     {idx === 0 && (
-                      <span className="text-xs bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded">
+                      <span className="text-xs bg-teal-500/10 text-teal-500 px-2 py-0.5 rounded">
                         Start Here
                       </span>
                     )}
                   </div>
-                  <h4 className="font-medium text-white truncate group-hover:text-teal-400 transition-colors">{tool.name}</h4>
+                  <h4 className="font-medium text-white truncate group-hover:text-teal-500 transition-colors">{tool.name}</h4>
                   <p className="text-xs text-slate-400 mt-1 line-clamp-2">{tool.description}</p>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center gap-2">
@@ -345,7 +345,7 @@ function ResultsStep({
                       </span>
                       <span className="text-xs text-slate-500">{tool.estimatedTime}</span>
                     </div>
-                    <span className="text-xs text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                    <span className="text-xs text-teal-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                       Launch
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -405,7 +405,7 @@ function ResultsStep({
                     {tool.requiredPlan}
                   </span>
                 )}
-                <svg className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>

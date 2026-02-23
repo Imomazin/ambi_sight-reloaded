@@ -294,7 +294,7 @@ export default function ExecutiveSummary() {
 
         {isGenerating && (
           <div className="text-center py-16">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center animate-pulse">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-teal-500/10 to-purple-500/20 flex items-center justify-center animate-pulse">
               <span className="text-4xl">📊</span>
             </div>
             <h3 className="text-lg font-semibold text-white mb-2">Generating Executive Summary</h3>
@@ -302,9 +302,9 @@ export default function ExecutiveSummary() {
               Analyzing portfolio data and generating insights...
             </p>
             <div className="flex items-center justify-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-              <div className="w-2 h-2 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-              <div className="w-2 h-2 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="w-2 h-2 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-2 h-2 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
           </div>
         )}

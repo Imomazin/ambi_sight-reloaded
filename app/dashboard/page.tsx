@@ -291,93 +291,93 @@ export default function ProjectDashboardPage() {
 
         <style jsx>{`
           .dashboard {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 24px 20px;
           }
 
           .dashboard-header {
-            margin-bottom: 32px;
+            margin-bottom: 28px;
           }
 
           .header-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
           }
 
           .welcome-section h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-primary);
             margin: 0 0 4px;
+            letter-spacing: -0.02em;
           }
 
           .welcome-section p {
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
             margin: 0;
           }
 
           .create-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            gap: 6px;
+            padding: 10px 18px;
+            background: #10b981;
             border: none;
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.15s ease;
           }
 
           .create-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+            background: #059669;
           }
 
           .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: 12px;
           }
 
           .stat-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 16px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
           }
 
           .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
           }
 
           .stat-icon.projects {
-            background: rgba(168, 85, 247, 0.2);
-            color: #A855F7;
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
           }
 
           .stat-icon.active {
-            background: rgba(20, 184, 166, 0.2);
-            color: #14B8A6;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
           }
 
           .stat-icon.completed {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
           }
 
           .stat-content {
@@ -386,86 +386,85 @@ export default function ProjectDashboardPage() {
           }
 
           .stat-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-primary);
           }
 
           .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
           }
 
           .empty-state {
             text-align: center;
-            padding: 80px 24px;
+            padding: 64px 24px;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
           }
 
           .empty-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1));
-            border-radius: 24px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(139, 92, 246, 0.06);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #A855F7;
+            color: #8b5cf6;
           }
 
           .empty-state h2 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             color: var(--text-primary);
-            margin: 0 0 8px;
+            margin: 0 0 6px;
           }
 
           .empty-state p {
             color: var(--text-muted);
-            margin: 0 0 24px;
+            margin: 0 0 20px;
+            font-size: 14px;
           }
 
           .create-btn-large {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            gap: 6px;
+            padding: 12px 24px;
+            background: #10b981;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.15s ease;
           }
 
           .create-btn-large:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+            background: #059669;
           }
 
           .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
           }
 
           .project-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.2s ease;
+            transition: border-color 0.15s ease;
             position: relative;
           }
 
           .project-card:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--border-hover);
           }
 
           .create-card {
@@ -473,42 +472,42 @@ export default function ProjectDashboardPage() {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 280px;
+            min-height: 260px;
             cursor: pointer;
             border-style: dashed;
           }
 
           .create-card:hover {
-            background: rgba(168, 85, 247, 0.05);
-            border-color: #A855F7;
+            background: rgba(139, 92, 246, 0.03);
+            border-color: rgba(139, 92, 246, 0.2);
           }
 
           .create-icon {
-            width: 64px;
-            height: 64px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: var(--bg-tertiary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            margin-bottom: 16px;
-            transition: all 0.2s ease;
+            margin-bottom: 12px;
+            transition: all 0.15s ease;
           }
 
           .create-card:hover .create-icon {
-            background: rgba(168, 85, 247, 0.2);
-            color: #A855F7;
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
           }
 
           .create-text {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--text-muted);
           }
 
           .create-card:hover .create-text {
-            color: #A855F7;
+            color: #8b5cf6;
           }
 
           .card-header {
@@ -527,13 +526,13 @@ export default function ProjectDashboardPage() {
           }
 
           .status-badge.in-progress {
-            background: rgba(20, 184, 166, 0.2);
-            color: #2DD4BF;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
           }
 
           .status-badge.completed {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
           }
 
           .card-actions {
@@ -580,7 +579,7 @@ export default function ProjectDashboardPage() {
 
           .current-step {
             font-size: 13px;
-            color: #A855F7;
+            color: #8b5cf6;
             font-weight: 500;
           }
 
@@ -611,7 +610,7 @@ export default function ProjectDashboardPage() {
 
           .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #14B8A6, #A855F7);
+            background: linear-gradient(90deg, #10b981, #8b5cf6);
             border-radius: 3px;
             transition: width 0.3s ease;
           }
@@ -631,12 +630,12 @@ export default function ProjectDashboardPage() {
           }
 
           .step-dot.completed {
-            background: #14B8A6;
+            background: #10b981;
           }
 
           .step-dot.current {
-            background: #A855F7;
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+            background: #8b5cf6;
+            box-shadow: 0 0 6px rgba(139, 92, 246, 0.4);
           }
 
           .metrics-row {
@@ -689,9 +688,9 @@ export default function ProjectDashboardPage() {
           }
 
           .continue-btn:hover {
-            background: rgba(168, 85, 247, 0.1);
-            border-color: #A855F7;
-            color: #A855F7;
+            background: rgba(16, 185, 129, 0.06);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
           }
 
           .delete-confirm {
@@ -810,7 +809,7 @@ export default function ProjectDashboardPage() {
           }
 
           .form-group input:focus {
-            border-color: #A855F7;
+            border-color: #8b5cf6;
           }
 
           .modal-hint {
@@ -840,14 +839,19 @@ export default function ProjectDashboardPage() {
           }
 
           .btn-primary {
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+            padding: 10px 20px;
+            background: #10b981;
             border: none;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             color: white;
             cursor: pointer;
+            transition: background 0.15s ease;
+          }
+
+          .btn-primary:hover {
+            background: #059669;
           }
 
           .btn-primary:disabled {

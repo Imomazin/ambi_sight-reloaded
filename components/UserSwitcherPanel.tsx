@@ -15,7 +15,7 @@ function UserCard({ user, onSelect }: UserCardProps) {
   return (
     <button
       onClick={onSelect}
-      className="w-full p-4 rounded-xl border bg-navy-700/50 border-navy-600 hover:border-teal-500/30 hover:bg-navy-700 transition-all duration-200 text-left group"
+      className="w-full p-4 rounded-xl border bg-navy-700/50 border-navy-600 hover:border-teal-500/15 hover:bg-navy-700 transition-all duration-200 text-left group"
     >
       <div className="flex items-start gap-3">
         {/* Avatar */}
@@ -26,7 +26,7 @@ function UserCard({ user, onSelect }: UserCardProps) {
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-white font-medium truncate group-hover:text-teal-400 transition-colors">
+            <h3 className="text-white font-medium truncate group-hover:text-teal-500 transition-colors">
               {user.name}
             </h3>
             <span
@@ -35,12 +35,12 @@ function UserCard({ user, onSelect }: UserCardProps) {
               {user.plan}
             </span>
           </div>
-          <p className="text-sm text-teal-400">{roleDisplayNames[user.role]}</p>
+          <p className="text-sm text-teal-500">{roleDisplayNames[user.role]}</p>
           <p className="text-xs text-gray-400 truncate mt-1">{user.company}</p>
         </div>
 
         {/* Arrow */}
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity text-teal-400">
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity text-teal-500">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>

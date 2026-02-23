@@ -346,7 +346,7 @@ export default function TemplateGallery() {
 
         .template-card.popular {
           background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-          border-color: rgba(168, 85, 247, 0.3);
+          border-color: rgba(139, 92, 246, 0.3);
         }
 
         .template-icon {
@@ -382,7 +382,7 @@ export default function TemplateGallery() {
           top: 12px;
           right: 12px;
           padding: 4px 10px;
-          background: linear-gradient(135deg, #A855F7, #EC4899);
+          background: linear-gradient(135deg, #8b5cf6, #d946ef);
           border-radius: 4px;
           font-size: 11px;
           font-weight: 600;

@@ -523,7 +523,7 @@ export default function DecideStep({ onComplete }: DecideStepProps) {
 
         .btn-primary {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #10b981, #34d399);
           border: none;
           border-radius: 8px;
           font-size: 14px;

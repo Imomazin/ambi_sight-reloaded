@@ -99,7 +99,7 @@ export default function ThemeSwitcher() {
               onClick={() => handleThemeChange(option.value)}
               className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${
                 theme === option.value
-                  ? 'bg-teal-500/20 text-teal-400'
+                  ? 'bg-teal-500/10 text-teal-500'
                   : 'text-[var(--text-muted)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
               }`}
             >

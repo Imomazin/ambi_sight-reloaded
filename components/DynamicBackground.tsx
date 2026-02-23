@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-// City skyline images from Unsplash - stunning global metropolises
 const cityBackgrounds = [
   {
     url: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1920&h=1080&fit=crop&q=80',
@@ -63,21 +62,17 @@ export default function DynamicBackground({ children, className = '' }: DynamicB
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isZooming, setIsZooming] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
-      setIsZooming(false);
 
       setTimeout(() => {
         setCurrentIndex(nextIndex);
         setNextIndex((nextIndex + 1) % cityBackgrounds.length);
         setIsTransitioning(false);
-        // Start zoom effect on new image
-        setTimeout(() => setIsZooming(true), 100);
-      }, 1500); // Transition duration
-    }, 10000); // Change every 10 seconds for better appreciation
+      }, 1200);
+    }, 12000);
 
     return () => clearInterval(interval);
   }, [nextIndex]);
@@ -87,51 +82,49 @@ export default function DynamicBackground({ children, className = '' }: DynamicB
 
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* Current Background with Ken Burns zoom effect - subtle and non-distracting */}
+      {/* Current Background */}
       <div
-        className={`fixed inset-0 z-0 transition-opacity duration-[1500ms] ease-in-out overflow-hidden ${
+        className={`fixed inset-0 z-0 transition-opacity duration-[1200ms] ease-in-out overflow-hidden ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <img
           src={currentBg.url}
           alt={currentBg.city}
-          className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
-            isZooming ? 'scale-110' : 'scale-100'
-          }`}
-          style={{ filter: 'brightness(0.5) saturate(0.8)' }}
+          className="w-full h-full object-cover"
+          style={{ filter: 'brightness(0.35) saturate(0.7)' }}
         />
       </div>
 
-      {/* Next Background (for smooth transition) */}
+      {/* Next Background */}
       <div
-        className={`fixed inset-0 z-0 transition-opacity duration-[1500ms] ease-in-out overflow-hidden ${
+        className={`fixed inset-0 z-0 transition-opacity duration-[1200ms] ease-in-out overflow-hidden ${
           isTransitioning ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <img
           src={nextBg.url}
           alt={nextBg.city}
-          className="w-full h-full object-cover scale-100"
-          style={{ filter: 'brightness(0.5) saturate(0.8)' }}
+          className="w-full h-full object-cover"
+          style={{ filter: 'brightness(0.35) saturate(0.7)' }}
         />
       </div>
 
-      {/* Overlay - more transparent to let skyline show subtly */}
-      <div className="fixed inset-0 z-[1] bg-gradient-to-br from-navy-900/85 via-navy-800/80 to-navy-900/85 transition-colors duration-300" />
+      {/* Overlay */}
+      <div className="fixed inset-0 z-[1] bg-gradient-to-br from-navy-900/90 via-navy-800/88 to-navy-900/90 transition-colors duration-300" />
 
       {/* Content */}
       <div className="relative z-10">
         {children}
       </div>
 
-      {/* City indicator with globe icon */}
+      {/* City indicator */}
       <div
-        className="fixed bottom-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md text-[var(--text-primary)] text-sm font-medium border border-[var(--border-color)] shadow-lg transition-all duration-500"
+        className="fixed bottom-3 right-3 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md text-[var(--text-muted)] text-[11px] font-medium border border-[var(--border-color)] transition-all duration-500"
         style={{ backgroundColor: 'var(--overlay-bg)' }}
       >
-        <svg className="w-4 h-4 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-3 h-3 text-teal-500 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span className={`transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
           {currentBg.city}

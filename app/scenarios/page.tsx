@@ -26,7 +26,7 @@ export default function ScenariosPage() {
             {currentScenario && (
               <button
                 onClick={() => setScenario(null)}
-                className="px-4 py-2 bg-navy-700 border border-navy-600 rounded-xl text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors"
+                className="px-4 py-2 bg-navy-700 border border-navy-600 rounded-xl text-sm text-gray-300 hover:text-white hover:border-teal-500/50 transition-colors"
               >
                 Clear Active Scenario
               </button>
@@ -37,12 +37,12 @@ export default function ScenariosPage() {
 
       {/* Active Scenario Banner */}
       {currentScenario && (
-        <div className="mb-8 p-4 bg-teal-500/10 border border-teal-500/30 rounded-xl">
+        <div className="mb-8 p-4 bg-teal-500/10 border border-teal-500/15 rounded-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-teal-400"
+                  className="w-5 h-5 text-teal-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -56,7 +56,7 @@ export default function ScenariosPage() {
                 </svg>
               </div>
               <div>
-                <span className="text-sm text-teal-400 font-medium">Active Scenario</span>
+                <span className="text-sm text-teal-500 font-medium">Active Scenario</span>
                 <p className="text-white font-semibold">{currentScenario.name}</p>
               </div>
             </div>

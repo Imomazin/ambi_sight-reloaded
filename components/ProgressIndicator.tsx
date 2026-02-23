@@ -22,9 +22,9 @@ export default function ProgressIndicator({
   const clampedProgress = Math.min(100, Math.max(0, progress));
 
   const colors = {
-    teal: { primary: '#14B8A6', secondary: '#2DD4BF', bg: 'rgba(20, 184, 166, 0.2)' },
+    teal: { primary: '#10b981', secondary: '#34d399', bg: 'rgba(16, 185, 129, 0.2)' },
     amber: { primary: '#F59E0B', secondary: '#FBBF24', bg: 'rgba(245, 158, 11, 0.2)' },
-    purple: { primary: '#A855F7', secondary: '#C084FC', bg: 'rgba(168, 85, 247, 0.2)' },
+    purple: { primary: '#8b5cf6', secondary: '#a78bfa', bg: 'rgba(139, 92, 246, 0.2)' },
     red: { primary: '#EF4444', secondary: '#F87171', bg: 'rgba(239, 68, 68, 0.2)' },
     green: { primary: '#22C55E', secondary: '#4ADE80', bg: 'rgba(34, 197, 94, 0.2)' }
   };

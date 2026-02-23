@@ -27,7 +27,7 @@ export default function MobileNav() {
               href={item.href}
               className={`relative flex flex-col items-center gap-0.5 min-w-[56px] py-2 rounded-lg transition-colors touch-manipulation ${
                 isActive
-                  ? 'text-teal-400'
+                  ? 'text-teal-500'
                   : 'text-[var(--text-muted)] active:text-[var(--text-primary)]'
               }`}
             >
@@ -36,7 +36,7 @@ export default function MobileNav() {
               </span>
               <span className="text-[10px] font-medium leading-tight">{item.label}</span>
               {isActive && (
-                <span className="absolute -bottom-0.5 w-1 h-1 bg-teal-400 rounded-full" />
+                <span className="absolute -bottom-0.5 w-1 h-1 bg-teal-500 rounded-full" />
               )}
             </Link>
           );

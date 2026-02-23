@@ -31,7 +31,7 @@ export default function ScenarioCard({ scenario }: ScenarioCardProps) {
   return (
     <div className="card card-hover group">
       <div className="flex items-start justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors">
+        <h3 className="text-lg font-semibold text-white group-hover:text-teal-500 transition-colors">
           {scenario.name}
         </h3>
         <span
@@ -64,7 +64,7 @@ export default function ScenarioCard({ scenario }: ScenarioCardProps) {
 
         <button
           onClick={handleOpenInWorkspace}
-          className="px-4 py-2 text-sm font-medium text-teal-400 bg-teal-500/10 rounded-lg border border-teal-500/30 hover:bg-teal-500/20 transition-colors"
+          className="px-4 py-2 text-sm font-medium text-teal-500 bg-teal-500/10 rounded-lg border border-teal-500/15 hover:bg-teal-500/10 transition-colors"
         >
           Open in Workspace →
         </button>
@@ -86,7 +86,7 @@ export default function ScenarioCard({ scenario }: ScenarioCardProps) {
         </div>
         <div className="text-center flex-1">
           <span className="text-xs text-gray-500 block">Volatility</span>
-          <span className={`text-sm font-medium ${scenario.multipliers.volatility > 1 ? 'text-amber-400' : 'text-teal-400'}`}>
+          <span className={`text-sm font-medium ${scenario.multipliers.volatility > 1 ? 'text-amber-400' : 'text-teal-500'}`}>
             {scenario.multipliers.volatility > 1 ? '+' : ''}{Math.round((scenario.multipliers.volatility - 1) * 100)}%
           </span>
         </div>

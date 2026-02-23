@@ -22,9 +22,9 @@ export default function InsightFeed() {
       case 'opportunity':
         return {
           bg: 'bg-teal-500/10',
-          border: 'border-teal-500/30',
+          border: 'border-teal-500/15',
           icon: '🎯',
-          color: 'text-teal-400',
+          color: 'text-teal-500',
         };
       case 'success':
         return {
@@ -68,7 +68,7 @@ export default function InsightFeed() {
           );
         })}
       </div>
-      <button className="w-full mt-4 py-2 text-sm text-teal-400 hover:text-teal-300 transition-colors">
+      <button className="w-full mt-4 py-2 text-sm text-teal-500 hover:text-teal-300 transition-colors">
         View All Insights →
       </button>
     </div>

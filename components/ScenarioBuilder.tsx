@@ -132,7 +132,7 @@ const categoryColors = {
   market: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', icon: '📊' },
   operational: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400', icon: '⚙️' },
   financial: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', icon: '💰' },
-  strategic: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', icon: '🎯' },
+  strategic: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-500', icon: '🎯' },
 };
 
 function calculateImpact(variables: ScenarioVariable[]): ScenarioImpact {
@@ -226,11 +226,11 @@ function VariableSlider({ variable, onChange }: SliderProps) {
             background: `linear-gradient(to right, ${
               variable.category === 'market' ? '#3B82F6' :
               variable.category === 'operational' ? '#22C55E' :
-              variable.category === 'financial' ? '#F59E0B' : '#A855F7'
+              variable.category === 'financial' ? '#F59E0B' : '#8b5cf6'
             } 0%, ${
               variable.category === 'market' ? '#3B82F6' :
               variable.category === 'operational' ? '#22C55E' :
-              variable.category === 'financial' ? '#F59E0B' : '#A855F7'
+              variable.category === 'financial' ? '#F59E0B' : '#8b5cf6'
             } ${((variable.current - variable.min) / (variable.max - variable.min)) * 100}%, #1E293B ${((variable.current - variable.min) / (variable.max - variable.min)) * 100}%, #1E293B 100%)`,
           }}
         />
@@ -380,7 +380,7 @@ export default function ScenarioBuilder() {
               onClick={() => setActiveCategory(cat)}
               className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
                 activeCategory === cat
-                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                  ? 'bg-teal-500/10 text-teal-500 border border-teal-500/15'
                   : 'text-gray-400 hover:text-white hover:bg-navy-700 border border-transparent'
               }`}
             >
@@ -412,7 +412,7 @@ export default function ScenarioBuilder() {
 
           {/* Overall Score */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-teal-500/20 to-purple-500/20 border-2 border-teal-500/30">
+            <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-teal-500/10 to-purple-500/20 border-2 border-teal-500/15">
               <div>
                 <div className="text-4xl font-bold text-white">{impact.overallScore}</div>
                 <div className="text-xs text-gray-400">Overall Score</div>
@@ -447,7 +447,7 @@ export default function ScenarioBuilder() {
               label="Efficiency"
               value={impact.efficiency.value}
               change={impact.efficiency.change}
-              color="#A855F7"
+              color="#8b5cf6"
               icon="🎯"
             />
           </div>

@@ -204,7 +204,7 @@ function MetricForecastCard({ metric }: { metric: ForecastMetric }) {
     (metric.id !== 'risk' && metric.trend === 'up');
 
   return (
-    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-teal-500/30 transition-colors">
+    <div className="bg-navy-700/50 border border-navy-600 rounded-xl p-4 hover:border-teal-500/15 transition-colors">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xl">{metric.icon}</span>
@@ -331,7 +331,7 @@ export default function PredictiveAnalytics() {
               onClick={() => setSelectedMetric(metric.id)}
               className={`px-3 py-1.5 text-xs rounded-lg transition-colors flex items-center gap-1 ${
                 selectedMetric === metric.id
-                  ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
+                  ? 'bg-teal-500/10 text-teal-500 border border-teal-500/15'
                   : 'text-gray-400 hover:text-white hover:bg-navy-700 border border-transparent'
               }`}
             >
@@ -411,10 +411,10 @@ export default function PredictiveAnalytics() {
                 <Line
                   type="monotone"
                   dataKey="actual"
-                  stroke="#2DD4BF"
+                  stroke="#34d399"
                   strokeWidth={2}
-                  dot={{ fill: '#2DD4BF', strokeWidth: 0, r: 3 }}
-                  activeDot={{ r: 5, fill: '#2DD4BF' }}
+                  dot={{ fill: '#34d399', strokeWidth: 0, r: 3 }}
+                  activeDot={{ r: 5, fill: '#34d399' }}
                 />
 
                 {/* Predicted Line */}
@@ -434,7 +434,7 @@ export default function PredictiveAnalytics() {
           {/* Legend */}
           <div className="flex items-center justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-0.5 bg-teal-400" />
+              <div className="w-8 h-0.5 bg-teal-500" />
               <span className="text-xs text-gray-400">Historical</span>
             </div>
             <div className="flex items-center gap-2">

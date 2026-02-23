@@ -168,7 +168,7 @@ export default function SignInPage() {
       {/* Header */}
       <header className="p-6">
         <Link href="/" className="flex items-center gap-3 w-fit">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 via-purple-500 to-magenta-400 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 via-purple-500 to-magenta-400 flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>
@@ -537,7 +537,7 @@ export default function SignInPage() {
               className={`w-full py-3.5 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
                 isLoading && authMethod === 'email'
                   ? 'bg-teal-600 text-white'
-                  : 'bg-teal-500 hover:bg-teal-400 text-white'
+                  : 'bg-teal-500 hover:bg-teal-500 text-white'
               }`}
               onClick={() => setAuthMethod('email')}
             >
@@ -583,7 +583,7 @@ export default function SignInPage() {
                     onClick={() => setSelectedUser(user)}
                     className={`w-full text-left p-3 rounded-xl border transition-all ${
                       selectedUser?.id === user.id
-                        ? 'bg-teal-500/10 border-teal-500/50 ring-1 ring-teal-500/30'
+                        ? 'bg-teal-500/10 border-teal-500/50 ring-1 ring-teal-500/15'
                         : 'bg-[var(--bg-secondary)] border-[var(--border-color)] hover:border-[var(--border-hover)]'
                     }`}
                   >
@@ -630,7 +630,7 @@ export default function SignInPage() {
 
           {/* Footer Links */}
           <div className="mt-6 text-center text-sm">
-            <Link href="/pricing" className="text-teal-500 hover:text-teal-400 font-medium">
+            <Link href="/pricing" className="text-teal-500 hover:text-teal-500 font-medium">
               View Plans & Pricing
             </Link>
           </div>

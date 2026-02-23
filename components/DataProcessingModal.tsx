@@ -192,7 +192,7 @@ export default function DataProcessingModal({
               <div className="flex flex-col items-center py-8">
                 {/* Animated Icon */}
                 <div className="relative mb-6">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-500/20 to-purple-500/20 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-500/10 to-purple-500/20 flex items-center justify-center">
                     <span className="text-4xl animate-pulse">{currentStage.icon}</span>
                   </div>
                   {/* Spinning Ring */}
@@ -232,7 +232,7 @@ export default function DataProcessingModal({
                         idx < currentStageIndex
                           ? 'bg-teal-500 text-white'
                           : idx === currentStageIndex
-                          ? 'bg-teal-500/20 text-teal-400 ring-2 ring-teal-500'
+                          ? 'bg-teal-500/10 text-teal-500 ring-2 ring-teal-500'
                           : 'bg-[var(--bg-secondary)] text-[var(--text-muted)]'
                       }`}
                     >
@@ -288,7 +288,7 @@ export default function DataProcessingModal({
                     <div className="text-xs text-[var(--text-muted)] mb-1">{metric.label}</div>
                     <div className="text-lg font-semibold text-[var(--text-primary)]">{metric.value}</div>
                     {metric.change && (
-                      <div className="text-xs text-teal-400">{metric.change}</div>
+                      <div className="text-xs text-teal-500">{metric.change}</div>
                     )}
                   </div>
                 ))}
@@ -302,7 +302,7 @@ export default function DataProcessingModal({
                 <ul className="space-y-2">
                   {result?.keyInsights.slice(0, 3).map((insight, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                      <span className="text-teal-400 mt-0.5">•</span>
+                      <span className="text-teal-500 mt-0.5">•</span>
                       {insight}
                     </li>
                   ))}
@@ -313,7 +313,7 @@ export default function DataProcessingModal({
               <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[var(--border-color)]">
                 <button
                   onClick={onClose}
-                  className="flex-1 py-3 px-4 bg-teal-500 hover:bg-teal-400 text-white font-medium rounded-xl transition-colors"
+                  className="flex-1 py-3 px-4 bg-teal-500 hover:bg-teal-500 text-white font-medium rounded-xl transition-colors"
                 >
                   View Full Report
                 </button>

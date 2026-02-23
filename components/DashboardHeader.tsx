@@ -69,7 +69,7 @@ export default function DashboardHeader() {
         <div className="flex items-start justify-between mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
                 <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -103,7 +103,7 @@ export default function DashboardHeader() {
           {heroMetrics.map((metric, index) => (
             <div
               key={metric.label}
-              className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-teal-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/5"
+              className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-teal-500/15 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/5"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow effect on hover */}
@@ -123,7 +123,7 @@ export default function DashboardHeader() {
                     {Math.abs(metric.change).toFixed(1)}%
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-white mb-1 group-hover:text-teal-400 transition-colors">
+                <div className="text-3xl font-bold text-white mb-1 group-hover:text-teal-500 transition-colors">
                   {metric.value}
                 </div>
                 <div className="text-sm text-gray-400">{metric.label}</div>

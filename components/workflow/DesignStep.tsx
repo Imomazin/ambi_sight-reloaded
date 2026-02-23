@@ -371,7 +371,7 @@ export default function DesignStep({ onComplete }: DesignStepProps) {
 
         .step-header {
           padding: 24px;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.05));
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(217, 70, 239, 0.05));
           border-bottom: 1px solid var(--border);
         }
 
@@ -708,7 +708,7 @@ export default function DesignStep({ onComplete }: DesignStepProps) {
 
         .btn-primary {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #10b981, #34d399);
           border: none;
           border-radius: 8px;
           font-size: 14px;

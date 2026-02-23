@@ -173,13 +173,13 @@ export default function StrategyWorkflowPage() {
               width: 80px;
               height: 80px;
               margin: 0 auto 24px;
-              background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(168, 85, 247, 0.2));
-              border: 1px solid rgba(168, 85, 247, 0.3);
+              background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(139, 92, 246, 0.2));
+              border: 1px solid rgba(139, 92, 246, 0.3);
               border-radius: 24px;
               display: flex;
               align-items: center;
               justify-content: center;
-              color: #A855F7;
+              color: #8b5cf6;
             }
 
             .create-header h1 {
@@ -227,7 +227,7 @@ export default function StrategyWorkflowPage() {
             }
 
             .form-group input:focus {
-              border-color: #A855F7;
+              border-color: #8b5cf6;
             }
 
             .form-group input::placeholder {
@@ -264,7 +264,7 @@ export default function StrategyWorkflowPage() {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              background: linear-gradient(135deg, #14B8A6, #A855F7);
+              background: linear-gradient(135deg, #14B8A6, #8b5cf6);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -314,7 +314,7 @@ export default function StrategyWorkflowPage() {
 
             .btn-primary {
               padding: 12px 28px;
-              background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+              background: linear-gradient(135deg, #14B8A6, #34d399);
               border: none;
               border-radius: 10px;
               font-size: 14px;
@@ -326,7 +326,7 @@ export default function StrategyWorkflowPage() {
 
             .btn-primary:hover:not(:disabled) {
               transform: translateY(-1px);
-              box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+              box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
             }
 
             .btn-primary:disabled {
@@ -368,8 +368,8 @@ export default function StrategyWorkflowPage() {
             }
 
             .project-item:hover {
-              border-color: #A855F7;
-              background: rgba(168, 85, 247, 0.05);
+              border-color: #8b5cf6;
+              background: rgba(139, 92, 246, 0.05);
             }
 
             .project-info {
@@ -399,7 +399,7 @@ export default function StrategyWorkflowPage() {
 
             .progress-fill {
               height: 100%;
-              background: linear-gradient(90deg, #14B8A6, #A855F7);
+              background: linear-gradient(90deg, #14B8A6, #8b5cf6);
               border-radius: 3px;
               transition: width 0.3s ease;
             }
@@ -515,12 +515,12 @@ export default function StrategyWorkflowPage() {
 
           .step-badge {
             padding: 4px 12px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(139, 92, 246, 0.2));
-            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: 20px;
             font-size: 12px;
             font-weight: 500;
-            color: #C084FC;
+            color: #a78bfa;
           }
 
           .confidence {
@@ -546,13 +546,13 @@ export default function StrategyWorkflowPage() {
           }
 
           .advisor-toggle:hover {
-            border-color: #A855F7;
+            border-color: #8b5cf6;
             color: var(--text-primary);
           }
 
           .new-project-btn {
             padding: 10px 18px;
-            background: linear-gradient(135deg, #A855F7, #EC4899);
+            background: linear-gradient(135deg, #8b5cf6, #d946ef);
             border: none;
             border-radius: 10px;
             font-size: 13px;
@@ -564,7 +564,7 @@ export default function StrategyWorkflowPage() {
 
           .new-project-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
           }
 
           .workflow-content {

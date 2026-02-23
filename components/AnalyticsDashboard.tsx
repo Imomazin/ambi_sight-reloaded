@@ -23,8 +23,8 @@ export default function AnalyticsDashboard() {
   ];
 
   const toolUsageData = [
-    { label: 'SWOT Analysis', value: 35, color: '#14B8A6' },
-    { label: "Porter's 5 Forces", value: 28, color: '#A855F7' },
+    { label: 'SWOT Analysis', value: 35, color: '#10b981' },
+    { label: "Porter's 5 Forces", value: 28, color: '#8b5cf6' },
     { label: 'PESTEL', value: 22, color: '#F59E0B' },
     { label: 'Scenario Planning', value: 15, color: '#EF4444' }
   ];

@@ -368,7 +368,7 @@ export default function StrategyToolsPage() {
                 <div className="text-sm text-slate-400">Available to You</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400">{stats.categories}</div>
+                <div className="text-3xl font-bold text-purple-500">{stats.categories}</div>
                 <div className="text-sm text-slate-400">Categories</div>
               </div>
             </div>

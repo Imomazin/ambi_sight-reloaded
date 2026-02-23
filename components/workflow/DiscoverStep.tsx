@@ -313,7 +313,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .step-header {
           padding: 24px;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.05));
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
           border-bottom: 1px solid var(--border);
         }
 
@@ -375,7 +375,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .form-group input:focus,
         .form-group select:focus {
-          border-color: #A855F7;
+          border-color: #8b5cf6;
         }
 
         .challenge-tags {
@@ -396,13 +396,13 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
         }
 
         .challenge-tag:hover {
-          border-color: #A855F7;
+          border-color: #8b5cf6;
         }
 
         .challenge-tag.selected {
-          background: rgba(168, 85, 247, 0.2);
-          border-color: #A855F7;
-          color: #C084FC;
+          background: rgba(139, 92, 246, 0.2);
+          border-color: #8b5cf6;
+          color: #a78bfa;
         }
 
         .goals-input {
@@ -464,7 +464,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .generate-btn {
           padding: 8px 16px;
-          background: linear-gradient(135deg, #A855F7, #EC4899);
+          background: linear-gradient(135deg, #8b5cf6, #d946ef);
           border: none;
           border-radius: 8px;
           font-size: 13px;
@@ -476,7 +476,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .generate-btn:hover:not(:disabled) {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
         .generate-btn:disabled {
@@ -486,8 +486,8 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .ai-summary {
           padding: 20px;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.05));
-          border: 1px solid rgba(168, 85, 247, 0.3);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+          border: 1px solid rgba(139, 92, 246, 0.3);
           border-radius: 12px;
         }
 
@@ -534,7 +534,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .btn-primary {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #10b981, #34d399);
           border: none;
           border-radius: 8px;
           font-size: 14px;
@@ -546,7 +546,7 @@ Recommended diagnostic approach: Start with SWOT analysis to map internal capabi
 
         .btn-primary:hover:not(:disabled) {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .btn-primary:disabled {
