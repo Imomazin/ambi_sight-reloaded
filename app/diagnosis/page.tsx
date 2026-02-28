@@ -16,6 +16,7 @@ import {
   type DiagnosisResult,
 } from '../../lib/diagnosticWizard';
 import { useAppState } from '../../state/useAppState';
+import JourneyBanner from '../../components/JourneyBanner';
 import { planColors, complexityColors, type StrategyToolFull } from '../../lib/strategyToolsLibrary';
 import type { Plan } from '../../lib/users';
 import DataUploadButton from '../../components/DataUploadButton';
@@ -569,6 +570,14 @@ export default function DiagnosisPage() {
 
       {/* Main Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <JourneyBanner
+          currentModule="Diagnostic Wizard"
+          moduleHref="/diagnosis"
+          phase={2}
+          phaseName="Diagnose"
+          phaseColor="#3b82f6"
+          nextModule={{ name: 'Analytics Hub', href: '/analytics' }}
+        />
         {/* Progress Bar */}
         <div className="mb-12">
           <ProgressBar currentStep={currentStep} totalSteps={wizardSteps.length} />

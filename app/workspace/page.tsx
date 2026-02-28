@@ -19,6 +19,7 @@ import { useAppState } from '@/state/useAppState';
 import { useRealTimeKPIs } from '@/hooks/useRealTimeData';
 import { kpis, initiatives, resourceAllocationData, caseStudies } from '@/lib/demoData';
 import { hasFeatureAccess, roleDisplayNames } from '@/lib/users';
+import JourneyBanner from '@/components/JourneyBanner';
 
 // Generate sparkline data for KPIs
 function generateSparklineData(baseValue: number, volatility: number = 5): number[] {
@@ -114,6 +115,14 @@ export default function WorkspacePage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Workspace"
+        moduleHref="/workspace"
+        phase={3}
+        phaseName="Design"
+        phaseColor="#8b5cf6"
+        nextPhase={{ number: 4, name: 'Decide', firstModule: 'Scenario Planning', firstModuleHref: '/scenarios' }}
+      />
       {/* Dashboard Header with Hero Metrics */}
       <DashboardHeader />
 

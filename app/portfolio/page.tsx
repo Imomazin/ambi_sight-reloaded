@@ -5,6 +5,7 @@ import AppShell from '@/components/AppShell';
 import HeatmapGrid from '@/components/HeatmapGrid';
 import DataUploadButton from '@/components/DataUploadButton';
 import { initiatives, portfolios, owners, horizons } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 export default function PortfolioPage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');
@@ -18,6 +19,13 @@ export default function PortfolioPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Portfolio Tracker"
+        moduleHref="/portfolio"
+        phase={5}
+        phaseName="Deliver"
+        phaseColor="#14b8a6"
+      />
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">

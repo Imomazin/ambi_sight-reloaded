@@ -121,6 +121,14 @@ interface AppState {
   // Feature flags
   featureFlags: Record<string, boolean>;
   setFeatureFlag: (flag: string, value: boolean) => void;
+
+  // Journey tracking
+  currentJourneyPhase: number; // 1-5
+  setCurrentJourneyPhase: (phase: number) => void;
+  visitedModules: string[]; // hrefs of visited modules
+  markModuleVisited: (href: string) => void;
+  journeyStarted: boolean;
+  setJourneyStarted: (started: boolean) => void;
 }
 
 const defaultWidgets: DashboardWidget[] = [
@@ -301,6 +309,19 @@ export const useAppState = create<AppState>()(
         set((state) => ({
           featureFlags: { ...state.featureFlags, [flag]: value },
         })),
+
+      // Journey tracking
+      currentJourneyPhase: 1,
+      setCurrentJourneyPhase: (phase) => set({ currentJourneyPhase: phase }),
+      visitedModules: [],
+      markModuleVisited: (href) =>
+        set((state) => ({
+          visitedModules: state.visitedModules.includes(href)
+            ? state.visitedModules
+            : [...state.visitedModules, href],
+        })),
+      journeyStarted: false,
+      setJourneyStarted: (started) => set({ journeyStarted: started }),
     }),
     {
       name: 'lumina-s-storage',
@@ -319,6 +340,9 @@ export const useAppState = create<AppState>()(
         trialStartDate: state.trialStartDate,
         analysisHistory: state.analysisHistory,
         featureFlags: state.featureFlags,
+        currentJourneyPhase: state.currentJourneyPhase,
+        visitedModules: state.visitedModules,
+        journeyStarted: state.journeyStarted,
       }),
     }
   )

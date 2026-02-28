@@ -4,6 +4,7 @@ import AppShell from '@/components/AppShell';
 import Link from 'next/link';
 import { useState } from 'react';
 import { marketTrends, disruptionSignals, marketPulse, industryBenchmarks } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 type TrendCategory = 'All' | 'Technology' | 'Regulatory' | 'Economic' | 'Social' | 'Environmental';
 
@@ -46,6 +47,14 @@ export default function MarketIntelPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Market Intelligence"
+        moduleHref="/market-intel"
+        phase={1}
+        phaseName="Discover"
+        phaseColor="#10b981"
+        nextModule={{ name: 'Competitive Intel', href: '/competitive-intel' }}
+      />
       <div className="max-w-[1600px] mx-auto space-y-8">
 
         {/* ========== HEADER ========== */}

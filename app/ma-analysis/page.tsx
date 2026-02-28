@@ -4,6 +4,7 @@ import AppShell from '@/components/AppShell';
 import Link from 'next/link';
 import { useState } from 'react';
 import { maTargets } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 // ---------------------------------------------------------------------------
 // Stage helpers
@@ -139,6 +140,14 @@ export default function MAAnalysisPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="M&A Analysis"
+        moduleHref="/ma-analysis"
+        phase={4}
+        phaseName="Decide"
+        phaseColor="#f59e0b"
+        nextPhase={{ number: 5, name: 'Deliver', firstModule: 'Portfolio Tracker', firstModuleHref: '/portfolio' }}
+      />
       {/* ===== HEADER ===== */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

@@ -11,6 +11,7 @@ import { NotificationPanel, NotificationToast } from '@/components/NotificationP
 import { useAlertSystem, RealTimeAlert } from '@/hooks/useRealTimeData';
 import { useAppState } from '@/state/useAppState';
 import { strategyFrameworks, industryBenchmarks } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 type TabId = 'scenario' | 'risk' | 'predictive' | 'executive' | 'frameworks' | 'benchmarks';
 
@@ -123,6 +124,14 @@ export default function AnalyticsPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Analytics Hub"
+        moduleHref="/analytics"
+        phase={2}
+        phaseName="Diagnose"
+        phaseColor="#3b82f6"
+        nextPhase={{ number: 3, name: 'Design', firstModule: 'Strategy Workflow', firstModuleHref: '/strategy' }}
+      />
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">

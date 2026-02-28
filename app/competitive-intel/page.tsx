@@ -4,6 +4,7 @@ import AppShell from '@/components/AppShell';
 import Link from 'next/link';
 import { useState } from 'react';
 import { competitors, marketPulse } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -787,6 +788,14 @@ export default function CompetitiveIntelPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Competitive Intelligence"
+        moduleHref="/competitive-intel"
+        phase={1}
+        phaseName="Discover"
+        phaseColor="#10b981"
+        nextPhase={{ number: 2, name: 'Diagnose', firstModule: 'Diagnostic Wizard', firstModuleHref: '/diagnosis' }}
+      />
       <div className="max-w-[1600px] mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">

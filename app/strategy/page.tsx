@@ -13,6 +13,7 @@ import DecideStep from '@/components/workflow/DecideStep';
 import DeliverStep from '@/components/workflow/DeliverStep';
 import { useProjectState, WorkflowStep, getStepLabel, getStepDescription } from '@/state/useProjectState';
 import { useAppState } from '@/state/useAppState';
+import JourneyBanner from '@/components/JourneyBanner';
 
 export default function StrategyWorkflowPage() {
   const router = useRouter();
@@ -68,6 +69,14 @@ export default function StrategyWorkflowPage() {
   if (isCreatingProject || !project) {
     return (
       <AppShell>
+        <JourneyBanner
+          currentModule="Strategy Workflow"
+          moduleHref="/strategy"
+          phase={3}
+          phaseName="Design"
+          phaseColor="#8b5cf6"
+          nextModule={{ name: 'Strategy Tools', href: '/tools' }}
+        />
         <div className="strategy-create">
           <div className="create-header">
             <div className="header-icon">
@@ -411,6 +420,14 @@ export default function StrategyWorkflowPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Strategy Workflow"
+        moduleHref="/strategy"
+        phase={3}
+        phaseName="Design"
+        phaseColor="#8b5cf6"
+        nextModule={{ name: 'Strategy Tools', href: '/tools' }}
+      />
       <div className="strategy-workflow">
         {/* Header */}
         <div className="workflow-header">

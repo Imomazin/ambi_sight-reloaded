@@ -5,12 +5,21 @@ import ScenarioCard from '@/components/ScenarioCard';
 import DataUploadButton from '@/components/DataUploadButton';
 import { useAppState } from '@/state/useAppState';
 import { scenarios } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 export default function ScenariosPage() {
   const { currentScenario, setScenario } = useAppState();
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Scenario Planning"
+        moduleHref="/scenarios"
+        phase={4}
+        phaseName="Decide"
+        phaseColor="#f59e0b"
+        nextModule={{ name: 'Strategic Advisor', href: '/advisor' }}
+      />
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
