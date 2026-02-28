@@ -44,19 +44,19 @@
   --bg-card: #ffffff;
   --bg-card-hover: #f8fafc;
   --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #94a3b8;
-  --border: rgba(0, 0, 0, 0.06);
-  --border-color: rgba(0, 0, 0, 0.06);
-  --border-hover: rgba(0, 0, 0, 0.1);
+  --text-secondary: #1e293b;
+  --text-muted: #64748b;
+  --border: rgba(0, 0, 0, 0.12);
+  --border-color: rgba(0, 0, 0, 0.12);
+  --border-hover: rgba(0, 0, 0, 0.2);
   --overlay-bg: rgba(248, 250, 252, 0.6);
   --scrollbar-track: #f1f5f9;
-  --scrollbar-thumb: #cbd5e1;
-  --sidebar-bg: rgba(255, 255, 255, 0.92);
-  --navbar-bg: rgba(255, 255, 255, 0.88);
+  --scrollbar-thumb: #94a3b8;
+  --sidebar-bg: rgba(255, 255, 255, 0.95);
+  --navbar-bg: rgba(255, 255, 255, 0.92);
   --accent: #059669;
   --accent-hover: #10b981;
-  --accent-subtle: rgba(5, 150, 105, 0.06);
+  --accent-subtle: rgba(5, 150, 105, 0.08);
 }
 
 html,
@@ -353,34 +353,85 @@ body {
 }
 
 /* Text colors */
-.light-theme .text-white {
+.light-theme .text-white,
+[data-theme="light"] .text-white {
   color: var(--text-primary) !important;
 }
 
-.light-theme .text-slate-100 {
+.light-theme .text-slate-100,
+[data-theme="light"] .text-slate-100 {
   color: var(--text-primary) !important;
 }
 
 .light-theme .text-slate-200,
-.light-theme .text-slate-300 {
+.light-theme .text-slate-300,
+[data-theme="light"] .text-slate-200,
+[data-theme="light"] .text-slate-300 {
   color: var(--text-secondary) !important;
 }
 
 .light-theme .text-slate-400,
-.light-theme .text-slate-500 {
+.light-theme .text-slate-500,
+[data-theme="light"] .text-slate-400,
+[data-theme="light"] .text-slate-500 {
   color: var(--text-muted) !important;
 }
 
-.light-theme .text-gray-400 {
-  color: var(--text-muted) !important;
+.light-theme .text-gray-300,
+[data-theme="light"] .text-gray-300 {
+  color: #334155 !important;
 }
 
-.light-theme .text-gray-300 {
-  color: var(--text-secondary) !important;
+.light-theme .text-gray-400,
+[data-theme="light"] .text-gray-400 {
+  color: #475569 !important;
 }
 
-.light-theme .text-gray-500 {
-  color: #94a3b8 !important;
+.light-theme .text-gray-500,
+[data-theme="light"] .text-gray-500 {
+  color: #64748b !important;
+}
+
+.light-theme .text-gray-600,
+[data-theme="light"] .text-gray-600 {
+  color: #475569 !important;
+}
+
+/* ====== Hardcoded dark hex overrides for module pages ====== */
+
+/* bg-[#0f1629] variants */
+.light-theme [class*="bg-\[#0f1629\]"],
+[data-theme="light"] [class*="bg-\[#0f1629\]"] {
+  background-color: var(--bg-card) !important;
+}
+
+/* bg-[#1e293b] variants */
+.light-theme [class*="bg-\[#1e293b\]"],
+[data-theme="light"] [class*="bg-\[#1e293b\]"] {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* border-[#1e293b] variants */
+.light-theme [class*="border-\[#1e293b\]"],
+[data-theme="light"] [class*="border-\[#1e293b\]"] {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* border-[#334155] */
+.light-theme [class*="border-\[#334155\]"],
+[data-theme="light"] [class*="border-\[#334155\]"] {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Broader card-like elements in light mode */
+.light-theme .rounded-2xl,
+[data-theme="light"] .rounded-2xl {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.light-theme .rounded-xl,
+[data-theme="light"] .rounded-xl {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* Hover states */
@@ -403,19 +454,25 @@ body {
 }
 
 /* Navbar and sidebar */
-.light-theme nav.fixed {
+.light-theme nav.fixed,
+[data-theme="light"] nav.fixed {
   background-color: var(--navbar-bg) !important;
   border-color: var(--border-color) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.light-theme aside.fixed {
+.light-theme aside.fixed,
+[data-theme="light"] aside.fixed {
   background-color: var(--sidebar-bg) !important;
   border-color: var(--border-color) !important;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.04);
 }
 
-.light-theme nav.fixed.bottom-0 {
+.light-theme nav.fixed.bottom-0,
+[data-theme="light"] nav.fixed.bottom-0 {
   background-color: var(--navbar-bg) !important;
   border-color: var(--border-color) !important;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
 }
 
 /* From/To gradient backgrounds */

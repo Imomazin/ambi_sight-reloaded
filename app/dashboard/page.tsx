@@ -192,12 +192,12 @@ export default function DashboardPage() {
         </div>
 
         {/* ───── JOURNEY PROGRESS MAP ───── */}
-        <div className="bg-[#0f1629]/80 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-6 md:p-8">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6 md:p-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-white">Strategy Journey</h2>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span>{overallProgress}% complete</span>
-              <div className="w-24 h-1.5 bg-[#1e293b] rounded-full overflow-hidden">
+              <div className="w-24 h-1.5 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-emerald-500 via-purple-500 to-teal-500 transition-all duration-700"
                   style={{ width: `${overallProgress}%` }}
@@ -225,7 +225,7 @@ export default function DashboardPage() {
                         : 'border-opacity-20 opacity-50'
                     }`}
                     style={{
-                      borderColor: isCurrent ? phase.color : isComplete ? `${phase.color}40` : '#1e293b',
+                      borderColor: isCurrent ? phase.color : isComplete ? `${phase.color}40` : 'var(--border-color)',
                       background: isCurrent
                         ? `linear-gradient(135deg, ${phase.color}10, ${phase.color}05)`
                         : 'transparent',
@@ -239,7 +239,7 @@ export default function DashboardPage() {
                     {/* Current indicator */}
                     {isCurrent && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full whitespace-nowrap"
-                        style={{ backgroundColor: phase.color, color: '#0f1629' }}>
+                        style={{ backgroundColor: phase.color, color: '#ffffff' }}>
                         You are here
                       </div>
                     )}
@@ -291,7 +291,7 @@ export default function DashboardPage() {
                   {idx < phaseStats.length - 1 && (
                     <div className="flex items-center justify-center w-6 pt-8 flex-shrink-0">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke={isComplete ? phase.color : '#334155'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                        stroke={isComplete ? phase.color : 'var(--text-muted)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                         className={isComplete ? 'opacity-80' : 'opacity-30'}>
                         <path d="M9 5l7 7-7 7" />
                       </svg>
@@ -332,7 +332,7 @@ export default function DashboardPage() {
         {/* ───── CURRENT PHASE SPOTLIGHT + NEXT ACTION ───── */}
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Current Phase Detail */}
-          <div className="lg:col-span-3 bg-[#0f1629]/80 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-6">
+          <div className="lg:col-span-3 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -363,7 +363,7 @@ export default function DashboardPage() {
                     href={mod.href}
                     className="flex items-center gap-3 p-3 rounded-lg border transition-all group hover:border-opacity-40"
                     style={{
-                      borderColor: visited ? `${currentPhase.color}30` : '#1e293b',
+                      borderColor: visited ? `${currentPhase.color}30` : 'var(--border-color)',
                       backgroundColor: visited ? `${currentPhase.color}05` : 'transparent',
                     }}
                   >
@@ -371,7 +371,7 @@ export default function DashboardPage() {
                     <div
                       className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{
-                        backgroundColor: visited ? `${currentPhase.color}20` : '#1e293b',
+                        backgroundColor: visited ? `${currentPhase.color}20` : 'var(--bg-tertiary)',
                         color: visited ? currentPhase.color : '#64748b',
                       }}
                     >
@@ -402,7 +402,7 @@ export default function DashboardPage() {
           <div className="lg:col-span-2 space-y-6">
             {nextRecommended && (
               <div
-                className="bg-[#0f1629]/80 backdrop-blur-sm border rounded-2xl p-6 relative overflow-hidden"
+                className="bg-[var(--bg-card)] border rounded-2xl p-6 relative overflow-hidden"
                 style={{ borderColor: `${nextRecommended.phase.color}30` }}
               >
                 <div
@@ -424,7 +424,7 @@ export default function DashboardPage() {
                   <Link
                     href={nextRecommended.module.href}
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all hover:brightness-110 hover:scale-105 active:scale-100"
-                    style={{ backgroundColor: nextRecommended.phase.color, color: '#0f1629' }}
+                    style={{ backgroundColor: nextRecommended.phase.color, color: '#ffffff' }}
                   >
                     Continue Journey
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -445,7 +445,7 @@ export default function DashboardPage() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="bg-[#0f1629]/80 backdrop-blur-sm border border-[#1e293b]/60 rounded-xl p-3"
+                  className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3"
                 >
                   <div className="text-lg font-bold" style={{ color: stat.color }}>
                     {stat.value}
@@ -465,9 +465,9 @@ export default function DashboardPage() {
               <Link
                 key={phase.id}
                 href={phase.modules[0]?.href || '/dashboard'}
-                className="group bg-[#0f1629]/80 backdrop-blur-sm border rounded-xl p-4 transition-all hover:scale-[1.02]"
+                className="group bg-[var(--bg-card)] border rounded-xl p-4 transition-all hover:scale-[1.02]"
                 style={{
-                  borderColor: phase.complete ? `${phase.color}30` : '#1e293b60',
+                  borderColor: phase.complete ? `${phase.color}30` : 'var(--border-color)',
                 }}
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -489,7 +489,7 @@ export default function DashboardPage() {
 
                 {/* Progress bar */}
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 h-1 bg-[#1e293b] rounded-full overflow-hidden">
+                  <div className="flex-1 h-1 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{ width: `${phase.progress * 100}%`, backgroundColor: phase.color }}
@@ -505,7 +505,7 @@ export default function DashboardPage() {
         </div>
 
         {/* ───── JOURNEY METHODOLOGY ───── */}
-        <div className="bg-[#0f1629]/80 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">The 5D Methodology</h2>
           <p className="text-xs text-gray-500 mb-6 max-w-2xl">
             Lumina S follows the proven 5D strategic framework used by leading consulting firms. Each phase
