@@ -15,6 +15,7 @@ import {
 } from '../../lib/strategyToolsLibrary';
 import { useAppState } from '../../state/useAppState';
 import type { Plan } from '../../lib/users';
+import JourneyBanner from '../../components/JourneyBanner';
 
 // Tool Card Component
 function ToolCard({
@@ -345,6 +346,18 @@ export default function StrategyToolsPage() {
         </div>
       </header>
 
+      {/* Journey Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <JourneyBanner
+          currentModule="Strategy Tools"
+          moduleHref="/tools"
+          phase={3}
+          phaseName="Design"
+          phaseColor="#8b5cf6"
+          nextModule={{ name: 'Workspace', href: '/workspace' }}
+        />
+      </div>
+
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -368,7 +381,7 @@ export default function StrategyToolsPage() {
                 <div className="text-sm text-slate-400">Available to You</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400">{stats.categories}</div>
+                <div className="text-3xl font-bold text-purple-500">{stats.categories}</div>
                 <div className="text-sm text-slate-400">Categories</div>
               </div>
             </div>

@@ -139,13 +139,13 @@ export default function UsageDashboard() {
         }
 
         .plan-badge.starter {
-          background: rgba(20, 184, 166, 0.2);
-          color: #2DD4BF;
+          background: rgba(16, 185, 129, 0.2);
+          color: #34d399;
         }
 
         .plan-badge.pro {
-          background: rgba(168, 85, 247, 0.2);
-          color: #C084FC;
+          background: rgba(139, 92, 246, 0.2);
+          color: #a78bfa;
         }
 
         .plan-badge.enterprise {
@@ -158,8 +158,8 @@ export default function UsageDashboard() {
           align-items: center;
           gap: 12px;
           padding: 12px 16px;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1));
-          border: 1px solid rgba(168, 85, 247, 0.3);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.1));
+          border: 1px solid rgba(139, 92, 246, 0.3);
           border-radius: 12px;
           margin-bottom: 20px;
         }
@@ -175,7 +175,7 @@ export default function UsageDashboard() {
         }
 
         .trial-info strong {
-          color: #C084FC;
+          color: #a78bfa;
           font-size: 14px;
         }
 
@@ -267,7 +267,7 @@ export default function UsageDashboard() {
           align-items: center;
           justify-content: space-between;
           padding: 16px;
-          background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(168, 85, 247, 0.1));
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(139, 92, 246, 0.1));
           border-radius: 12px;
           gap: 16px;
         }
@@ -280,7 +280,7 @@ export default function UsageDashboard() {
 
         .upgrade-btn {
           padding: 8px 16px;
-          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          background: linear-gradient(135deg, #10b981, #8b5cf6);
           color: white;
           font-size: 13px;
           font-weight: 600;
@@ -292,7 +292,7 @@ export default function UsageDashboard() {
 
         .upgrade-btn:hover {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         @media (max-width: 640px) {

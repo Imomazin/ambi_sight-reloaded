@@ -1,880 +1,551 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AppShell from '@/components/AppShell';
-import { useProjectState, getStepLabel, WORKFLOW_STEPS } from '@/state/useProjectState';
 import { useAppState } from '@/state/useAppState';
 
-export default function ProjectDashboardPage() {
+// ---------------------------------------------------------------------------
+// Journey phase configuration
+// ---------------------------------------------------------------------------
+
+interface JourneyModule {
+  name: string;
+  href: string;
+  description: string;
+}
+
+interface JourneyPhase {
+  id: number;
+  name: string;
+  tagline: string;
+  description: string;
+  color: string;
+  modules: JourneyModule[];
+  estimatedTime: string;
+}
+
+const JOURNEY_PHASES: JourneyPhase[] = [
+  {
+    id: 1,
+    name: 'Discover',
+    tagline: 'Know Your Landscape',
+    description:
+      'Understand the external market forces, competitive dynamics, and industry trends that shape your strategic environment.',
+    color: '#10b981',
+    modules: [
+      { name: 'Market Intelligence', href: '/market-intel', description: 'Track market trends, disruption signals, and industry benchmarks' },
+      { name: 'Competitive Intel', href: '/competitive-intel', description: 'Analyze competitors, market share, and competitive positioning' },
+    ],
+    estimatedTime: '30-45 min',
+  },
+  {
+    id: 2,
+    name: 'Diagnose',
+    tagline: 'Assess Your Position',
+    description:
+      "Diagnose your organization's strengths, weaknesses, and strategic health using proven analytical frameworks.",
+    color: '#3b82f6',
+    modules: [
+      { name: 'Diagnostic Wizard', href: '/diagnosis', description: 'Run guided diagnostics on your strategic position' },
+      { name: 'Analytics Hub', href: '/analytics', description: 'Deep-dive analytics with scenario building and risk analysis' },
+    ],
+    estimatedTime: '45-60 min',
+  },
+  {
+    id: 3,
+    name: 'Design',
+    tagline: 'Craft Your Strategy',
+    description:
+      'Build your strategic framework using proven methodologies, tools, and collaborative workspaces.',
+    color: '#8b5cf6',
+    modules: [
+      { name: 'Strategy Workflow', href: '/strategy', description: 'Follow the guided 5-step strategy creation process' },
+      { name: 'Strategy Tools', href: '/tools', description: "Access frameworks like Porter's 5 Forces, SWOT, and more" },
+      { name: 'Workspace', href: '/workspace', description: 'Your strategic workspace with KPIs and initiative tracking' },
+    ],
+    estimatedTime: '60-90 min',
+  },
+  {
+    id: 4,
+    name: 'Decide',
+    tagline: 'Choose Your Path',
+    description:
+      'Evaluate strategic options through scenario planning, AI-powered advisory, and M&A analysis.',
+    color: '#f59e0b',
+    modules: [
+      { name: 'Scenario Planning', href: '/scenarios', description: 'Model different strategic scenarios and their outcomes' },
+      { name: 'Strategic Advisor', href: '/advisor', description: 'Get AI-powered strategic recommendations' },
+      { name: 'M&A Analysis', href: '/ma-analysis', description: 'Evaluate acquisition targets and merger opportunities' },
+    ],
+    estimatedTime: '45-60 min',
+  },
+  {
+    id: 5,
+    name: 'Deliver',
+    tagline: 'Execute & Monitor',
+    description:
+      'Track execution, monitor portfolio health, and ensure your strategy translates into measurable results.',
+    color: '#14b8a6',
+    modules: [
+      { name: 'Portfolio Tracker', href: '/portfolio', description: 'Monitor all strategic initiatives and their progress' },
+    ],
+    estimatedTime: '20-30 min',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Phase icon SVGs
+// ---------------------------------------------------------------------------
+const PhaseIcon = ({ phase, size = 28 }: { phase: number; size?: number }) => {
+  const icons: Record<number, string> = {
+    1: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+    2: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    3: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
+    4: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
+    5: 'M13 10V3L4 14h7v7l9-11h-7z',
+  };
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d={icons[phase] || icons[1]} />
+    </svg>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
+export default function DashboardPage() {
   const router = useRouter();
-  const { projects, createProject, deleteProject, setActiveProject } = useProjectState();
-  const { currentUser } = useAppState();
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [newProjectName, setNewProjectName] = useState('');
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const { visitedModules, journeyStarted, setJourneyStarted, setCurrentJourneyPhase } = useAppState();
 
-  const handleCreateProject = () => {
-    if (!newProjectName.trim()) return;
-    const projectId = createProject(newProjectName.trim());
-    setNewProjectName('');
-    setShowCreateModal(false);
-    setActiveProject(projectId);
-    router.push('/strategy');
-  };
+  // Calculate journey stats
+  const allModules = useMemo(() => JOURNEY_PHASES.flatMap((p) => p.modules.map((m) => m.href)), []);
+  const totalModules = allModules.length;
+  const visitedCount = allModules.filter((m) => visitedModules.includes(m)).length;
+  const overallProgress = totalModules > 0 ? Math.round((visitedCount / totalModules) * 100) : 0;
 
-  const handleOpenProject = (projectId: string) => {
-    setActiveProject(projectId);
-    router.push('/strategy');
-  };
+  const phaseStats = useMemo(
+    () =>
+      JOURNEY_PHASES.map((phase) => {
+        const phaseModuleHrefs = phase.modules.map((m) => m.href);
+        const visited = phaseModuleHrefs.filter((h) => visitedModules.includes(h)).length;
+        return {
+          ...phase,
+          visited,
+          total: phaseModuleHrefs.length,
+          complete: visited === phaseModuleHrefs.length,
+          progress: phaseModuleHrefs.length > 0 ? visited / phaseModuleHrefs.length : 0,
+        };
+      }),
+    [visitedModules]
+  );
 
-  const handleDeleteProject = (projectId: string) => {
-    deleteProject(projectId);
-    setDeleteConfirm(null);
-  };
+  const completedPhases = phaseStats.filter((p) => p.complete).length;
 
-  const getProgressPercentage = (completedSteps: string[]) => {
-    return Math.round((completedSteps.length / WORKFLOW_STEPS.length) * 100);
-  };
+  // Current phase = first incomplete phase
+  const currentPhase = useMemo(() => {
+    const firstIncomplete = phaseStats.find((p) => !p.complete);
+    return firstIncomplete || phaseStats[phaseStats.length - 1];
+  }, [phaseStats]);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+  // Next recommended module
+  const nextRecommended = useMemo(() => {
+    for (const phase of phaseStats) {
+      for (const mod of phase.modules) {
+        if (!visitedModules.includes(mod.href)) return { phase, module: mod };
+      }
+    }
+    return null;
+  }, [phaseStats, visitedModules]);
+
+  // Sync journey phase
+  useEffect(() => {
+    if (currentPhase) setCurrentJourneyPhase(currentPhase.id);
+  }, [currentPhase, setCurrentJourneyPhase]);
+
+  // Begin journey handler
+  const handleBeginJourney = () => {
+    setJourneyStarted(true);
+    router.push('/market-intel');
   };
 
   return (
     <AppShell>
-      <div className="dashboard">
-        {/* Header */}
-        <div className="dashboard-header">
-          <div className="header-content">
-            <div className="welcome-section">
-              <h1>Welcome back{currentUser?.name ? `, ${currentUser.name}` : ''}!</h1>
-              <p>Manage your strategy projects and track progress</p>
-            </div>
-            <button className="create-btn" onClick={() => setShowCreateModal(true)}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-              New Strategy Project
-            </button>
+      <div className="max-w-[1400px] mx-auto space-y-8">
+        {/* ───── HEADER ───── */}
+        <div className="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-white">Command Center</h1>
+            <p className="text-sm text-gray-400 mt-1">
+              Your strategy journey at a glance — follow the 5 phases from Discovery to Delivery.
+            </p>
           </div>
-
-          {/* Quick Stats */}
-          <div className="stats-row">
-            <div className="stat-card">
-              <div className="stat-icon projects">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                </svg>
-              </div>
-              <div className="stat-content">
-                <span className="stat-value">{projects.length}</span>
-                <span className="stat-label">Total Projects</span>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon active">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-              </div>
-              <div className="stat-content">
-                <span className="stat-value">
-                  {projects.filter(p => p.completedSteps.length < 5).length}
-                </span>
-                <span className="stat-label">In Progress</span>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon completed">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-              </div>
-              <div className="stat-content">
-                <span className="stat-value">
-                  {projects.filter(p => p.completedSteps.length === 5).length}
-                </span>
-                <span className="stat-label">Completed</span>
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#10b98115] border border-[#10b98130] rounded-lg">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="text-xs text-emerald-400 font-medium">Online</span>
             </div>
           </div>
         </div>
 
-        {/* Projects Grid */}
-        {projects.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-            <h2>No Projects Yet</h2>
-            <p>Create your first strategy project to get started with the guided workflow</p>
-            <button className="create-btn-large" onClick={() => setShowCreateModal(true)}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-              Create Your First Project
-            </button>
-          </div>
-        ) : (
-          <div className="projects-grid">
-            {/* Create New Card */}
-            <button className="project-card create-card" onClick={() => setShowCreateModal(true)}>
-              <div className="create-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
+        {/* ───── JOURNEY PROGRESS MAP ───── */}
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6 md:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-white">Strategy Journey</h2>
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span>{overallProgress}% complete</span>
+              <div className="w-24 h-1.5 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-emerald-500 via-purple-500 to-teal-500 transition-all duration-700"
+                  style={{ width: `${overallProgress}%` }}
+                />
               </div>
-              <span className="create-text">Create New Project</span>
-            </button>
+            </div>
+          </div>
 
-            {/* Project Cards */}
-            {projects.map((project) => {
-              const progress = getProgressPercentage(project.completedSteps);
-              const isComplete = progress === 100;
+          {/* Phase track */}
+          <div className="flex items-start gap-0 overflow-x-auto pb-2">
+            {phaseStats.map((phase, idx) => {
+              const isCurrent = phase.id === currentPhase.id;
+              const isComplete = phase.complete;
+              const isFuture = !isComplete && !isCurrent;
 
               return (
-                <div key={project.id} className="project-card">
-                  <div className="card-header">
-                    <div className="card-status">
-                      {isComplete ? (
-                        <span className="status-badge completed">Completed</span>
-                      ) : (
-                        <span className="status-badge in-progress">In Progress</span>
-                      )}
-                    </div>
-                    <div className="card-actions">
-                      <button
-                        className="action-btn delete"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setDeleteConfirm(project.id);
-                        }}
-                        title="Delete project"
+                <div key={phase.id} className="flex items-start flex-1 min-w-[160px]">
+                  {/* Phase card */}
+                  <div
+                    className={`relative flex-1 rounded-xl p-4 border transition-all cursor-pointer group ${
+                      isCurrent
+                        ? 'border-opacity-50 scale-[1.02]'
+                        : isComplete
+                        ? 'border-opacity-30 opacity-90'
+                        : 'border-opacity-20 opacity-50'
+                    }`}
+                    style={{
+                      borderColor: isCurrent ? phase.color : isComplete ? `${phase.color}40` : 'var(--border-color)',
+                      background: isCurrent
+                        ? `linear-gradient(135deg, ${phase.color}10, ${phase.color}05)`
+                        : 'transparent',
+                      boxShadow: isCurrent ? `0 0 24px ${phase.color}12` : 'none',
+                    }}
+                    onClick={() => {
+                      const firstMod = phase.modules[0];
+                      if (firstMod) router.push(firstMod.href);
+                    }}
+                  >
+                    {/* Current indicator */}
+                    {isCurrent && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full whitespace-nowrap"
+                        style={{ backgroundColor: phase.color, color: '#ffffff' }}>
+                        You are here
+                      </div>
+                    )}
+
+                    {/* Phase icon + number */}
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: `${phase.color}15`, color: phase.color }}
                       >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="card-body" onClick={() => handleOpenProject(project.id)}>
-                    <h3>{project.name}</h3>
-                    <div className="card-meta">
-                      <span className="current-step">
-                        Current: {getStepLabel(project.currentStep)}
-                      </span>
-                      <span className="last-updated">
-                        Updated {formatDate(project.updatedAt)}
-                      </span>
-                    </div>
-
-                    <div className="progress-section">
-                      <div className="progress-header">
-                        <span>Progress</span>
-                        <span>{progress}%</span>
+                        {isComplete ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 13l4 4L19 7" />
+                          </svg>
+                        ) : (
+                          <PhaseIcon phase={phase.id} size={20} />
+                        )}
                       </div>
-                      <div className="progress-bar">
+                      <div>
+                        <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: phase.color }}>
+                          Phase {phase.id}
+                        </div>
+                        <div className="text-sm font-semibold text-white">{phase.name}</div>
+                      </div>
+                    </div>
+
+                    {/* Tagline */}
+                    <p className="text-[11px] text-gray-500 mb-3">{phase.tagline}</p>
+
+                    {/* Module dots */}
+                    <div className="flex items-center gap-1.5">
+                      {phase.modules.map((mod) => (
                         <div
-                          className="progress-fill"
-                          style={{ width: `${progress}%` }}
+                          key={mod.href}
+                          className="w-2 h-2 rounded-full"
+                          style={{
+                            backgroundColor: visitedModules.includes(mod.href) ? phase.color : `${phase.color}25`,
+                          }}
+                          title={mod.name}
                         />
-                      </div>
-                      <div className="steps-dots">
-                        {WORKFLOW_STEPS.map((step, index) => (
-                          <div
-                            key={step}
-                            className={`step-dot ${project.completedSteps.includes(step) ? 'completed' : ''} ${project.currentStep === step ? 'current' : ''}`}
-                            title={getStepLabel(step)}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="metrics-row">
-                      <div className="metric">
-                        <span className="metric-label">Confidence</span>
-                        <span className="metric-value">{project.confidenceIndex}%</span>
-                      </div>
-                      <div className="metric">
-                        <span className="metric-label">Risk</span>
-                        <span className={`metric-value ${project.riskGauge > 60 ? 'high' : project.riskGauge > 40 ? 'medium' : 'low'}`}>
-                          {project.riskGauge}%
-                        </span>
-                      </div>
+                      ))}
+                      <span className="text-[10px] text-gray-600 ml-1">
+                        {phase.visited}/{phase.total}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="card-footer">
-                    <button
-                      className="continue-btn"
-                      onClick={() => handleOpenProject(project.id)}
-                    >
-                      {isComplete ? 'View Details' : 'Continue'}
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
+                  {/* Connector arrow */}
+                  {idx < phaseStats.length - 1 && (
+                    <div className="flex items-center justify-center w-6 pt-8 flex-shrink-0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke={isComplete ? phase.color : 'var(--text-muted)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                        className={isComplete ? 'opacity-80' : 'opacity-30'}>
+                        <path d="M9 5l7 7-7 7" />
                       </svg>
-                    </button>
-                  </div>
-
-                  {/* Delete Confirmation */}
-                  {deleteConfirm === project.id && (
-                    <div className="delete-confirm">
-                      <p>Delete this project?</p>
-                      <div className="confirm-actions">
-                        <button onClick={() => setDeleteConfirm(null)}>Cancel</button>
-                        <button className="danger" onClick={() => handleDeleteProject(project.id)}>Delete</button>
-                      </div>
                     </div>
                   )}
                 </div>
               );
             })}
           </div>
-        )}
+        </div>
 
-        {/* Create Modal */}
-        {showCreateModal && (
-          <div className="modal-overlay" onClick={() => setShowCreateModal(false)}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-header">
-                <h2>Create New Strategy Project</h2>
-                <button className="close-btn" onClick={() => setShowCreateModal(false)}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                  </svg>
-                </button>
+        {/* ───── BEGIN JOURNEY CTA (only when not started) ───── */}
+        {!journeyStarted && (
+          <div className="relative overflow-hidden bg-gradient-to-r from-[#10b98115] via-[#8b5cf615] to-[#14b8a615] border border-[#10b98130] rounded-2xl p-8 text-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-purple-500/5 to-teal-500/5 animate-pulse" />
+            <div className="relative">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-purple-500/20 border border-emerald-500/30 flex items-center justify-center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
               </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>Project Name</label>
-                  <input
-                    type="text"
-                    value={newProjectName}
-                    onChange={(e) => setNewProjectName(e.target.value)}
-                    placeholder="e.g., 2024 Growth Strategy"
-                    onKeyDown={(e) => e.key === 'Enter' && handleCreateProject()}
-                    autoFocus
-                  />
-                </div>
-                <p className="modal-hint">
-                  You'll be guided through 5 steps: Discover, Diagnose, Design, Decide, and Deliver
-                </p>
-              </div>
-              <div className="modal-footer">
-                <button className="btn-secondary" onClick={() => setShowCreateModal(false)}>
-                  Cancel
-                </button>
-                <button
-                  className="btn-primary"
-                  onClick={handleCreateProject}
-                  disabled={!newProjectName.trim()}
-                >
-                  Create Project
-                </button>
-              </div>
+              <h2 className="text-xl font-bold text-white mb-2">Begin Your Strategy Journey</h2>
+              <p className="text-sm text-gray-400 max-w-lg mx-auto mb-6">
+                Lumina S guides you through 5 proven phases — from discovering your market landscape to delivering
+                measurable results. Each phase builds on the last.
+              </p>
+              <button
+                onClick={handleBeginJourney}
+                className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:brightness-110 transition-all hover:scale-105 active:scale-100"
+              >
+                Start with Phase 1: Discover
+              </button>
+              <p className="text-[11px] text-gray-600 mt-3">Takes approximately 4-5 hours to complete all phases</p>
             </div>
           </div>
         )}
 
-        <style jsx>{`
-          .dashboard {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 32px 24px;
-          }
-
-          .dashboard-header {
-            margin-bottom: 32px;
-          }
-
-          .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-          }
-
-          .welcome-section h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin: 0 0 4px;
-          }
-
-          .welcome-section p {
-            color: var(--text-muted);
-            font-size: 15px;
-            margin: 0;
-          }
-
-          .create-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .create-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-          }
-
-          .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-          }
-
-          .stat-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-          }
-
-          .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .stat-icon.projects {
-            background: rgba(168, 85, 247, 0.2);
-            color: #A855F7;
-          }
-
-          .stat-icon.active {
-            background: rgba(20, 184, 166, 0.2);
-            color: #14B8A6;
-          }
-
-          .stat-icon.completed {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22C55E;
-          }
-
-          .stat-content {
-            display: flex;
-            flex-direction: column;
-          }
-
-          .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-primary);
-          }
-
-          .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-          }
-
-          .empty-state {
-            text-align: center;
-            padding: 80px 24px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-          }
-
-          .empty-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1));
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #A855F7;
-          }
-
-          .empty-state h2 {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0 0 8px;
-          }
-
-          .empty-state p {
-            color: var(--text-muted);
-            margin: 0 0 24px;
-          }
-
-          .create-btn-large {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .create-btn-large:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
-          }
-
-          .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-          }
-
-          .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.2s ease;
-            position: relative;
-          }
-
-          .project-card:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-          }
-
-          .create-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 280px;
-            cursor: pointer;
-            border-style: dashed;
-          }
-
-          .create-card:hover {
-            background: rgba(168, 85, 247, 0.05);
-            border-color: #A855F7;
-          }
-
-          .create-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            transition: all 0.2s ease;
-          }
-
-          .create-card:hover .create-icon {
-            background: rgba(168, 85, 247, 0.2);
-            color: #A855F7;
-          }
-
-          .create-text {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-muted);
-          }
-
-          .create-card:hover .create-text {
-            color: #A855F7;
-          }
-
-          .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 16px 0;
-          }
-
-          .status-badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-          }
-
-          .status-badge.in-progress {
-            background: rgba(20, 184, 166, 0.2);
-            color: #2DD4BF;
-          }
-
-          .status-badge.completed {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22C55E;
-          }
-
-          .card-actions {
-            display: flex;
-            gap: 8px;
-          }
-
-          .action-btn {
-            padding: 6px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-          }
-
-          .action-btn:hover {
-            background: var(--bg-tertiary);
-          }
-
-          .action-btn.delete:hover {
-            color: #EF4444;
-          }
-
-          .card-body {
-            padding: 16px;
-            cursor: pointer;
-          }
-
-          .card-body h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0 0 8px;
-          }
-
-          .card-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 16px;
-          }
-
-          .current-step {
-            font-size: 13px;
-            color: #A855F7;
-            font-weight: 500;
-          }
-
-          .last-updated {
-            font-size: 12px;
-            color: var(--text-muted);
-          }
-
-          .progress-section {
-            margin-bottom: 16px;
-          }
-
-          .progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-          }
-
-          .progress-bar {
-            height: 6px;
-            background: var(--bg-tertiary);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 8px;
-          }
-
-          .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #14B8A6, #A855F7);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-          }
-
-          .steps-dots {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 4px;
-          }
-
-          .step-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--bg-tertiary);
-            transition: all 0.2s ease;
-          }
-
-          .step-dot.completed {
-            background: #14B8A6;
-          }
-
-          .step-dot.current {
-            background: #A855F7;
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
-          }
-
-          .metrics-row {
-            display: flex;
-            gap: 24px;
-          }
-
-          .metric {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-          }
-
-          .metric-label {
-            font-size: 11px;
-            color: var(--text-muted);
-          }
-
-          .metric-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-          }
-
-          .metric-value.high { color: #EF4444; }
-          .metric-value.medium { color: #F59E0B; }
-          .metric-value.low { color: #22C55E; }
-
-          .card-footer {
-            padding: 12px 16px;
-            border-top: 1px solid var(--border);
-            background: var(--bg-tertiary);
-          }
-
-          .continue-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .continue-btn:hover {
-            background: rgba(168, 85, 247, 0.1);
-            border-color: #A855F7;
-            color: #A855F7;
-          }
-
-          .delete-confirm {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            padding: 24px;
-            z-index: 10;
-          }
-
-          .delete-confirm p {
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-          }
-
-          .confirm-actions {
-            display: flex;
-            gap: 12px;
-          }
-
-          .confirm-actions button {
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          .confirm-actions button:first-child {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-          }
-
-          .confirm-actions button.danger {
-            background: #EF4444;
-            border: none;
-            color: white;
-          }
-
-          .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 24px;
-          }
-
-          .modal {
-            width: 100%;
-            max-width: 480px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-          }
-
-          .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-          }
-
-          .modal-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0;
-          }
-
-          .close-btn {
-            padding: 4px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-          }
-
-          .modal-body {
-            padding: 24px;
-          }
-
-          .form-group {
-            margin-bottom: 16px;
-          }
-
-          .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-          }
-
-          .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 15px;
-            color: var(--text-primary);
-            outline: none;
-          }
-
-          .form-group input:focus {
-            border-color: #A855F7;
-          }
-
-          .modal-hint {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin: 0;
-          }
-
-          .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            padding: 16px 24px;
-            border-top: 1px solid var(--border);
-            background: var(--bg-tertiary);
-          }
-
-          .btn-secondary {
-            padding: 10px 20px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            cursor: pointer;
-          }
-
-          .btn-primary {
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #14B8A6, #2DD4BF);
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-          }
-
-          .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-          }
-
-          @media (max-width: 768px) {
-            .header-content {
-              flex-direction: column;
-              gap: 16px;
-            }
-
-            .create-btn {
-              width: 100%;
-              justify-content: center;
-            }
-
-            .stats-row {
-              grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-              grid-template-columns: 1fr;
-            }
-          }
-        `}</style>
+        {/* ───── CURRENT PHASE SPOTLIGHT + NEXT ACTION ───── */}
+        <div className="grid lg:grid-cols-5 gap-6">
+          {/* Current Phase Detail */}
+          <div className="lg:col-span-3 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: `${currentPhase.color}15`, color: currentPhase.color }}
+              >
+                <PhaseIcon phase={currentPhase.id} size={22} />
+              </div>
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: currentPhase.color }}>
+                  Current Phase
+                </div>
+                <h3 className="text-lg font-semibold text-white">
+                  Phase {currentPhase.id}: {currentPhase.name}
+                </h3>
+              </div>
+              <span className="ml-auto text-xs text-gray-500">{currentPhase.estimatedTime}</span>
+            </div>
+
+            <p className="text-sm text-gray-400 mb-5">{currentPhase.description}</p>
+
+            {/* Modules list */}
+            <div className="space-y-2">
+              {currentPhase.modules.map((mod) => {
+                const visited = visitedModules.includes(mod.href);
+                return (
+                  <Link
+                    key={mod.href}
+                    href={mod.href}
+                    className="flex items-center gap-3 p-3 rounded-lg border transition-all group hover:border-opacity-40"
+                    style={{
+                      borderColor: visited ? `${currentPhase.color}30` : 'var(--border-color)',
+                      backgroundColor: visited ? `${currentPhase.color}05` : 'transparent',
+                    }}
+                  >
+                    {/* Status icon */}
+                    <div
+                      className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{
+                        backgroundColor: visited ? `${currentPhase.color}20` : 'var(--bg-tertiary)',
+                        color: visited ? currentPhase.color : '#64748b',
+                      }}
+                    >
+                      {visited ? (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : (
+                        <div className="w-2 h-2 rounded-full bg-current" />
+                      )}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-white group-hover:brightness-110 transition-all">{mod.name}</div>
+                      <div className="text-xs text-gray-500 truncate">{mod.description}</div>
+                    </div>
+
+                    <svg className="w-4 h-4 text-gray-600 group-hover:text-gray-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Next Recommended Action */}
+          <div className="lg:col-span-2 space-y-6">
+            {nextRecommended && (
+              <div
+                className="bg-[var(--bg-card)] border rounded-2xl p-6 relative overflow-hidden"
+                style={{ borderColor: `${nextRecommended.phase.color}30` }}
+              >
+                <div
+                  className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-10"
+                  style={{ backgroundColor: nextRecommended.phase.color }}
+                />
+                <div className="relative">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-3">
+                    Recommended Next Step
+                  </div>
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
+                    style={{ backgroundColor: `${nextRecommended.phase.color}15`, color: nextRecommended.phase.color }}
+                  >
+                    <PhaseIcon phase={nextRecommended.phase.id} size={24} />
+                  </div>
+                  <h3 className="text-base font-semibold text-white mb-1">{nextRecommended.module.name}</h3>
+                  <p className="text-xs text-gray-500 mb-4">{nextRecommended.module.description}</p>
+                  <Link
+                    href={nextRecommended.module.href}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all hover:brightness-110 hover:scale-105 active:scale-100"
+                    style={{ backgroundColor: nextRecommended.phase.color, color: '#ffffff' }}
+                  >
+                    Continue Journey
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {/* Journey Stats */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { label: 'Phases Done', value: `${completedPhases}/5`, color: '#10b981' },
+                { label: 'Modules', value: `${visitedCount}/${totalModules}`, color: '#8b5cf6' },
+                { label: 'Progress', value: `${overallProgress}%`, color: '#3b82f6' },
+                { label: 'Status', value: completedPhases === 5 ? 'Complete' : 'In Progress', color: '#f59e0b' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3"
+                >
+                  <div className="text-lg font-bold" style={{ color: stat.color }}>
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wider">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ───── ALL PHASES QUICK ACCESS ───── */}
+        <div>
+          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">All Phases</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {phaseStats.map((phase) => (
+              <Link
+                key={phase.id}
+                href={phase.modules[0]?.href || '/dashboard'}
+                className="group bg-[var(--bg-card)] border rounded-xl p-4 transition-all hover:scale-[1.02]"
+                style={{
+                  borderColor: phase.complete ? `${phase.color}30` : 'var(--border-color)',
+                }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div
+                    className="w-7 h-7 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: `${phase.color}12`, color: phase.color }}
+                  >
+                    {phase.complete ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <span className="text-xs font-bold">{phase.id}</span>
+                    )}
+                  </div>
+                  <span className="text-sm font-semibold text-white">{phase.name}</span>
+                </div>
+                <p className="text-[11px] text-gray-500 mb-3">{phase.tagline}</p>
+
+                {/* Progress bar */}
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{ width: `${phase.progress * 100}%`, backgroundColor: phase.color }}
+                    />
+                  </div>
+                  <span className="text-[10px] text-gray-600">
+                    {phase.visited}/{phase.total}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* ───── JOURNEY METHODOLOGY ───── */}
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6">
+          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">The 5D Methodology</h2>
+          <p className="text-xs text-gray-500 mb-6 max-w-2xl">
+            Lumina S follows the proven 5D strategic framework used by leading consulting firms. Each phase
+            builds upon the previous, creating a comprehensive strategy from market insight to execution.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {JOURNEY_PHASES.map((phase, idx) => (
+              <div key={phase.id} className="relative">
+                <div className="flex items-start gap-3">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold"
+                    style={{ backgroundColor: `${phase.color}18`, color: phase.color }}
+                  >
+                    {phase.id}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">{phase.name}</div>
+                    <p className="text-[11px] text-gray-500 mt-0.5">{phase.tagline}</p>
+                    <div className="mt-2 space-y-1">
+                      {phase.modules.map((m) => (
+                        <div key={m.href} className="text-[10px] text-gray-600 flex items-center gap-1">
+                          <div className="w-1 h-1 rounded-full" style={{ backgroundColor: phase.color }} />
+                          {m.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* Arrow connector on larger screens */}
+                {idx < JOURNEY_PHASES.length - 1 && (
+                  <div className="hidden md:block absolute -right-2 top-4 text-gray-700">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </AppShell>
   );

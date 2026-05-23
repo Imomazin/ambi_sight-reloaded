@@ -80,8 +80,8 @@ interface EnhancedKPICardProps {
 }
 
 const colorMap = {
-  teal: { text: 'text-teal-400', bg: 'bg-teal-500/20', border: 'border-teal-500/30', hex: '#2dd4bf' },
-  purple: { text: 'text-purple-400', bg: 'bg-purple-500/20', border: 'border-purple-500/30', hex: '#a855f7' },
+  teal: { text: 'text-teal-500', bg: 'bg-teal-500/10', border: 'border-teal-500/15', hex: '#2dd4bf' },
+  purple: { text: 'text-purple-500', bg: 'bg-purple-500/20', border: 'border-purple-500/30', hex: '#a855f7' },
   amber: { text: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/30', hex: '#fbbf24' },
   red: { text: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-500/30', hex: '#f87171' },
   blue: { text: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-500/30', hex: '#60a5fa' },
@@ -114,7 +114,7 @@ export default function EnhancedKPICard({
   const targetProgress = target ? (Number(value) / target) * 100 : null;
 
   return (
-    <div className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-teal-500/30 transition-all duration-300 overflow-hidden">
+    <div className="group relative bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-5 hover:border-teal-500/15 transition-all duration-300 overflow-hidden">
       {/* Background glow on hover */}
       <div className={`absolute inset-0 ${colors.bg} opacity-0 group-hover:opacity-50 transition-opacity duration-300`} />
 

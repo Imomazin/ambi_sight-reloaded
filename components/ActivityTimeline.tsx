@@ -137,7 +137,7 @@ export default function ActivityTimeline() {
           </div>
         </div>
         <div className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-500 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
         </div>
       </div>
@@ -150,7 +150,7 @@ export default function ActivityTimeline() {
             onClick={() => setFilter(f.id)}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
               filter === f.id
-                ? 'bg-teal-500/20 text-teal-400'
+                ? 'bg-teal-500/10 text-teal-500'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -183,7 +183,7 @@ export default function ActivityTimeline() {
               <div className="flex-1 min-w-0 pb-4">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <div className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors">
+                    <div className="text-sm font-medium text-white group-hover:text-teal-500 transition-colors">
                       {event.title}
                     </div>
                     <div className="text-xs text-gray-400 mt-0.5 line-clamp-2">
@@ -196,7 +196,7 @@ export default function ActivityTimeline() {
                 </div>
                 {event.user && (
                   <div className="mt-2 flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-teal-400 to-purple-500 flex items-center justify-center text-[10px] text-white font-medium">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-teal-500 to-purple-500 flex items-center justify-center text-[10px] text-white font-medium">
                       {event.user.charAt(0)}
                     </div>
                     <span className="text-xs text-gray-500">{event.user}</span>
@@ -209,7 +209,7 @@ export default function ActivityTimeline() {
       </div>
 
       {/* View all link */}
-      <button className="w-full mt-4 pt-4 border-t border-navy-600/50 text-sm text-teal-400 hover:text-teal-300 transition-colors flex items-center justify-center gap-2">
+      <button className="w-full mt-4 pt-4 border-t border-navy-600/50 text-sm text-teal-500 hover:text-teal-300 transition-colors flex items-center justify-center gap-2">
         View Full History
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

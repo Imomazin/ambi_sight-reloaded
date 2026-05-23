@@ -76,7 +76,7 @@ export default function Breadcrumbs({ className = '', showIcon = true }: Breadcr
               </svg>
             )}
             {crumb.isLast ? (
-              <span className="flex items-center gap-1.5 text-teal-400 font-medium">
+              <span className="flex items-center gap-1.5 text-teal-500 font-medium">
                 {showIcon && <span className="text-base">{crumb.icon}</span>}
                 {crumb.label}
               </span>

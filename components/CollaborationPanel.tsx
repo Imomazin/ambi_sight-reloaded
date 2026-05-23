@@ -91,8 +91,8 @@ export default function CollaborationPanel() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'owner': return '#FBBF24';
-      case 'admin': return '#A855F7';
-      case 'member': return '#14B8A6';
+      case 'admin': return '#8b5cf6';
+      case 'member': return '#10b981';
       case 'viewer': return '#64748B';
       default: return '#64748B';
     }
@@ -364,7 +364,7 @@ export default function CollaborationPanel() {
           position: relative;
           width: 40px;
           height: 40px;
-          background: linear-gradient(135deg, var(--accent), #A855F7);
+          background: linear-gradient(135deg, var(--accent), #8b5cf6);
           border-radius: 50%;
           display: flex;
           align-items: center;

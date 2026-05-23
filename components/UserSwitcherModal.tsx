@@ -18,8 +18,8 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
       onClick={onSelect}
       className={`w-full p-4 rounded-xl border transition-all duration-200 text-left ${
         isSelected
-          ? 'bg-teal-500/10 border-teal-500/50 ring-2 ring-teal-500/30'
-          : 'bg-navy-700/50 border-navy-600 hover:border-teal-500/30 hover:bg-navy-700'
+          ? 'bg-teal-500/10 border-teal-500/50 ring-2 ring-teal-500/15'
+          : 'bg-navy-700/50 border-navy-600 hover:border-teal-500/15 hover:bg-navy-700'
       }`}
     >
       <div className="flex items-start gap-3">
@@ -42,7 +42,7 @@ function UserCard({ user, isSelected, onSelect }: UserCardProps) {
               {user.plan}
             </span>
           </div>
-          <p className="text-sm text-teal-400 mb-1">{roleDisplayNames[user.role]}</p>
+          <p className="text-sm text-teal-500 mb-1">{roleDisplayNames[user.role]}</p>
           <p className="text-xs text-gray-400 truncate">{user.company}</p>
           {user.industry && (
             <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">

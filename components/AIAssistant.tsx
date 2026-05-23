@@ -259,7 +259,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
                     <div className="text-xs text-[var(--text-muted)]">{profile.voiceStyle}</div>
                   </div>
                   {selectedProfile.id === profile.id && (
-                    <svg className="w-5 h-5 text-teal-400 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-teal-500 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -288,7 +288,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
               }`}
               style={{
                 boxShadow: isSpeaking
-                  ? `0 0 60px ${selectedProfile.gender === 'female' ? 'rgba(168, 85, 247, 0.5)' : 'rgba(59, 130, 246, 0.5)'}`
+                  ? `0 0 60px ${selectedProfile.gender === 'female' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(59, 130, 246, 0.5)'}`
                   : 'none',
               }}
             >
@@ -316,8 +316,8 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
                 </span>
               </div>
             ) : isSpeaking ? (
-              <div className="flex items-center justify-center gap-2 text-sm text-teal-400">
-                <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+              <div className="flex items-center justify-center gap-2 text-sm text-teal-500">
+                <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
                 <span>{selectedProfile.name} is speaking</span>
               </div>
             ) : (
@@ -417,7 +417,7 @@ export default function AIAssistant({ onClose, embedded = false }: AIAssistantPr
               disabled={!inputValue.trim() || isTyping}
               className={`p-3 rounded-xl transition-all ${
                 inputValue.trim() && !isTyping
-                  ? 'bg-teal-500 text-white hover:bg-teal-400'
+                  ? 'bg-teal-500 text-white hover:bg-teal-500'
                   : 'bg-[var(--bg-card)] text-[var(--text-muted)] cursor-not-allowed border border-[var(--border-color)]'
               }`}
             >

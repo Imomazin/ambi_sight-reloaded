@@ -7,7 +7,8 @@ import AppShell from '../../components/AppShell';
 import AIAssistant from '../../components/AIAssistant';
 import LockedFeature from '../../components/LockedFeature';
 import { useAppState } from '../../state/useAppState';
-import advisorResponses from '../../lib/advisorResponses';
+import * as advisorResponses from '../../lib/advisorResponses';
+import JourneyBanner from '../../components/JourneyBanner';
 
 const AdvisorPage: React.FC = () => {
   // keep types relaxed so TS doesn't complain if shapes change
@@ -18,6 +19,14 @@ const AdvisorPage: React.FC = () => {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Strategic Advisor"
+        moduleHref="/advisor"
+        phase={4}
+        phaseName="Decide"
+        phaseColor="#f59e0b"
+        nextModule={{ name: 'M&A Analysis', href: '/ma-analysis' }}
+      />
       <div className="min-h-screen flex flex-col gap-6">
         <header className="space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight text-slate-900">

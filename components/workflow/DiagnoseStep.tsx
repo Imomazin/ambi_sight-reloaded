@@ -407,7 +407,7 @@ export default function DiagnoseStep({ onComplete }: DiagnoseStepProps) {
         }
 
         .tool-card.recommended {
-          border-color: rgba(168, 85, 247, 0.3);
+          border-color: rgba(139, 92, 246, 0.3);
         }
 
         .tool-icon {
@@ -432,7 +432,7 @@ export default function DiagnoseStep({ onComplete }: DiagnoseStepProps) {
           top: 12px;
           right: 12px;
           padding: 4px 10px;
-          background: linear-gradient(135deg, #A855F7, #EC4899);
+          background: linear-gradient(135deg, #8b5cf6, #d946ef);
           border-radius: 4px;
           font-size: 10px;
           font-weight: 600;
@@ -662,7 +662,7 @@ export default function DiagnoseStep({ onComplete }: DiagnoseStepProps) {
 
         .btn-primary {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #10b981, #34d399);
           border: none;
           border-radius: 8px;
           font-size: 14px;

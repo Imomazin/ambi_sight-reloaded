@@ -74,7 +74,7 @@ export default function QuickActionsPanel() {
     <div className="bg-navy-800/60 backdrop-blur-sm border border-navy-600/50 rounded-xl p-6">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -120,7 +120,7 @@ export default function QuickActionsPanel() {
                     </span>
                   )}
                 </div>
-                <div className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors mb-1">
+                <div className="text-sm font-medium text-white group-hover:text-teal-500 transition-colors mb-1">
                   {action.label}
                 </div>
                 <div className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors">
@@ -142,7 +142,7 @@ export default function QuickActionsPanel() {
       {/* Keyboard shortcut hint */}
       <div className="mt-4 pt-4 border-t border-navy-600/50 flex items-center justify-between text-xs text-gray-500">
         <span>Press <kbd className="px-1.5 py-0.5 bg-navy-700 rounded text-gray-400">⌘K</kbd> for command palette</span>
-        <span className="text-teal-400 hover:text-teal-300 cursor-pointer">View all actions →</span>
+        <span className="text-teal-500 hover:text-teal-300 cursor-pointer">View all actions →</span>
       </div>
     </div>
   );

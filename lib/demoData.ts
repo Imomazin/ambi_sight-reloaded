@@ -611,3 +611,319 @@ export const caseStudies: CaseStudy[] = [
     accentColor: 'purple',
   },
 ];
+
+// ==========================================
+// COMPETITIVE INTELLIGENCE DATA
+// ==========================================
+
+export interface Competitor {
+  id: string;
+  name: string;
+  logo: string;
+  industry: string;
+  marketCap: string;
+  revenue: string;
+  threatLevel: 'Low' | 'Medium' | 'High' | 'Critical';
+  overlapScore: number;
+  strengths: string[];
+  weaknesses: string[];
+  recentMoves: { date: string; action: string; impact: 'Positive' | 'Negative' | 'Neutral' }[];
+  marketShare: number;
+  growthRate: number;
+}
+
+export const competitors: Competitor[] = [
+  {
+    id: 'comp-1', name: 'Apex Dynamics', logo: 'AD', industry: 'Enterprise Software', marketCap: '$48.2B', revenue: '$12.4B', threatLevel: 'High', overlapScore: 78,
+    strengths: ['Strong enterprise sales force', 'Global distribution', 'Deep R&D budget'],
+    weaknesses: ['Legacy architecture', 'Slow innovation cycles', 'High customer churn'],
+    recentMoves: [
+      { date: '2024-01-15', action: 'Acquired AI startup DataMind for $2.1B', impact: 'Negative' },
+      { date: '2024-01-02', action: 'Launched aggressive enterprise pricing', impact: 'Negative' },
+      { date: '2023-12-15', action: 'Lost major government contract', impact: 'Positive' },
+    ],
+    marketShare: 28, growthRate: 12.5,
+  },
+  {
+    id: 'comp-2', name: 'Stratosphere Inc.', logo: 'SI', industry: 'Strategy Consulting Tech', marketCap: '$22.8B', revenue: '$6.8B', threatLevel: 'Critical', overlapScore: 92,
+    strengths: ['AI-first platform', 'Rapid product velocity', 'Top-tier talent'],
+    weaknesses: ['Limited enterprise penetration', 'Cash burn rate', 'Single market focus'],
+    recentMoves: [
+      { date: '2024-01-20', action: 'Series F at $22.8B valuation', impact: 'Negative' },
+      { date: '2024-01-10', action: 'Partnered with Deloitte for enterprise sales', impact: 'Negative' },
+      { date: '2023-12-20', action: 'Launched in APAC region', impact: 'Negative' },
+    ],
+    marketShare: 15, growthRate: 45.2,
+  },
+  {
+    id: 'comp-3', name: 'NovaBridge Analytics', logo: 'NA', industry: 'Business Intelligence', marketCap: '$31.5B', revenue: '$8.9B', threatLevel: 'Medium', overlapScore: 55,
+    strengths: ['Strong analytics heritage', 'Data partnerships', 'Government contracts'],
+    weaknesses: ['Dated UX', 'Weak mobile offering', 'Slow cloud migration'],
+    recentMoves: [
+      { date: '2024-01-08', action: 'CEO transition announced', impact: 'Positive' },
+      { date: '2023-12-28', action: 'Launched cloud-native platform v1', impact: 'Negative' },
+    ],
+    marketShare: 22, growthRate: 8.3,
+  },
+  {
+    id: 'comp-4', name: 'Quantum Decisions', logo: 'QD', industry: 'Decision Intelligence', marketCap: '$8.4B', revenue: '$2.1B', threatLevel: 'Medium', overlapScore: 68,
+    strengths: ['Cutting-edge ML models', 'Academic partnerships', 'Patent portfolio'],
+    weaknesses: ['Small sales team', 'Limited integrations', 'Niche positioning'],
+    recentMoves: [
+      { date: '2024-01-12', action: 'Published breakthrough decision model paper', impact: 'Negative' },
+      { date: '2023-11-30', action: 'Reduced workforce by 15%', impact: 'Positive' },
+    ],
+    marketShare: 8, growthRate: 22.1,
+  },
+  {
+    id: 'comp-5', name: 'Meridian Insights', logo: 'MI', industry: 'Management Consulting SaaS', marketCap: '$15.7B', revenue: '$4.3B', threatLevel: 'Low', overlapScore: 42,
+    strengths: ['McKinsey partnership', 'Enterprise clients', 'Brand recognition'],
+    weaknesses: ['High price point', 'Complex onboarding', 'Rigid platform'],
+    recentMoves: [
+      { date: '2024-01-05', action: 'Raised prices 20% across all tiers', impact: 'Positive' },
+      { date: '2023-12-10', action: 'Lost CTO to competitor', impact: 'Positive' },
+    ],
+    marketShare: 12, growthRate: 5.8,
+  },
+];
+
+// ==========================================
+// MARKET INTELLIGENCE DATA
+// ==========================================
+
+export interface MarketTrend {
+  id: string;
+  name: string;
+  category: 'Technology' | 'Regulatory' | 'Economic' | 'Social' | 'Environmental';
+  impact: 'Transformative' | 'Significant' | 'Moderate' | 'Low';
+  timeframe: string;
+  confidence: number;
+  description: string;
+  relevance: number;
+  velocity: 'Accelerating' | 'Steady' | 'Decelerating';
+}
+
+export const marketTrends: MarketTrend[] = [
+  { id: 'trend-1', name: 'Generative AI Enterprise Adoption', category: 'Technology', impact: 'Transformative', timeframe: '0-12 months', confidence: 94, description: 'Large enterprises accelerating GenAI integration across strategy, operations, and CX.', relevance: 98, velocity: 'Accelerating' },
+  { id: 'trend-2', name: 'ESG-Linked Executive Compensation', category: 'Regulatory', impact: 'Significant', timeframe: '12-24 months', confidence: 78, description: 'Regulatory bodies mandating ESG metrics in C-suite performance evaluation.', relevance: 72, velocity: 'Accelerating' },
+  { id: 'trend-3', name: 'Autonomous Decision Systems', category: 'Technology', impact: 'Transformative', timeframe: '24-48 months', confidence: 65, description: 'AI systems capable of making strategic decisions with minimal human oversight.', relevance: 88, velocity: 'Steady' },
+  { id: 'trend-4', name: 'Global Supply Chain Restructuring', category: 'Economic', impact: 'Significant', timeframe: '12-36 months', confidence: 82, description: 'Major reshoring and nearshoring initiatives reshaping global supply networks.', relevance: 75, velocity: 'Steady' },
+  { id: 'trend-5', name: 'Workforce Hybridization', category: 'Social', impact: 'Moderate', timeframe: '0-12 months', confidence: 88, description: 'Permanent shift to human-AI hybrid teams across knowledge work.', relevance: 82, velocity: 'Accelerating' },
+  { id: 'trend-6', name: 'Carbon Border Adjustments', category: 'Environmental', impact: 'Significant', timeframe: '12-24 months', confidence: 71, description: 'Carbon pricing at borders impacting international trade economics.', relevance: 55, velocity: 'Steady' },
+  { id: 'trend-7', name: 'Quantum Computing Readiness', category: 'Technology', impact: 'Transformative', timeframe: '48-72 months', confidence: 45, description: 'Quantum advantage reaching practical applications in optimization.', relevance: 62, velocity: 'Decelerating' },
+  { id: 'trend-8', name: 'Digital Sovereignty Regulations', category: 'Regulatory', impact: 'Moderate', timeframe: '6-18 months', confidence: 76, description: 'Nations implementing data sovereignty and AI governance frameworks.', relevance: 68, velocity: 'Accelerating' },
+];
+
+export interface DisruptionSignal {
+  id: string;
+  signal: string;
+  source: string;
+  severity: 'Low' | 'Medium' | 'High' | 'Critical';
+  category: string;
+  date: string;
+  description: string;
+}
+
+export const disruptionSignals: DisruptionSignal[] = [
+  { id: 'ds-1', signal: 'AI Agent Autonomy Breakthrough', source: 'MIT Tech Review', severity: 'Critical', category: 'Technology', date: '2024-01-22', description: 'New architectures enabling fully autonomous business process agents.' },
+  { id: 'ds-2', signal: 'EU AI Act Phase 2', source: 'European Commission', severity: 'High', category: 'Regulatory', date: '2024-01-18', description: 'Mandatory compliance for high-risk AI systems in enterprise.' },
+  { id: 'ds-3', signal: 'Chinese LLM Cost Parity', source: 'Bloomberg Intelligence', severity: 'High', category: 'Competition', date: '2024-01-15', description: 'Chinese AI labs achieving parity at 10x lower cost.' },
+  { id: 'ds-4', signal: 'PE Strategy Tech Roll-up', source: 'PitchBook', severity: 'Medium', category: 'Market', date: '2024-01-12', description: 'Major PE firms consolidating strategy software vendors.' },
+  { id: 'ds-5', signal: 'Real-time Strategy Platforms', source: 'Gartner', severity: 'High', category: 'Technology', date: '2024-01-10', description: 'New category bridging strategy formulation and execution.' },
+  { id: 'ds-6', signal: 'Board AI Literacy Mandate', source: 'SEC Guidance', severity: 'Medium', category: 'Governance', date: '2024-01-08', description: 'Regulatory push for AI competency at board level.' },
+];
+
+// ==========================================
+// M&A ANALYSIS DATA
+// ==========================================
+
+export interface MATarget {
+  id: string;
+  company: string;
+  logo: string;
+  industry: string;
+  revenue: string;
+  employees: string;
+  valuation: string;
+  evToRevenue: number;
+  synergies: string;
+  strategicFit: number;
+  riskScore: number;
+  stage: 'Identified' | 'Screening' | 'Due Diligence' | 'Negotiation' | 'Closed';
+  rationale: string;
+  keyMetrics: { label: string; value: string }[];
+}
+
+export const maTargets: MATarget[] = [
+  { id: 'ma-1', company: 'DataForge AI', logo: 'DF', industry: 'AI/ML Platform', revenue: '$180M', employees: '850', valuation: '$2.4B', evToRevenue: 13.3, synergies: '$120M/yr', strategicFit: 94, riskScore: 32, stage: 'Due Diligence', rationale: 'Accelerates AI capability by 18mo. Fills ML ops gap.', keyMetrics: [{ label: 'ARR Growth', value: '67%' }, { label: 'NRR', value: '145%' }, { label: 'Rule of 40', value: '72' }] },
+  { id: 'ma-2', company: 'StratVision', logo: 'SV', industry: 'Strategy Analytics', revenue: '$95M', employees: '420', valuation: '$780M', evToRevenue: 8.2, synergies: '$65M/yr', strategicFit: 88, riskScore: 25, stage: 'Negotiation', rationale: 'Best-in-class scenario modeling. Expands mid-market TAM.', keyMetrics: [{ label: 'ARR Growth', value: '42%' }, { label: 'NRR', value: '128%' }, { label: 'Rule of 40', value: '58' }] },
+  { id: 'ma-3', company: 'Nexus Dynamics', logo: 'ND', industry: 'Risk Analytics', revenue: '$240M', employees: '1,200', valuation: '$1.9B', evToRevenue: 7.9, synergies: '$85M/yr', strategicFit: 76, riskScore: 48, stage: 'Screening', rationale: 'Enterprise risk platform with gov contracts. Revenue diversification.', keyMetrics: [{ label: 'ARR Growth', value: '28%' }, { label: 'NRR', value: '118%' }, { label: 'Rule of 40', value: '45' }] },
+  { id: 'ma-4', company: 'PulseBoard', logo: 'PB', industry: 'Executive Dashboards', revenue: '$55M', employees: '280', valuation: '$440M', evToRevenue: 8.0, synergies: '$35M/yr', strategicFit: 82, riskScore: 18, stage: 'Identified', rationale: 'Real-time executive dashboards. Design talent acquisition.', keyMetrics: [{ label: 'ARR Growth', value: '55%' }, { label: 'NRR', value: '135%' }, { label: 'Rule of 40', value: '65' }] },
+  { id: 'ma-5', company: 'OrgMetrics', logo: 'OM', industry: 'People Analytics', revenue: '$125M', employees: '580', valuation: '$1.1B', evToRevenue: 8.8, synergies: '$50M/yr', strategicFit: 71, riskScore: 35, stage: 'Screening', rationale: 'Leading workforce analytics. Synergy with execution tracking.', keyMetrics: [{ label: 'ARR Growth', value: '38%' }, { label: 'NRR', value: '122%' }, { label: 'Rule of 40', value: '52' }] },
+];
+
+// ==========================================
+// EXECUTIVE BRIEFINGS
+// ==========================================
+
+export interface ExecutiveBriefing {
+  id: string;
+  title: string;
+  priority: 'Urgent' | 'High' | 'Medium' | 'Low';
+  category: string;
+  summary: string;
+  impact: string;
+  recommendation: string;
+  date: string;
+  source: string;
+}
+
+export const executiveBriefings: ExecutiveBriefing[] = [
+  { id: 'brief-1', title: 'Competitive Threat: Stratosphere-Deloitte Partnership', priority: 'Urgent', category: 'Competitive', summary: 'Stratosphere Inc. announced strategic partnership with Deloitte to co-sell to Fortune 500.', impact: 'Could accelerate their enterprise penetration by 3x. Direct threat to pipeline.', recommendation: 'Accelerate partnership strategy. Schedule emergency GTM review.', date: '2024-01-20', source: 'Competitive Intelligence' },
+  { id: 'brief-2', title: 'Board Readiness: Q1 Strategic Review', priority: 'High', category: 'Governance', summary: 'Q1 board meeting in 3 weeks. Need updated positioning and projections.', impact: 'Board confidence directly affects next funding round parameters.', recommendation: 'Compile board pack with updated TAM, positioning, and 3-year model.', date: '2024-01-18', source: 'Office of the CEO' },
+  { id: 'brief-3', title: 'Market Signal: AI Strategy TAM Upgrade to $14B', priority: 'High', category: 'Market', summary: 'Gartner upgraded AI strategy tools TAM from $8B to $14B by 2027.', impact: 'Validates market thesis. Strengthens investor and customer position.', recommendation: 'Update all investor materials. Leverage in upcoming fundraise.', date: '2024-01-15', source: 'Market Research' },
+  { id: 'brief-4', title: 'Risk Alert: Enterprise Customer Churn Signal', priority: 'Urgent', category: 'Customer', summary: 'Three enterprise customers (combined ARR $2.4M) showing reduced engagement.', impact: 'Potential $2.4M ARR at risk. Could signal broader retention issue.', recommendation: 'Trigger executive sponsor engagement. Deploy CS strike team.', date: '2024-01-14', source: 'Customer Intelligence' },
+  { id: 'brief-5', title: 'Opportunity: DoD $45M Strategy Platform RFP', priority: 'Medium', category: 'Sales', summary: 'Department of Defense RFP for strategy and decision intelligence. $45M over 5 years.', impact: 'Anchor government customer. Revenue diversification and credibility.', recommendation: 'Assemble response team. Engage gov advisors. Deadline: Feb 28.', date: '2024-01-12', source: 'Government Relations' },
+  { id: 'brief-6', title: 'Talent: VP Engineering Shortlist Ready', priority: 'Medium', category: 'People', summary: 'Search firm shortlist: 4 VP Eng candidates. Two FAANG, one unicorn, one consulting tech.', impact: 'Critical hire for scaling engineering. Blocking next product cycle.', recommendation: 'Schedule panels next week. Fast-track top 2 candidates.', date: '2024-01-10', source: 'Talent Acquisition' },
+];
+
+// ==========================================
+// STRATEGIC HEALTH & BOARD METRICS
+// ==========================================
+
+export interface StrategicHealthData {
+  overallScore: number;
+  trend: 'improving' | 'stable' | 'declining';
+  lastUpdated: string;
+  dimensions: { name: string; score: number; benchmark: number; trend: 'up' | 'down' | 'stable'; weight: number }[];
+}
+
+export const strategicHealth: StrategicHealthData = {
+  overallScore: 76,
+  trend: 'improving',
+  lastUpdated: '2024-01-22',
+  dimensions: [
+    { name: 'Market Position', score: 82, benchmark: 70, trend: 'up', weight: 0.2 },
+    { name: 'Innovation Pipeline', score: 74, benchmark: 65, trend: 'up', weight: 0.15 },
+    { name: 'Financial Health', score: 88, benchmark: 75, trend: 'stable', weight: 0.2 },
+    { name: 'Operational Excellence', score: 71, benchmark: 72, trend: 'up', weight: 0.15 },
+    { name: 'Talent & Culture', score: 68, benchmark: 70, trend: 'down', weight: 0.1 },
+    { name: 'Customer Success', score: 79, benchmark: 73, trend: 'stable', weight: 0.1 },
+    { name: 'Risk Resilience', score: 65, benchmark: 60, trend: 'up', weight: 0.1 },
+  ],
+};
+
+export interface BoardMetric {
+  id: string;
+  name: string;
+  value: string;
+  change: number;
+  target: string;
+  status: 'Exceeding' | 'On Target' | 'At Risk' | 'Below Target';
+  category: 'Financial' | 'Growth' | 'Operational' | 'Strategic';
+  sparkline: number[];
+}
+
+export const boardMetrics: BoardMetric[] = [
+  { id: 'bm-1', name: 'Annual Recurring Revenue', value: '$48.2M', change: 32, target: '$50M', status: 'On Target', category: 'Financial', sparkline: [28, 31, 33, 36, 38, 40, 42, 44, 45, 47, 48, 48.2] },
+  { id: 'bm-2', name: 'Net Revenue Retention', value: '128%', change: 5, target: '125%', status: 'Exceeding', category: 'Growth', sparkline: [115, 118, 120, 122, 124, 123, 125, 126, 127, 126, 128, 128] },
+  { id: 'bm-3', name: 'Gross Margin', value: '78.5%', change: 2.3, target: '80%', status: 'On Target', category: 'Financial', sparkline: [72, 73, 74, 75, 75, 76, 76, 77, 77, 78, 78, 78.5] },
+  { id: 'bm-4', name: 'Customer Acquisition Cost', value: '$18.2K', change: -8, target: '$20K', status: 'Exceeding', category: 'Growth', sparkline: [25, 24, 23, 22, 21, 20, 19.5, 19, 18.8, 18.5, 18.3, 18.2] },
+  { id: 'bm-5', name: 'LTV:CAC Ratio', value: '4.8x', change: 15, target: '4.0x', status: 'Exceeding', category: 'Growth', sparkline: [3.2, 3.4, 3.6, 3.8, 4.0, 4.1, 4.2, 4.4, 4.5, 4.6, 4.7, 4.8] },
+  { id: 'bm-6', name: 'Burn Multiple', value: '1.2x', change: -18, target: '1.5x', status: 'Exceeding', category: 'Financial', sparkline: [2.1, 2.0, 1.9, 1.8, 1.7, 1.6, 1.5, 1.4, 1.35, 1.3, 1.25, 1.2] },
+  { id: 'bm-7', name: 'Enterprise Customers', value: '142', change: 28, target: '150', status: 'On Target', category: 'Growth', sparkline: [85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 136, 142] },
+  { id: 'bm-8', name: 'Employee NPS', value: '72', change: -3, target: '75', status: 'At Risk', category: 'Operational', sparkline: [78, 77, 76, 75, 74, 74, 73, 73, 72, 72, 72, 72] },
+  { id: 'bm-9', name: 'Platform Uptime', value: '99.97%', change: 0.02, target: '99.95%', status: 'Exceeding', category: 'Operational', sparkline: [99.9, 99.91, 99.92, 99.93, 99.94, 99.95, 99.95, 99.96, 99.96, 99.97, 99.97, 99.97] },
+  { id: 'bm-10', name: 'Market Share', value: '15.2%', change: 2.8, target: '18%', status: 'On Target', category: 'Strategic', sparkline: [10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.2] },
+];
+
+// ==========================================
+// INDUSTRY BENCHMARKS
+// ==========================================
+
+export interface IndustryBenchmark {
+  metric: string;
+  ourValue: number;
+  industryAvg: number;
+  topQuartile: number;
+  unit: string;
+  category: string;
+}
+
+export const industryBenchmarks: IndustryBenchmark[] = [
+  { metric: 'Revenue Growth', ourValue: 32, industryAvg: 22, topQuartile: 45, unit: '%', category: 'Financial' },
+  { metric: 'Gross Margin', ourValue: 78.5, industryAvg: 72, topQuartile: 82, unit: '%', category: 'Financial' },
+  { metric: 'R&D Spend', ourValue: 28, industryAvg: 22, topQuartile: 30, unit: '% rev', category: 'Innovation' },
+  { metric: 'Sales Efficiency', ourValue: 0.85, industryAvg: 0.65, topQuartile: 0.95, unit: 'x', category: 'Growth' },
+  { metric: 'Magic Number', ourValue: 1.2, industryAvg: 0.8, topQuartile: 1.5, unit: 'x', category: 'Growth' },
+  { metric: 'NPS', ourValue: 62, industryAvg: 45, topQuartile: 70, unit: '', category: 'Customer' },
+  { metric: 'Time to Value', ourValue: 14, industryAvg: 28, topQuartile: 10, unit: 'days', category: 'Customer' },
+  { metric: 'Retention', ourValue: 88, industryAvg: 82, topQuartile: 92, unit: '%', category: 'People' },
+];
+
+// ==========================================
+// STRATEGY FRAMEWORKS
+// ==========================================
+
+export interface FrameworkItem {
+  id: string;
+  framework: string;
+  category: string;
+  items: { dimension: string; score: number; notes: string }[];
+}
+
+export const strategyFrameworks: FrameworkItem[] = [
+  {
+    id: 'fw-porters', framework: "Porter's Five Forces", category: 'Industry Analysis',
+    items: [
+      { dimension: 'New Entrants', score: 65, notes: 'Low barriers via cloud, high AI talent barrier' },
+      { dimension: 'Supplier Power', score: 35, notes: 'Multiple cloud providers, open source options' },
+      { dimension: 'Buyer Power', score: 55, notes: 'Enterprise leverage, but switching costs high' },
+      { dimension: 'Substitutes', score: 70, notes: 'Consulting firms, in-house tools, spreadsheets' },
+      { dimension: 'Rivalry', score: 75, notes: 'Intensifying as category matures' },
+    ],
+  },
+  {
+    id: 'fw-swot', framework: 'SWOT Analysis', category: 'Strategic Position',
+    items: [
+      { dimension: 'Strengths', score: 82, notes: 'AI-first architecture, strong PMF, talent density' },
+      { dimension: 'Weaknesses', score: 45, notes: 'Limited brand, small sales team, cash runway' },
+      { dimension: 'Opportunities', score: 88, notes: 'TAM expansion, AI tailwinds, enterprise wave' },
+      { dimension: 'Threats', score: 58, notes: 'Big tech entry, downturn risk, talent war' },
+    ],
+  },
+  {
+    id: 'fw-mckinsey7s', framework: 'McKinsey 7S', category: 'Organizational',
+    items: [
+      { dimension: 'Strategy', score: 85, notes: 'Clear AI-first platform strategy' },
+      { dimension: 'Structure', score: 72, notes: 'Scaling startup to growth-stage' },
+      { dimension: 'Systems', score: 68, notes: 'Building enterprise-grade internals' },
+      { dimension: 'Shared Values', score: 78, notes: 'Mission-driven culture' },
+      { dimension: 'Style', score: 75, notes: 'Data-driven leadership' },
+      { dimension: 'Staff', score: 70, notes: 'Top eng, growing sales & CS' },
+      { dimension: 'Skills', score: 82, notes: 'Deep AI/ML expertise' },
+    ],
+  },
+];
+
+// ==========================================
+// MARKET PULSE INDICATORS
+// ==========================================
+
+export interface MarketPulseIndicator {
+  id: string;
+  name: string;
+  value: number;
+  change: number;
+  unit: string;
+  status: 'bullish' | 'bearish' | 'neutral';
+}
+
+export const marketPulse: MarketPulseIndicator[] = [
+  { id: 'mp-1', name: 'Tech Sentiment', value: 72, change: 3.2, unit: '/100', status: 'bullish' },
+  { id: 'mp-2', name: 'VC Deal Flow', value: 58, change: -5.1, unit: '/100', status: 'bearish' },
+  { id: 'mp-3', name: 'AI Adoption', value: 89, change: 12.4, unit: '/100', status: 'bullish' },
+  { id: 'mp-4', name: 'Macro Confidence', value: 45, change: -2.8, unit: '/100', status: 'bearish' },
+  { id: 'mp-5', name: 'Talent Heat', value: 67, change: 1.5, unit: '/100', status: 'neutral' },
+  { id: 'mp-6', name: 'Reg. Pressure', value: 54, change: 8.2, unit: '/100', status: 'bearish' },
+];

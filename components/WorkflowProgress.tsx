@@ -88,7 +88,7 @@ export default function WorkflowProgress({ onStepClick }: WorkflowProgressProps)
 
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #14B8A6, #A855F7);
+          background: linear-gradient(90deg, #10b981, #8b5cf6);
           border-radius: 2px;
           transition: width 0.5s ease;
         }
@@ -138,13 +138,13 @@ export default function WorkflowProgress({ onStepClick }: WorkflowProgressProps)
         }
 
         .step.current .step-indicator {
-          border-color: #A855F7;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(139, 92, 246, 0.2));
-          box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+          border-color: #8b5cf6;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.2));
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
         }
 
         .step.completed .step-indicator {
-          background: linear-gradient(135deg, #14B8A6, #2DD4BF);
+          background: linear-gradient(135deg, #10b981, #34d399);
           border-color: transparent;
           color: white;
         }
@@ -172,11 +172,11 @@ export default function WorkflowProgress({ onStepClick }: WorkflowProgressProps)
         }
 
         .step.current .step-label {
-          color: #A855F7;
+          color: #8b5cf6;
         }
 
         .step.completed .step-label {
-          color: #2DD4BF;
+          color: #34d399;
         }
 
         @media (max-width: 640px) {

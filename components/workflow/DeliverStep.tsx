@@ -539,14 +539,14 @@ export default function DeliverStep({ onComplete }: DeliverStepProps) {
 
         .pro-preview {
           padding: 24px;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.05));
-          border: 1px solid rgba(168, 85, 247, 0.3);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+          border: 1px solid rgba(139, 92, 246, 0.3);
           border-radius: 12px;
         }
 
         .pro-preview h3 {
           margin: 0 0 8px;
-          color: #C084FC;
+          color: #a78bfa;
         }
 
         .pro-preview p {
@@ -567,7 +567,7 @@ export default function DeliverStep({ onComplete }: DeliverStepProps) {
         .upgrade-btn {
           display: inline-block;
           padding: 10px 20px;
-          background: linear-gradient(135deg, #A855F7, #EC4899);
+          background: linear-gradient(135deg, #8b5cf6, #d946ef);
           border-radius: 8px;
           font-weight: 600;
           color: white;

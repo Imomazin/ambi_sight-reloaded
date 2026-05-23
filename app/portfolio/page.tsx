@@ -5,6 +5,7 @@ import AppShell from '@/components/AppShell';
 import HeatmapGrid from '@/components/HeatmapGrid';
 import DataUploadButton from '@/components/DataUploadButton';
 import { initiatives, portfolios, owners, horizons } from '@/lib/demoData';
+import JourneyBanner from '@/components/JourneyBanner';
 
 export default function PortfolioPage() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');
@@ -18,6 +19,13 @@ export default function PortfolioPage() {
 
   return (
     <AppShell>
+      <JourneyBanner
+        currentModule="Portfolio Tracker"
+        moduleHref="/portfolio"
+        phase={5}
+        phaseName="Deliver"
+        phaseColor="#14b8a6"
+      />
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
@@ -90,7 +98,7 @@ export default function PortfolioPage() {
               <select
                 value={selectedPortfolio}
                 onChange={(e) => setSelectedPortfolio(e.target.value)}
-                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-400"
+                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-500"
               >
                 <option value="all">All Portfolios</option>
                 {portfolios.map((p) => (
@@ -107,7 +115,7 @@ export default function PortfolioPage() {
               <select
                 value={selectedOwner}
                 onChange={(e) => setSelectedOwner(e.target.value)}
-                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-400"
+                className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-teal-500"
               >
                 <option value="all">All Owners</option>
                 {owners.map((o) => (
@@ -165,10 +173,10 @@ export default function PortfolioPage() {
           <div className="card">
             <h3 className="text-sm font-medium text-white mb-4">Export</h3>
             <div className="space-y-2">
-              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors">
+              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-500/50 transition-colors">
                 Export as PNG
               </button>
-              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-400/50 transition-colors">
+              <button className="w-full py-2 px-3 bg-navy-800 border border-navy-600 rounded-lg text-sm text-gray-300 hover:text-white hover:border-teal-500/50 transition-colors">
                 Export as CSV
               </button>
             </div>

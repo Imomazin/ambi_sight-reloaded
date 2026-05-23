@@ -266,13 +266,13 @@ export default function BillingDashboard() {
         }
 
         .plan-badge.starter {
-          background: rgba(20, 184, 166, 0.2);
-          color: #2DD4BF;
+          background: rgba(16, 185, 129, 0.2);
+          color: #34d399;
         }
 
         .plan-badge.pro {
-          background: rgba(168, 85, 247, 0.2);
-          color: #C084FC;
+          background: rgba(139, 92, 246, 0.2);
+          color: #a78bfa;
         }
 
         .plan-badge.enterprise {
@@ -284,8 +284,8 @@ export default function BillingDashboard() {
           padding: 6px 14px;
           border-radius: 20px;
           font-size: 12px;
-          background: rgba(168, 85, 247, 0.2);
-          color: #C084FC;
+          background: rgba(139, 92, 246, 0.2);
+          color: #a78bfa;
         }
 
         .plan-details {
@@ -328,7 +328,7 @@ export default function BillingDashboard() {
 
         .btn-upgrade {
           padding: 12px 24px;
-          background: linear-gradient(135deg, #14B8A6, #A855F7);
+          background: linear-gradient(135deg, #10b981, #8b5cf6);
           border: none;
           border-radius: 8px;
           font-size: 14px;
@@ -340,7 +340,7 @@ export default function BillingDashboard() {
 
         .btn-upgrade:hover {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .btn-cancel {

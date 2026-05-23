@@ -30,8 +30,8 @@ const advisorProfiles: AdvisorProfile[] = [
     role: 'Strategic Consultant',
     specialty: 'Corporate Strategy & Growth',
     avatar: '👩‍💼',
-    primaryColor: '#A855F7',
-    secondaryColor: '#EC4899',
+    primaryColor: '#8b5cf6',
+    secondaryColor: '#d946ef',
     personality: 'analytical and insightful',
   },
   {
@@ -50,7 +50,7 @@ const advisorProfiles: AdvisorProfile[] = [
     role: 'Innovation Director',
     specialty: 'Digital Transformation',
     avatar: '👩‍🔬',
-    primaryColor: '#14B8A6',
+    primaryColor: '#10b981',
     secondaryColor: '#22C55E',
     personality: 'creative and forward-thinking',
   },
@@ -907,7 +907,7 @@ export default function IntelligentAdvisor() {
         }
 
         .advisor-option.active {
-          background: rgba(168, 85, 247, 0.1);
+          background: rgba(139, 92, 246, 0.1);
         }
 
         .option-avatar {
@@ -1026,7 +1026,7 @@ export default function IntelligentAdvisor() {
         .suggestion-btn:hover {
           border-color: ${activeAdvisor.primaryColor};
           color: ${activeAdvisor.primaryColor};
-          background: rgba(168, 85, 247, 0.1);
+          background: rgba(139, 92, 246, 0.1);
         }
 
         .typing-indicator {
@@ -1094,7 +1094,7 @@ export default function IntelligentAdvisor() {
 
         .send-btn:hover:not(:disabled) {
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
         .send-btn:disabled {
